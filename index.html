@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game Booster VPN – Game-VPN & Geo-Fence</title>
+<meta name="description" content="Eigener Game-VPN und Geo-Fence für Call of Duty: bessere Lobbys, stabiler Ping. Ab 1,49 €.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05070d;--bg2:#0a0e18;--card:#0d1220;--line:#1a2236;--txt:#e9eef8;--mut:#8b96ad;--blue:#3b82f6;--blue2:#60a5fa;--glow:rgba(59,130,246,.35);--ok:#34d399}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:Inter,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* Ankuendigung */
+.ann{background:linear-gradient(90deg,#0b1a3a,#123170,#0b1a3a);text-align:center;font-size:12px;font-weight:800;letter-spacing:.08em;padding:9px 16px;text-transform:uppercase}
+.ann a{display:inline-flex;align-items:center;gap:8px}
+.ann i{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--blue)}
+.ann i svg{width:11px;height:11px}
+
+/* Kopf */
+header{position:sticky;top:0;z-index:50;background:rgba(5,7,13,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;gap:14px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;letter-spacing:-.02em}
+.logo b{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--blue),#1d4ed8);box-shadow:0 0 24px var(--glow)}
+.logo b svg{width:21px;height:21px}
+.logo span em{font-style:normal;color:var(--blue2)}
+nav{display:flex;gap:4px;margin-left:24px}
+nav a{display:flex;align-items:center;gap:7px;padding:8px 12px;border-radius:9px;font-size:14px;font-weight:600;color:var(--mut)}
+nav a:hover{color:var(--txt);background:rgba(255,255,255,.04)}
+nav a svg{width:15px;height:15px}
+.sp{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;border-radius:10px;font-weight:700;font-size:14px;border:1px solid var(--line);background:var(--card);cursor:pointer;transition:.2s;color:var(--txt);font-family:inherit}
+.btn:hover{border-color:#34507f}
+.btn.pr{background:linear-gradient(180deg,#4f8ff7,#2563eb);border-color:#4f8ff7;box-shadow:0 8px 30px -8px var(--glow)}
+.btn.pr:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.btn svg{width:16px;height:16px}
+
+/* Hero */
+.hero{position:relative;padding:90px 0 80px;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:-20% -10% auto auto;width:900px;height:700px;background:radial-gradient(closest-side,rgba(37,99,235,.28),transparent);pointer-events:none}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;position:relative}
+.kick{display:flex;align-items:center;gap:12px;font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--blue2);text-transform:uppercase;margin-bottom:22px}
+.kick:before{content:"";width:34px;height:2px;background:var(--blue)}
+h1{font-size:clamp(40px,6vw,68px);line-height:1.04;font-weight:900;letter-spacing:-.035em}
+.bl{color:var(--blue)}
+.lead{margin:22px 0 32px;color:var(--mut);font-size:17px;max-width:500px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.trust{display:flex;gap:22px;margin-top:34px;flex-wrap:wrap}
+.trust div{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mut);font-weight:500}
+.trust svg{width:17px;height:17px;color:var(--ok)}
+
+/* Hero-Grafik: Weltkarte mit Route */
+.viz{position:relative;aspect-ratio:1.15;border-radius:24px;border:1px solid var(--line);background:linear-gradient(160deg,#0c1426,#060a14);overflow:hidden;box-shadow:0 40px 100px -30px rgba(37,99,235,.45)}
+.viz svg{width:100%;height:100%}
+.viz .route{stroke-dasharray:6 8;animation:dash 1.2s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-28}}
+.pin{animation:pulse 2s ease-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes pulse{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(3.2)}}
+.chip{position:absolute;display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;background:rgba(10,15,28,.9);border:1px solid var(--line);backdrop-filter:blur(8px);font-size:12px}
+.chip b{display:block;font-size:15px}
+.chip span{color:var(--mut)}
+.chip i{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok)}
+.c1{left:18px;bottom:18px}.c2{right:18px;top:18px}
+
+/* Abschnitte */
+section{padding:90px 0}
+.sh{text-align:center;max-width:640px;margin:0 auto 54px}
+.sh small{display:block;font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--blue2);text-transform:uppercase;margin-bottom:10px}
+.sh h2{font-size:clamp(30px,4vw,44px);font-weight:900;letter-spacing:-.03em;line-height:1.1}
+.sh p{color:var(--mut);margin-top:14px}
+
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.fc{position:relative;padding:28px;border-radius:18px;background:linear-gradient(180deg,var(--card),#090d18);border:1px solid var(--line);transition:.25s}
+.fc:hover{border-color:#2f4f8a;transform:translateY(-3px)}
+.fc .ic{display:grid;place-items:center;width:48px;height:48px;border-radius:13px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.3);color:var(--blue2);margin-bottom:18px}
+.fc .ic svg{width:24px;height:24px}
+.fc h3{font-size:18px;font-weight:800;margin-bottom:8px}
+.fc p{color:var(--mut);font-size:14.5px}
+
+/* Preise */
+.pr-tabs{display:flex;justify-content:center;margin-bottom:34px}
+.prices{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
+.pc{position:relative;display:flex;flex-direction:column;padding:28px 24px;border-radius:20px;background:linear-gradient(180deg,var(--card),#080c16);border:1px solid var(--line)}
+.pc.hot{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue),0 30px 80px -30px var(--glow);background:linear-gradient(180deg,#0f1a33,#09101f)}
+.pc .tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:5px 12px;border-radius:999px;background:var(--blue);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.pc h3{font-size:15px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
+.pc .p{margin:14px 0 4px;font-size:44px;font-weight:900;letter-spacing:-.03em;line-height:1}
+.pc .p sup{font-size:20px;vertical-align:top;margin-left:2px}
+.pc .per{color:var(--mut);font-size:13px;min-height:20px}
+.pc .save{display:inline-block;margin-top:8px;padding:3px 9px;border-radius:7px;background:rgba(52,211,153,.12);color:var(--ok);font-size:12px;font-weight:700}
+.pc ul{list-style:none;margin:22px 0 26px;display:grid;gap:11px;flex:1}
+.pc li{display:flex;gap:10px;font-size:14px}
+.pc li svg{width:17px;height:17px;flex:none;color:var(--blue2);margin-top:2px}
+.pc .btn{width:100%}
+
+/* Schritte */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
+.st{padding:24px;border-radius:16px;border:1px solid var(--line);background:var(--bg2)}
+.st:before{counter-increment:s;content:"0" counter(s);display:block;font-size:13px;font-weight:900;color:var(--blue);margin-bottom:12px;letter-spacing:.1em}
+.st h4{font-size:16px;margin-bottom:6px}
+.st p{font-size:14px;color:var(--mut)}
+
+/* Bald */
+.soon{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.so{position:relative;padding:22px;border-radius:16px;border:1px dashed #23304a;background:rgba(13,18,32,.5);color:var(--mut)}
+.so b{display:block;color:var(--txt);margin:10px 0 4px;font-size:15px}
+.so svg{width:22px;height:22px;color:#5b6b8c}
+.so em{position:absolute;top:14px;right:14px;font-style:normal;font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:6px;background:rgba(255,255,255,.05)}
+
+/* FAQ */
+.faq{max-width:780px;margin:0 auto;display:grid;gap:10px}
+details{border:1px solid var(--line);border-radius:14px;background:var(--bg2);padding:0 22px}
+summary{list-style:none;cursor:pointer;padding:18px 0;font-weight:700;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--blue2);font-size:22px;line-height:1;transition:.2s}
+details[open] summary:after{transform:rotate(45deg)}
+details p{padding:0 0 18px;color:var(--mut);font-size:14.5px}
+
+.band{margin:0 auto;max-width:1180px;border-radius:24px;padding:54px 40px;text-align:center;background:radial-gradient(ellipse at top,rgba(59,130,246,.35),transparent 70%),var(--card);border:1px solid #233a66}
+.band h2{font-size:clamp(28px,4vw,40px);font-weight:900;letter-spacing:-.03em}
+.band p{color:var(--mut);margin:12px 0 26px}
+
+footer{border-top:1px solid var(--line);padding:40px 0;margin-top:90px;color:var(--mut);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a:hover{color:var(--txt)}
+.fl{display:flex;gap:18px;flex-wrap:wrap}
+
+/* Kauf-Dialog */
+#buy{position:fixed;inset:0;z-index:100;display:none;place-items:center;background:rgba(2,4,9,.75);backdrop-filter:blur(6px);padding:16px}
+#buy.on{display:grid}
+.bx{width:440px;max-width:100%;background:var(--card);border:1px solid #233a66;border-radius:20px;padding:28px}
+.bx h3{font-size:20px;margin-bottom:6px}
+.bx p{color:var(--mut);font-size:14px;margin-bottom:16px}
+.bx ol{margin:0 0 20px 18px;color:var(--mut);font-size:14px;display:grid;gap:6px}
+.bx ol b{color:var(--txt)}
+.bx .row{display:flex;gap:10px}
+.bx .row .btn{flex:1}
+
+@media (max-width:980px){
+  .hero .wrap{grid-template-columns:1fr}.viz{max-width:560px}
+  .feat{grid-template-columns:1fr 1fr}.prices,.steps,.soon{grid-template-columns:1fr 1fr}
+  nav{display:none}
+}
+@media (max-width:600px){
+  .wrap{padding:0 16px}.hero{padding:56px 0}
+  .feat,.prices,.steps,.soon{grid-template-columns:1fr}
+  .hd .btn:not(.pr){display:none}
+  section{padding:64px 0}.band{padding:40px 20px;border-radius:0}
+}
+</style>
+</head>
+<body>
+
+<div class="ann"><a href="#preise">Launch-Preise – Game-VPN ab 1,49 € <i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></a></div>
+
+<header><div class="wrap hd">
+  <a class="logo" href="#"><b><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg></b><span>Game Booster <em>VPN</em></span></a>
+  <nav>
+    <a href="#features"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg>Features</a>
+    <a href="#preise"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>Preise</a>
+    <a href="#so-gehts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>So geht's</a>
+    <a href="#faq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01"/></svg>FAQ</a>
+  </nav>
+  <div class="sp"></div>
+  <a class="btn" href="#faq">Support</a>
+  <a class="btn pr" href="#preise">Jetzt starten</a>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div>
+    <div class="kick">Eigener Server · keine geteilten IPs</div>
+    <h1>Bessere <span class="bl">Lobbys.</span><br><span class="bl">Stabiler</span> Ping.</h1>
+    <p class="lead">Game-VPN und Geo-Fence für Call of Duty in einer App. Du suchst Matches über eine andere Region, das Spiel selbst läuft weiter direkt über deine Leitung.</p>
+    <div class="cta"><a class="btn pr" href="#preise">Abo wählen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn" href="#so-gehts">So funktioniert's</a></div>
+    <div class="trust">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Kein Eingriff ins Spiel</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Ein Klick an/aus</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Jederzeit kündbar</div>
+    </div>
+  </div>
+  <div class="viz">
+    <svg viewBox="0 0 460 400" fill="none">
+      <defs><pattern id="d" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#1e2b47"/></pattern>
+        <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+      <rect width="460" height="400" fill="url(#d)" opacity=".9"/>
+      <path d="M60 120c30-30 80-40 120-25s50 40 30 60-60 15-80 35-50 10-70-15-20-40 0-55z" fill="#16233d"/>
+      <path d="M200 90c40-20 110-25 160 0s50 70 20 95-70 10-100 30-60 5-80-25-30-80 0-100z" fill="#16233d"/>
+      <path d="M260 230c25-10 55-5 65 15s-5 50-30 55-45-15-45-35 0-28 10-35z" fill="#16233d"/>
+      <path d="M110 250c20-8 40 0 42 25s-10 60-30 62-25-30-25-50 3-30 13-37z" fill="#16233d"/>
+      <path class="route" d="M232 125 C 280 120, 320 160, 335 200" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="232" cy="125" r="6" fill="#60a5fa"/><circle class="pin" cx="232" cy="125" r="6" fill="#60a5fa"/>
+      <circle cx="335" cy="200" r="6" fill="#34d399"/><circle class="pin" cx="335" cy="200" r="6" fill="#34d399"/>
+      <text x="216" y="110" fill="#8b96ad" font-size="11" font-family="Inter" font-weight="600">Du</text>
+      <text x="345" y="204" fill="#8b96ad" font-size="11" font-family="Inter" font-weight="600">Lobby-Region</text>
+    </svg>
+    <div class="chip c1"><i></i><div><b>Verbunden</b><span>Geo-Fence aktiv</span></div></div>
+    <div class="chip c2"><div><span>Ping zum Server</span><b>28 ms</b></div></div>
+  </div>
+</div></section>
+
+<section id="features"><div class="wrap">
+  <div class="sh"><small>Was drin ist</small><h2>Alles für die <span class="bl">Lobby</span>, nichts am Spiel</h2><p>Kein Cheat und keine Spieldateien: Die App steuert nur deine Netzwerkverbindung.</p></div>
+  <div class="feat">
+    <div class="fc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/></svg></div><h3>Game-VPN</h3><p>Matchmaking läuft über unseren eigenen Server in einer anderen Region. Die Lobbys sind entspannter, und deine Spiel-Verbindung bleibt direkt.</p></div>
+    <div class="fc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div><h3>Geo-Fence</h3><p>Sperrt Spielserver in Regionen, die du nicht willst. Weit entfernte Server mit hohem Ping fallen weg, auf Wunsch per Land.</p></div>
+    <div class="fc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div><h3>Ein Klick</h3><p>An, aus, Region wechseln: alles in der App. Am besten wechselst du im Menü oder in der Lobby.</p></div>
+    <div class="fc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><h3>Persönlicher Zugang</h3><p>Dein Schlüssel liegt verschlüsselt nur auf deinem PC. Niemand teilt sich eine Zugangsdatei mit dir.</p></div>
+    <div class="fc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div><h3>Live-Karte</h3><p>Du siehst, über welche Region du suchst und wo dein letzter Spielserver stand, inklusive Match-Verlauf.</p></div>
+    <div class="fc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div><h3>Auto-Updates</h3><p>Die App aktualisiert sich selbst, ganz ohne Neuinstallation.</p></div>
+  </div>
+</div></section>
+
+<section id="preise"><div class="wrap">
+  <div class="sh"><small>Launch-Preise</small><h2>Wähle dein <span class="bl">Abo</span></h2><p>Gleiche Leistung in jedem Abo, nur die Laufzeit ist anders. Kein Auto-Abo: Es läuft einfach aus.</p></div>
+  <div class="prices">
+    <div class="pc"><h3>1 Tag</h3><div class="p">1,49<sup>€</sup></div><div class="per">Zum Testen</div>
+      <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Game-VPN + Geo-Fence</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>24 Stunden Zugang</li></ul>
+      <button class="btn" data-plan="1 Tag" data-price="1,49 €">Auswählen</button></div>
+    <div class="pc hot"><span class="tag">Beliebt</span><h3>1 Monat</h3><div class="p">4,99<sup>€</sup></div><div class="per">≈ 0,17 € pro Tag</div>
+      <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Game-VPN + Geo-Fence</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>30 Tage Zugang</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Neue Features zuerst</li></ul>
+      <button class="btn pr" data-plan="1 Monat" data-price="4,99 €">Auswählen</button></div>
+    <div class="pc"><h3>3 Monate</h3><div class="p">12,99<sup>€</sup></div><div class="per">4,33 € pro Monat</div><span class="save">13 % gespart</span>
+      <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Game-VPN + Geo-Fence</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>90 Tage Zugang</li></ul>
+      <button class="btn" data-plan="3 Monate" data-price="12,99 €">Auswählen</button></div>
+    <div class="pc"><h3>1 Jahr</h3><div class="p">39,99<sup>€</sup></div><div class="per">3,33 € pro Monat</div><span class="save">33 % gespart</span>
+      <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Game-VPN + Geo-Fence</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>365 Tage Zugang</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Alle kommenden Features inklusive</li></ul>
+      <button class="btn" data-plan="1 Jahr" data-price="39,99 €">Auswählen</button></div>
+  </div>
+</div></section>
+
+<section id="so-gehts"><div class="wrap">
+  <div class="sh"><small>In 4 Schritten</small><h2>So bist du <span class="bl">drin</span></h2></div>
+  <div class="steps">
+    <div class="st"><h4>App laden</h4><p>Lade Game Booster herunter und installiere ihn, das dauert eine Minute.</p></div>
+    <div class="st"><h4>Zugang anfordern</h4><p>Im Tab Game-VPN auf „Zugang anfordern“ klicken und den Code kopieren.</p></div>
+    <div class="st"><h4>Abo kaufen</h4><p>Schick uns beim Bezahlen deinen Code mit.</p></div>
+    <div class="st"><h4>Freischalten</h4><p>Du bekommst deinen Freischalt-Code. Einfügen, fertig.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sh"><small>Kommt bald</small><h2>Das ist erst der <span class="bl">Anfang</span></h2><p>Weitere Bereiche der App werden nach und nach freigeschaltet.</p></div>
+  <div class="soon">
+    <div class="so"><em>Bald</em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 13v-2M8 17V7M12 21V3M16 16V8M20 13v-2"/></svg><b>Sound-Tuning</b>Schritte klarer hören</div>
+    <div class="so"><em>Bald</em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 14l4-4"/><path d="M3.3 17a9 9 0 1 1 17.4 0"/></svg><b>Leistung</b>FPS- und PC-Optimierung</div>
+    <div class="so"><em>Bald</em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor" opacity=".35"/></svg><b>Farbprofile</b>Bessere Sicht im Spiel</div>
+    <div class="so"><em>Bald</em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg><b>DMZ-Karte</b>Schlüssel und Orte</div>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <div class="sh"><small>FAQ</small><h2>Häufige <span class="bl">Fragen</span></h2></div>
+  <div class="faq">
+    <details><summary>Ist das ein Cheat?</summary><p>Nein. Die App greift nicht ins Spiel ein und liest oder verändert keine Spieldateien. Sie steuert nur, über welchen Weg deine Verbindung beim Matchmaking läuft und welche Server-Regionen erlaubt sind.</p></details>
+    <details><summary>Wird mein Ping schlechter?</summary><p>Nur das Matchmaking läuft über unseren Server. Die eigentliche Spiel-Verbindung geht weiter direkt über deine Leitung.</p></details>
+    <details><summary>Verlängert sich das Abo automatisch?</summary><p>Nein. Dein Zugang läuft am Ende einfach aus. Verlängern kannst du jederzeit, die neue Zeit wird angehängt.</p></details>
+    <details><summary>Kann ich meinen Zugang teilen?</summary><p>Nein. Jeder Zugang ist an einen PC gebunden. Läuft er gleichzeitig an mehreren Anschlüssen, wird er automatisch gesperrt.</p></details>
+    <details><summary>Darf ich das in Call of Duty benutzen?</summary><p>VPNs und Region-Einstellungen sind in den Activision-Nutzungsbedingungen nicht klar geregelt. Du nutzt den Dienst auf eigene Verantwortung.</p></details>
+    <details><summary>Welche Systeme werden unterstützt?</summary><p>Windows 10 und 11 (PC). Konsolen werden aktuell nicht unterstützt.</p></details>
+  </div>
+</div></section>
+
+<div class="wrap"><div class="band"><h2>Bereit für bessere <span class="bl">Lobbys?</span></h2><p>Schon ab 1,49 € für einen Tag zum Testen.</p><a class="btn pr" href="#preise">Abo wählen</a></div></div>
+
+<footer><div class="wrap">
+  <div>© 2026 Game Booster VPN. Nicht mit Activision verbunden.</div>
+  <div class="fl"><a href="#">Impressum</a><a href="#">Datenschutz</a><a href="#">AGB</a><a href="#">Widerruf</a></div>
+</div></footer>
+
+<div id="buy"><div class="bx">
+  <h3 id="bT">Abo</h3><p id="bP"></p>
+  <ol><li>Kopiere in der App unter <b>Game-VPN → Zugang anfordern</b> deinen Code (GB-…).</li><li>Bezahle und füge den Code als Notiz hinzu.</li><li>Du bekommst deinen <b>Freischalt-Code</b> innerhalb weniger Stunden.</li></ol>
+  <div class="row"><button class="btn" id="bX">Abbrechen</button><a class="btn pr" id="bGo" href="#" target="_blank" rel="noopener">Weiter zur Zahlung</a></div>
+</div></div>
+
+<script>
+// PAY: hier deinen PayPal.me- oder Stripe-Link pro Abo eintragen
+const PAY = { "1 Tag": "#", "1 Monat": "#", "3 Monate": "#", "1 Jahr": "#" };
+const buy = document.getElementById("buy");
+document.querySelectorAll("[data-plan]").forEach(b => b.onclick = () => {
+  document.getElementById("bT").textContent = "Abo: " + b.dataset.plan;
+  document.getElementById("bP").textContent = "Preis: " + b.dataset.price + ", einmalig, kein Auto-Abo.";
+  document.getElementById("bGo").href = PAY[b.dataset.plan];
+  buy.classList.add("on");
+});
+document.getElementById("bX").onclick = () => buy.classList.remove("on");
+buy.onclick = e => { if (e.target === buy) buy.classList.remove("on") };
+</script>
+</body>
+</html>
