@@ -153,7 +153,17 @@ section{padding:90px 0}
 .sf h3{font-size:17px;font-weight:800}.sf p{color:var(--mut);font-size:14px;flex:1}.sf .btn{margin-top:8px}
 .hash{display:block;width:100%;font-family:ui-monospace,Consolas,monospace;font-size:11.5px;word-break:break-all;padding:10px 12px;border-radius:10px;background:#080d19;border:1px solid var(--line);color:#93c5fd}
 @media(max-width:820px){.safe{grid-template-columns:1fr}}
-.rv-btns{display:flex;flex-direction:column;gap:10px;align-items:stretch}.btn.pe{justify-content:center;gap:7px;font-size:13px}.btn.pe svg{width:16px;height:16px;color:#fbbf24}
+.rv-btns{display:flex;flex-direction:column;gap:10px;align-items:stretch}
+.btn.pe{justify-content:center;gap:8px;font-size:13px;color:#fde68a;border:1px solid rgba(251,191,36,.35);background:linear-gradient(180deg,rgba(251,191,36,.12),rgba(251,191,36,.04));position:relative;overflow:hidden}
+.btn.pe:hover{border-color:rgba(251,191,36,.7);box-shadow:0 8px 26px -10px rgba(251,191,36,.55)}
+.btn.pe svg{width:16px;height:16px;color:#fbbf24;fill:#fbbf24;animation:pes 2.4s ease-in-out infinite}@keyframes pes{50%{transform:scale(1.18) rotate(12deg)}}
+.btn.pe:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 35%,rgba(255,255,255,.14) 50%,transparent 65%);transform:translateX(-100%);animation:shn2 4s ease-in-out infinite}@keyframes shn2{60%,100%{transform:translateX(100%)}}
+.petab{position:fixed;right:0;top:50%;z-index:60;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 9px;border-radius:12px 0 0 12px;background:linear-gradient(180deg,#151d30,#0b1120);border:1px solid rgba(251,191,36,.35);border-right:0;color:#fde68a;text-decoration:none;box-shadow:-8px 10px 30px -14px rgba(0,0,0,.8);transition:.25s}
+.petab:hover{padding-right:14px;border-color:rgba(251,191,36,.7);text-decoration:none}
+.petab .pst{display:flex;flex-direction:column;gap:1px;color:#fbbf24;font-size:10px;line-height:1}
+.petab span{writing-mode:vertical-rl;transform:rotate(180deg);font-size:12px;font-weight:800;letter-spacing:.04em}
+.petab small{writing-mode:vertical-rl;transform:rotate(180deg);font-size:9.5px;color:var(--mut);font-weight:600}
+@media(max-width:820px){.petab{display:none}}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
 .st{padding:24px;border-radius:16px;border:1px solid var(--line);background:var(--bg2)}
 .st:before{counter-increment:s;content:"0" counter(s);display:block;font-size:13px;font-weight:900;color:var(--blue);margin-bottom:12px;letter-spacing:.1em}
@@ -513,7 +523,7 @@ footer a:hover{color:var(--txt)}
   <div class="sh"><small>Bewertungen</small><h2>Was Käufer <span class="bl">sagen</span></h2></div>
   <div class="rv-top"><div class="rv-sum" id="rvSum"><b id="rvAvg" class="rv-new">Neu gestartet</b><span class="rv-st" id="rvStars"></span><small id="rvN">Noch keine Bewertungen – sei der Erste, der bewertet.</small></div>
     <div class="rv-bars" id="rvBars"><div class="rv-facts"><span><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Server in Mumbai</span><span><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Länder-Filter</span><span><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Einrichtung in 2 Minuten</span><span><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Bezahlung sicher über PayPal</span></div></div>
-    <div class="rv-btns"><button type="button" class="btn pr" id="rvOpen">Bewertung schreiben</button><a class="btn pe" href="https://www.provenexpert.com/game-booster-vpn/zam6/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Auf ProvenExpert bewerten</a></div></div>
+    <div class="rv-btns"><button type="button" class="btn pr" id="rvOpen">Bewertung schreiben</button><a class="btn pe" href="https://www.provenexpert.com/game-booster-vpn/zam6/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Auch auf ProvenExpert bewerten</a></div></div>
   <div class="rv-list" id="rvList"></div>
   <p class="rv-note">Nur echte Käufer können bewerten: Wir prüfen jede Bewertung anhand der PayPal-Bestellung. Bewertungen werden vor dem Veröffentlichen kurz geprüft (keine Beleidigungen, keine Werbung) – negative werden genauso veröffentlicht.</p>
 </div></section>
@@ -951,5 +961,6 @@ async function srvCheck(){const e=document.getElementById("srv");if(!e)return;le
   e.className="srv "+(ok?"ok":"bad");const h=document.getElementById("srvHero");if(h){h.querySelector("b").textContent=ok?"Online":"Störung";h.querySelector(".dot").style.background=ok?"":"#f87171"}e.title=ok?"Server Mumbai läuft":"Server Mumbai: Störung – wir sind dran"}
 srvCheck();setInterval(srvCheck,60000);
 </script>
+<a class="petab" href="https://www.provenexpert.com/game-booster-vpn/zam6/" target="_blank" rel="noopener" aria-label="Game Booster VPN auf ProvenExpert bewerten"><b class="pst">★<br>★<br>★<br>★<br>★</b><span>Bewerte uns</span><small>auf ProvenExpert</small></a>
 </body>
 </html>
