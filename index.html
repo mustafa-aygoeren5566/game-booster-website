@@ -689,7 +689,7 @@ async function render() {
     }),
     onApprove: (d, actions) => actions.order.capture().then(async o => {
       document.getElementById("bOid").textContent = o.id; lastOid = o.id;
-      if (SHOP_API) fetch(SHOP_API + "/api/paid", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ order: o.id }) }).catch(() => {});
+      if (SHOP_API) fetch(SHOP_API + "/api/paid", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ order: o.id, zust: "2026-11-01" }) }).catch(() => {});
       document.getElementById("bForm").hidden = true; document.getElementById("bDone").hidden = false;
       const txt = document.getElementById("bDoneTxt");
       document.getElementById("bRd").hidden = true; document.getElementById("bZ").hidden = true;
