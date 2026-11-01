@@ -98,6 +98,22 @@ markNew();
     return li?`<div class="it app" data-v="${x.tag_name}"><div class="hd">${ICON}<h2>${x.tag_name}</h2><time>${d}</time></div><ul>${li}</ul></div>`:""}).join("");
   if(html){TL.insertAdjacentHTML("afterbegin",html);markNew()}
 }catch(e){}})();
+// Webseiten-Aenderungen automatisch: Commits im Webseiten-Repo, deren Titel mit "Webseite:" beginnt.
+// Titel = Ueberschrift, Zeilen "- ..." im Text = Punkte. Aeltere Eintraege stehen fest oben im HTML.
+(async()=>{try{
+  const r=await fetch("https://api.github.com/repos/mustafa-aygoeren5566/game-booster-website/commits?per_page=30&since=2026-11-01T07:00:00Z");if(!r.ok)return;
+  const l=await r.json(),WEB=TL.querySelector(".web .ic").outerHTML;
+  const esc=t=>t.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"})[c]);
+  const items=l.map(c=>{const m=c.commit.message.split("\n"),t=m[0];if(!/^Webseite:/i.test(t))return null;
+    const li=m.slice(1).filter(z=>/^\s*-\s/.test(z)).map(z=>`<li>${esc(z.replace(/^\s*-\s/,""))}</li>`).join("")||`<li>${esc(t.replace(/^Webseite:\s*/i,""))}</li>`;
+    return{d:new Date(c.commit.author.date),li}}).filter(Boolean);
+  const byDay={};items.forEach(x=>{const k=x.d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",year:"numeric"});(byDay[k]=byDay[k]||{d:x.d,li:""}).li+=x.li});
+  Object.entries(byDay).forEach(([k,v])=>{const el=document.createElement("div");el.className="it web";el.dataset.t=+v.d;
+    el.innerHTML=`<div class="hd">${WEB}<h2>Webseite</h2><time>${k}</time></div><ul>${v.li}</ul>`;
+    const after=[...TL.querySelectorAll(".it")].find(x=>{const t=+(x.dataset.t||0)||Date.parse((x.querySelector("time")||{}).textContent?.split(".").reverse().join("-"));return t<+v.d});
+    after?TL.insertBefore(el,after):TL.append(el)});
+  if(items.length)markNew();
+}catch(e){}})();
 </script>
 </body>
 </html>
