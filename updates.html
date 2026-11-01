@@ -24,6 +24,17 @@ a{color:var(--blue2);text-decoration:none}
 .hero h1 span{background:linear-gradient(180deg,#93c5fd,#3b82f6);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero p{color:var(--mut);max-width:520px;margin:0 auto}
 .pill{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:8px 14px;border-radius:999px;border:1px solid rgba(52,211,153,.35);background:rgba(52,211,153,.08);color:#a7f3d0;font-size:13px;font-weight:600}
+.tiles{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.tile{display:flex;align-items:center;gap:12px;padding:10px 18px 10px 10px;border-radius:14px;background:#0b1222;border:1px solid var(--line);text-align:left}
+.ti{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;background:rgba(59,130,246,.14);color:var(--blue2)}.ti svg{width:19px;height:19px}
+.ti.fl{background:#111a2e}.ti.fl img{width:22px;height:16px;border-radius:3px;object-fit:cover}
+.tile small{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.tile b{display:flex;align-items:center;gap:7px;font-size:14.5px;font-weight:800;color:var(--txt)}.tile em{font-style:normal}
+.tile i{position:relative;width:8px;height:8px;border-radius:50%;background:#64748b}
+.tile i:after{content:"";position:absolute;inset:0;border-radius:50%;background:inherit}
+.tile.ok i{background:#34d399}.tile.ok i:after{animation:tp 2s ease-out infinite}
+.tile.bad i{background:#f87171}.tile.bad i:after{animation:tp 1s ease-out infinite}.tile.bad b{color:#fecaca}
+@keyframes tp{0%{transform:scale(1);opacity:.7}100%{transform:scale(3);opacity:0}}
 .pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.pill.st{border-color:var(--line);background:rgba(255,255,255,.03);color:var(--mut)}.pill.st i{background:#64748b;box-shadow:none}
 .pill.st.bad{border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.08);color:#fecaca}.pill.st.bad i{background:#f87171;box-shadow:0 0 10px #f87171}
 .pill i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok)}
@@ -57,7 +68,10 @@ li b{color:var(--txt)}
   <small>Changelog</small>
   <h1>Was ist <span>neu?</span></h1>
   <p>Alle Änderungen an App und Shop auf einen Blick.</p>
-  <div class="pills"><div class="pill"><i></i>Die App aktualisiert sich von selbst – du musst nichts tun</div><div class="pill st" id="status"><i></i><span>Server wird geprüft …</span></div></div>
+  <div class="tiles">
+    <div class="tile"><span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg></span><span><small>App-Updates</small><b>Automatisch</b></span></div>
+    <div class="tile" id="status"><span class="ti fl"><img src="flags/in.svg" alt=""></span><span><small>Server Mumbai</small><b><i></i><em>Wird geprüft</em></b></span></div>
+  </div>
 </div>
 <main><div class="tl" id="tl">
 
@@ -87,7 +101,7 @@ li b{color:var(--txt)}
 <script>
 // Server-Status (Mumbai)
 (async()=>{const e=document.getElementById("status");let ok=false;try{const r=await fetch("https://65-20-95-163.sslip.io/api/health",{cache:"no-store"});ok=r.ok&&(await r.json()).ok}catch(x){}
-  e.classList.add(ok?"ok":"bad");if(ok)e.className="pill";e.querySelector("span").textContent=ok?"Server Mumbai: online":"Server Mumbai: Störung – wir sind dran"})();
+  e.classList.add(ok?"ok":"bad");e.querySelector("em").textContent=ok?"Online":"Störung – wir sind dran"})();
 // Neueste Version markieren + neue App-Versionen automatisch aus den GitHub-Releases (deutscher Teil der Notizen) ergaenzen
 const TL=document.getElementById("tl"),ICON=TL.querySelector(".app .ic").outerHTML;
 function markNew(){const f=TL.querySelector(".it");TL.querySelectorAll(".tag").forEach(t=>t.remove());TL.querySelectorAll(".it").forEach(x=>x.classList.remove("new"));
