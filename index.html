@@ -129,11 +129,16 @@ section{padding:90px 0}
 .pc .btn{width:100%}
 
 /* Server-Status */
-.srv{display:inline-flex;align-items:center;gap:8px;margin-left:auto;padding:7px 12px;border-radius:999px;border:1px solid var(--line);font-size:12.5px;font-weight:700;color:var(--mut);white-space:nowrap}
-.srv i{width:8px;height:8px;border-radius:50%;background:#64748b}
-.srv.ok{color:#a7f3d0;border-color:rgba(52,211,153,.35)}.srv.ok i{background:#34d399;box-shadow:0 0 10px #34d399}
-.srv.bad{color:#fecaca;border-color:rgba(248,113,113,.4)}.srv.bad i{background:#f87171;box-shadow:0 0 10px #f87171}
-@media(max-width:900px){.srv span{display:none}.srv{padding:9px}}
+.srv{display:inline-flex;align-items:center;gap:8px;margin-left:auto;padding:6px 12px 6px 7px;border-radius:10px;background:#0b1222;border:1px solid var(--line);font-size:12.5px;white-space:nowrap;transition:border-color .2s}
+.srv:hover{border-color:#2b4a86}
+.srv img{width:20px;height:15px;border-radius:3px;object-fit:cover}
+.srv b{font-weight:700;color:var(--txt);letter-spacing:-.01em}
+.srv i{position:relative;width:8px;height:8px;border-radius:50%;background:#64748b}
+.srv i:after{content:"";position:absolute;inset:0;border-radius:50%;background:inherit}
+.srv.ok i{background:#34d399}.srv.ok i:after{animation:srvp 2s ease-out infinite}
+.srv.bad i{background:#f87171}.srv.bad i:after{animation:srvp 1s ease-out infinite}
+@keyframes srvp{0%{transform:scale(1);opacity:.7}100%{transform:scale(3);opacity:0}}
+@media(max-width:900px){.srv b{display:none}.srv{padding:7px 9px}}
 /* Schritte */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
 .st{padding:24px;border-radius:16px;border:1px solid var(--line);background:var(--bg2)}
@@ -315,7 +320,7 @@ footer a:hover{color:var(--txt)}
     <a href="einblick.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10.5 9.5v5l4-2.5z" fill="currentColor"/></svg>Einblick</a>
   </nav>
   <div class="sp"></div>
-  <a class="srv" id="srv" href="updates.html#status" title="Server-Status"><i></i><span>Server prüfen …</span></a>
+  <a class="srv" id="srv" href="updates.html#status" title="Server-Status Mumbai"><img src="flags/in.svg" alt=""><b>Mumbai</b><i></i></a>
   <a class="btn" href="#faq">Support</a>
   <a class="btn pr" href="#preise">Jetzt starten</a>
 </div></header>
@@ -849,7 +854,7 @@ document.getElementById("rvGo").onclick = async () => {
 // Server-Status: fragt den Shop-Server (Mumbai) – antwortet er, laeuft auch der Dienst
 async function srvCheck(){const e=document.getElementById("srv");if(!e)return;let ok=false;
   try{const c=new AbortController();setTimeout(()=>c.abort(),8000);const r=await fetch(SHOP_API+"/api/health",{signal:c.signal,cache:"no-store"});ok=r.ok&&(await r.json()).ok}catch(x){}
-  e.className="srv "+(ok?"ok":"bad");e.querySelector("span").textContent=ok?"Server online":"Server-Störung"}
+  e.className="srv "+(ok?"ok":"bad");e.title=ok?"Server Mumbai läuft":"Server Mumbai: Störung – wir sind dran"}
 srvCheck();setInterval(srvCheck,60000);
 </script>
 </body>
