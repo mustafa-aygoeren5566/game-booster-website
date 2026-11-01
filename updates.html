@@ -101,7 +101,7 @@ markNew();
 // Webseiten-Aenderungen automatisch: Commits im Webseiten-Repo, deren Titel mit "Webseite:" beginnt.
 // Titel = Ueberschrift, Zeilen "- ..." im Text = Punkte. Aeltere Eintraege stehen fest oben im HTML.
 (async()=>{try{
-  const r=await fetch("https://api.github.com/repos/mustafa-aygoeren5566/game-booster-website/commits?per_page=30&since=2026-11-01T07:00:00Z");if(!r.ok)return;
+  const r=await fetch("https://api.github.com/repos/mustafa-aygoeren5566/game-booster-website/commits?per_page=30&since=2026-11-01T05:05:00Z");if(!r.ok)return;
   const l=await r.json(),WEB=TL.querySelector(".web .ic").outerHTML;
   const esc=t=>t.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"})[c]);
   const items=l.map(c=>{const m=c.commit.message.split("\n"),t=m[0];if(!/^Webseite:/i.test(t))return null;
