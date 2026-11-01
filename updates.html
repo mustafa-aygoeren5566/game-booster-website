@@ -24,6 +24,8 @@ a{color:var(--blue2);text-decoration:none}
 .hero h1 span{background:linear-gradient(180deg,#93c5fd,#3b82f6);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero p{color:var(--mut);max-width:520px;margin:0 auto}
 .pill{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:8px 14px;border-radius:999px;border:1px solid rgba(52,211,153,.35);background:rgba(52,211,153,.08);color:#a7f3d0;font-size:13px;font-weight:600}
+.pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.pill.st{border-color:var(--line);background:rgba(255,255,255,.03);color:var(--mut)}.pill.st i{background:#64748b;box-shadow:none}
+.pill.st.bad{border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.08);color:#fecaca}.pill.st.bad i{background:#f87171;box-shadow:0 0 10px #f87171}
 .pill i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok)}
 main{max-width:900px;margin:0 auto;padding:30px 20px 90px}
 .tl{position:relative;padding-left:34px}
@@ -55,7 +57,7 @@ li b{color:var(--txt)}
   <small>Changelog</small>
   <h1>Was ist <span>neu?</span></h1>
   <p>Alle Änderungen an App und Shop auf einen Blick.</p>
-  <div class="pill"><i></i>Die App aktualisiert sich von selbst – du musst nichts tun</div>
+  <div class="pills"><div class="pill"><i></i>Die App aktualisiert sich von selbst – du musst nichts tun</div><div class="pill st" id="status"><i></i><span>Server wird geprüft …</span></div></div>
 </div>
 <main><div class="tl" id="tl">
 
@@ -83,6 +85,9 @@ li b{color:var(--txt)}
 
 </div></main>
 <script>
+// Server-Status (Mumbai)
+(async()=>{const e=document.getElementById("status");let ok=false;try{const r=await fetch("https://65-20-95-163.sslip.io/api/health",{cache:"no-store"});ok=r.ok&&(await r.json()).ok}catch(x){}
+  e.classList.add(ok?"ok":"bad");if(ok)e.className="pill";e.querySelector("span").textContent=ok?"Server Mumbai: online":"Server Mumbai: Störung – wir sind dran"})();
 // Neueste Version markieren + neue App-Versionen automatisch aus den GitHub-Releases (deutscher Teil der Notizen) ergaenzen
 const TL=document.getElementById("tl"),ICON=TL.querySelector(".app .ic").outerHTML;
 function markNew(){const f=TL.querySelector(".it");TL.querySelectorAll(".tag").forEach(t=>t.remove());TL.querySelectorAll(".it").forEach(x=>x.classList.remove("new"));
