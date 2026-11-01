@@ -293,7 +293,7 @@ footer a:hover{color:var(--txt)}
 .promo .pt{flex:1;display:grid;gap:2px}.promo b{font-size:15.5px}.promo em{font-style:normal;color:#34d399}.promo small{color:var(--mut);font-size:12.5px}
 .pcd{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:11px;border:1.5px dashed rgba(52,211,153,.7);background:rgba(4,20,13,.6);color:#6ee7b7;font:800 15px ui-monospace,Consolas,monospace;letter-spacing:.06em;cursor:pointer;transition:.2s}
 .pcd:hover{background:rgba(52,211,153,.12)}.pcd svg{width:16px;height:16px}.pcd.ok{border-style:solid}
-@media(max-width:600px){.promo{flex-wrap:wrap}.pcd{width:100%;justify-content:center}}
+@media(max-width:600px){.logo span{display:none}.hd .btn{white-space:nowrap;padding:10px 14px}.promo{flex-wrap:wrap}.pcd{width:100%;justify-content:center}}
 .rbr{display:flex;gap:8px}.rbi{position:relative;flex:1;display:flex}.rbr input{flex:1;text-transform:uppercase;padding-right:84px}
 .rbi em{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-style:normal;font:800 12.5px Inter,sans-serif;padding:5px 10px;border-radius:8px;background:linear-gradient(135deg,#10b981,#34d399);color:#04140d;box-shadow:0 0 14px rgba(52,211,153,.35);pointer-events:none}
 .rbi.on input{border-color:rgba(52,211,153,.6)}.rbr .btn{padding:0 16px;white-space:nowrap}
@@ -337,7 +337,7 @@ footer a:hover{color:var(--txt)}
       <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Jederzeit kündbar</div>
     </div>
     <div class="stats">
-      <div><i class="dot"></i><b>Online</b><small>Server-Status</small></div>
+      <div id="srvHero"><i class="dot"></i><b>Prüfe …</b><small>Server-Status</small></div>
       <div><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"><rect x="3" y="7" width="18" height="11" rx="4"/><path d="M8 10.5v4M6 12.5h4"/><circle cx="15.5" cy="11.5" r="1"/><circle cx="17.5" cy="13.8" r="1"/></svg><b>MW4 · BO7 · WZ</b><small>Unterstützt</small></div>
       <div><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><b>Mumbai</b><small>Lobby-Region</small></div>
       <div><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg><b>ab 1,49 €</b><small>Launch-Preis</small></div>
@@ -859,7 +859,7 @@ document.getElementById("rvGo").onclick = async () => {
 // Server-Status: fragt den Shop-Server (Mumbai) – antwortet er, laeuft auch der Dienst
 async function srvCheck(){const e=document.getElementById("srv");if(!e)return;let ok=false;
   try{const c=new AbortController();setTimeout(()=>c.abort(),8000);const r=await fetch(SHOP_API+"/api/health",{signal:c.signal,cache:"no-store"});ok=r.ok&&(await r.json()).ok}catch(x){}
-  e.className="srv "+(ok?"ok":"bad");e.title=ok?"Server Mumbai läuft":"Server Mumbai: Störung – wir sind dran"}
+  e.className="srv "+(ok?"ok":"bad");const h=document.getElementById("srvHero");if(h){h.querySelector("b").textContent=ok?"Online":"Störung";h.querySelector(".dot").style.background=ok?"":"#f87171"}e.title=ok?"Server Mumbai läuft":"Server Mumbai: Störung – wir sind dran"}
 srvCheck();setInterval(srvCheck,60000);
 </script>
 </body>
