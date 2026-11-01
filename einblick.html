@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Einblick – Game Booster VPN</title>
+<meta name="description" content="So sieht die Game-Booster-App aus: Screenshot des Kunden-Zugangs und Video zum Game-VPN.">
+<link rel="icon" href="img/logo.webp">
+<link href="fonts/inter.css" rel="stylesheet">
+<style>
+
+:root{--bg:#05070d;--card:#0b1020;--line:#1a2236;--txt:#e9eef8;--mut:#8b96ad;--blue:#3b82f6;--blue2:#60a5fa;--ok:#34d399;--glow:rgba(59,130,246,.45)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font:15px/1.65 Inter,system-ui,sans-serif;min-height:100vh;
+  background-image:radial-gradient(900px 420px at 50% -120px,rgba(59,130,246,.22),transparent 70%),radial-gradient(1px 1px at 20px 20px,rgba(255,255,255,.05) 1px,transparent 0);background-size:auto,28px 28px}
+a{color:var(--blue2);text-decoration:none}
+.top{position:sticky;top:0;z-index:5;background:rgba(5,7,13,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:12px 20px}
+.top .in{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;color:var(--txt);letter-spacing:-.02em}
+.logo img{width:40px;height:40px;border-radius:10px;border:1px solid rgba(59,130,246,.35);box-shadow:0 0 20px var(--glow)}.logo em{font-style:normal;color:var(--blue2)}
+.back{padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--txt);font-weight:600;font-size:13.5px}.back:hover{border-color:#2b4a86}
+.hero{max-width:900px;margin:0 auto;padding:64px 20px 24px;text-align:center}
+.hero small{color:var(--blue2);font-weight:800;letter-spacing:.14em;font-size:12px;text-transform:uppercase}
+.hero h1{font-size:clamp(34px,6vw,52px);font-weight:900;letter-spacing:-.04em;line-height:1.1;margin:10px 0 14px}
+.hero h1 span{background:linear-gradient(180deg,#93c5fd,#3b82f6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mut);max-width:520px;margin:0 auto}
+.pill{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:8px 14px;border-radius:999px;border:1px solid rgba(52,211,153,.35);background:rgba(52,211,153,.08);color:#a7f3d0;font-size:13px;font-weight:600}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok)}
+main{max-width:1180px;margin:0 auto;padding:30px 20px 90px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;color:#fff;border:1px solid var(--line)}
+.btn.pr{background:linear-gradient(180deg,#4f8ff7,#2563eb);border-color:#4f8ff7;box-shadow:0 8px 30px -8px var(--glow)}
+/* Einblick / Video */
+.eb{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.eb h3{font-size:clamp(26px,3.4vw,38px);font-weight:900;letter-spacing:-.03em;line-height:1.15;margin-bottom:14px}.eb h3 span{color:var(--blue2)}
+.eb p{color:var(--mut);margin-bottom:18px}
+.eb ul{list-style:none;display:grid;gap:10px;margin-bottom:24px}.eb li{display:flex;gap:10px;align-items:flex-start;color:#c3cce0}
+.eb li svg{flex:none;width:20px;height:20px;margin-top:2px;color:var(--blue2)}
+.shot{margin:0 auto 56px;max-width:1100px;border-radius:20px;overflow:hidden;border:1px solid #233a66;box-shadow:0 40px 100px -40px var(--glow)}.shot img{display:block;width:100%;height:auto}.shot figcaption{padding:10px 16px;font-size:12.5px;color:var(--mut);background:#0a0f1c;border-top:1px solid var(--line)}
+.yt{position:relative;justify-self:center;width:min(420px,100%);aspect-ratio:9/16;border-radius:28px;overflow:hidden;border:1px solid #233a66;background:#000 url(img/short.webp) center/cover;box-shadow:0 40px 100px -30px var(--glow),0 0 0 8px rgba(255,255,255,.03);}
+.yt:after{display:none;content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.75))}
+.yt button{position:absolute;inset:0;margin:auto;width:78px;height:78px;border-radius:50%;border:0;background:rgba(59,130,246,.92);color:#fff;display:grid;place-items:center;box-shadow:0 0 0 10px rgba(59,130,246,.2),0 10px 40px var(--glow);cursor:pointer;z-index:1;transition:transform .2s}
+.yt:hover button{transform:scale(1.08)}.yt button svg{width:30px;height:30px;margin-left:4px}
+.yt small{position:absolute;left:0;right:0;bottom:14px;z-index:1;text-align:center;font-size:11.5px;color:#cbd5e1;padding:0 16px}
+.yt video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+@media(max-width:900px){.eb{grid-template-columns:1fr}}
+
+/* Stylisch */
+body{overflow-x:hidden}
+.hero{padding-top:70px}
+.hero:after{content:"";display:block;width:120px;height:3px;margin:26px auto 0;border-radius:3px;background:linear-gradient(90deg,transparent,var(--blue),transparent)}
+.stage{position:relative;max-width:1120px;margin:20px auto 0;perspective:1800px}
+.stage:before{content:"";position:absolute;inset:8% 6% -6%;background:radial-gradient(ellipse at center,rgba(59,130,246,.45),transparent 65%);filter:blur(40px);z-index:-1}
+.win{border-radius:16px;overflow:hidden;border:1px solid #2b4a86;background:#070b15;box-shadow:0 50px 120px -40px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.04) inset;transition:transform .3s,box-shadow .3s}
+.win:hover{transform:translateY(-4px)}
+.bar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#0b1222;border-bottom:1px solid var(--line)}
+.bar i{width:11px;height:11px;border-radius:50%;background:#334155}.bar i:nth-child(1){background:#f87171}.bar i:nth-child(2){background:#fbbf24}.bar i:nth-child(3){background:#34d399}
+.bar span{margin-left:10px;font-size:12px;color:var(--mut);font-weight:600}
+.win img{display:block;width:100%;height:auto}
+.feat3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1120px;margin:56px auto 0}
+.fc{padding:22px;border-radius:16px;background:linear-gradient(180deg,rgba(17,24,43,.9),rgba(11,16,32,.9));border:1px solid var(--line);transition:border-color .2s,transform .2s}
+.fc:hover{border-color:#2b4a86;transform:translateY(-3px)}
+.fc .ic{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:rgba(59,130,246,.14);color:var(--blue2);margin-bottom:14px}
+.fc .ic svg{width:22px;height:22px}
+.fc h4{font-size:16px;font-weight:800;margin-bottom:4px}.fc p{color:var(--mut);font-size:14px}
+.vid{position:relative;max-width:1120px;margin:90px auto 0;padding:48px;border-radius:24px;background:radial-gradient(600px 300px at 80% 50%,rgba(59,130,246,.16),transparent 70%),linear-gradient(180deg,#0b1122,#080c18);border:1px solid #1e2c4d}
+.vid .eb{gap:40px}
+.lbl{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue2);margin-bottom:10px}
+.yt{box-shadow:0 40px 100px -30px var(--glow),0 0 0 8px rgba(255,255,255,.03),0 0 0 9px rgba(59,130,246,.25)}
+@media(max-width:900px){.feat3{grid-template-columns:1fr}.vid{padding:26px}.win{transform:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="in"><a class="logo" href="index.html"><img src="img/logo.webp" alt="">Game Booster <em>VPN</em></a><a class="back" href="index.html">← Zur Startseite</a></div></div>
+<div class="hero">
+  <small>Einblick</small>
+  <h1>So sieht die <span>App</span> aus</h1>
+  <p>Ein Blick in deinen Kunden-Zugang – und das Ganze kurz im Video.</p>
+</div>
+<main>
+  <div class="stage"><div class="win"><div class="bar"><i></i><i></i><i></i><span>Game Booster – Kunden-Zugang</span></div><img src="img/app-vpn.webp" alt="Game-VPN-Tab der Game-Booster-App im Kunden-Zugang" width="1600" height="900"></div></div>
+  <div class="feat3">
+    <div class="fc"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg></span><h4>Game-VPN über Mumbai</h4><p>Nur die Spielsuche läuft über den Server – das Spiel selbst bleibt direkt, dein Ping bleibt niedrig.</p></div>
+    <div class="fc"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><h4>Karte mit Spielserver</h4><p>Du siehst live, wo dein Match wirklich läuft – und ob Region und Geo-Fence greifen.</p></div>
+    <div class="fc"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span><h4>Laufzeit im Blick</h4><p>„Aktiv bis …“ und die restlichen Tage stehen direkt in der App, Verlängern mit einem Klick.</p></div>
+  </div>
+  <div class="vid"><div class="eb">
+    <div>
+      <span class="lbl">Video</span><h3>Game-VPN in <span>30 Sekunden</span></h3>
+      <p>Kurz erklärt: Was der Game-VPN macht, wie die App aussieht und wie du in wenigen Klicks startest.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M8 12.5l3 3 5-6"/></svg>Region wählen und mit einem Klick verbinden</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M8 12.5l3 3 5-6"/></svg>Server-Anzeige direkt im Spiel – du siehst, wo du spielst</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M8 12.5l3 3 5-6"/></svg>Laufzeit immer im Blick, Verlängern mit einem Klick</li>
+      </ul>
+      <a class="btn pr" href="index.html#preise">Jetzt starten</a>
+    </div>
+    <div class="yt"><video src="img/promo.mp4" poster="img/short.webp" controls playsinline preload="none"></video></div>
+  </div></div>
+</main>
+</body>
+</html>
