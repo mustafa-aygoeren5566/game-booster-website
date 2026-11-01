@@ -48,10 +48,11 @@ header{position:sticky;top:0;z-index:50;background:rgba(5,7,13,.82);backdrop-fil
 .logo b{display:grid;place-items:center;width:52px;height:52px;border-radius:12px;overflow:hidden;background:#000;border:1px solid rgba(59,130,246,.35);box-shadow:0 0 24px var(--glow)}
 .logo b img{width:100%;height:100%;object-fit:cover;transform:scale(1.3) translateY(2%)}
 .logo span em{font-style:normal;color:var(--blue2)}
-nav{display:flex;gap:4px;margin-left:24px}
-nav a{display:flex;align-items:center;gap:7px;padding:8px 12px;border-radius:9px;font-size:14px;font-weight:600;color:var(--mut)}
+nav{display:flex;gap:2px;margin-left:14px}
+nav a{display:flex;align-items:center;gap:7px;padding:8px 10px;border-radius:9px;font-size:14px;font-weight:600;color:var(--mut)}
 nav a:hover{color:var(--txt);background:rgba(255,255,255,.04)}
 nav a svg{width:15px;height:15px}
+@media(max-width:1260px){nav a svg{display:none}nav a{padding:8px 8px}}
 .sp{flex:1}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;border-radius:10px;font-weight:700;font-size:14px;border:1px solid var(--line);background:var(--card);cursor:pointer;transition:.2s;color:var(--txt);font-family:inherit}
 .btn:hover{border-color:#34507f}
@@ -320,6 +321,7 @@ footer a:hover{color:var(--txt)}
     <a href="#faq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01"/></svg>FAQ</a>
     <a href="updates.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>Updates</a>
     <a href="einblick.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10.5 9.5v5l4-2.5z" fill="currentColor"/></svg>Einblick</a>
+    <a href="creator.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M19 8v6M16 11h6"/></svg>Creator</a>
   </nav>
   <div class="sp"></div>
   <a class="srv" id="srv" href="updates.html#status" title="Server-Status Mumbai"><img src="flags/in.svg" alt=""><b>Mumbai</b><i></i></a>
