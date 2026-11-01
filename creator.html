@@ -41,6 +41,19 @@ p,li{color:#c3cce0}small{color:var(--mut)}
 .kp>div:after{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;background:radial-gradient(closest-side,rgba(59,130,246,.22),transparent)}
 .kp .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(59,130,246,.14);color:var(--blue2);margin-bottom:14px}
 .kp .ic svg{width:22px;height:22px}
+.kp .ka{position:absolute;right:8px;top:8px;width:130px;height:auto;pointer-events:none;z-index:0}
+.kp>div>*:not(.ka){position:relative;z-index:1}
+.kp .ic{animation:icf 3.2s ease-in-out infinite}.kp>div:nth-child(2) .ic{animation-delay:.4s}.kp>div:nth-child(3) .ic{animation-delay:.8s}
+@keyframes icf{50%{transform:translateY(-4px);box-shadow:0 8px 22px -8px rgba(59,130,246,.6)}}
+.kp>div:after{animation:glw 4s ease-in-out infinite}@keyframes glw{50%{opacity:.45;transform:scale(1.25)}}
+.kp span.cu{font-size:inherit;color:inherit}
+.out{position:relative;overflow:hidden}
+.out:before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,rgba(59,130,246,.18),transparent 30%);animation:spin 6s linear infinite;pointer-events:none}
+.out>*{position:relative}
+@keyframes spin{to{transform:rotate(360deg)}}
+#cOut.pop{animation:pop .25s ease}@keyframes pop{40%{transform:scale(1.08);filter:drop-shadow(0 0 14px rgba(96,165,250,.7))}}
+.out .coin{position:absolute;bottom:18px;font-style:normal;font-weight:900;font-size:16px;color:#34d399;pointer-events:none;animation:coin 1.4s ease-out forwards}
+@keyframes coin{from{transform:translateY(0);opacity:0}20%{opacity:1}to{transform:translateY(-110px);opacity:0}}
 .kp b{display:block;font-size:34px;font-weight:900;letter-spacing:-.03em;line-height:1.1}
 .kp span{font-size:13.5px;color:var(--mut)}
 .card{padding:34px;margin-top:22px}
@@ -99,9 +112,18 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 <p class="lead">Du machst Videos oder Streams zu Call of Duty? Stell Game Booster VPN vor, teil deinen eigenen Code und verdien bei jedem Verkauf mit. Deine Zuschauer sparen dabei.</p>
 <div class="cta"><a class="btn pr" href="#anmelden">Jetzt Creator werden</a><a class="btn" href="#rechner">Was kann ich verdienen?</a></div>
 <div class="kp">
-<div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><b class="gr">25 %</b><span>Provision auf jeden Kauf mit deinem Code</span></div>
-<div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.5"/></svg></div><b class="gr">−10 %</b><span>Rabatt für deine Zuschauer</span></div>
-<div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div><b class="gr">Live</b><span>Verkäufe und Verdienst auf deiner eigenen Seite</span></div>
+<div><svg class="ka" viewBox="0 0 120 90" fill="none"><g font-family="Inter,Segoe UI,sans-serif" font-weight="800" font-size="11" fill="#34d399">
+<text x="40" y="80">+1,12 €<animate attributeName="y" values="84;20" dur="3s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" dur="3s" repeatCount="indefinite"/></text>
+<text x="70" y="80">+2,92 €<animate attributeName="y" values="84;20" dur="3s" begin="1s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="1s" repeatCount="indefinite"/></text>
+<text x="20" y="80" opacity="0">+9,00 €<animate attributeName="y" values="84;20" dur="3s" begin="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="2s" repeatCount="indefinite"/></text></g></svg><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><b class="gr"><span class="cu" data-to="25">25</span> %</b><span>Provision auf jeden Kauf mit deinem Code</span></div>
+<div><svg class="ka" viewBox="0 0 120 90" fill="none"><g transform="translate(60 45)"><g><animateTransform attributeName="transform" type="rotate" values="-6;6;-6" dur="3s" repeatCount="indefinite"/>
+<rect x="-34" y="-16" width="68" height="32" rx="8" fill="#0d1526" stroke="#2b4a86"/>
+<text x="0" y="-1" font-family="Inter,Segoe UI,sans-serif" font-size="10" fill="#6b7896" text-anchor="middle">4,99 €</text>
+<path d="M-16 -4H16" stroke="#f87171" stroke-width="1.6" stroke-dasharray="32" stroke-dashoffset="32"><animate attributeName="stroke-dashoffset" values="32;32;0;0;32" keyTimes="0;.2;.35;.9;1" dur="4s" repeatCount="indefinite"/></path>
+<text x="0" y="12" font-family="Inter,Segoe UI,sans-serif" font-weight="800" font-size="11" fill="#34d399" text-anchor="middle" opacity="0">4,49 €<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.35;.45;.9;1" dur="4s" repeatCount="indefinite"/></text></g></g></svg><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.5"/></svg></div><b class="gr">−<span class="cu" data-to="10">10</span> %</b><span>Rabatt für deine Zuschauer</span></div>
+<div><svg class="ka" viewBox="0 0 120 90" fill="none"><path d="M10 74 L35 60 L55 66 L80 40 L110 22" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="130" stroke-dashoffset="130"><animate attributeName="stroke-dashoffset" values="130;0;0;130" keyTimes="0;.5;.9;1" dur="4s" repeatCount="indefinite"/></path>
+<circle cx="110" cy="22" r="4" fill="#34d399" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.48;.52;.9;1" dur="4s" repeatCount="indefinite"/></circle>
+<circle cx="110" cy="22" r="4" stroke="#34d399" opacity="0"><animate attributeName="r" values="4;14" dur="1.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;0" dur="1.2s" repeatCount="indefinite"/></circle></svg><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div><b class="gr">Live</b><span>Verkäufe und Verdienst auf deiner eigenen Seite</span></div>
 </div>
 </div>
 
@@ -194,7 +216,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 <div class="calc">
 <div><h2>Was du <span class="gr">verdienen</span> kannst</h2><p class="sub">Beispiel: Deine Zuschauer kaufen das Monats-Abo (4,49 € mit deinem Code).</p>
 <label for="cN">Verkäufe im Monat: <span class="n" id="cNv">20</span></label>
-<input type="range" id="cN" min="1" max="200" value="20"></div>
+<input type="range" id="cN" min="0" max="200" step="10" value="20"></div>
 <div class="out"><small>Dein Verdienst pro Monat</small><b class="gr" id="cOut">22,45 €</b><small>25 % von jedem Kauf</small></div>
 </div>
 </div>
@@ -290,8 +312,16 @@ async function dash() {
     $("sPayList").innerHTML = "<table>" + r.zahlungen.slice().reverse().map(z => `<tr><td>${esc(datum(z.zeit))}</td><td class="r"><b>${eur(z.betrag)}</b></td></tr>`).join("") + "</table>" }
 }
 if (TOK) dash();
-const cN = $("cN"), cTick = () => { $("cNv").textContent = cN.value; $("cOut").textContent = eur(cN.value * 4.49 * .25) };
-cN.oninput = cTick; cTick();
+const cN = $("cN"), cO = $("cOut"); let cCur = 0, cRaf = 0, cAuto = 0;
+const cTo = (v) => { const a = cCur, t0 = performance.now(); cancelAnimationFrame(cRaf);
+  (function f(n){ const k = Math.min(1,(n-t0)/600); cCur = a + (v-a)*(1-Math.pow(1-k,3)); cO.textContent = eur(cCur); if (k<1) cRaf = requestAnimationFrame(f) })(t0);
+  cO.classList.remove("pop"); void cO.offsetWidth; cO.classList.add("pop");
+};
+const cTick = () => { $("cNv").textContent = cN.value; cN.style.setProperty("--p", (cN.value/2)+"%"); cTo(cN.value * 4.49 * .25) };
+cN.oninput = () => { cAuto = -1; cTick() }; cTick();
+if ("IntersectionObserver" in window) { const io = new IntersectionObserver(e => { if (!e[0].isIntersecting) return; io.disconnect();
+  let v = 0; (function run(){ if (cAuto < 0) return; cN.value = v; cTick(); v += 10; if (v <= 200) setTimeout(run, 650); else setTimeout(() => { if (cAuto >= 0) { cN.value = 20; cTick() } }, 2500) })() }, {threshold:.5}); io.observe(cO) }
 </script>
+<script>(function(){var e=document.querySelectorAll('.kp .cu');if(!e.length||!('IntersectionObserver' in window))return;var o=new IntersectionObserver(function(l){l.forEach(function(x){if(!x.isIntersecting)return;o.unobserve(x.target);var t=+x.target.dataset.to,s=performance.now();(function f(n){var k=Math.min(1,(n-s)/1200);x.target.textContent=Math.round(t*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(s)})});e.forEach(function(x){o.observe(x)})})();</script>
 </body>
 </html>
