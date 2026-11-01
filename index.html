@@ -485,7 +485,7 @@ footer a:hover{color:var(--txt)}
 
 <footer><div class="wrap">
   <div>© 2026 Game Booster VPN. Nicht mit Activision verbunden.</div>
-  <div class="flk"><a href="updates.html">Updates</a><a href="#einloesen">Bestellung einlösen</a><a href="#bewertungen">Bewertungen</a><a href="recht.html#agb">AGB</a><a href="recht.html#widerruf">Widerruf</a><a href="recht.html#impressum">Impressum</a><a href="recht.html#datenschutz">Datenschutz</a></div>
+  <div class="flk"><a href="updates.html">Updates</a><a href="#einloesen">Bestellung einlösen</a><a href="#bewertungen">Bewertungen</a><a href="creator.html">Creator werden</a><a href="recht.html#agb">AGB</a><a href="recht.html#widerruf">Widerruf</a><a href="recht.html#impressum">Impressum</a><a href="recht.html#datenschutz">Datenschutz</a></div>
   
 </div></footer>
 
@@ -752,6 +752,7 @@ document.querySelectorAll("[data-plan]").forEach(b => b.onclick = () => {
   rabShow();
   document.getElementById("bForm").hidden = false; document.getElementById("bDone").hidden = true;
   bOk.checked = false; gate(); buy.classList.add("on"); render();
+  if (REF && !plan.rab) { document.getElementById("bRab").value = REF; document.getElementById("bRabGo").click() }
   if (promoOn()) { document.getElementById("bRab").value = PROMO.code; document.getElementById("bRabGo").click() }
 });
 // Aktion oben bei den Preisen (Code muss im Freunde-Tab angelegt sein; nach Ablauf blendet sich das Banner selbst aus)
@@ -787,6 +788,9 @@ document.getElementById("bRabGo").onclick = async () => {
   } catch (e) { m.className = "rbm no"; m.textContent = "Server nicht erreichbar – bitte später nochmal." }
   rabShow(); render();
 };
+// Creator-Link (?c=CODE): Code merken und beim Kauf automatisch eintragen
+const REF = (() => { try { const c = (new URLSearchParams(location.search).get("c") || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 16);
+  if (c) sessionStorage.setItem("gbRef", c); return c || sessionStorage.getItem("gbRef") || "" } catch (e) { return "" } })();
 document.getElementById("bRab").onkeydown = e => { if (e.key === "Enter") document.getElementById("bRabGo").click() };
 const close = () => buy.classList.remove("on");
 document.getElementById("bX").onclick = close; document.getElementById("bClose").onclick = close;
