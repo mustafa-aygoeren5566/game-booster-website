@@ -17,7 +17,7 @@ a{color:var(--blue2);text-decoration:none}a:hover{text-decoration:underline}
 .top{position:sticky;top:0;z-index:5;border-bottom:1px solid var(--line);padding:14px 20px;background:rgba(5,7,13,.75);backdrop-filter:blur(14px)}
 .top .in{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;letter-spacing:-.02em;color:var(--txt)}.logo:hover{text-decoration:none}.logo b{display:grid;place-items:center;width:52px;height:52px;border-radius:12px;overflow:hidden;background:#000;border:1px solid rgba(59,130,246,.35);box-shadow:0 0 24px rgba(59,130,246,.35)}.logo b img{width:100%;height:100%;object-fit:cover;transform:scale(1.3) translateY(2%)}.logo span em{font-style:normal;color:var(--blue2)}
-.back{color:var(--mut);font-weight:600;font-size:14px}.back:hover{color:var(--txt);text-decoration:none}
+.back{padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--txt);font-weight:600;font-size:13.5px}.back:hover{border-color:#2b4a86;text-decoration:none}
 main{max-width:1000px;margin:0 auto;padding:0 20px 90px}
 .hero{position:relative;text-align:center;padding:76px 0 30px}
 .hero:before{content:"";position:absolute;left:50%;top:-80px;width:min(900px,100vw);height:560px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(37,99,235,.32),transparent);pointer-events:none;z-index:-1}
@@ -54,6 +54,39 @@ p,li{color:#c3cce0}small{color:var(--mut)}
 #cOut.pop{animation:pop .25s ease}@keyframes pop{40%{transform:scale(1.08);filter:drop-shadow(0 0 14px rgba(96,165,250,.7))}}
 .out .coin{position:absolute;bottom:18px;font-style:normal;font-weight:900;font-size:16px;color:#34d399;pointer-events:none;animation:coin 1.4s ease-out forwards}
 @keyframes coin{from{transform:translateY(0);opacity:0}20%{opacity:1}to{transform:translateY(-110px);opacity:0}}
+#top{overflow:hidden}
+.lbh{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.lblive{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);font-size:12px;font-weight:700;color:var(--mut)}
+.lblive i{width:7px;height:7px;border-radius:50%;background:#f87171;animation:blk 1.6s ease-in-out infinite}@keyframes blk{50%{opacity:.25}}
+.pod{display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:end;gap:14px;margin-top:30px}
+.pd{display:flex;flex-direction:column;align-items:center;text-align:center;opacity:0;transform:translateY(24px)}
+.pod.on .pd{animation:pin .7s cubic-bezier(.2,.8,.2,1) forwards}.pod.on .p1{animation-delay:.35s}.pod.on .p3{animation-delay:.18s}
+@keyframes pin{to{opacity:1;transform:none}}
+.pd .av{position:relative;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:22px;color:#fff;margin-bottom:10px;background:linear-gradient(135deg,#1d3a73,#0f1b33);border:2px solid #2b4a86}
+.p1 .av{width:82px;height:82px;font-size:28px;border-color:#fbbf24;box-shadow:0 0 0 6px rgba(251,191,36,.08),0 0 40px -6px rgba(251,191,36,.55);animation:glo 3s ease-in-out infinite}
+@keyframes glo{50%{box-shadow:0 0 0 10px rgba(251,191,36,.04),0 0 60px -4px rgba(251,191,36,.7)}}
+.p2 .av{border-color:#cbd5e1}.p3 .av{border-color:#d97706}
+.pd .cr{position:absolute;top:-24px;left:50%;width:30px;margin-left:-15px;color:#fbbf24;animation:cr 2.6s ease-in-out infinite}@keyframes cr{50%{transform:translateY(-4px) rotate(-6deg)}}
+.pd b{font-family:ui-monospace,Consolas,monospace;font-size:15px;letter-spacing:.04em}
+.pd small{color:var(--mut);font-size:12.5px;margin:2px 0 12px}
+.pd .bl{width:100%;border-radius:14px 14px 0 0;display:grid;place-items:start center;padding-top:12px;font-size:30px;font-weight:900;color:rgba(255,255,255,.9);height:0;transition:height 1s cubic-bezier(.2,.8,.2,1);position:relative;overflow:hidden}
+.pd .bl:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.12) 50%,transparent 70%);transform:translateX(-100%);animation:shn 3.5s ease-in-out infinite}
+@keyframes shn{60%,100%{transform:translateX(100%)}}
+.p1 .bl{background:linear-gradient(180deg,rgba(251,191,36,.35),rgba(251,191,36,.05));border:1px solid rgba(251,191,36,.4);border-bottom:0}
+.p2 .bl{background:linear-gradient(180deg,rgba(203,213,225,.22),rgba(203,213,225,.03));border:1px solid rgba(203,213,225,.3);border-bottom:0}
+.p3 .bl{background:linear-gradient(180deg,rgba(217,119,6,.28),rgba(217,119,6,.04));border:1px solid rgba(217,119,6,.35);border-bottom:0}
+.pod.on .p1 .bl{height:150px}.pod.on .p2 .bl{height:110px}.pod.on .p3 .bl{height:84px}
+.lbr{border-top:1px solid var(--line)}
+.lbr div{display:flex;align-items:center;gap:14px;padding:13px 6px;border-bottom:1px solid var(--line);opacity:0;transform:translateX(-14px);transition:.5s}
+.lbr.on div{opacity:1;transform:none}.lbr.on div:nth-child(2){transition-delay:.12s}
+.lbr i{font-style:normal;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:#0f1b33;color:var(--mut);font-weight:800;font-size:13px}
+.lbr b{flex:1;font-family:ui-monospace,Consolas,monospace;letter-spacing:.04em}
+.lbr span{color:var(--blue2);font-weight:800;font-size:14px}
+.tgl{display:flex;align-items:center;gap:12px;cursor:pointer;margin-top:6px}.tgl input{display:none}
+.tgl s{width:42px;height:24px;border-radius:99px;background:#1a2540;position:relative;transition:.2s;flex:none}
+.tgl s:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#8b96ad;transition:.2s}
+.tgl input:checked+s{background:#2563eb}.tgl input:checked+s:after{left:21px;background:#fff}
+@media(max-width:640px){.pod{gap:8px}.pd .av{width:50px;height:50px;font-size:18px}.p1 .av{width:62px;height:62px}.pd b{font-size:12px}.pod.on .p1 .bl{height:120px}.pod.on .p2 .bl{height:88px}.pod.on .p3 .bl{height:66px}.lbh{flex-direction:column}}
 .kp b{display:block;font-size:34px;font-weight:900;letter-spacing:-.03em;line-height:1.1}
 .kp span{font-size:13.5px;color:var(--mut)}
 .card{padding:34px;margin-top:22px}
@@ -221,6 +254,13 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 </div>
 </div>
 
+<div class="card sec hide" id="top">
+<div class="lbh"><div><h2>Top <span class="gr">Creator</span> im <span id="tMon"></span></h2><p class="sub">Die meisten Verkäufe diesen Monat. Jeden Monat startet alles neu, deine Chance.</p></div>
+<span class="lblive"><i></i>Live</span></div>
+<div class="pod" id="tPod"></div>
+<div class="lbr" id="tRest"></div>
+</div>
+
 <div class="card sec" id="anmelden">
 <h2>Jetzt <span class="gr">anmelden</span></h2><p class="sub">Dauert eine Minute. Kostenlos, keine Mindestzahlen.</p>
 <form id="f" novalidate><div class="fwrap">
@@ -258,6 +298,9 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 <div id="sList"></div>
 <p style="margin-top:12px"><small>Aus Datenschutzgründen siehst du nicht, wer gekauft hat. <b>Wartet</b> = noch in der 14-tägigen Widerrufsfrist, <b>frei</b> = auszahlbar, <b>storniert</b> = erstattet, keine Provision.</small></p>
 </section>
+<section id="sTop" class="card hide"><h2>Rangliste</h2>
+<label class="tgl"><input type="checkbox" id="sTopOn"><s></s><span>Meinen Code in der Top-Creator-Rangliste zeigen</span></label>
+<p style="margin-top:8px"><small>Gezeigt werden nur dein Code und die Zahl deiner Verkäufe in diesem Monat, nie dein Verdienst.</small></p></section>
 <section id="sPay" class="card hide"><h2>Auszahlungen</h2><div id="sPayList"></div></section>
 <p style="margin-top:20px"><small>Fragen? Schreib uns auf <a href="https://discord.gg/3T6rHxZGQn" target="_blank" rel="noopener">Discord</a> oder an <a href="mailto:mustafa-aygoeren@web.de">mustafa-aygoeren@web.de</a>.</small></p>
 </div>
@@ -304,6 +347,10 @@ async function dash() {
     const ref = location.origin + "/?c=" + r.code;
     $("sLinkBox").classList.remove("hide"); $("sCode").textContent = r.code; $("sRab").textContent = r.rabatt; $("sRef").textContent = ref;
     $("sCopy").onclick = () => copy(ref, $("sCopy"));
+    $("sTop").classList.remove("hide"); const tg = $("sTopOn"); tg.checked = !r.versteckt;
+    tg.onchange = async () => { tg.disabled = true;
+      try { const q = await (await fetch(SHOP_API + "/api/partner/sicht", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ t: TOK, zeigen: tg.checked }) })).json(); if (!q.ok) tg.checked = !tg.checked }
+      catch (x) { tg.checked = !tg.checked } tg.disabled = false };
   }
   $("sList").innerHTML = r.list.length ? `<table><tr><th>Datum</th><th>Abo</th><th class="r">Kauf</th><th class="r">Deins</th><th></th></tr>` +
     r.list.map(x => `<tr><td>${esc(datum(x.zeit))}</td><td>${esc(x.dauer)}</td><td class="r">${eur(x.betrag)}</td><td class="r"><b>${eur(x.prov)}</b></td><td class="r"><span class="st ${esc(x.st)}">${esc(x.st)}</span></td></tr>`).join("") + "</table>"
@@ -312,6 +359,21 @@ async function dash() {
     $("sPayList").innerHTML = "<table>" + r.zahlungen.slice().reverse().map(z => `<tr><td>${esc(datum(z.zeit))}</td><td class="r"><b>${eur(z.betrag)}</b></td></tr>`).join("") + "</table>" }
 }
 if (TOK) dash();
+async function ranking() {
+  let r; const demo = /[?&]demo=top/.test(location.search);
+  if (demo) r = { list: [{code:"SUNNY",n:42},{code:"KILLERX",n:31},{code:"WZ_PRO",n:18},{code:"LUCAA",n:9},{code:"NOVA",n:4}] };
+  else try { r = await (await fetch(SHOP_API + "/api/partner/top")).json() } catch (x) { return }
+  if (!r || !r.list || r.list.length < 3) return;
+  $("top").classList.remove("hide");
+  $("tMon").textContent = new Date().toLocaleDateString("de-DE", { month: "long" });
+  const cr = '<svg class="cr" viewBox="0 0 24 24" fill="currentColor"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg>';
+  const pd = (x, k) => x ? `<div class="pd p${k}"><div class="av">${k == 1 ? cr : ""}${esc(x.code[0])}</div><b>${esc(x.code)}</b><small>${x.n} Verkäufe</small><div class="bl">${k}</div></div>` : "<div></div>";
+  $("tPod").innerHTML = pd(r.list[1], 2) + pd(r.list[0], 1) + pd(r.list[2], 3);
+  $("tRest").innerHTML = r.list.slice(3).map((x, i) => `<div><i>${i + 4}</i><b>${esc(x.code)}</b><span>${x.n} Verkäufe</span></div>`).join("");
+  const io = new IntersectionObserver(e => { if (!e[0].isIntersecting) return; io.disconnect(); $("tPod").classList.add("on"); $("tRest").classList.add("on") }, { threshold: .3 });
+  io.observe($("tPod"));
+}
+if (!TOK && "IntersectionObserver" in window) ranking();
 const cN = $("cN"), cO = $("cOut"); let cCur = 0, cRaf = 0, cAuto = 0;
 const cTo = (v) => { const a = cCur, t0 = performance.now(); cancelAnimationFrame(cRaf);
   (function f(n){ const k = Math.min(1,(n-t0)/600); cCur = a + (v-a)*(1-Math.pow(1-k,3)); cO.textContent = eur(cCur); if (k<1) cRaf = requestAnimationFrame(f) })(t0);
