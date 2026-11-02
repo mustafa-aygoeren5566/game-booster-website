@@ -166,6 +166,13 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 .stp b{display:block;font-size:14px}.stp small{font-size:12.5px;line-height:1.4}
 @media(max-width:640px){.stp{grid-template-columns:1fr}.flow{padding:14px 8px 10px}}
 @media(prefers-reduced-motion:reduce){.flow .ln,.flow .pulse{animation:none!important}.stp div{animation:none!important;opacity:1;transform:none}}
+.stp div{position:relative;overflow:hidden}
+.stp div:after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--blue);transform:scaleX(0);transform-origin:left;animation:bar 6s linear infinite}
+.stp div:nth-child(2):after{animation-delay:2s}.stp div:nth-child(3):after{animation-delay:4s}
+@keyframes bar{0%{transform:scaleX(0);opacity:1}30%{transform:scaleX(1);opacity:1}33.3%,100%{transform:scaleX(1);opacity:0}}
+.stp i{animation:num 6s infinite}.stp div:nth-child(2) i{animation-delay:2s}.stp div:nth-child(3) i{animation-delay:4s}
+@keyframes num{0%,30%{background:var(--blue);color:#fff;transform:scale(1.08)}36%,100%{background:rgba(59,130,246,.14);color:var(--blue2);transform:none}}
+.stp b{transition:.3s}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -199,7 +206,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
   </svg></div>
   <div class="stp">
     <div><i>1</i><span><b>Zugang holen</b><small>ab 1,49 € · per PayPal</small></span></div>
-    <div><i>2</i><span><b>DNS eintragen</b><small>einmalig in den Netzwerk-Einstellungen</small></span></div>
+    <div><i>2</i><span><b>DNS eintragen</b><small>einmalig in den Einstellungen</small></span></div>
     <div><i>3</i><span><b>Schalter an</b><small>Spiel starten, Region Mumbai</small></span></div>
   </div>
 </section>
