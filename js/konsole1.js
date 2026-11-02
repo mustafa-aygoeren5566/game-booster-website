@@ -58,7 +58,19 @@ async function rabattPruefen() {
 $("kRabGo").onclick = rabattPruefen;
 $("kRab").onkeydown = e => { if (e.key === "Enter") rabattPruefen() };
 try { const c = (new URLSearchParams(location.search).get("c") || sessionStorage.getItem("gbRef") || "").toUpperCase().replace(/[^A-Z0-9_-]/g, "").slice(0, 24);
-  if (c) { $("kRab").value = c; rabattPruefen() } } catch (e) {}
+  autoRab(c) } catch (e) {}
+// Laufende Aktion wie auf der Startseite (gleicher Code/Zeitraum) automatisch eintragen; mit Link-Code den hoeheren nehmen
+async function autoRab(ref) {
+  const P = { code: "START10", bis: "2026-11-22" };
+  const cs = [...new Set([ref, new Date().toISOString().slice(0, 10) <= P.bis ? P.code : ""].filter(Boolean))];
+  if (!cs.length) return;
+  let best = cs[0];
+  if (cs.length > 1) {
+    const pct = await Promise.all(cs.map(c => fetch(API + "/api/rabatt?c=" + encodeURIComponent(c)).then(r => r.json()).then(r => r.ok ? r.pct : 0).catch(() => 0)));
+    best = cs[pct.indexOf(Math.max(...pct))];
+  }
+  $("kRab").value = best; rabattPruefen();
+}
 document.querySelectorAll(".plans button").forEach(b => b.onclick = () => {
   document.querySelectorAll(".plans button").forEach(x => x.classList.toggle("on", x === b)); plan = { v: b.dataset.v, n: b.dataset.n }; zeichne();
 });
