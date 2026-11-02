@@ -13,7 +13,7 @@ async function frei(an) {
     const r = await (await fetch(API + "/api/konsole/frei", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(an === undefined ? { token: tok } : { token: tok, an }) })).json();
     if (!r.ok) { $("kBox").hidden = true; msg(r.msg === "Zugang abgelaufen" ? "Dein Zugang ist am " + datum(r.bis) + " abgelaufen – unten verlängern." : r.msg === "Code unbekannt" ? "Diesen Code kennen wir nicht." : r.msg, "bad"); return }
     store.set(tok); $("kBox").hidden = false;
-    $("kSt").classList.toggle("on", r.an); karte(r.an);
+    $("kSt").classList.toggle("on", r.an); karte(r.an); $("kOn").hidden = r.an; $("kOff").hidden = !r.an;
     $("kStT").textContent = r.an ? "Mumbai-Lobbys AN" : "Aus";
     $("kStS").textContent = "Zugang bis " + datum(r.bis) + (r.an ? " · für dieses Netz freigeschaltet" : r.ip_alt && r.ip_alt !== r.ip ? " · zuletzt in einem anderen Netz an – hier nochmal einschalten" : "");
     msg(an === true ? "Eingeschaltet. Jetzt das Spiel neu starten." : an === false ? "Ausgeschaltet. Spiel neu starten, dann bist du wieder normal unterwegs." : "", "good");

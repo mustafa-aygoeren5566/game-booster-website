@@ -91,6 +91,27 @@
   });
   land.addEventListener("mouseleave", () => tip.style.opacity = 0);
   land.addEventListener("click", e => { const p = e.target.closest(".ct"); if (p && WORLD[p.dataset.i][0] !== SRV.iso) { tip.style.opacity = 0; setMe(WORLD[p.dataset.i][0], 1100) } });
+  // Zoom: Mausrad, +/-, Ziehen zum Verschieben, Doppelklick
+  function zoomBei(f, px, py) {
+    anim++; const w = Math.min(720, Math.max(60, vb[2] * f)), h = w * 330 / 720;
+    vb = [px - (px - vb[0]) * w / vb[2], py - (py - vb[1]) * h / vb[3], w, h];
+    svg.setAttribute("viewBox", vb.join(" ")); pins(w / 720); flz(w / 720)
+  }
+  function punkt(e) { const r = svg.getBoundingClientRect(); return [vb[0] + (e.clientX - r.left) / r.width * vb[2], vb[1] + (e.clientY - r.top) / r.height * vb[3]] }
+  svg.addEventListener("wheel", e => { e.preventDefault(); const [x, y] = punkt(e); zoomBei(e.deltaY < 0 ? .8 : 1.25, x, y) }, { passive: false });
+  svg.addEventListener("dblclick", e => { const [x, y] = punkt(e); zoomBei(.5, x, y) });
+  const knopf = (id, f) => { const b = document.getElementById(id); if (b) b.onclick = () => zoomBei(f, vb[0] + vb[2] / 2, vb[1] + vb[3] / 2) };
+  knopf("vzIn", .6); knopf("vzOut", 1.6);
+  let zug = null, gezogen = false;
+  svg.addEventListener("pointerdown", e => { zug = [e.clientX, e.clientY, vb[0], vb[1]]; gezogen = false });
+  addEventListener("pointermove", e => {
+    if (!zug) return; const dx = e.clientX - zug[0], dy = e.clientY - zug[1];
+    if (!gezogen && Math.hypot(dx, dy) < 5) return; gezogen = true; svg.classList.add("zieh"); anim++;
+    const r = svg.getBoundingClientRect(); vb[0] = zug[2] - dx / r.width * vb[2]; vb[1] = zug[3] - dy / r.height * vb[3];
+    svg.setAttribute("viewBox", vb.join(" "))
+  });
+  addEventListener("pointerup", () => { zug = null; svg.classList.remove("zieh") });
+  svg.addEventListener("click", e => { if (gezogen) { e.stopPropagation(); gezogen = false } }, true);
   document.getElementById("vzReset").onclick = () => { anim++; vb = [0, 0, 720, 330]; svg.setAttribute("viewBox", vb.join(" ")); pins(1); flz(1) };
   ME = { x: 380, y: 68 }; pins(1);
   setTimeout(() => setMe(me, 1800), 700);

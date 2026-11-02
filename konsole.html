@@ -294,6 +294,14 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 .viz{box-shadow:none;margin-top:12px}.viz .ct.blk{fill:#1d3157;animation:none}.viz .fl.off{opacity:.85;filter:none}.viz .fl.off .fr{stroke:#0a1224}
 .viz.off #vzTop>path,.viz.off #vzTop>circle[fill="#fff"],.viz.off #vzTop>circle[fill="url(#gg)"]{opacity:0}.viz.off .ct.srv{fill:#1d3157}
 .viz.off .vz-top .live{background:rgba(148,163,184,.1);color:var(--mut)}.viz.off .vz-top .live i{background:#64748b;box-shadow:none;animation:none}
+.viz .vz-hint{border-width:1px 0 0;border-radius:0;padding:8px 10px 8px 14px;backdrop-filter:none;background:#080d1a}
+.vzz{margin-left:auto;display:flex;gap:6px}.vzz button{margin:0!important;min-width:30px}.viz svg{cursor:grab;touch-action:none}.viz svg.zieh{cursor:grabbing}
+.kctl{display:flex;align-items:center;gap:14px;margin-top:14px;padding:14px 14px 14px 18px;border-radius:18px;border:1px solid var(--line);background:#070b14;transition:border-color .3s}
+.kctl .dot{width:12px;height:12px;border-radius:50%;background:#475569;flex:none}.kctl.on{border-color:rgba(52,211,153,.45);background:linear-gradient(90deg,rgba(52,211,153,.07),#070b14 60%)}
+.kctl.on .dot{background:var(--ok);box-shadow:0 0 0 4px rgba(52,211,153,.18)}.kst{flex:1;min-width:0}.kst b{display:block;font-size:17px}.kst small{display:block;margin-top:2px;font-size:13px}
+.kctl .btn{flex:none;width:auto;margin:0;padding-left:24px;padding-right:24px}
+@media(max-width:640px){.kctl{flex-wrap:wrap}.kctl .btn{flex:1 1 100%}}
+.vzh{font-style:normal}@media(max-width:640px){.vzh{display:none}.viz .vz-hint{font-size:12.5px}}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -361,9 +369,8 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
   <p class="sub">Code eingeben – entweder den Konsolen-Code (K…) aus deinem Kauf oder deinen App-Code (GB-…), falls du schon PC-Kunde bist.</p>
   <div class="kz"><div class="row"><input type="text" id="kTok" placeholder="K… oder GB-…" autocomplete="off" spellcheck="false"><button class="btn" id="kCheck">Prüfen</button></div></div>
   <div id="kBox" hidden>
-    <div class="st" id="kSt"><span class="dot"></span><div><b id="kStT">Aus</b><br><small id="kStS"></small></div></div>
     <div class="viz off" id="kMap">
-    <div class="vz-top"><div class="dots"><i></i><i></i><i></i></div><b>Konsole</b> · Live-Ansicht<span class="live"><i></i><span id="kMs">Aus</span></span></div>
+    <div class="vz-top"><div class="dots"><i></i><i></i><i></i></div><b>Konsole</b><em class="vzh"> · Live-Ansicht</em><span class="live"><i></i><span id="kMs">Aus</span></span></div>
     <div class="vz-map"><svg id="vzSvg" viewBox="0 0 720 330" fill="none">
       <defs>
         <radialGradient id="gl"><stop offset="0" stop-color="#3b82f6" stop-opacity=".5"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
@@ -373,9 +380,9 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
       </defs>
       <rect x="-200" y="-100" width="1120" height="500" fill="url(#grid)"/>
       <g id="vzLand"></g><g id="vzFl"></g><g id="vzTop"></g>
-    </svg><div id="vzTip"></div><div class="vz-hint"><span>Spielst du aus <b id="vzWho">…</b>?</span> Klick auf ein Land für deine Vorschau<button type="button" id="vzReset" title="Ganze Welt">Welt</button></div></div>
+    </svg><div id="vzTip"></div><div class="vz-hint"><span>Spielst du aus <b id="vzWho">…</b>?</span><em class="vzh">Klick auf ein Land für deine Vorschau</em><span class="vzz"><button type="button" id="vzIn" title="Reinzoomen">+</button><button type="button" id="vzOut" title="Rauszoomen">−</button><button type="button" id="vzReset" title="Ganze Welt">Welt</button></span></div></div>
     </div>
-    <div class="kz"><button class="btn pr big" id="kOn">Mumbai-Lobbys einschalten</button><button class="btn big" id="kOff">Ausschalten</button></div>
+    <div class="kctl" id="kSt"><span class="dot"></span><div class="kst"><b id="kStT">Aus</b><small id="kStS"></small></div><button class="btn pr big" id="kOn">Mumbai-Lobbys einschalten</button><button class="btn big" id="kOff" hidden>Ausschalten</button></div>
     <p class="note"><small><b>Wichtig:</b> Drück den Knopf mit dem Handy <b>im selben WLAN wie deine Konsole</b> (nicht über mobile Daten). Danach das Spiel neu starten. Wenn dein Internet eine neue Adresse bekommt (bei vielen Anbietern nachts), einfach diese Seite öffnen und nochmal einschalten.</small></p>
   </div>
   <div class="msg" id="kMsg"></div>
@@ -406,7 +413,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 </section>
 </main>
 <script src="world.js?v=4"></script>
-<script src="js/karte1.js?v=1"></script>
-<script src="js/konsole1.js?v=3"></script>
+<script src="js/karte1.js?v=2"></script>
+<script src="js/konsole1.js?v=4"></script>
 </body>
 </html>
