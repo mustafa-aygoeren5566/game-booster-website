@@ -198,6 +198,14 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 .a3 .sw{width:40px;height:22px;border-radius:99px;background:#1f2937;position:relative;animation:swb 6s infinite}.a3 .sw span{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#cbd5e1;animation:swk 6s infinite}
 @keyframes swb{0%,72%{background:#1f2937}78%,95%{background:var(--ok)}100%{background:#1f2937}}@keyframes swk{0%,72%{transform:none}78%,95%{transform:translateX(18px);background:#fff}100%{transform:none}}
 @media(min-width:641px){.stp div{flex-wrap:wrap;align-content:flex-start}.stp .an{flex-basis:100%;justify-items:start;margin:4px 0 0 46px;height:32px}.stp .an.a2{flex-basis:auto;height:auto}}
+.stp .a2{display:flex!important;align-items:center;gap:0;padding:6px 10px;border-radius:9px;border:1px solid #1e3a6e;background:#050810;min-width:0;height:auto!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.03);animation:fb 6s infinite}
+.a2 b{font:800 9.5px Inter,system-ui;letter-spacing:.08em;color:var(--mut);margin-right:8px;padding-right:8px;border-right:1px solid var(--line)}
+.a2 .ty{display:block;font:700 13px/1.2 ui-monospace,Consolas,monospace;color:#e2e8f0;white-space:nowrap;overflow:hidden;border:0!important;width:0;animation:ty2 6s steps(12,end) infinite}
+.a2 .cr{width:2px;height:14px;margin-left:1px;background:var(--blue2);animation:bl .7s steps(1) infinite}
+.a2 .ok2{width:15px;height:15px;margin-left:6px;fill:none;stroke:var(--ok);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;opacity:0;animation:ok2 6s infinite}
+@keyframes ty2{0%,36%{width:0}58%,95%{width:12ch}100%{width:0}}@keyframes bl{50%{opacity:0}}
+@keyframes ok2{0%,60%{opacity:0}64%,95%{opacity:1}100%{opacity:0}}
+@keyframes fb{0%,34%{border-color:#1e3a6e}38%,60%{border-color:var(--blue)}64%,95%{border-color:rgba(52,211,153,.5)}100%{border-color:#1e3a6e}}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -249,7 +257,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
   </svg></div>
   <div class="stp">
     <div><i>1</i><span><b>Zugang holen</b><small>ab 1,49 € · per PayPal</small></span><em class="an a1"><svg viewBox="0 0 44 32"><rect x="2" y="5" width="40" height="24" rx="5"/><path d="M2 12h40"/><circle class="ck" cx="34" cy="22" r="8"/><path class="ckp" d="M30.5 22l2.5 2.5 4.5-5"/></svg></em></div>
-    <div><i>2</i><span><b>DNS eintragen</b><small>einmalig in den Einstellungen</small></span><em class="an a2"><span class="ty">65.20.95.163</span></em></div>
+    <div><i>2</i><span><b>DNS eintragen</b><small>einmalig in den Einstellungen</small></span><em class="an a2"><b>DNS</b><span class="ty">65.20.95.163</span><i class="cr"></i><svg class="ok2" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-6.5"/></svg></em></div>
     <div><i>3</i><span><b>Schalter an</b><small>Spiel starten, Region Mumbai</small></span><em class="an a3"><span class="sw"><span></span></span></em></div>
   </div>
 </section>
