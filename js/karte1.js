@@ -109,7 +109,11 @@
     svg.setAttribute("viewBox", vb.join(" ")); pins(w / 720); flz(w / 720)
   }
   function punkt(e) { const r = svg.getBoundingClientRect(); return [vb[0] + (e.clientX - r.left) / r.width * vb[2], vb[1] + (e.clientY - r.top) / r.height * vb[3]] }
-  svg.addEventListener("wheel", e => { e.preventDefault(); const [x, y] = punkt(e); zoomBei(e.deltaY < 0 ? .8 : 1.25, x, y) }, { passive: false });
+  // Mausrad zoomt nur, wenn man nicht gerade die Seite scrollt (sonst bleibt das Scrollen an der Karte hängen)
+  let seiteZeit = 0, zoomZeit = 0;
+  addEventListener("scroll", () => { if (performance.now() - zoomZeit > 300) seiteZeit = performance.now() }, { passive: true });
+  addEventListener("wheel", e => { if (!svg.contains(e.target)) seiteZeit = performance.now() }, { passive: true, capture: true });
+  svg.addEventListener("wheel", e => { if (performance.now() - seiteZeit < 700) { seiteZeit = performance.now(); return } zoomZeit = performance.now(); e.preventDefault(); const [x, y] = punkt(e); zoomBei(e.deltaY < 0 ? .8 : 1.25, x, y) }, { passive: false });
   // Handy: mit zwei Fingern zoomen (ein Finger scrollt die Seite wie gewohnt)
   let pinch = null;
   const mitte = t => ({ clientX: (t[0].clientX + t[1].clientX) / 2, clientY: (t[0].clientY + t[1].clientY) / 2 });
