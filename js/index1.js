@@ -214,9 +214,19 @@ document.querySelectorAll("[data-plan]").forEach(b => b.onclick = () => {
   rabShow();
   document.getElementById("bForm").hidden = false; document.getElementById("bDone").hidden = true;
   bOk.checked = false; gate(); buy.classList.add("on"); render();
-  if (REF && !plan.rab) { document.getElementById("bRab").value = REF; document.getElementById("bRabGo").click() }
-  if (promoOn()) { document.getElementById("bRab").value = PROMO.code; document.getElementById("bRabGo").click() }
+  autoRab();
 });
+// Link-Code (?c=, z. B. Tagesbonus aus der App) und laufende Aktion: den hoeheren Rabatt eintragen, nicht beide gegeneinander
+async function autoRab() {
+  const cs = [...new Set([REF, promoOn() ? PROMO.code : ""].filter(Boolean))];
+  if (!cs.length) return;
+  let best = cs[0];
+  if (cs.length > 1 && SHOP_API) {
+    const pct = await Promise.all(cs.map(c => fetch(SHOP_API + "/api/rabatt?c=" + encodeURIComponent(c)).then(r => r.json()).then(r => r.ok ? r.pct : 0).catch(() => 0)));
+    best = cs[pct.indexOf(Math.max(...pct))];
+  }
+  document.getElementById("bRab").value = best; document.getElementById("bRabGo").click();
+}
 // Aktion oben bei den Preisen (Code muss im Freunde-Tab angelegt sein; nach Ablauf blendet sich das Banner selbst aus)
 const PROMO = { code: "START10", pct: 10, bis: "2026-11-22" };
 const promoOn = () => PROMO.code && new Date().toISOString().slice(0, 10) <= PROMO.bis;
