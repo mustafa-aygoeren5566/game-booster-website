@@ -307,6 +307,10 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 .viz .kctl.on{background:linear-gradient(90deg,rgba(16,48,40,.92),rgba(7,11,20,.9) 70%)}
 .viz .kctl .btn{padding:12px 20px;font-size:15px}
 @media(max-width:640px){.viz .kctl{position:static;max-width:none;border-radius:0;border-width:1px 0 0;box-shadow:none;backdrop-filter:none}}
+.kbis{margin-left:auto;margin-right:10px;font-size:12px;color:var(--mut);white-space:nowrap}.kbis b{color:var(--txt)}.viz .vz-top .live{margin-left:0}
+.vzz button.kon{padding:7px 16px;border:0;border-radius:9px;background:linear-gradient(180deg,#4f8dff,#2563eb);color:#fff;font-size:13px;box-shadow:0 6px 18px -6px rgba(37,99,235,.8)}
+.vzz button.kon.aus{background:#0f1b33;border:1px solid #2b4a86;color:#cfe0ff;box-shadow:none}.vzz{align-items:center}
+@media(max-width:640px){.kbis{font-size:11px;margin-right:6px}.viz .vz-hint{flex-wrap:wrap}.vzz{width:100%}.vzz button.kon{flex:1;padding:10px}}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -375,8 +379,8 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
   <div class="kz"><div class="row"><input type="text" id="kTok" placeholder="K… oder GB-…" autocomplete="off" spellcheck="false"><button class="btn" id="kCheck">Prüfen</button></div></div>
   <div id="kBox" hidden>
     <div class="viz off" id="kMap">
-    <div class="vz-top"><div class="dots"><i></i><i></i><i></i></div><b>Konsole</b><em class="vzh"> · Live-Ansicht</em><span class="live"><i></i><span id="kMs">Aus</span></span></div>
-    <div class="vz-map"><svg id="vzSvg" viewBox="0 0 720 330" fill="none">
+    <div class="vz-top"><div class="dots"><i></i><i></i><i></i></div><b>Konsole</b><em class="vzh"> · Live-Ansicht</em><span class="kbis" id="kStS"></span><span class="live"><i></i><span id="kMs">Aus</span></span></div>
+    <div class="vz-map"><svg id="vzSvg" viewBox="0 -35 720 400" fill="none">
       <defs>
         <radialGradient id="gl"><stop offset="0" stop-color="#3b82f6" stop-opacity=".5"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
         <radialGradient id="gg"><stop offset="0" stop-color="#34d399" stop-opacity=".45"/><stop offset="1" stop-color="#34d399" stop-opacity="0"/></radialGradient>
@@ -385,7 +389,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
       </defs>
       <rect x="-200" y="-100" width="1120" height="500" fill="url(#grid)"/>
       <g id="vzLand"></g><g id="vzFl"></g><g id="vzTop"></g>
-    </svg><div id="vzTip"></div><div class="kctl" id="kSt"><span class="dot"></span><div class="kst"><b id="kStT">Aus</b><small id="kStS"></small></div><button class="btn pr big" id="kOn">Mumbai-Lobbys einschalten</button><button class="btn big" id="kOff" hidden>Ausschalten</button></div><div class="vz-hint"><span>Spielst du aus <b id="vzWho">…</b>?</span><em class="vzh">Klick auf ein Land für deine Vorschau</em><span class="vzz"><button type="button" id="vzIn" title="Reinzoomen">+</button><button type="button" id="vzOut" title="Rauszoomen">−</button><button type="button" id="vzReset" title="Ganze Welt">Welt</button></span></div></div>
+    </svg><div id="vzTip"></div><div class="vz-hint"><span>Spielst du aus <b id="vzWho">…</b>?</span><em class="vzh">Klick auf ein Land für deine Vorschau</em><span class="vzz"><button class="kon" id="kOn">Mumbai-Lobbys einschalten</button><button class="kon aus" id="kOff" hidden>Ausschalten</button><button type="button" id="vzIn" title="Reinzoomen">+</button><button type="button" id="vzOut" title="Rauszoomen">−</button><button type="button" id="vzReset" title="Ganze Welt">Welt</button></span></div></div>
     </div>
     <p class="note"><small><b>Wichtig:</b> Drück den Knopf mit dem Handy <b>im selben WLAN wie deine Konsole</b> (nicht über mobile Daten). Danach das Spiel neu starten. Wenn dein Internet eine neue Adresse bekommt (bei vielen Anbietern nachts), einfach diese Seite öffnen und nochmal einschalten.</small></p>
   </div>
@@ -417,7 +421,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 </section>
 </main>
 <script src="world.js?v=4"></script>
-<script src="js/karte1.js?v=5"></script>
-<script src="js/konsole1.js?v=6"></script>
+<script src="js/karte1.js?v=6"></script>
+<script src="js/konsole1.js?v=7"></script>
 </body>
 </html>

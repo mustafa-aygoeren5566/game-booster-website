@@ -24,7 +24,8 @@
     return `<g class="fl" data-i="${i}" transform="translate(${CEN[i][0]} ${CEN[i][1]})"><clipPath id="k${c}"><circle r="${r}"/></clipPath><image href="flags/${c}.svg" x="${-r * 1.4}" y="${-r}" width="${r * 2.8}" height="${r * 2}" clip-path="url(#k${c})" preserveAspectRatio="xMidYMid slice"/><circle class="fr" r="${r}" stroke-width=".5"/></g>`
   }).join("");
   const FLG = {}; fl.querySelectorAll(".fl").forEach(g => FLG[g.dataset.i] = g);
-  let ME, vb = [0, 0, 720, 330];
+  const H = 400, WELT = [0, (330 - H) / 2, 720, H];   // etwas höher als die Startseiten-Karte
+  let ME, vb = WELT.slice();
   function pins(s) {
     const mx = (ME.x + SRV.x) / 2, my = Math.min(ME.y, SRV.y) - Math.hypot(SRV.x - ME.x, SRV.y - ME.y) * .25 - 6 * s, R = `M${ME.x} ${ME.y} Q ${mx} ${my} ${SRV.x} ${SRV.y}`;
     const flag = (c, x, y, col, lbl, cls) => `<g transform="translate(${x} ${y - 22 * s}) scale(${s})"><clipPath id="f${c}"><circle r="10"/></clipPath><image href="flags/${c}.svg" x="-14" y="-10" width="28" height="20" clip-path="url(#f${c})" preserveAspectRatio="xMidYMid slice"/><circle r="10.5" stroke="${col}" stroke-width="2"/>
@@ -74,7 +75,7 @@
     const nm = document.getElementById("vzWho"); if (nm) nm.textContent = WORLD[i0][lang];
     // eng auf dich zoomen, Server bleibt im Bild
     const x0 = Math.min(ME.x, SRV.x) - 60, x1 = Math.max(ME.x, SRV.x) + 90, y0 = Math.min(ME.y, SRV.y) - 50, y1 = Math.max(ME.y, SRV.y) + 40;
-    const w = Math.max(x1 - x0, (y1 - y0) * 720 / 330, 300), h = w * 330 / 720;
+    const w = Math.max(x1 - x0, (y1 - y0) * 720 / H, 300), h = w * H / 720;
     zoomTo([(x0 + x1) / 2 - w / 2, (y0 + y1) / 2 - h / 2, w, h], ms)
   }
   // Echt gemessen aus Deutschland (Game Booster, Geo-Fence aufs Land)
@@ -103,7 +104,7 @@
   function wahl(e) { const p = ziel(e); if (p && WORLD[p.dataset.i][0] !== SRV.iso) { tip.style.opacity = 0; setMe(WORLD[p.dataset.i][0], 1100) } }
   // Zoom: Mausrad, +/-, Doppelklick
   function zoomBei(f, px, py) {
-    anim++; const w = Math.min(720, Math.max(60, vb[2] * f)), h = w * 330 / 720;
+    anim++; const w = Math.min(720, Math.max(60, vb[2] * f)), h = w * H / 720;
     vb = [px - (px - vb[0]) * w / vb[2], py - (py - vb[1]) * h / vb[3], w, h];
     svg.setAttribute("viewBox", vb.join(" ")); pins(w / 720); flz(w / 720)
   }
@@ -112,7 +113,7 @@
   svg.addEventListener("dblclick", e => { const [x, y] = punkt(e); zoomBei(.5, x, y) });
   const knopf = (id, f) => { const b = document.getElementById(id); if (b) b.onclick = () => zoomBei(f, vb[0] + vb[2] / 2, vb[1] + vb[3] / 2) };
   knopf("vzIn", .6); knopf("vzOut", 1.6);
-  document.getElementById("vzReset").onclick = () => { anim++; vb = [0, 0, 720, 330]; svg.setAttribute("viewBox", vb.join(" ")); pins(1); flz(1) };
+  document.getElementById("vzReset").onclick = () => { anim++; vb = WELT.slice(); svg.setAttribute("viewBox", vb.join(" ")); pins(1); flz(1) };
   ME = { x: 380, y: 68 }; pins(1);
   setTimeout(() => setMe(me, 1800), 700);
 })();
