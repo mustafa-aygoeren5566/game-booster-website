@@ -41,6 +41,8 @@ function preiseZeigen() {
     const p = b.querySelector("b"); p.querySelector("s")?.remove();
     p.lastChild.textContent = eur(rab.pct ? rabPreis(b.dataset.v) : b.dataset.v); p.classList.toggle("neu", !!rab.pct);
     if (rab.pct) p.insertAdjacentHTML("afterbegin", `<s>${eur(b.dataset.v)}</s>`);
+    const t = { "4.99": 30, "12.99": 90, "39.99": 365 }[b.dataset.v], sm = b.querySelector("small");   // ≈ €/Tag mit dem echten (rabattierten) Preis
+    if (t && sm) sm.textContent = "≈ " + ((rab.pct ? +rabPreis(b.dataset.v) : +b.dataset.v) / t).toFixed(2).replace(".", ",") + " € / Tag";
   });
 }
 async function rabattPruefen() {
