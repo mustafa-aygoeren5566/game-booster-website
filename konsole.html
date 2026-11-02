@@ -180,6 +180,10 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 .plans button.on{box-shadow:0 0 0 1px var(--blue) inset}
 @media(max-width:640px){.plans{row-gap:18px}}
 .dns small{margin-bottom:8px;font-size:12px;text-transform:uppercase;letter-spacing:.08em}.dns code{display:inline-block;padding:6px 14px}
+.plans .rb{position:absolute;top:8px;right:8px;padding:1px 7px;border-radius:6px;font-size:10.5px;font-weight:800;background:#0f1d3a;color:#93c5fd;border:1px solid #1e3a6e}
+.plans .rb.g{background:rgba(52,211,153,.12);color:var(--ok);border-color:rgba(52,211,153,.4)}
+.plans button.best{border-color:rgba(52,211,153,.55)}.plans button.best.on{box-shadow:0 0 0 1px var(--ok) inset;border-color:var(--ok);background:rgba(52,211,153,.07)}
+.plans .bd.g{background:#0c2a20}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -234,8 +238,8 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
   <div class="plans">
     <button data-v="1.49" data-n="1 Tag">1 Tag<b>1,49 €</b><small>zum Testen</small></button>
     <button data-v="4.99" data-n="1 Monat" class="on"><span class="bd">Beliebt</span>1 Monat<b>4,99 €</b><small>≈ 0,17 € / Tag</small></button>
-    <button data-v="12.99" data-n="3 Monate"><span class="bd s">−13 %</span>3 Monate<b>12,99 €</b><small>≈ 0,14 € / Tag</small></button>
-    <button data-v="39.99" data-n="1 Jahr"><span class="bd g">Bester Preis</span>1 Jahr<b>39,99 €</b><small>≈ 0,11 € / Tag</small></button>
+    <button data-v="12.99" data-n="3 Monate"><span class="rb">−13 %</span>3 Monate<b>12,99 €</b><small>≈ 0,14 € / Tag</small></button>
+    <button data-v="39.99" data-n="1 Jahr" class="best"><span class="bd g">Bester Preis</span><span class="rb g">−33 %</span>1 Jahr<b>39,99 €</b><small>≈ 0,11 € / Tag</small></button>
   </div>
   <label class="chk"><input type="checkbox" id="kOk"><span><small>Ich verlange ausdrücklich, dass mein Zugang sofort – also vor Ablauf der 14-tägigen Widerrufsfrist – freigeschaltet wird. Mir ist bekannt, dass ich bei einem Widerruf die bis dahin genutzte Zeit anteilig bezahle und mein Widerrufsrecht bei vollständiger Leistung erlischt. Es gelten die <a href="recht.html#agb" target="_blank">AGB</a> und die <a href="recht.html#widerruf" target="_blank">Widerrufsbelehrung</a>.</small></span></label>
   <div class="msg" id="ppMsg">Bitte noch den Haken setzen.</div>
