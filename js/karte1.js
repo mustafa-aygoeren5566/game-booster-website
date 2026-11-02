@@ -24,7 +24,7 @@
     return `<g class="fl" data-i="${i}" transform="translate(${CEN[i][0]} ${CEN[i][1]})"><clipPath id="k${c}"><circle r="${r}"/></clipPath><image href="flags/${c}.svg" x="${-r * 1.4}" y="${-r}" width="${r * 2.8}" height="${r * 2}" clip-path="url(#k${c})" preserveAspectRatio="xMidYMid slice"/><circle class="fr" r="${r}" stroke-width=".5"/></g>`
   }).join("");
   const FLG = {}; fl.querySelectorAll(".fl").forEach(g => FLG[g.dataset.i] = g);
-  const H = 400, WELT = [0, (330 - H) / 2, 720, H];   // etwas höher als die Startseiten-Karte
+  const H = 470, WELT = [0, (330 - H) / 2, 720, H];   // etwas höher als die Startseiten-Karte
   let ME, vb = WELT.slice();
   function pins(s) {
     const mx = (ME.x + SRV.x) / 2, my = Math.min(ME.y, SRV.y) - Math.hypot(SRV.x - ME.x, SRV.y - ME.y) * .25 - 6 * s, R = `M${ME.x} ${ME.y} Q ${mx} ${my} ${SRV.x} ${SRV.y}`;
@@ -102,7 +102,7 @@
     tip.style.cssText = `opacity:1;left:${Math.min(e.clientX - r.left + 14, r.width - 230)}px;top:${e.clientY - r.top + 14}px`
   }
   function wahl(e) { const p = ziel(e); if (p && WORLD[p.dataset.i][0] !== SRV.iso) { tip.style.opacity = 0; setMe(WORLD[p.dataset.i][0], 1100) } }
-  // Zoom: Mausrad, +/-, Doppelklick
+  // Zoom: Mausrad, Doppelklick
   function zoomBei(f, px, py) {
     anim++; const w = Math.min(720, Math.max(60, vb[2] * f)), h = w * H / 720;
     vb = [px - (px - vb[0]) * w / vb[2], py - (py - vb[1]) * h / vb[3], w, h];
@@ -111,8 +111,6 @@
   function punkt(e) { const r = svg.getBoundingClientRect(); return [vb[0] + (e.clientX - r.left) / r.width * vb[2], vb[1] + (e.clientY - r.top) / r.height * vb[3]] }
   svg.addEventListener("wheel", e => { e.preventDefault(); const [x, y] = punkt(e); zoomBei(e.deltaY < 0 ? .8 : 1.25, x, y) }, { passive: false });
   svg.addEventListener("dblclick", e => { const [x, y] = punkt(e); zoomBei(.5, x, y) });
-  const knopf = (id, f) => { const b = document.getElementById(id); if (b) b.onclick = () => zoomBei(f, vb[0] + vb[2] / 2, vb[1] + vb[3] / 2) };
-  knopf("vzIn", .6); knopf("vzOut", 1.6);
   document.getElementById("vzReset").onclick = () => { anim++; vb = WELT.slice(); svg.setAttribute("viewBox", vb.join(" ")); pins(1); flz(1) };
   ME = { x: 380, y: 68 }; pins(1);
   setTimeout(() => setMe(me, 1800), 700);
