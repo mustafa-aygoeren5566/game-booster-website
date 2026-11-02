@@ -35,7 +35,7 @@
       <circle r="${3.5 * s}" fill="#fff"><animateMotion dur="2.4s" repeatCount="indefinite" path="${R}"/></circle>
       <circle class="pin" cx="${ME.x}" cy="${ME.y}" r="${5 * s}" fill="#60a5fa"/><circle cx="${ME.x}" cy="${ME.y}" r="${4.5 * s}" fill="#93c5fd" stroke="#fff" stroke-width="${1.4 * s}"/>
       <circle class="pin" cx="${SRV.x}" cy="${SRV.y}" r="${5 * s}" fill="#34d399"/><circle cx="${SRV.x}" cy="${SRV.y}" r="${4.5 * s}" fill="#34d399" stroke="#fff" stroke-width="${1.4 * s}"/>
-      ${flag(me.toLowerCase(), ME.x, ME.y, "#fff", "Du", "vlb")}${flag("in", SRV.x, SRV.y, "#34d399", "Lobby · Mumbai", "vlg")}`
+      ${flag(me.toLowerCase(), ME.x, ME.y, "#fff", "Du", "vlb")}<g class="kpin">${flag("in", SRV.x, SRV.y, "#34d399", "Lobby · Mumbai", "vlg")}</g>`
   }
   // Flaggen bleiben auf dem Bildschirm gleich gross, egal wie weit gezoomt ist
   const FG = [...fl.querySelectorAll(".fl")].map(g => [g, CEN[g.dataset.i]]);
