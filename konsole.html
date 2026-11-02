@@ -206,6 +206,45 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 @keyframes ty2{0%,36%{width:0}58%,95%{width:12ch}100%{width:0}}@keyframes bl{50%{opacity:0}}
 @keyframes ok2{0%,60%{opacity:0}64%,95%{opacity:1}100%{opacity:0}}
 @keyframes fb{0%,34%{border-color:#1e3a6e}38%,60%{border-color:var(--blue)}64%,95%{border-color:rgba(52,211,153,.5)}100%{border-color:#1e3a6e}}
+.st3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:820px;margin:16px auto 0;text-align:left}
+.st3>div{position:relative;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg,var(--card),#080c16);overflow:hidden;animation:cardOn 6s infinite}
+.st3>div:nth-child(2),.st3>div:nth-child(2) *{animation-delay:2s}.st3>div:nth-child(3),.st3>div:nth-child(3) *{animation-delay:4s}
+@keyframes cardOn{0%,30%{border-color:#2f5ea8}36%,100%{border-color:var(--line)}}
+.st3 .art{height:104px;display:grid;place-items:center;border-bottom:1px solid var(--line);background:radial-gradient(ellipse at 50% 120%,rgba(59,130,246,.16),transparent 70%),#070b15}
+.st3 .tx{display:flex;gap:12px;align-items:flex-start;padding:14px 16px 16px}
+.st3 .tx i{flex:none;font-style:normal;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:rgba(59,130,246,.14);color:var(--blue2);font-weight:900;font-size:13px}
+.st3 .tx b{display:block;font-size:14.5px}.st3 .tx small{font-size:12.5px;line-height:1.45;display:block;margin-top:2px}
+.st3 svg{fill:none;stroke:var(--ok);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+/* 1 Bezahlen */
+.st3 .art{position:relative}
+.pay{display:flex;align-items:center;gap:8px;transition:none;animation:payOut 6s infinite}
+.pay .pr{font:800 15px Inter,system-ui;color:var(--txt)}
+.pay .pb{padding:7px 14px;border-radius:9px;background:linear-gradient(180deg,#4f8ff7,#2563eb);color:#fff;font:700 12.5px Inter,system-ui;animation:press 6s infinite}
+.code{position:absolute;display:flex;align-items:center;gap:7px;padding:7px 12px;border-radius:9px;border:1px solid rgba(52,211,153,.45);background:rgba(52,211,153,.08);font:700 12.5px ui-monospace,Consolas,monospace;color:#d1fae5;opacity:0;transform:translateY(8px);animation:codeIn 6s infinite}
+.code svg{width:14px;height:14px}
+@keyframes press{0%,10%{transform:none}13%{transform:scale(.92)}16%,100%{transform:none}}
+@keyframes payOut{0%,17%{opacity:1;transform:none}22%,92%{opacity:0;transform:translateY(-8px)}100%{opacity:1;transform:none}}
+@keyframes codeIn{0%,19%{opacity:0;transform:translateY(8px)}25%,92%{opacity:1;transform:none}100%{opacity:0}}
+/* 2 DNS */
+.fld small{display:block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:5px}
+.fld .in{display:flex;align-items:center;width:168px;padding:8px 11px;border-radius:10px;border:1px solid #1e3a6e;background:#050810;animation:fb2 6s infinite}
+.fld .ty{display:block;font:700 13.5px/1.2 ui-monospace,Consolas,monospace;color:#e2e8f0;white-space:nowrap;overflow:hidden;width:0;animation:ty3 6s steps(12,end) infinite}
+.fld .cr{width:2px;height:15px;margin-left:1px;background:var(--blue2);animation:bl .7s steps(1) infinite!important}
+.fld svg{width:15px;height:15px;margin-left:auto;opacity:0;animation:ok3 6s infinite}
+@keyframes ty3{0%,4%{width:0}24%,92%{width:12ch}100%{width:0}}@keyframes bl{50%{opacity:0}}
+@keyframes ok3{0%,26%{opacity:0}30%,92%{opacity:1}100%{opacity:0}}
+@keyframes fb2{0%,2%{border-color:#1e3a6e}4%,26%{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.15)}30%,92%{border-color:rgba(52,211,153,.55);box-shadow:none}100%{border-color:#1e3a6e}}
+/* 3 Schalter */
+.tg{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#050810}
+.tg .lb{font:700 13px Inter,system-ui;color:var(--txt)}
+.tg .sw{width:42px;height:24px;border-radius:99px;background:#1f2937;position:relative;animation:swb2 6s infinite}
+.tg .sw span{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#cbd5e1;animation:swk2 6s infinite}
+.tg .st{font:800 11px Inter,system-ui;letter-spacing:.08em;color:#475569;width:22px;animation:stc 6s infinite}
+@keyframes swb2{0%,8%{background:#1f2937}14%,92%{background:var(--ok)}100%{background:#1f2937}}
+@keyframes swk2{0%,8%{transform:none}14%,92%{transform:translateX(18px);background:#fff}100%{transform:none}}
+@keyframes stc{0%,8%{color:#475569}14%,92%{color:var(--ok)}100%{color:#475569}}
+@media(max-width:640px){.st3{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.st3 *{animation-duration:6s}}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -255,10 +294,17 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
     <text class="tag" x="100" y="240" fill="#60a5fa">NUR</text><text class="tag" x="100" y="253" fill="#60a5fa">REGION-CHECK</text>
     <text class="tag" x="268" y="150" fill="#34d399">DEIN SPIEL</text><text class="tag" x="268" y="163" fill="#34d399">EIGENE</text><text class="tag" x="268" y="176" fill="#34d399">LEITUNG</text>
   </svg></div>
-  <div class="stp">
-    <div><i>1</i><span><b>Zugang holen</b><small>ab 1,49 € · per PayPal</small></span><em class="an a1"><svg viewBox="0 0 44 32"><rect x="2" y="5" width="40" height="24" rx="5"/><path d="M2 12h40"/><circle class="ck" cx="34" cy="22" r="8"/><path class="ckp" d="M30.5 22l2.5 2.5 4.5-5"/></svg></em></div>
-    <div><i>2</i><span><b>DNS eintragen</b><small>einmalig in den Einstellungen</small></span><em class="an a2"><b>DNS</b><span class="ty">65.20.95.163</span><i class="cr"></i><svg class="ok2" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-6.5"/></svg></em></div>
-    <div><i>3</i><span><b>Schalter an</b><small>Spiel starten, Region Mumbai</small></span><em class="an a3"><span class="sw"><span></span></span></em></div>
+  <div class="st3">
+    <div><div class="art">
+      <div class="pay"><span class="pr">4,99 €</span><span class="pb">Bezahlen</span></div>
+      <div class="code"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-6.5"/></svg>Code: K7F2·····</div>
+    </div><div class="tx"><i>1</i><span><b>Zugang holen</b><small>ab 1,49 € · per PayPal, Code kommt sofort</small></span></div></div>
+    <div><div class="art">
+      <div class="fld"><small>Primärer DNS</small><div class="in"><span class="ty">65.20.95.163</span><i class="cr"></i><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-6.5"/></svg></div></div>
+    </div><div class="tx"><i>2</i><span><b>DNS eintragen</b><small>einmalig in den Netzwerk-Einstellungen</small></span></div></div>
+    <div><div class="art">
+      <div class="tg"><span class="lb">Mumbai-Lobbys</span><span class="sw"><span></span></span><span class="st">AN</span></div>
+    </div><div class="tx"><i>3</i><span><b>Schalter an</b><small>hier auf der Seite, dann Spiel starten</small></span></div></div>
   </div>
 </section>
 
