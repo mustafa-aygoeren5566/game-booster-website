@@ -229,7 +229,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 .fld small{display:block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:5px}
 .fld .in{display:flex;align-items:center;width:168px;padding:8px 11px;border-radius:10px;border:1px solid #1e3a6e;background:#050810;animation:fb2 6s infinite}
 .fld .ty{display:block;font:700 13.5px/1.2 ui-monospace,Consolas,monospace;color:#e2e8f0;white-space:nowrap;overflow:hidden;width:0;animation:ty3 6s steps(12,end) infinite}
-.fld .cr{width:2px;height:15px;margin-left:1px;background:var(--blue2);animation:bl .7s steps(1) infinite,crh 6s infinite!important}@keyframes crh{0%,25%{visibility:visible}26%,100%{visibility:hidden}}.fld .ty{width:0;padding-right:1px}
+.fld .cr{width:2px;height:15px;margin-left:1px;background:var(--blue2);animation:bl .7s steps(1) infinite,crh 6s infinite!important}@keyframes crh{0%,25%{visibility:visible}26%,100%{visibility:hidden}}
 .fld svg{width:15px;height:15px;margin-left:auto;opacity:0;animation:ok3 6s infinite}
 @keyframes ty3{0%,4%{width:0}24%,92%{width:12ch}100%{width:0}}@keyframes bl{50%{opacity:0}}
 @keyframes ok3{0%,26%{opacity:0}30%,92%{opacity:1}100%{opacity:0}}
@@ -245,6 +245,12 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 @keyframes stc{0%,8%{color:#475569}14%,92%{color:var(--ok)}100%{color:#475569}}
 @media(max-width:640px){.st3{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.st3 *{animation-duration:6s}}
+.pay,.code,.fld .in,.tg{height:40px;box-sizing:border-box}
+.pay .pb{height:32px;display:grid;place-items:center;padding:0 14px}
+.code{padding:0 12px}
+.fld small{display:inline;margin:0 9px 0 0;padding-right:9px;border-right:1px solid var(--line);font-size:9.5px}
+.fld .in{width:auto;min-width:190px;padding:0 11px}
+.tg{padding:0 14px}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -300,7 +306,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
       <div class="code"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-6.5"/></svg>Code: K7F2·····</div>
     </div><div class="tx"><i>1</i><span><b>Zugang holen</b><small>ab 1,49 € · per PayPal, Code kommt sofort</small></span></div></div>
     <div><div class="art">
-      <div class="fld"><small>Primärer DNS</small><div class="in"><span class="ty">65.20.95.163</span><i class="cr"></i><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-6.5"/></svg></div></div>
+      <div class="fld"><div class="in"><small>DNS</small><span class="ty">65.20.95.163</span><i class="cr"></i><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-6.5"/></svg></div></div>
     </div><div class="tx"><i>2</i><span><b>DNS eintragen</b><small>einmalig in den Netzwerk-Einstellungen</small></span></div></div>
     <div><div class="art">
       <div class="tg"><span class="lb">Mumbai-Lobbys</span><span class="sw"><span></span></span><span class="onl">AN</span></div>
