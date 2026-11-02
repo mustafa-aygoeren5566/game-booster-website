@@ -316,7 +316,8 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 /* Bogen 1:1 wie in der App (vp-arc / vp-arcg / vp-pre) */.viz .route{stroke-dasharray:6 8!important;animation:kdash 1s linear infinite}@keyframes kdash{to{stroke-dashoffset:-28}}.viz .kglow{opacity:.3}.viz.off .route{opacity:.45}.viz.off .kglow{opacity:.12}
 .kleg{display:flex;flex-wrap:wrap;gap:6px 22px;color:var(--mut)}.kleg>span{display:flex;align-items:center;gap:8px;white-space:nowrap}.kleg b{color:var(--txt)}
 .kleg i{flex:none;width:22px;height:0;border-top:2px dashed #4f8ff7}.kleg i.g{border-top-color:#f59e0b}
-.vzz button#kOn{background:linear-gradient(180deg,#34d399,#10b981);border-color:#34d399;color:#04241a;box-shadow:0 6px 18px -6px rgba(16,185,129,.8)}.vzz button#kOn:hover{filter:brightness(1.08)}
+.vzz button#kOn{background:linear-gradient(180deg,#34d399,#10b981);border-color:#34d399;color:#04241a;box-shadow:0 6px 18px -6px rgba(16,185,129,.8)}.vzz button#kOn:hover,.vzz button#kOff:hover{filter:brightness(1.08)}.vzz button#kOff{background:linear-gradient(180deg,#f87171,#dc2626);border-color:#f87171;color:#fff;box-shadow:0 6px 18px -6px rgba(220,38,38,.8)}
+@media(max-width:640px){.viz .vz-top{flex-wrap:wrap;row-gap:6px}.kbis{order:5;width:100%;margin:0}.viz .vz-top .live{margin-left:auto}.kleg>span{display:block;white-space:normal}.kleg i{display:inline-block;vertical-align:middle;margin-right:8px}.kleg>span.vzh{display:none}.viz .vz-top>b{display:none}}
 [hidden]{display:none!important}
 </style>
 </head>
