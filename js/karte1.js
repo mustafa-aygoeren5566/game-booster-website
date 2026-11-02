@@ -110,6 +110,17 @@
   }
   function punkt(e) { const r = svg.getBoundingClientRect(); return [vb[0] + (e.clientX - r.left) / r.width * vb[2], vb[1] + (e.clientY - r.top) / r.height * vb[3]] }
   svg.addEventListener("wheel", e => { e.preventDefault(); const [x, y] = punkt(e); zoomBei(e.deltaY < 0 ? .8 : 1.25, x, y) }, { passive: false });
+  // Handy: mit zwei Fingern zoomen (ein Finger scrollt die Seite wie gewohnt)
+  let pinch = null;
+  const mitte = t => ({ clientX: (t[0].clientX + t[1].clientX) / 2, clientY: (t[0].clientY + t[1].clientY) / 2 });
+  const abst = t => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+  svg.addEventListener("touchstart", e => { if (e.touches.length === 2) pinch = abst(e.touches) }, { passive: true });
+  svg.addEventListener("touchmove", e => {
+    if (e.touches.length !== 2 || !pinch) return;
+    e.preventDefault(); const d = abst(e.touches), [x, y] = punkt(mitte(e.touches));
+    zoomBei(pinch / d, x, y); pinch = d
+  }, { passive: false });
+  svg.addEventListener("touchend", e => { if (e.touches.length < 2) pinch = null });
   svg.addEventListener("dblclick", e => { const [x, y] = punkt(e); zoomBei(.5, x, y) });
   document.getElementById("vzReset").onclick = () => { anim++; vb = WELT.slice(); svg.setAttribute("viewBox", vb.join(" ")); pins(1); flz(1) };
   ME = { x: 380, y: 68 }; pins(1);
