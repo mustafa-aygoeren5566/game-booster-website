@@ -148,6 +148,24 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 .note{border-left:3px solid var(--warn);padding:10px 14px;background:rgba(251,191,36,.06);border-radius:8px;margin-top:14px}
 .tok{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px;border-radius:14px;border:1px dashed #2b4a86;margin-top:12px}.tok code{font:800 18px Inter,system-ui;letter-spacing:.06em}
 @media(max-width:720px){.two,.dns{grid-template-columns:1fr}.plans{grid-template-columns:1fr 1fr}.card{padding:22px}}
+.flow{margin:34px auto 0;max-width:820px;padding:22px 18px 16px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01))}
+.flow svg{display:block;width:100%;height:auto}
+.flow .ln{fill:none;stroke-width:2.2;stroke-linecap:round}
+.flow .l1{stroke:#2b4a86;stroke-dasharray:6 7;animation:dash 1.2s linear infinite}
+.flow .l2{stroke:rgba(52,211,153,.45);stroke-dasharray:6 7;animation:dash 1s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-26}}
+.flow .nd rect{fill:#070b14;stroke:var(--line);stroke-width:1.5}.flow .nd.m rect{stroke:#3b82f6}.flow .nd.g rect{stroke:rgba(52,211,153,.6)}
+.flow text{font:700 13px Inter,system-ui;fill:var(--txt)}.flow text.s{font-weight:500;font-size:11px;fill:var(--mut)}
+.flow .ic{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.flow .pulse{transform-origin:center;transform-box:fill-box;animation:pl 2s ease-out infinite}@keyframes pl{0%{opacity:.7;transform:scale(1)}100%{opacity:0;transform:scale(1.35)}}
+.flow .tag{font:800 10.5px Inter,system-ui;letter-spacing:.08em}
+.stp{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:820px;margin:16px auto 0}
+.stp div{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:16px;border:1px solid var(--line);background:#070b14;text-align:left;opacity:0;transform:translateY(10px);animation:up .6s forwards}
+.stp div:nth-child(2){animation-delay:.25s}.stp div:nth-child(3){animation-delay:.5s}@keyframes up{to{opacity:1;transform:none}}
+.stp i{flex:none;font-style:normal;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(59,130,246,.14);color:var(--blue2);font-weight:900}
+.stp b{display:block;font-size:14px}.stp small{font-size:12.5px;line-height:1.4}
+@media(max-width:640px){.stp{grid-template-columns:1fr}.flow{padding:14px 8px 10px}}
+@media(prefers-reduced-motion:reduce){.flow *,.stp div{animation:none!important;opacity:1;transform:none}}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -158,6 +176,32 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
   <span class="pill">Beta · PS5 &amp; Xbox</span>
   <h1>Mumbai-Lobbys auf <em>Konsole</em></h1>
   <p class="lead">Ohne PC und ohne App: Du stellst einmal den DNS deiner Konsole um und schaltest hier frei. Nur die Anmeldung zur Matchsuche läuft über Mumbai – gespielt wird über deine eigene Leitung.</p>
+  <div class="flow" aria-label="So funktioniert es: Nur die Region-Anmeldung geht über Mumbai, das Spiel läuft direkt.">
+  <svg viewBox="0 0 760 250">
+    <path id="pA" class="ln l1" d="M150 125 C 260 125, 270 55, 380 55"/>
+    <path class="ln l1" d="M380 55 C 490 55, 500 55, 610 55"/>
+    <path id="pB" class="ln l2" d="M150 125 C 260 125, 300 195, 610 195"/>
+    <circle r="5" fill="#60a5fa"><animateMotion dur="2.4s" repeatCount="indefinite" path="M150 125 C 260 125, 270 55, 380 55 C 490 55, 500 55, 610 55"/></circle>
+    <circle r="5" fill="#34d399"><animateMotion dur="1.6s" repeatCount="indefinite" path="M150 125 C 260 125, 300 195, 610 195"/></circle>
+    <circle r="5" fill="#34d399" opacity=".6"><animateMotion dur="1.6s" begin=".8s" repeatCount="indefinite" path="M150 125 C 260 125, 300 195, 610 195"/></circle>
+    <g class="nd"><rect x="20" y="88" width="130" height="74" rx="16"/>
+      <g class="ic" stroke="#93c5fd" transform="translate(70 96)"><path d="M5 9h20a6 6 0 0 1 5.8 7.4l-1.2 4.8a2.6 2.6 0 0 1-4.4 1.1L22 19H8l-3.2 3.3a2.6 2.6 0 0 1-4.4-1.1l-1.2-4.8A6 6 0 0 1 5 9z"/><path d="M8 13v4M6 15h4"/></g>
+      <text x="85" y="140" text-anchor="middle">Deine Konsole</text><text class="s" x="85" y="155" text-anchor="middle">PS5 · Xbox</text></g>
+    <g class="nd m"><rect class="pulse" x="320" y="22" width="120" height="66" rx="16" fill="none" stroke="#3b82f6"/><rect x="320" y="22" width="120" height="66" rx="16"/>
+      <g class="ic" stroke="#60a5fa" transform="translate(370 30)"><circle cx="10" cy="10" r="8"/><path d="M2 10h16M10 2c3 3 3 13 0 16M10 2c-3 3-3 13 0 16"/></g>
+      <text x="380" y="68" text-anchor="middle">Unser Server</text><text class="s" x="380" y="81" text-anchor="middle">Mumbai</text></g>
+    <g class="nd m"><rect x="610" y="22" width="130" height="66" rx="16"/>
+      <text x="675" y="50" text-anchor="middle">CoD-Anmeldung</text><text class="s" x="675" y="67" text-anchor="middle">sieht: Region Mumbai</text></g>
+    <g class="nd g"><rect x="610" y="162" width="130" height="66" rx="16"/>
+      <text x="675" y="190" text-anchor="middle">Spielserver</text><text class="s" x="675" y="207" text-anchor="middle">direkt · normaler Ping</text></g>
+    <text class="tag" x="250" y="40" fill="#60a5fa">NUR REGION-CHECK</text>
+    <text class="tag" x="300" y="232" fill="#34d399">DEIN SPIEL · EIGENE LEITUNG</text>
+  </svg></div>
+  <div class="stp">
+    <div><i>1</i><span><b>Zugang holen</b><small>ab 1,49 € · per PayPal</small></span></div>
+    <div><i>2</i><span><b>DNS eintragen</b><small>einmalig in den Netzwerk-Einstellungen</small></span></div>
+    <div><i>3</i><span><b>Schalter an</b><small>Spiel starten, Region Mumbai</small></span></div>
+  </div>
 </section>
 
 <section class="card" id="zugang"><h2>Dein Zugang</h2>
