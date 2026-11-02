@@ -24,7 +24,7 @@
     return `<g class="fl" data-i="${i}" transform="translate(${CEN[i][0]} ${CEN[i][1]})"><clipPath id="k${c}"><circle r="${r}"/></clipPath><image href="flags/${c}.svg" x="${-r * 1.4}" y="${-r}" width="${r * 2.8}" height="${r * 2}" clip-path="url(#k${c})" preserveAspectRatio="xMidYMid slice"/><circle class="fr" r="${r}" stroke-width=".5"/></g>`
   }).join("");
   const FLG = {}; fl.querySelectorAll(".fl").forEach(g => FLG[g.dataset.i] = g);
-  const H = 520, WELT = [0, (330 - H) / 2, 720, H];   // etwas höher als die Startseiten-Karte
+  const H = 560, WELT = [0, (330 - H) / 2, 720, H];   // etwas höher als die Startseiten-Karte
   let ME, vb = WELT.slice();
   function pins(s) {
     const mx = (ME.x + SRV.x) / 2, my = Math.min(ME.y, SRV.y) - Math.hypot(SRV.x - ME.x, SRV.y - ME.y) * .32 - 6 * s, R = `M${ME.x} ${ME.y} Q ${mx} ${my} ${SRV.x} ${SRV.y}`;
