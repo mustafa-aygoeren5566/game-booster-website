@@ -328,6 +328,10 @@ footer a:hover{color:var(--txt)}
 @media(max-width:720px){.rv-top{grid-template-columns:1fr;gap:16px;padding:20px}.rv-bars{justify-self:stretch;max-width:none}}
 .rv-pick{display:flex;gap:6px;margin:6px 0 4px}.rv-pick button{background:none;border:0;padding:2px;cursor:pointer}.rv-pick svg{width:30px;height:30px;transition:fill .15s}
 #rvm textarea{width:100%;resize:vertical;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:#080c16;color:var(--txt);font:14px Inter,sans-serif}
+.kons{display:flex;align-items:center;gap:16px;margin-top:22px;padding:18px 22px;border-radius:18px;border:1px solid #1e3a6e;background:linear-gradient(90deg,rgba(37,99,235,.14),rgba(255,255,255,.02));color:inherit;text-decoration:none!important}
+.kons:hover{border-color:#3b82f6}.kons .ki{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:#0f1d3a;color:#93c5fd}.kons .ki svg{width:26px;height:26px}
+.kons b{display:block;font-size:16px}.kons b em{font-style:normal;font-size:11px;font-weight:800;padding:2px 7px;border-radius:6px;background:rgba(251,191,36,.15);color:#fbbf24;margin-left:6px;vertical-align:2px}.kons small{color:#8b96ad}
+.kons .kg{margin-left:auto;white-space:nowrap;font-weight:700;color:#60a5fa}@media(max-width:640px){.kons{flex-wrap:wrap}.kons .kg{margin-left:62px}}
 </style>
 </head>
 <body>
@@ -343,6 +347,7 @@ footer a:hover{color:var(--txt)}
     <a href="#faq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01"/></svg>FAQ</a>
     <a href="updates.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>Updates</a>
     <a href="einblick.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10.5 9.5v5l4-2.5z" fill="currentColor"/></svg>Einblick</a>
+    <a href="konsole.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9h10a4 4 0 0 1 3.9 4.8l-.8 3.6a2 2 0 0 1-3.4.9L14.5 16h-5l-2.2 2.3a2 2 0 0 1-3.4-.9l-.8-3.6A4 4 0 0 1 7 9z"/><path d="M8 12v2M7 13h2"/><circle cx="16" cy="12.5" r=".6" fill="currentColor"/></svg>Konsole</a>
     <a href="creator.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M19 8v6M16 11h6"/></svg>Creator</a>
   </nav>
   <div class="sp"></div>
@@ -473,6 +478,7 @@ footer a:hover{color:var(--txt)}
       <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/></svg>Game-VPN + Geo-Fence</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>365 Tage Zugang</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Neue Features zuerst</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Alle kommenden Bereiche inklusive</li></ul>
       <button class="btn" data-plan="1 Jahr" data-price="39,99 €">Auswählen</button></div>
   </div>
+  <a class="kons" href="konsole.html"><span class="ki"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9h10a4 4 0 0 1 3.9 4.8l-.8 3.6a2 2 0 0 1-3.4.9L14.5 16h-5l-2.2 2.3a2 2 0 0 1-3.4-.9l-.8-3.6A4 4 0 0 1 7 9z"/><path d="M8 12v2M7 13h2"/><circle cx="16" cy="12.5" r=".6" fill="currentColor"/></svg></span><span><b>Auch für PS5 &amp; Xbox <em>Beta</em></b><small>Mumbai-Lobbys auf Konsole – ohne PC, ohne App. DNS umstellen, freischalten, loslegen. Gleiche Preise.</small></span><span class="kg">Zur Konsole →</span></a>
 </div></section>
 
 <section id="so-gehts"><div class="wrap">
@@ -590,7 +596,7 @@ footer a:hover{color:var(--txt)}
 
 <footer><div class="wrap">
   <div>© 2026 Game Booster VPN. Nicht mit Activision verbunden.</div>
-  <div class="flk"><a href="updates.html">Updates</a><a href="#einloesen">Bestellung einlösen</a><a href="#bewertungen">Bewertungen</a><a href="creator.html">Creator werden</a><a href="recht.html#agb">AGB</a><a href="recht.html#widerruf">Widerruf</a><a href="recht.html#impressum">Impressum</a><a href="recht.html#datenschutz">Datenschutz</a></div>
+  <div class="flk"><a href="updates.html">Updates</a><a href="#einloesen">Bestellung einlösen</a><a href="#bewertungen">Bewertungen</a><a href="konsole.html">PS5 &amp; Xbox</a><a href="creator.html">Creator werden</a><a href="recht.html#agb">AGB</a><a href="recht.html#widerruf">Widerruf</a><a href="recht.html#impressum">Impressum</a><a href="recht.html#datenschutz">Datenschutz</a></div>
   
 </div></footer>
 

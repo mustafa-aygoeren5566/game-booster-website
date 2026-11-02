@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Konsole (PS5 & Xbox) – Game Booster VPN</title>
+<meta name="description" content="Mumbai-Lobbys auf PS5 und Xbox: DNS umstellen, Code eingeben, freischalten. Ohne PC, ohne App. Beta.">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="img/logo.webp">
+<link href="fonts/inter.css" rel="stylesheet">
+<style>
+:root{--bg:#05070d;--card:#0d1220;--line:#1a2236;--txt:#e9eef8;--mut:#8b96ad;--blue:#3b82f6;--blue2:#60a5fa;--glow:rgba(59,130,246,.35);--ok:#34d399;--warn:#fbbf24;--bad:#f87171}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font:15px/1.7 Inter,system-ui,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(96,165,250,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(96,165,250,.04) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse at 50% 0,#000 20%,transparent 70%);mask-image:radial-gradient(ellipse at 50% 0,#000 20%,transparent 70%);pointer-events:none;z-index:-1}
+a{color:var(--blue2);text-decoration:none}a:hover{text-decoration:underline}
+.top{position:sticky;top:0;z-index:5;border-bottom:1px solid var(--line);padding:14px 20px;background:rgba(5,7,13,.75);backdrop-filter:blur(14px)}
+.top .in{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;letter-spacing:-.02em;color:var(--txt)}.logo:hover{text-decoration:none}.logo b{display:grid;place-items:center;width:52px;height:52px;border-radius:12px;overflow:hidden;background:#000;border:1px solid rgba(59,130,246,.35);box-shadow:0 0 24px rgba(59,130,246,.35)}.logo b img{width:100%;height:100%;object-fit:cover;transform:scale(1.3) translateY(2%)}.logo span em{font-style:normal;color:var(--blue2)}
+.back{white-space:nowrap;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--txt);font-weight:600;font-size:13.5px}.back:hover{border-color:#2b4a86;text-decoration:none}
+main{max-width:1000px;margin:0 auto;padding:0 20px 90px}
+.hero{position:relative;text-align:center;padding:76px 0 30px}
+.hero:before{content:"";position:absolute;left:50%;top:-80px;width:min(900px,100vw);height:560px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(37,99,235,.32),transparent);pointer-events:none;z-index:-1}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:#c3cce0;font-size:13.5px;font-weight:600}.pill svg{width:16px;height:16px;color:var(--blue2)}
+h1{font-size:clamp(32px,6vw,58px);font-weight:900;letter-spacing:-.035em;line-height:1.05;margin:20px 0 16px}
+h1 em,.gr{font-style:normal;background:linear-gradient(90deg,#93c5fd,#3b82f6 55%,#818cf8);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:24px;font-weight:900;letter-spacing:-.02em;margin-bottom:6px}
+.sub{color:var(--mut);margin-bottom:22px}
+p,li{color:#c3cce0}small{color:var(--mut)}
+.lead{font-size:18px;color:#aab6cc;max-width:620px;margin:0 auto}
+.cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--txt);font:700 15px Inter,system-ui,sans-serif;cursor:pointer;transition:.2s}
+.btn:hover{text-decoration:none;border-color:#34507f;transform:translateY(-1px)}
+.btn.pr{background:linear-gradient(180deg,#4f8ff7,#2563eb);border-color:#4f8ff7;box-shadow:0 10px 34px -8px var(--glow);color:#fff}
+.btn.pr:hover{filter:brightness(1.12)}
+.btn:disabled{opacity:.5;cursor:default;transform:none}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:46px}
+.kp>div,.card{position:relative;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid var(--line);overflow:hidden}
+.kp>div{padding:24px;text-align:left;transition:.25s}
+.kp>div:hover{border-color:#2b4a86;transform:translateY(-2px)}
+.kp>div:after{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;background:radial-gradient(closest-side,rgba(59,130,246,.22),transparent)}
+.kp .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(59,130,246,.14);color:var(--blue2);margin-bottom:14px}
+.kp .ic svg{width:22px;height:22px}
+.kp .ka{position:absolute;right:8px;top:8px;width:130px;height:auto;pointer-events:none;z-index:0}
+.kp>div>*:not(.ka){position:relative;z-index:1}
+.kp .ic{animation:icf 3.2s ease-in-out infinite}.kp>div:nth-child(2) .ic{animation-delay:.4s}.kp>div:nth-child(3) .ic{animation-delay:.8s}
+@keyframes icf{50%{transform:translateY(-4px);box-shadow:0 8px 22px -8px rgba(59,130,246,.6)}}
+.kp>div:after{animation:glw 4s ease-in-out infinite}@keyframes glw{50%{opacity:.45;transform:scale(1.25)}}
+.kp span.cu{font-size:inherit;color:inherit}
+.out{position:relative;overflow:hidden}
+.out:before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,rgba(59,130,246,.18),transparent 30%);animation:spin 6s linear infinite;pointer-events:none}
+.out>*{position:relative}
+@keyframes spin{to{transform:rotate(360deg)}}
+#cOut.pop{animation:pop .25s ease}@keyframes pop{40%{transform:scale(1.08);filter:drop-shadow(0 0 14px rgba(96,165,250,.7))}}
+.out .coin{position:absolute;bottom:18px;font-style:normal;font-weight:900;font-size:16px;color:#34d399;pointer-events:none;animation:coin 1.4s ease-out forwards}
+@keyframes coin{from{transform:translateY(0);opacity:0}20%{opacity:1}to{transform:translateY(-110px);opacity:0}}
+#top{overflow:hidden}
+.lbh{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.lblive{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);font-size:12px;font-weight:700;color:var(--mut)}
+.lblive i{width:7px;height:7px;border-radius:50%;background:#f87171;animation:blk 1.6s ease-in-out infinite}@keyframes blk{50%{opacity:.25}}
+.pod{display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:end;gap:14px;margin-top:30px}
+.pd{display:flex;flex-direction:column;align-items:center;text-align:center;opacity:0;transform:translateY(24px)}
+.pod.on .pd{animation:pin .7s cubic-bezier(.2,.8,.2,1) forwards}.pod.on .p1{animation-delay:.35s}.pod.on .p3{animation-delay:.18s}
+@keyframes pin{to{opacity:1;transform:none}}
+.pd .av{position:relative;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:22px;color:#fff;margin-bottom:10px;background:linear-gradient(135deg,#1d3a73,#0f1b33);border:2px solid #2b4a86}
+.p1 .av{width:82px;height:82px;font-size:28px;border-color:#fbbf24;box-shadow:0 0 0 6px rgba(251,191,36,.08),0 0 40px -6px rgba(251,191,36,.55);animation:glo 3s ease-in-out infinite}
+@keyframes glo{50%{box-shadow:0 0 0 10px rgba(251,191,36,.04),0 0 60px -4px rgba(251,191,36,.7)}}
+.p2 .av{border-color:#cbd5e1}.p3 .av{border-color:#d97706}
+.pd .cr{position:absolute;top:-24px;left:50%;width:30px;margin-left:-15px;color:#fbbf24;animation:cr 2.6s ease-in-out infinite}@keyframes cr{50%{transform:translateY(-4px) rotate(-6deg)}}
+.pd b{font-family:ui-monospace,Consolas,monospace;font-size:15px;letter-spacing:.04em}
+.pd small{color:var(--mut);font-size:12.5px;margin:2px 0 12px}
+.pd .bl{width:100%;border-radius:14px 14px 0 0;display:grid;place-items:start center;padding-top:12px;font-size:30px;font-weight:900;color:rgba(255,255,255,.9);height:0;transition:height 1s cubic-bezier(.2,.8,.2,1);position:relative;overflow:hidden}
+.pd .bl:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.12) 50%,transparent 70%);transform:translateX(-100%);animation:shn 3.5s ease-in-out infinite}
+@keyframes shn{60%,100%{transform:translateX(100%)}}
+.p1 .bl{background:linear-gradient(180deg,rgba(251,191,36,.35),rgba(251,191,36,.05));border:1px solid rgba(251,191,36,.4);border-bottom:0}
+.p2 .bl{background:linear-gradient(180deg,rgba(203,213,225,.22),rgba(203,213,225,.03));border:1px solid rgba(203,213,225,.3);border-bottom:0}
+.p3 .bl{background:linear-gradient(180deg,rgba(217,119,6,.28),rgba(217,119,6,.04));border:1px solid rgba(217,119,6,.35);border-bottom:0}
+.pod.on .p1 .bl{height:150px}.pod.on .p2 .bl{height:110px}.pod.on .p3 .bl{height:84px}
+.lbr{border-top:1px solid var(--line)}
+.lbr div{display:flex;align-items:center;gap:14px;padding:13px 6px;border-bottom:1px solid var(--line);opacity:0;transform:translateX(-14px);transition:.5s}
+.lbr.on div{opacity:1;transform:none}.lbr.on div:nth-child(2){transition-delay:.12s}
+.lbr i{font-style:normal;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:#0f1b33;color:var(--mut);font-weight:800;font-size:13px}
+.lbr b{flex:1;font-family:ui-monospace,Consolas,monospace;letter-spacing:.04em}
+.lbr span{color:var(--blue2);font-weight:800;font-size:14px}
+.tgl{display:flex;align-items:center;gap:12px;cursor:pointer;margin-top:6px}.tgl input{display:none}
+.tgl s{width:42px;height:24px;border-radius:99px;background:#1a2540;position:relative;transition:.2s;flex:none}
+.tgl s:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#8b96ad;transition:.2s}
+.tgl input:checked+s{background:#2563eb}.tgl input:checked+s:after{left:21px;background:#fff}
+@media(max-width:640px){.pod{gap:8px}.pd .av{width:50px;height:50px;font-size:18px}.p1 .av{width:62px;height:62px}.pd b{font-size:12px}.pod.on .p1 .bl{height:120px}.pod.on .p2 .bl{height:88px}.pod.on .p3 .bl{height:66px}.lbh{flex-direction:column}}
+.kp b{display:block;font-size:34px;font-weight:900;letter-spacing:-.03em;line-height:1.1}
+.kp span{font-size:13.5px;color:var(--mut)}
+.card{padding:34px;margin-top:22px}
+.sec{margin-top:70px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.fc{position:relative;overflow:hidden;padding:0 0 24px;border-radius:18px;background:linear-gradient(180deg,var(--card),#090d18);border:1px solid var(--line);transition:.25s}
+.fc:hover{border-color:#2f4f8a;transform:translateY(-3px);box-shadow:0 18px 40px -22px var(--glow)}
+.fc:after{content:attr(data-n);position:absolute;right:16px;top:150px;font-size:13px;font-weight:900;letter-spacing:.08em;color:#3b5c96}
+.fc .art{height:140px;display:grid;place-items:center;margin-bottom:18px;border-bottom:1px solid var(--line);background:radial-gradient(ellipse at 50% 120%,rgba(59,130,246,.14),transparent 70%),#080d19}
+.fc .art svg{width:100%;max-width:300px;height:auto}
+.fc h3{font-size:17px;font-weight:800;margin-bottom:6px;padding:0 24px}
+.fc p{color:var(--mut);font-size:14px;padding:0 24px}
+.fine{margin-top:18px;padding:14px 16px;border-radius:12px;background:rgba(8,12,22,.6);border:1px dashed var(--line);font-size:13px;color:var(--mut)}
+.calc{display:grid;grid-template-columns:1.3fr 1fr;gap:30px;align-items:center}
+input[type=range]{width:100%;accent-color:var(--blue);margin:10px 0 4px}
+.calc .out{text-align:center;padding:26px;border-radius:18px;background:radial-gradient(circle at 50% 0,rgba(59,130,246,.25),rgba(8,12,22,.8) 70%);border:1px solid #23406f}
+.calc .out b{display:block;font-size:46px;font-weight:900;letter-spacing:-.03em;line-height:1.1}
+.calc .n{font-weight:800;color:var(--blue2)}
+.fwrap{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px}.fwrap .full{grid-column:1/-1}
+label{display:block;font-weight:600;font-size:13.5px;margin:14px 0 6px}
+input[type=text],input[type=email],input[type=url]{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:#070b14;color:var(--txt);font:inherit;transition:.2s}
+input:hover{border-color:#26324c}
+input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(59,130,246,.18)}
+.chk{display:flex;gap:12px;align-items:center;font-weight:400;color:#c3cce0;margin-top:18px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:#070b14;cursor:pointer;transition:.2s}
+.chk:hover{border-color:#26324c}.chk:has(input:checked){border-color:rgba(59,130,246,.55);background:rgba(59,130,246,.08)}
+.chk input{appearance:none;-webkit-appearance:none;flex:none;width:24px;height:24px;margin:0;border-radius:8px;border:2px solid #2c3a57;background:#0a0f1c;cursor:pointer;display:grid;place-items:center;transition:.2s}
+.chk input:after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg) scale(0);margin-top:-3px;transition:transform .2s cubic-bezier(.3,1.6,.5,1)}
+.chk input:checked{border-color:#4f8ff7;background:linear-gradient(180deg,#4f8ff7,#2563eb);box-shadow:0 0 0 4px rgba(59,130,246,.18),0 6px 18px -4px var(--glow)}
+.chk input:checked:after{transform:rotate(45deg) scale(1)}
+.chk input:focus-visible{outline:none;box-shadow:0 0 0 4px rgba(59,130,246,.3)}
+#fGo{margin-top:20px;width:100%}
+.msg{margin-top:12px;font-weight:600;text-align:center}.msg.no{color:var(--bad)}.msg.ok{color:var(--ok)}
+.box{margin-top:14px;padding:16px 18px;border-radius:14px;border:1px solid rgba(52,211,153,.3);background:rgba(52,211,153,.07)}
+.box.w{border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.07)}
+code{font-family:ui-monospace,Consolas,monospace;background:#070b14;border:1px solid var(--line);padding:2px 8px;border-radius:8px;word-break:break-all;color:#bfdbfe}
+.link{display:flex;gap:8px;align-items:center;margin-top:10px}.link code{flex:1;padding:11px 13px}.link .btn{padding:11px 16px;font-size:13.5px}
+table{width:100%;border-collapse:collapse;margin-top:6px;font-size:14px}
+th,td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line)}th{color:var(--mut);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;white-space:nowrap}
+.st.frei{background:rgba(52,211,153,.12);color:var(--ok)}.st.wartet{background:rgba(251,191,36,.12);color:var(--warn)}.st.storniert{background:rgba(248,113,113,.12);color:var(--bad)}
+#dash .hero{padding-bottom:0}#dash .kp{margin-top:34px}
+.hide{display:none!important}
+@media(max-width:820px){.steps{grid-template-columns:1fr 1fr}.calc{grid-template-columns:1fr}}
+@media(max-width:640px){.kp,.fwrap,.steps{grid-template-columns:1fr}.hero{padding-top:48px}.card{padding:22px}.sec{margin-top:50px}th:nth-child(2),td:nth-child(2){display:none}.link{flex-direction:column;align-items:stretch}}
+
+.kz{display:grid;gap:12px;margin-top:14px}
+.kz .row{display:flex;gap:10px;flex-wrap:wrap}.kz .row input{flex:1;min-width:200px}
+.st{display:flex;align-items:center;gap:14px;padding:18px;border-radius:16px;border:1px solid var(--line);background:#070b14;margin-top:16px}
+.st b{font-size:17px}.st .dot{width:12px;height:12px;border-radius:50%;background:#475569;flex:none}.st.on .dot{background:var(--ok)}.st.on{border-color:rgba(52,211,153,.4)}
+.big{width:100%;padding:16px;font-size:16px}
+.msg{min-height:22px;font-size:14px;color:var(--mut)}.msg.bad{color:var(--bad)}.msg.good{color:var(--ok)}
+.dns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.dns div{padding:16px;border-radius:14px;border:1px solid var(--line);background:#070b14;text-align:center}.dns small{display:block}.dns code{font:800 20px Inter,system-ui;color:var(--txt);letter-spacing:.02em}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.two ol{padding-left:20px}.two li{margin:4px 0}
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.plans button{padding:14px 8px;border-radius:14px;border:1px solid var(--line);background:#070b14;color:var(--txt);font:700 14px Inter,system-ui;cursor:pointer}
+.plans button b{display:block;font-size:19px;margin-top:2px}.plans button.on{border-color:var(--blue);background:rgba(59,130,246,.1)}
+.note{border-left:3px solid var(--warn);padding:10px 14px;background:rgba(251,191,36,.06);border-radius:8px;margin-top:14px}
+.tok{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px;border-radius:14px;border:1px dashed #2b4a86;margin-top:12px}.tok code{font:800 18px Inter,system-ui;letter-spacing:.06em}
+@media(max-width:720px){.two,.dns{grid-template-columns:1fr}.plans{grid-template-columns:1fr 1fr}.card{padding:22px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="in"><a class="logo" href="index.html"><b><img src="img/logo.webp" alt=""></b><span>Game Booster <em>VPN</em></span></a><a class="back" href="index.html">← Zur Startseite</a></div></div>
+<main>
+<section class="hero">
+  <span class="pill">Beta · PS5 &amp; Xbox</span>
+  <h1>Mumbai-Lobbys auf <em>Konsole</em></h1>
+  <p class="lead">Ohne PC und ohne App: Du stellst einmal den DNS deiner Konsole um und schaltest hier frei. Nur die Anmeldung zur Matchsuche läuft über Mumbai – gespielt wird über deine eigene Leitung.</p>
+</section>
+
+<section class="card" id="zugang"><h2>Dein Zugang</h2>
+  <p class="sub">Code eingeben – entweder den Konsolen-Code (K…) aus deinem Kauf oder deinen App-Code (GB-…), falls du schon PC-Kunde bist.</p>
+  <div class="kz"><div class="row"><input type="text" id="kTok" placeholder="K… oder GB-…" autocomplete="off" spellcheck="false"><button class="btn" id="kCheck">Prüfen</button></div></div>
+  <div id="kBox" hidden>
+    <div class="st" id="kSt"><span class="dot"></span><div><b id="kStT">Aus</b><br><small id="kStS"></small></div></div>
+    <div class="kz"><button class="btn pr big" id="kOn">Mumbai-Lobbys einschalten</button><button class="btn big" id="kOff">Ausschalten</button></div>
+    <p class="note"><small><b>Wichtig:</b> Drück den Knopf mit dem Handy <b>im selben WLAN wie deine Konsole</b> (nicht über mobile Daten). Danach das Spiel neu starten. Wenn dein Internet eine neue Adresse bekommt (bei vielen Anbietern nachts), einfach diese Seite öffnen und nochmal einschalten.</small></p>
+  </div>
+  <div class="msg" id="kMsg"></div>
+</section>
+
+<section class="card" id="kaufen"><h2>Noch keinen Zugang?</h2>
+  <p class="sub">Kein Abo, keine automatische Verlängerung. Bezahlt wird sicher über PayPal.</p>
+  <div class="plans">
+    <button data-v="1.49" data-n="1 Tag">1 Tag<b>1,49 €</b></button>
+    <button data-v="4.99" data-n="1 Monat" class="on">1 Monat<b>4,99 €</b></button>
+    <button data-v="12.99" data-n="3 Monate">3 Monate<b>12,99 €</b></button>
+    <button data-v="39.99" data-n="1 Jahr">1 Jahr<b>39,99 €</b></button>
+  </div>
+  <label class="chk"><input type="checkbox" id="kOk"><span><small>Ich verlange ausdrücklich, dass mein Zugang sofort – also vor Ablauf der 14-tägigen Widerrufsfrist – freigeschaltet wird. Mir ist bekannt, dass ich bei einem Widerruf die bis dahin genutzte Zeit anteilig bezahle und mein Widerrufsrecht bei vollständiger Leistung erlischt. Es gelten die <a href="recht.html#agb" target="_blank">AGB</a> und die <a href="recht.html#widerruf" target="_blank">Widerrufsbelehrung</a>.</small></span></label>
+  <div class="msg" id="ppMsg">Bitte noch den Haken setzen.</div>
+  <div id="ppBox"></div>
+  <div class="tok" id="kNew" hidden><span>Dein Konsolen-Code:</span><code id="kNewC"></code><button class="btn" id="kCopy">Kopieren</button><small style="flex-basis:100%">Gut aufheben – damit schaltest du später wieder frei. Er ist auf diesem Handy gespeichert.</small></div>
+</section>
+
+<section class="card" id="anleitung"><h2>Konsole einrichten (einmalig)</h2>
+  <p class="sub">Trag diese DNS-Server ein:</p>
+  <div class="dns"><div><small>Primärer DNS</small><code>65.20.95.163</code></div><div><small>Sekundärer DNS</small><code>1.1.1.1</code></div></div>
+  <div class="two">
+    <div><h3>PS5</h3><ol><li>Einstellungen → Netzwerk → Einstellungen</li><li>Internetverbindung einrichten → deine Verbindung → Erweiterte Einstellungen</li><li>DNS-Einstellungen: <b>Manuell</b>, dann beide Adressen eintragen → OK</li></ol></div>
+    <div><h3>Xbox</h3><ol><li>Einstellungen → Allgemein → Netzwerkeinstellungen</li><li>Erweiterte Einstellungen → DNS-Einstellungen → <b>Manuell</b></li><li>Beide Adressen eintragen, fertig</li></ol></div>
+  </div>
+  <p class="note"><small><b>Gut zu wissen:</b> Auf der Konsole gibt es die Mumbai-Lobbys. Den Geo-Fence (Spielserver nach Ländern sperren) gibt es nur am PC mit der App. Beta: Klappt etwas nicht, schreib uns auf <a href="https://discord.gg/3T6rHxZGQn" target="_blank" rel="noopener">Discord</a> – innerhalb von 3 Stunden gibt es das Geld zurück.</small></p>
+</section>
+</main>
+<script src="js/konsole1.js?v=1"></script>
+</body>
+</html>
