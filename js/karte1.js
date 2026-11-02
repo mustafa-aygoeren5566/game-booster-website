@@ -31,7 +31,7 @@
     const flag = (c, x, y, col, lbl, cls) => `<g transform="translate(${x} ${y - 22 * s}) scale(${s})"><clipPath id="f${c}"><circle r="10"/></clipPath><image href="flags/${c}.svg" x="-14" y="-10" width="28" height="20" clip-path="url(#f${c})" preserveAspectRatio="xMidYMid slice"/><circle r="10.5" stroke="${col}" stroke-width="2"/>
       <g transform="translate(15 -9)"><rect width="${lbl.length * 6.4 + 14}" height="18" rx="6" class="${cls}"/><text x="7" y="12.5" font-family="Inter" font-size="10.5" font-weight="700" fill="#e9eef8">${lbl}</text></g></g>`;
     top.innerHTML = `<circle cx="${ME.x}" cy="${ME.y}" r="${40 * s}" fill="url(#gl)"/><circle cx="${SRV.x}" cy="${SRV.y}" r="${48 * s}" fill="url(#gg)"/>
-      <path d="${R}" stroke="url(#rt)" stroke-width="${6 * s}" opacity=".3"/><path class="route" d="${R}" stroke="url(#rt)" stroke-width="${2.2 * s}" stroke-linecap="round" style="stroke-dasharray:${5 * s} ${7 * s}"/>
+      <path class="route" d="${R}" stroke="url(#rt)" stroke-width="1.8" vector-effect="non-scaling-stroke" style="stroke-dasharray:6 4"/>
       <circle r="${3.5 * s}" fill="#fff"><animateMotion dur="2.4s" repeatCount="indefinite" path="${R}"/></circle>
       <circle class="pin" cx="${ME.x}" cy="${ME.y}" r="${5 * s}" fill="#60a5fa"/><circle cx="${ME.x}" cy="${ME.y}" r="${4.5 * s}" fill="#93c5fd" stroke="#fff" stroke-width="${1.4 * s}"/>
       <circle class="pin" cx="${SRV.x}" cy="${SRV.y}" r="${5 * s}" fill="#34d399"/><circle cx="${SRV.x}" cy="${SRV.y}" r="${4.5 * s}" fill="#34d399" stroke="#fff" stroke-width="${1.4 * s}"/>
