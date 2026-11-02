@@ -186,6 +186,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 .plans .bd.g{background:#0c2a20}
 .chk:has(input:checked){border-color:rgba(52,211,153,.55)!important;background:rgba(52,211,153,.06)!important}.chk input:checked{background:linear-gradient(135deg,#10b981,#34d399)!important;border-color:#34d399!important;box-shadow:0 0 0 4px rgba(52,211,153,.15)!important}
 #ppBox{max-width:520px;margin:0 auto}#ppMsg{text-align:center}
+.flow .mob{display:none}@media(max-width:640px){.flow .desk{display:none}.flow .mob{display:block;max-width:360px;margin:0 auto}.flow text{font-size:14px}.flow text.s{font-size:11.5px}}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -197,7 +198,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
   <h1>Mumbai-Lobbys auf <em>Konsole</em></h1>
   <p class="lead">Ohne PC und ohne App: Du stellst einmal den DNS deiner Konsole um und schaltest hier frei. Nur die Anmeldung zur Matchsuche läuft über Mumbai – gespielt wird über deine eigene Leitung.</p>
   <div class="flow" aria-label="So funktioniert es: Nur die Region-Anmeldung geht über Mumbai, das Spiel läuft direkt.">
-  <svg viewBox="0 0 760 250">
+  <svg class="desk" viewBox="0 0 760 250">
     <path id="pA" class="ln l1" d="M150 125 C 260 125, 270 55, 380 55"/>
     <path class="ln l1" d="M380 55 C 490 55, 500 55, 610 55"/>
     <path id="pB" class="ln l2" d="M150 125 C 260 125, 300 195, 610 195"/>
@@ -216,6 +217,24 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
       <text x="675" y="190" text-anchor="middle">Spielserver</text><text class="s" x="675" y="207" text-anchor="middle">direkt · normaler Ping</text></g>
     <text class="tag" x="235" y="72" text-anchor="middle" fill="#60a5fa">NUR REGION-CHECK</text>
     <text class="tag" x="400" y="226" text-anchor="middle" fill="#34d399">DEIN SPIEL · EIGENE LEITUNG</text>
+  </svg>
+  <svg class="mob" viewBox="0 0 340 360">
+    <path class="ln l1" d="M140 72 C 140 110, 85 105, 85 140"/>
+    <path class="ln l1" d="M85 204 L 85 270"/>
+    <path class="ln l2" d="M200 72 C 200 140, 255 180, 255 270"/>
+    <circle r="5" fill="#60a5fa"><animateMotion dur="2.4s" repeatCount="indefinite" path="M140 72 C 140 110, 85 105, 85 140 L 85 270"/></circle>
+    <circle r="5" fill="#34d399"><animateMotion dur="1.6s" repeatCount="indefinite" path="M200 72 C 200 140, 255 180, 255 270"/></circle>
+    <g class="nd"><rect x="100" y="8" width="140" height="64" rx="14"/>
+      <g class="gi" stroke="#93c5fd"><path d="M160 17h20a6 6 0 0 1 5.8 7.4l-1.2 4.8a2.6 2.6 0 0 1-4.4 1.1L177 27h-14l-3.2 3.3a2.6 2.6 0 0 1-4.4-1.1l-1.2-4.8A6 6 0 0 1 160 17z" transform="translate(-10 0)"/></g>
+      <text x="170" y="52" text-anchor="middle">Deine Konsole</text><text class="s" x="170" y="65" text-anchor="middle">PS5 · Xbox</text></g>
+    <g class="nd m"><rect x="15" y="140" width="140" height="64" rx="14"/>
+      <text x="85" y="168" text-anchor="middle">Unser Server</text><text class="s" x="85" y="185" text-anchor="middle">Mumbai</text></g>
+    <g class="nd m"><rect x="15" y="270" width="140" height="64" rx="14"/>
+      <text x="85" y="298" text-anchor="middle">CoD-Anmeldung</text><text class="s" x="85" y="315" text-anchor="middle">sieht: Region Mumbai</text></g>
+    <g class="nd g"><rect x="185" y="270" width="140" height="64" rx="14"/>
+      <text x="255" y="298" text-anchor="middle">Spielserver</text><text class="s" x="255" y="315" text-anchor="middle">direkt · normaler Ping</text></g>
+    <text class="tag" x="100" y="240" fill="#60a5fa">NUR</text><text class="tag" x="100" y="253" fill="#60a5fa">REGION-CHECK</text>
+    <text class="tag" x="268" y="150" fill="#34d399">DEIN SPIEL</text><text class="tag" x="268" y="163" fill="#34d399">EIGENE</text><text class="tag" x="268" y="176" fill="#34d399">LEITUNG</text>
   </svg></div>
   <div class="stp">
     <div><i>1</i><span><b>Zugang holen</b><small>ab 1,49 € · per PayPal</small></span></div>
