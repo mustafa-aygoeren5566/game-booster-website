@@ -70,3 +70,17 @@ async function zeichne() {
 }
 gate();
 $("kCopy").onclick = () => navigator.clipboard.writeText($("kNewC").textContent).then(() => { $("kCopy").textContent = "Kopiert ✓"; setTimeout(() => $("kCopy").textContent = "Kopieren", 1600) });
+
+// Server-Status oben links in der Karte: grün = läuft, gelb = langsam, rot = Wartung / nicht erreichbar
+async function serverStatus() {
+  const el = $("kSrv"); if (!el) return;
+  const t0 = performance.now(); let st = "wartung";
+  try {
+    const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 6000);
+    const r = await (await fetch(API + "/api/health", { cache: "no-store", signal: ctl.signal })).json(); clearTimeout(to);
+    if (r.ok) st = performance.now() - t0 > 1500 ? "langsam" : "ok";
+  } catch (e) {}
+  el.className = "dots ksrv " + st;
+  el.title = { ok: "Server läuft", langsam: "Server antwortet langsam", wartung: "Server in Wartung – bitte später nochmal" }[st];
+}
+serverStatus(); setInterval(serverStatus, 60000);

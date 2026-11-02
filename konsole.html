@@ -313,6 +313,8 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 #zugang .viz{margin-left:-34px;margin-right:-34px;border-radius:0;border-width:1px 0}
 .note.kwi{font-size:13px;line-height:1.5;padding:8px 14px;margin-top:12px;color:#c3cce0}
 @media(max-width:640px){#zugang .viz{margin-left:-22px;margin-right:-22px}}
+.ksrv i{transition:background .3s,box-shadow .3s}.ksrv.ok i:nth-child(1){background:#34d399;box-shadow:0 0 6px #34d399}
+.ksrv.langsam i:nth-child(2){background:#fbbf24;box-shadow:0 0 6px #fbbf24}.ksrv.wartung i:nth-child(3){background:#f87171;box-shadow:0 0 6px #f87171;animation:blink 1.2s infinite}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -381,7 +383,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
   <div class="kz"><div class="row"><input type="text" id="kTok" placeholder="K… oder GB-…" autocomplete="off" spellcheck="false"><button class="btn" id="kCheck">Prüfen</button></div></div>
   <div id="kBox" hidden>
     <div class="viz off" id="kMap">
-    <div class="vz-top"><div class="dots"><i></i><i></i><i></i></div><b>Konsole</b><em class="vzh"> · Live-Ansicht</em><span class="kbis" id="kStS"></span><span class="live"><i></i><span id="kMs">Aus</span></span></div>
+    <div class="vz-top"><div class="dots ksrv" id="kSrv" title="Server-Status wird geprüft …"><i></i><i></i><i></i></div><b>Konsole</b><em class="vzh"> · Live-Ansicht</em><span class="kbis" id="kStS"></span><span class="live"><i></i><span id="kMs">Aus</span></span></div>
     <div class="vz-map"><svg id="vzSvg" viewBox="0 -95 720 520" fill="none">
       <defs>
         <radialGradient id="gl"><stop offset="0" stop-color="#3b82f6" stop-opacity=".5"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
@@ -424,6 +426,6 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 </main>
 <script src="world.js?v=4"></script>
 <script src="js/karte1.js?v=9"></script>
-<script src="js/konsole1.js?v=7"></script>
+<script src="js/konsole1.js?v=8"></script>
 </body>
 </html>
