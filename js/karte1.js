@@ -80,12 +80,17 @@
   // Echt gemessen aus Deutschland (Game Booster, Geo-Fence aufs Land)
   const REAL_DE = { NL: "25", FR: "26", CH: "26", IT: "28", BE: "28", GB: "30", PL: "31–36", SE: "42", ES: "42", FI: "53" };
   // Tooltip + Klick
-  // Flaggen zählen wie ihr Land – so lassen sich auch kleine Länder anklicken
-  const ziel = e => { const f = e.target.closest(".fl"); return f ? land.querySelector(`.ct[data-i="${f.dataset.i}"]`) : e.target.closest(".ct") };
-  fl.addEventListener("mousemove", e => zeig(e));
-  fl.addEventListener("mouseleave", () => tip.style.opacity = 0);
-  fl.addEventListener("click", e => wahl(e));
-  land.addEventListener("mousemove", e => zeig(e));
+  // Nächstes Land zur Maus (Flagge/Mittelpunkt im Umkreis von 12 px), sonst das Land darunter – so treffen auch kleine Länder
+  const ziel = e => {
+    const r = svg.getBoundingClientRect(), k = vb[2] / r.width, x = vb[0] + (e.clientX - r.left) * k, y = vb[1] + (e.clientY - r.top) * k;
+    let best = -1, bd = (12 * k) ** 2;
+    CEN.forEach((c, i) => { const d = (c[0] - x) ** 2 + (c[1] - y) ** 2; if (d < bd) { bd = d; best = i } });
+    if (best >= 0) return land.querySelector(`.ct[data-i="${best}"]`);
+    const f = e.target.closest(".fl"); return f ? land.querySelector(`.ct[data-i="${f.dataset.i}"]`) : e.target.closest(".ct")
+  };
+  svg.addEventListener("mousemove", e => zeig(e));
+  svg.addEventListener("mouseleave", () => tip.style.opacity = 0);
+  svg.addEventListener("click", e => wahl(e));
   function zeig(e) {
     const p = ziel(e); if (!p) { tip.style.opacity = 0; return }
     const w = WORLD[p.dataset.i], r = svg.parentNode.getBoundingClientRect(), c = p.classList;
@@ -95,8 +100,6 @@
     const fi = tip.querySelector("img"); if (fi) fi.onerror = () => fi.remove();
     tip.style.cssText = `opacity:1;left:${Math.min(e.clientX - r.left + 14, r.width - 230)}px;top:${e.clientY - r.top + 14}px`
   }
-  land.addEventListener("mouseleave", () => tip.style.opacity = 0);
-  land.addEventListener("click", e => wahl(e));
   function wahl(e) { const p = ziel(e); if (p && WORLD[p.dataset.i][0] !== SRV.iso) { tip.style.opacity = 0; setMe(WORLD[p.dataset.i][0], 1100) } }
   // Zoom: Mausrad, +/-, Doppelklick
   function zoomBei(f, px, py) {
