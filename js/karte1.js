@@ -80,17 +80,24 @@
   // Echt gemessen aus Deutschland (Game Booster, Geo-Fence aufs Land)
   const REAL_DE = { NL: "25", FR: "26", CH: "26", IT: "28", BE: "28", GB: "30", PL: "31–36", SE: "42", ES: "42", FI: "53" };
   // Tooltip + Klick
-  land.addEventListener("mousemove", e => {
-    const p = e.target.closest(".ct"); if (!p) { tip.style.opacity = 0; return }
+  // Flaggen zählen wie ihr Land – so lassen sich auch kleine Länder anklicken
+  const ziel = e => { const f = e.target.closest(".fl"); return f ? land.querySelector(`.ct[data-i="${f.dataset.i}"]`) : e.target.closest(".ct") };
+  fl.addEventListener("mousemove", e => zeig(e));
+  fl.addEventListener("mouseleave", () => tip.style.opacity = 0);
+  fl.addEventListener("click", e => wahl(e));
+  land.addEventListener("mousemove", e => zeig(e));
+  function zeig(e) {
+    const p = ziel(e); if (!p) { tip.style.opacity = 0; return }
     const w = WORLD[p.dataset.i], r = svg.parentNode.getBoundingClientRect(), c = p.classList;
     const st = c.contains("blk") ? '<em class="x">gesperrt</em>' : c.contains("me") ? "<em>Du</em>" : c.contains("srv") ? '<em class="g">Lobby-Server</em>' : '<em class="g">erlaubt</em>';
     const rp = me === "DE" && REAL_DE[w[0]] ? `<small class="rp">Server dort: ${REAL_DE[w[0]]} ms aus DE · gemessen</small>` : "";
     tip.innerHTML = `<img src="flags/${w[0].toLowerCase()}.svg" alt="" >${w[lang]}${st}${rp}${c.contains("me") || c.contains("srv") ? "" : '<small>Klick: von hier spielen</small>'}`;
     const fi = tip.querySelector("img"); if (fi) fi.onerror = () => fi.remove();
     tip.style.cssText = `opacity:1;left:${Math.min(e.clientX - r.left + 14, r.width - 230)}px;top:${e.clientY - r.top + 14}px`
-  });
+  }
   land.addEventListener("mouseleave", () => tip.style.opacity = 0);
-  land.addEventListener("click", e => { const p = e.target.closest(".ct"); if (p && WORLD[p.dataset.i][0] !== SRV.iso) { tip.style.opacity = 0; setMe(WORLD[p.dataset.i][0], 1100) } });
+  land.addEventListener("click", e => wahl(e));
+  function wahl(e) { const p = ziel(e); if (p && WORLD[p.dataset.i][0] !== SRV.iso) { tip.style.opacity = 0; setMe(WORLD[p.dataset.i][0], 1100) } }
   // Zoom: Mausrad, +/-, Doppelklick
   function zoomBei(f, px, py) {
     anim++; const w = Math.min(720, Math.max(60, vb[2] * f)), h = w * 330 / 720;
