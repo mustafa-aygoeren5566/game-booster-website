@@ -20,10 +20,7 @@ async function frei(an) {
   } catch (e) { msg("Server nicht erreichbar – bitte gleich nochmal.", "bad") }
 }
 function karte(an) {
-  const g = $("kLand");
-  if (g && !g.childElementCount && typeof WORLD !== "undefined")
-    g.innerHTML = WORLD.map(w => `<path class="${w[0] === "DE" ? "de" : w[0] === "IN" ? "in" : ""}" d="${w[1]}"/>`).join("");
-  $("kMap").classList.toggle("on", !!an);
+  $("kMap").classList.toggle("off", !an);
   $("kMs").textContent = an ? "Mumbai-Lobbys an" : "Aus · normale Lobbys";
 }
 function msg(t, k) { $("kMsg").textContent = t; $("kMsg").className = "msg" + (k ? " " + k : "") }

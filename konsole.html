@@ -252,18 +252,48 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 .fld .in{width:auto;min-width:190px;padding:0 11px}
 .tg{padding:0 14px}
 .note{border-left-color:var(--blue);background:rgba(59,130,246,.07);font-size:14px;line-height:1.6;padding:12px 16px}.note b{color:#bfdbfe}.note small{font-size:14.5px;line-height:1.65;color:#c3cce0}
-.kmap{position:relative;margin-top:12px;border-radius:16px;border:1px solid var(--line);overflow:hidden;background:#081022}
-.kmap svg{display:block;width:100%;height:auto}
-#kLand path{fill:#1a2a4a;stroke:#0b1428;stroke-width:.35}#kLand path.de{fill:#2563eb}#kLand path.in{transition:.5s}
-.kmap.on #kLand path.in{fill:#10b981}
-#kArc{fill:none;stroke:#60a5fa;stroke-width:1;stroke-dasharray:3 3;opacity:0;transition:.4s;animation:kd 1s linear infinite}@keyframes kd{to{stroke-dashoffset:-12}}
-.kdot{fill:#fff;opacity:0}.kmap.on #kArc,.kmap.on .kdot{opacity:1}
-.kme{fill:#60a5fa;stroke:#fff;stroke-width:.8}.kmu{fill:#475569;stroke:#fff;stroke-width:.8;transition:.4s}.kmap.on .kmu{fill:#34d399}
-.kmu.pl{fill:none;stroke:#34d399;opacity:0;transform-origin:506px 132px}.kmap.on .kmu.pl{animation:kp 1.8s ease-out infinite}@keyframes kp{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(3.2)}}
-.klb rect{fill:#0b1222;stroke:#3b82f6;stroke-width:.5}.klb text{font:700 4.6px Inter,system-ui;fill:#e9eef8;text-anchor:middle}
-.klb.m{opacity:.35;transition:.4s}.klb.m rect{stroke:#34d399}.kmap.on .klb.m{opacity:1}
-.kms{position:absolute;bottom:10px;left:12px;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;background:rgba(5,8,16,.85);border:1px solid var(--line);color:var(--mut)}
-.kmap.on .kms{color:var(--ok);border-color:rgba(52,211,153,.45)}
+.viz{position:relative;border-radius:24px;border:1px solid #1d2c4c;background:radial-gradient(ellipse at 60% 30%,#0f1e3d,#060a14 70%);overflow:hidden;box-shadow:0 40px 100px -30px rgba(37,99,235,.5),inset 0 1px 0 rgba(255,255,255,.05)}
+.vz-top{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid #16213a;font-size:12px;color:var(--mut)}
+.vz-top .dots{display:flex;gap:6px}.vz-top .dots i{width:9px;height:9px;border-radius:50%;background:#1d2a45}
+.vz-top b{color:var(--txt);font-weight:700;margin-left:6px}
+.vz-top .live{margin-left:auto;display:flex;align-items:center;gap:7px;padding:4px 10px;border-radius:999px;background:rgba(52,211,153,.1);color:var(--ok);font-weight:700;font-size:11px}
+.vz-top .live i{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok);animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.3}}
+.vz-map{position:relative}.vz-map svg{width:100%;height:auto}
+.route{stroke-dasharray:5 7;animation:dash 1s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-24}}
+.pin{animation:pulse 2.2s ease-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes pulse{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(4)}}
+.blk{animation:bk 3s ease-in-out infinite}@keyframes bk{50%{opacity:.35}}
+.vz-st{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #16213a}
+.vz-st>div{padding:14px 18px;border-right:1px solid #16213a}.vz-st>div:last-child{border-right:0}
+.vz-st span{display:block;font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.vz-st b{display:flex;align-items:baseline;gap:4px;font-size:22px;font-weight:800;margin-top:3px}
+.vz-st b small{font-size:12px;color:var(--mut);font-weight:600}
+.vz-st .g{color:var(--ok)}.vz-st .r{color:#f87171}
+.vz-bar{height:4px;border-radius:4px;background:#16213a;margin-top:8px;overflow:hidden}.vz-bar i{display:block;height:100%;width:22%;background:linear-gradient(90deg,var(--ok),#22d3ee);border-radius:4px}
+.ct{stroke:#0a1224;stroke-width:.35;transition:fill .2s;cursor:default}.ct.ok{fill:#1d3157}.ct.ok:hover{fill:#2b4a80}
+.ct.blk{fill:#3a1322}.ct.blk:hover{fill:#5a1a2c}.ct.me{fill:#3b82f6}.ct.srv{fill:#10b981}
+.vlb{fill:#0b1426;stroke:#3b82f6}.vlg{fill:#0b1f1a;stroke:#1f8a63}
+#vzTip{position:absolute;pointer-events:none;opacity:0;display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:9px;background:rgba(8,12,24,.95);border:1px solid #233a66;font-size:12px;font-weight:600;white-space:nowrap;transition:opacity .15s;z-index:2}
+#vzTip img{width:20px;height:14px;border-radius:3px;object-fit:cover}#vzTip em{font-style:normal;font-size:10.5px;padding:2px 7px;border-radius:5px;background:rgba(59,130,246,.18);color:#93c5fd}
+#vzTip em.g{background:rgba(52,211,153,.14);color:#34d399}#vzTip em.x{background:rgba(239,68,68,.15);color:#f87171}
+.vz-map{overflow:hidden}
+.fc{padding:0 0 26px;overflow:hidden}.fc h3,.fc p{padding:0 26px}
+.fc .art{height:140px;display:grid;place-items:center;margin-bottom:20px;border-bottom:1px solid var(--line);background:radial-gradient(ellipse at 50% 120%,rgba(59,130,246,.14),transparent 70%),#080d19}
+.fc .art svg{width:100%;max-width:300px;height:auto}
+.flow{animation:dash 1s linear infinite}.knob{animation:kn 3s ease-in-out infinite}@keyframes kn{0%,40%{transform:translateX(0)}50%,90%{transform:translateX(0)}}
+.prog{animation:pg 3.2s ease-in-out infinite}@keyframes pg{0%{width:20px}80%,100%{width:232px}}
+.fl{pointer-events:none;opacity:.85}.fl.off{opacity:.45;filter:grayscale(.6)}
+.ct{cursor:pointer}.ct.me,.ct.srv{cursor:default}.fl.hid{display:none}.fr{stroke:#0a1224}.fl.off .fr{stroke:#7f1d1d}
+.vz-hint{position:relative;margin:0;border-radius:0;border-width:1px 0 0;display:flex;align-items:center;gap:8px;padding:7px 8px 7px 12px;border-radius:10px;background:rgba(8,12,24,.85);backdrop-filter:blur(6px);border:1px solid #1d2c4c;font-size:11.5px;color:var(--mut)}
+.vz-hint b{color:var(--txt)}.vz-hint span{color:var(--txt)}
+.vz-hint button{margin-left:auto;padding:4px 10px;border-radius:7px;border:1px solid #2b4a86;background:#0f1b33;color:#cfe0ff;font:inherit;font-size:11px;font-weight:700;cursor:pointer}
+#vzTip small{color:var(--mut);font-size:10.5px;font-weight:500}
+#vzTip small.rp{color:#6ee7b7}
+.viz{box-shadow:none;margin-top:12px}.viz .ct.blk{fill:#1d3157;animation:none}.viz .fl.off{opacity:.85;filter:none}.viz .fl.off .fr{stroke:#0a1224}
+.viz.off #vzTop>path,.viz.off #vzTop>circle[fill="#fff"],.viz.off #vzTop>circle[fill="url(#gg)"]{opacity:0}.viz.off .ct.srv{fill:#1d3157}
+.viz.off .vz-top .live{background:rgba(148,163,184,.1);color:var(--mut)}.viz.off .vz-top .live i{background:#64748b;box-shadow:none;animation:none}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -332,12 +362,19 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
   <div class="kz"><div class="row"><input type="text" id="kTok" placeholder="K… oder GB-…" autocomplete="off" spellcheck="false"><button class="btn" id="kCheck">Prüfen</button></div></div>
   <div id="kBox" hidden>
     <div class="st" id="kSt"><span class="dot"></span><div><b id="kStT">Aus</b><br><small id="kStS"></small></div></div>
-    <div class="kmap" id="kMap"><svg viewBox="345 45 200 105" id="kSvg"><g id="kLand"></g>
-      <path id="kArc" d="M381 69 Q 450 40 506 132"/><circle r="2.6" class="kdot"><animateMotion dur="2.2s" repeatCount="indefinite" path="M381 69 Q 450 40 506 132"/></circle>
-      <circle class="kme" cx="381" cy="69" r="2.6"/><circle class="kmu" cx="506" cy="132" r="2.6"/><circle class="kmu pl" cx="506" cy="132" r="2.6"/>
-      <g class="klb"><rect x="366" y="73" width="17" height="8" rx="2"/><text x="374.5" y="78.8">Du</text></g>
-      <g class="klb m"><rect x="470" y="137" width="50" height="8" rx="2"/><text x="495" y="142.8">Lobby · Mumbai</text></g>
-    </svg><span class="kms" id="kMs">Normale Lobbys</span></div>
+    <div class="viz off" id="kMap">
+    <div class="vz-top"><div class="dots"><i></i><i></i><i></i></div><b>Konsole</b> · Live-Ansicht<span class="live"><i></i><span id="kMs">Aus</span></span></div>
+    <div class="vz-map"><svg id="vzSvg" viewBox="0 0 720 330" fill="none">
+      <defs>
+        <radialGradient id="gl"><stop offset="0" stop-color="#3b82f6" stop-opacity=".5"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
+        <radialGradient id="gg"><stop offset="0" stop-color="#34d399" stop-opacity=".45"/><stop offset="1" stop-color="#34d399" stop-opacity="0"/></radialGradient>
+        <linearGradient id="rt" x1="0" x2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" stroke="#13203a" stroke-width=".4"/></pattern>
+      </defs>
+      <rect x="-200" y="-100" width="1120" height="500" fill="url(#grid)"/>
+      <g id="vzLand"></g><g id="vzFl"></g><g id="vzTop"></g>
+    </svg><div id="vzTip"></div><div class="vz-hint"><span>Spielst du aus <b id="vzWho">…</b>?</span> Klick auf ein Land für deine Vorschau<button type="button" id="vzReset" title="Ganze Welt">Welt</button></div></div>
+    </div>
     <div class="kz"><button class="btn pr big" id="kOn">Mumbai-Lobbys einschalten</button><button class="btn big" id="kOff">Ausschalten</button></div>
     <p class="note"><small><b>Wichtig:</b> Drück den Knopf mit dem Handy <b>im selben WLAN wie deine Konsole</b> (nicht über mobile Daten). Danach das Spiel neu starten. Wenn dein Internet eine neue Adresse bekommt (bei vielen Anbietern nachts), einfach diese Seite öffnen und nochmal einschalten.</small></p>
   </div>
@@ -369,6 +406,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 </section>
 </main>
 <script src="world.js?v=4"></script>
-<script src="js/konsole1.js?v=2"></script>
+<script src="js/karte1.js?v=1"></script>
+<script src="js/konsole1.js?v=3"></script>
 </body>
 </html>
