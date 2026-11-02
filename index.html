@@ -213,7 +213,8 @@ details p{padding:0 0 18px;color:var(--mut);font-size:14.5px}
 footer{border-top:1px solid var(--line);padding:40px 0;margin-top:90px;color:var(--mut);font-size:13px}
 footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 footer a:hover{color:var(--txt)}
-.flk{display:flex;gap:18px;flex-wrap:wrap}
+.flk{display:flex;gap:6px 16px;flex-wrap:wrap;justify-content:flex-end}
+@media(min-width:900px){footer .wrap{flex-wrap:nowrap;align-items:flex-start}footer .wrap>:first-child{flex:none}}
 
 /* Kauf-Dialog */
 #buy,#rdm,#rvm{position:fixed;inset:0;z-index:100;display:none;place-items:center;background:rgba(2,4,9,.75);backdrop-filter:blur(6px);padding:16px}
