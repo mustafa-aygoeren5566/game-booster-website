@@ -292,7 +292,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 #vzTip small{color:var(--mut);font-size:10.5px;font-weight:500}
 #vzTip small.rp{color:#6ee7b7}
 .viz{box-shadow:none;margin-top:12px}.viz .ct.blk{fill:#1d3157;animation:none}.viz .fl.off{opacity:.85;filter:none}.viz .fl.off .fr{stroke:#0a1224}
-.viz.off #vzTop>path{stroke:#64748b!important;opacity:.55;filter:none}.viz.off #vzTop>circle[fill="#fff"]{opacity:.5}.viz.off #vzTop>circle[fill="url(#gg)"]{opacity:0}.viz.off .ct.srv{fill:#1d3157}
+.viz.off #vzTop>circle[fill="#fff"]{opacity:.45}.viz.off #vzTop>circle[fill="url(#gg)"]{opacity:0}.viz.off .ct.srv{fill:#1d3157}
 .viz.off .vz-top .live{background:rgba(148,163,184,.1);color:var(--mut)}.viz.off .vz-top .live i{background:#64748b;box-shadow:none;animation:none}
 .viz .vz-hint{border-width:1px 0 0;border-radius:0;padding:8px 10px 8px 14px;backdrop-filter:none;background:#080d1a}
 .vzz{margin-left:auto;display:flex;gap:6px}.vzz button{margin:0!important;min-width:30px}
@@ -313,7 +313,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 .msg:empty{display:none}.note.kwi{font-size:13px;line-height:1.5;padding:8px 14px;margin-top:34px;color:#c3cce0}
 .ksrv i{transition:background .3s,box-shadow .3s}.ksrv.ok i:nth-child(1){background:#34d399;box-shadow:0 0 6px #34d399}
 .ksrv.langsam i:nth-child(2){background:#fbbf24;box-shadow:0 0 6px #fbbf24}.ksrv.wartung i:nth-child(3){background:#f87171;box-shadow:0 0 6px #f87171;animation:blink 1.2s infinite}
-.viz .route{animation:kdash 1.4s linear infinite}@keyframes kdash{to{stroke-dashoffset:-20}}
+/* Bogen 1:1 wie in der App (vp-arc / vp-arcg / vp-pre) */.viz .route{stroke-dasharray:6 8!important;animation:kdash 1s linear infinite}@keyframes kdash{to{stroke-dashoffset:-28}}.viz .kglow{opacity:.3}.viz.off .route{opacity:.45}.viz.off .kglow{opacity:.12}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -424,7 +424,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 </section>
 </main>
 <script src="world.js?v=4"></script>
-<script src="js/karte1.js?v=11"></script>
+<script src="js/karte1.js?v=12"></script>
 <script src="js/konsole1.js?v=8"></script>
 </body>
 </html>
