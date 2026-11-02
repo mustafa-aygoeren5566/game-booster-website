@@ -252,6 +252,18 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 .fld .in{width:auto;min-width:190px;padding:0 11px}
 .tg{padding:0 14px}
 .note{border-left-color:var(--blue);background:rgba(59,130,246,.07);font-size:14px;line-height:1.6;padding:12px 16px}.note b{color:#bfdbfe}.note small{font-size:14.5px;line-height:1.65;color:#c3cce0}
+.kmap{position:relative;margin-top:12px;border-radius:16px;border:1px solid var(--line);overflow:hidden;background:#081022}
+.kmap svg{display:block;width:100%;height:auto}
+#kLand path{fill:#1a2a4a;stroke:#0b1428;stroke-width:.35}#kLand path.de{fill:#2563eb}#kLand path.in{transition:.5s}
+.kmap.on #kLand path.in{fill:#10b981}
+#kArc{fill:none;stroke:#60a5fa;stroke-width:1;stroke-dasharray:3 3;opacity:0;transition:.4s;animation:kd 1s linear infinite}@keyframes kd{to{stroke-dashoffset:-12}}
+.kdot{fill:#fff;opacity:0}.kmap.on #kArc,.kmap.on .kdot{opacity:1}
+.kme{fill:#60a5fa;stroke:#fff;stroke-width:.8}.kmu{fill:#475569;stroke:#fff;stroke-width:.8;transition:.4s}.kmap.on .kmu{fill:#34d399}
+.kmu.pl{fill:none;stroke:#34d399;opacity:0;transform-origin:506px 132px}.kmap.on .kmu.pl{animation:kp 1.8s ease-out infinite}@keyframes kp{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(3.2)}}
+.klb rect{fill:#0b1222;stroke:#3b82f6;stroke-width:.5}.klb text{font:700 4.6px Inter,system-ui;fill:#e9eef8;text-anchor:middle}
+.klb.m{opacity:.35;transition:.4s}.klb.m rect{stroke:#34d399}.kmap.on .klb.m{opacity:1}
+.kms{position:absolute;bottom:10px;left:12px;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;background:rgba(5,8,16,.85);border:1px solid var(--line);color:var(--mut)}
+.kmap.on .kms{color:var(--ok);border-color:rgba(52,211,153,.45)}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -320,6 +332,12 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
   <div class="kz"><div class="row"><input type="text" id="kTok" placeholder="K… oder GB-…" autocomplete="off" spellcheck="false"><button class="btn" id="kCheck">Prüfen</button></div></div>
   <div id="kBox" hidden>
     <div class="st" id="kSt"><span class="dot"></span><div><b id="kStT">Aus</b><br><small id="kStS"></small></div></div>
+    <div class="kmap" id="kMap"><svg viewBox="345 45 200 105" id="kSvg"><g id="kLand"></g>
+      <path id="kArc" d="M381 69 Q 450 40 506 132"/><circle r="2.6" class="kdot"><animateMotion dur="2.2s" repeatCount="indefinite" path="M381 69 Q 450 40 506 132"/></circle>
+      <circle class="kme" cx="381" cy="69" r="2.6"/><circle class="kmu" cx="506" cy="132" r="2.6"/><circle class="kmu pl" cx="506" cy="132" r="2.6"/>
+      <g class="klb"><rect x="366" y="73" width="17" height="8" rx="2"/><text x="374.5" y="78.8">Du</text></g>
+      <g class="klb m"><rect x="470" y="137" width="50" height="8" rx="2"/><text x="495" y="142.8">Lobby · Mumbai</text></g>
+    </svg><span class="kms" id="kMs">Normale Lobbys</span></div>
     <div class="kz"><button class="btn pr big" id="kOn">Mumbai-Lobbys einschalten</button><button class="btn big" id="kOff">Ausschalten</button></div>
     <p class="note"><small><b>Wichtig:</b> Drück den Knopf mit dem Handy <b>im selben WLAN wie deine Konsole</b> (nicht über mobile Daten). Danach das Spiel neu starten. Wenn dein Internet eine neue Adresse bekommt (bei vielen Anbietern nachts), einfach diese Seite öffnen und nochmal einschalten.</small></p>
   </div>
@@ -350,6 +368,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
   <p class="note"><small><b>Gut zu wissen:</b> Auf der Konsole gibt es die Mumbai-Lobbys. Den Geo-Fence (Spielserver nach Ländern sperren) gibt es nur am PC mit der App. Beta: Klappt etwas nicht, schreib uns auf <a href="https://discord.gg/3T6rHxZGQn" target="_blank" rel="noopener">Discord</a> – innerhalb von 3 Stunden gibt es das Geld zurück.</small></p>
 </section>
 </main>
-<script src="js/konsole1.js?v=1"></script>
+<script src="world.js?v=4"></script>
+<script src="js/konsole1.js?v=2"></script>
 </body>
 </html>
