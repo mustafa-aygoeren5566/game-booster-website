@@ -33,6 +33,32 @@ if (q) { $("kTok").value = q; frei() }
 
 // Kauf
 let plan = { v: "4.99", n: "1 Monat" }, sdk = null, btn = null;
+// Rabatt: bei jedem Tarif alter Preis durchgestrichen + neuer Preis, PayPal bekommt den reduzierten Betrag samt Code
+let rab = { c: "", pct: 0 };
+const rabPreis = v => (Math.round(+v * (100 - rab.pct) + 1e-7) / 100).toFixed(2), eur = v => v.replace(".", ",") + " €";
+function preiseZeigen() {
+  document.querySelectorAll(".plans button").forEach(b => {
+    const p = b.querySelector("b"); p.querySelector("s")?.remove();
+    p.lastChild.textContent = eur(rab.pct ? rabPreis(b.dataset.v) : b.dataset.v); p.classList.toggle("neu", !!rab.pct);
+    if (rab.pct) p.insertAdjacentHTML("afterbegin", `<s>${eur(b.dataset.v)}</s>`);
+  });
+}
+async function rabattPruefen() {
+  const c = $("kRab").value.trim().toUpperCase(), m = $("kRabMsg"); m.className = "krabm"; rab = { c: "", pct: 0 };
+  if (c) {
+    m.textContent = "Wird geprüft …";
+    try {
+      const r = await (await fetch(API + "/api/rabatt?c=" + encodeURIComponent(c))).json();
+      if (r.ok) { rab = { c, pct: r.pct }; m.textContent = `Rabattcode ${c} aktiv: −${r.pct} % auf alle Tarife` }
+      else { m.className = "krabm no"; m.textContent = r.msg || "Code ungültig" }
+    } catch (e) { m.className = "krabm no"; m.textContent = "Server nicht erreichbar – bitte später nochmal." }
+  } else m.textContent = "";
+  preiseZeigen(); zeichne();
+}
+$("kRabGo").onclick = rabattPruefen;
+$("kRab").onkeydown = e => { if (e.key === "Enter") rabattPruefen() };
+try { const c = (new URLSearchParams(location.search).get("c") || sessionStorage.getItem("gbRef") || "").toUpperCase().replace(/[^A-Z0-9_-]/g, "").slice(0, 24);
+  if (c) { $("kRab").value = c; rabattPruefen() } } catch (e) {}
 document.querySelectorAll(".plans button").forEach(b => b.onclick = () => {
   document.querySelectorAll(".plans button").forEach(x => x.classList.toggle("on", x === b)); plan = { v: b.dataset.v, n: b.dataset.n }; zeichne();
 });
@@ -46,7 +72,7 @@ async function zeichne() {
   $("ppBox").innerHTML = "";
   btn = paypal.Buttons({
     style: { layout: "vertical", color: "blue", shape: "rect", label: "pay", height: 44 },
-    createOrder: (d, a) => a.order.create({ purchase_units: [{ description: "Game-VPN Konsole – " + plan.n, custom_id: "KONSOLE", amount: { currency_code: "EUR", value: plan.v } }], application_context: { shipping_preference: "NO_SHIPPING", brand_name: "Game Booster" } }),
+    createOrder: (d, a) => a.order.create({ purchase_units: [{ description: "Game-VPN Konsole – " + plan.n + (rab.pct ? ` (Rabatt ${rab.c} −${rab.pct} %)` : ""), custom_id: "KONSOLE" + (rab.pct ? "|" + rab.c : ""), amount: { currency_code: "EUR", value: rab.pct ? rabPreis(plan.v) : plan.v } }], application_context: { shipping_preference: "NO_SHIPPING", brand_name: "Game Booster" } }),
     onApprove: (d, a) => a.order.capture().then(async o => {
       fetch(API + "/api/paid", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ order: o.id, zust: "2026-11-01" }) }).catch(() => {});
       $("ppMsg").textContent = "Danke! Dein Zugang wird erstellt …";

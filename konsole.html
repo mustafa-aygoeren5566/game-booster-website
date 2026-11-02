@@ -320,6 +320,9 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 @media(max-width:640px){.viz .vz-top{flex-wrap:wrap;row-gap:6px}.kbis{order:5;width:100%;margin:0}.viz .vz-top .live{margin-left:auto}.kleg>span{display:block;white-space:normal}.kleg i{display:inline-block;vertical-align:middle;margin-right:8px}.kleg>span.vzh{display:none}.viz .vz-top>b{display:none}}
 #vzSvg{touch-action:pan-x pan-y;will-change:transform;transform:translateZ(0)}.viz{contain:paint;isolation:isolate}
 /* Kopfzeile: weichzeichnen über der großen animierten Karte führte beim schnellen Scrollen zu schwarzen Flächen */.top{backdrop-filter:none;background:rgba(5,7,13,.96)}
+.krab{display:flex;gap:10px;margin-top:14px}.krab input{flex:1;min-width:0;text-transform:uppercase;background:#070b14;border:1px solid var(--line);border-radius:12px;padding:13px 14px;color:var(--txt);font:inherit;font-size:15px;outline:none}.krab input:focus{border-color:var(--blue)}.krab .btn{flex:none;width:auto;margin:0}
+.krabm{min-height:0;margin-top:6px;font-size:13.5px;color:var(--ok)}.krabm.no{color:var(--bad)}.krabm:empty{display:none}
+.plans s{display:block;font-size:12px;color:var(--mut);font-weight:600}.plans .neu{color:var(--ok)}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -413,6 +416,8 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
     <button data-v="12.99" data-n="3 Monate"><span class="rb">−13 %</span>3 Monate<b>12,99 €</b><small>≈ 0,14 € / Tag</small></button>
     <button data-v="39.99" data-n="1 Jahr" class="best"><span class="bd g">Bester Preis</span><span class="rb g">−33 %</span>1 Jahr<b>39,99 €</b><small>≈ 0,11 € / Tag</small></button>
   </div>
+  <div class="krab"><input id="kRab" placeholder="Rabattcode (optional)" autocomplete="off" maxlength="24"><button type="button" class="btn" id="kRabGo">Einlösen</button></div>
+  <div class="krabm" id="kRabMsg"></div>
   <label class="chk"><input type="checkbox" id="kOk"><span><small>Ich verlange ausdrücklich, dass mein Zugang sofort – also vor Ablauf der 14-tägigen Widerrufsfrist – freigeschaltet wird. Mir ist bekannt, dass ich bei einem Widerruf die bis dahin genutzte Zeit anteilig bezahle und mein Widerrufsrecht bei vollständiger Leistung erlischt. Es gelten die <a href="recht.html#agb" target="_blank">AGB</a> und die <a href="recht.html#widerruf" target="_blank">Widerrufsbelehrung</a>.</small></span></label>
   <div class="msg" id="ppMsg">Bitte noch den Haken setzen.</div>
   <div id="ppBox"></div>
@@ -431,6 +436,6 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 </main>
 <script src="world.js?v=4"></script>
 <script src="js/karte1.js?v=16"></script>
-<script src="js/konsole1.js?v=8"></script>
+<script src="js/konsole1.js?v=9"></script>
 </body>
 </html>
