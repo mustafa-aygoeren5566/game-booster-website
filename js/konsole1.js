@@ -134,3 +134,9 @@ if (q) {   // Rueckkehrer: Zugang ganz oben, keine Schritt-Nummern, passende Tit
   document.querySelectorAll("h2 [data-alt]").forEach(s => s.textContent = s.dataset.alt);
   const st3 = document.querySelector(".st3"); if (st3) st3.style.display = "none";
 }
+
+// Waehrend das Anleitungsvideo laeuft, alle Seiten-Animationen (Karte, Route, Leuchten) anhalten - sonst stockt das Video auf schwaecheren PCs
+(() => { const v = document.querySelector("#video video"); if (!v) return;
+  const svgs = () => document.querySelectorAll("svg");
+  const an = on => { document.body.classList.toggle("vplay", on); svgs().forEach(s => { try { on ? s.pauseAnimations() : s.unpauseAnimations() } catch (e) {} }) };
+  v.addEventListener("play", () => an(true)); ["pause", "ended"].forEach(e => v.addEventListener(e, () => an(false))); })();
