@@ -124,3 +124,8 @@ async function serverStatus() {
   el.title = { ok: "Server läuft", langsam: "Server antwortet langsam", wartung: "Server in Wartung – bitte später nochmal" }[st];
 }
 serverStatus(); setInterval(serverStatus, 60000);
+
+// Schritte oben klickbar; wer schon einen Code gespeichert hat, bekommt "Einschalten" gleich nach oben
+["kaufen", "anleitung", "zugang"].forEach((id, i) => { const d = document.querySelectorAll(".st3 > div")[i];
+  if (d) { d.dataset.go = id; d.onclick = () => $(id).scrollIntoView({ behavior: "smooth", block: "start" }) } });
+if (q) { const z = $("zugang"), k = $("kaufen"); k.parentNode.insertBefore(z, k) }
