@@ -128,4 +128,9 @@ serverStatus(); setInterval(serverStatus, 60000);
 // Schritte oben klickbar; wer schon einen Code gespeichert hat, bekommt "Einschalten" gleich nach oben
 ["kaufen", "anleitung", "zugang"].forEach((id, i) => { const d = document.querySelectorAll(".st3 > div")[i];
   if (d) { d.dataset.go = id; d.onclick = () => $(id).scrollIntoView({ behavior: "smooth", block: "start" }) } });
-if (q) { const z = $("zugang"), k = $("kaufen"); k.parentNode.insertBefore(z, k) }
+if (q) {   // Rueckkehrer: Zugang ganz oben, keine Schritt-Nummern, passende Titel
+  const z = $("zugang"), k = $("video"); k.parentNode.insertBefore(z, k);
+  document.body.classList.add("krueck");
+  document.querySelectorAll("h2 [data-alt]").forEach(s => s.textContent = s.dataset.alt);
+  const st3 = document.querySelector(".st3"); if (st3) st3.style.display = "none";
+}

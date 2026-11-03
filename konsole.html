@@ -135,8 +135,10 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 
 .kz{display:grid;gap:12px;margin-top:14px}
 .kz .row{display:flex;gap:10px;flex-wrap:wrap}.kz .row input{flex:1;min-width:200px}
-.kn{display:inline-grid;place-items:center;width:30px;height:30px;margin-right:12px;border-radius:9px;background:linear-gradient(135deg,#3b82f6,#10b981);color:#fff;font-style:normal;font-size:15px;font-weight:900;vertical-align:-4px}.kh2{font-size:13px;font-weight:600;color:var(--mut);margin-left:6px}
-.kvid{margin:6px 0 18px;border-radius:14px;overflow:hidden;border:1px solid #233a66;background:#05080f}.kvid video{display:block;width:100%;height:auto;aspect-ratio:16/9}
+.kn{display:inline-grid;place-items:center;width:30px;height:30px;margin-right:12px;border-radius:9px;background:#13244a;border:1px solid #2b4a86;color:#93c5fd;font-style:normal;font-size:14px;font-weight:800;vertical-align:3px}.kh2{font-size:13px;font-weight:600;color:var(--mut);margin-left:6px}
+.kvc{text-align:center}.kvh{max-width:640px;margin:0 auto 18px}.kvl{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#6ee7b7;padding:5px 12px;border:1px solid rgba(52,211,153,.35);border-radius:999px;background:rgba(52,211,153,.08);margin-bottom:10px}
+body.krueck .kn,body.krueck .kh2{display:none}
+.kvid{margin:0;box-shadow:0 30px 80px -40px rgba(59,130,246,.6);border-radius:14px;overflow:hidden;border:1px solid #233a66;background:#05080f}.kvid video{display:block;width:100%;height:auto;aspect-ratio:16/9}
 .st3>div[data-go]{cursor:pointer;transition:transform .2s}.st3>div[data-go]:hover{transform:translateY(-3px)}
 .st{display:flex;align-items:center;gap:14px;padding:18px;border-radius:16px;border:1px solid var(--line);background:#070b14;margin-top:16px}
 .st b{font-size:17px}.st .dot{width:12px;height:12px;border-radius:50%;background:#475569;flex:none}.st.on .dot{background:var(--ok)}.st.on{border-color:rgba(52,211,153,.4)}
@@ -389,7 +391,11 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
   </div>
 </section>
 
-<section class="card" id="kaufen"><h2><i class="kn">1</i>Zugang holen</h2>
+<section class="card kvc" id="video"><div class="kvh"><span class="kvl">Video</span><h2>So geht's in einer Minute</h2><p class="sub">Zugang holen, DNS eintragen, einschalten – einmal komplett gezeigt.</p></div>
+  <div class="kvid"><video src="img/konsole-anleitung.mp4?v=1" poster="img/konsole-anleitung.webp?v=1" controls playsinline preload="none"></video></div>
+</section>
+
+<section class="card" id="kaufen"><h2><i class="kn">1</i><span data-alt="Verlängern">Zugang holen</span></h2>
   <p class="sub">Kein Abo, keine automatische Verlängerung. Bezahlt wird sicher über PayPal.</p>
   <div class="plans">
     <button data-v="1.49" data-n="1 Tag">1 Tag<b>1,49 €</b><small>zum Testen</small></button>
@@ -405,9 +411,8 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
   <div class="tok" id="kNew" hidden><span>Dein Konsolen-Code:</span><code id="kNewC"></code><button class="btn" id="kCopy">Kopieren</button><small style="flex-basis:100%">Gut aufheben – damit schaltest du später wieder frei. Er ist auf diesem Handy gespeichert.</small></div>
 </section>
 
-<section class="card" id="anleitung"><h2><i class="kn">2</i>DNS eintragen <small class="kh2">einmalig</small></h2>
-  <div class="kvid"><video src="img/konsole-anleitung.mp4?v=1" poster="img/konsole-anleitung.webp?v=1" controls playsinline preload="none"></video></div>
-  <p class="sub">Oder Schritt für Schritt – trag diese DNS-Server ein:</p>
+<section class="card" id="anleitung"><h2><i class="kn">2</i><span data-alt="Konsole einrichten">DNS eintragen</span> <small class="kh2">einmalig</small></h2>
+  <p class="sub">Trag diese DNS-Server ein:</p>
   <div class="dns"><div><small>Primärer DNS</small><code>65.20.95.163</code></div><div><small>Sekundärer DNS</small><code>1.1.1.1</code></div></div>
   <div class="two">
     <div><h3>PS5</h3><ol><li>Einstellungen → Netzwerk → Einstellungen</li><li>Internetverbindung einrichten → deine Verbindung → Erweiterte Einstellungen</li><li>DNS-Einstellungen: <b>Manuell</b>, dann beide Adressen eintragen → OK</li></ol></div>
@@ -416,7 +421,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
   <p class="note"><small><b>Gut zu wissen:</b> Auf der Konsole gibt es die Mumbai-Lobbys. Den Geo-Fence (Spielserver nach Ländern sperren) gibt es nur am PC mit der App. Beta: Klappt etwas nicht, schreib uns auf <a href="https://discord.gg/3T6rHxZGQn" target="_blank" rel="noopener">Discord</a> – innerhalb von 3 Stunden gibt es das Geld zurück.</small></p>
 </section>
 
-<section class="card" id="zugang"><h2><i class="kn">3</i>Einschalten</h2>
+<section class="card" id="zugang"><h2><i class="kn">3</i><span data-alt="Dein Zugang">Einschalten</span></h2>
   <p class="sub">Code eingeben (wird auf diesem Gerät gespeichert, beim nächsten Mal bist du direkt hier) – entweder den Konsolen-Code (K…) aus deinem Kauf oder deinen App-Code (GB-…), falls du schon PC-Kunde bist.</p>
   <div class="kz"><div class="row"><input type="text" id="kTok" placeholder="K… oder GB-…" autocomplete="off" spellcheck="false"><button class="btn" id="kCheck">Prüfen</button></div></div>
   <div id="kBox" hidden>
@@ -440,6 +445,6 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 </main>
 <script src="world.js?v=4"></script>
 <script src="js/karte1.js?v=16"></script>
-<script src="js/konsole1.js?v=12"></script>
+<script src="js/konsole1.js?v=13"></script>
 </body>
 </html>
