@@ -69,7 +69,7 @@ body{overflow-x:hidden}
 /* Video: PC quer (unter dem Text, volle Breite), Handy hoch */
 .yt.h{background-image:url(img/promo-hoch.webp)}
 .yt.q{width:100%;aspect-ratio:16/9;border-radius:22px;background-image:url(img/promo-quer.webp)}
-@media(min-width:901px){.vid .eb{grid-template-columns:1fr}.yt.h{display:none}}
+@media(min-width:901px){.vid .eb{grid-template-columns:1fr;gap:28px}.yt.h{display:none}.vid .eb>div:first-child{text-align:center;display:flex;flex-direction:column;align-items:center}.vid .eb ul{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 14px;margin-bottom:22px}.vid .eb li{padding:8px 14px;border:1px solid #233a66;border-radius:999px;background:rgba(59,130,246,.07);align-items:center}.vid .eb li svg{margin-top:0}}
 @media(max-width:900px){.yt.q{display:none}}
 </style>
 </head>
@@ -90,16 +90,17 @@ body{overflow-x:hidden}
   <div class="vid"><div class="eb">
     <div>
       <span class="lbl">Video</span><h3>Game-VPN in <span>30 Sekunden</span></h3>
-      <p>Kurz erklärt: Was der Game-VPN macht, wie die App aussieht und wie du in wenigen Klicks startest.</p>
+      <p>Wie der Game-VPN funktioniert und was er dir bringt, kurz erklärt.</p>
       <ul>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M8 12.5l3 3 5-6"/></svg>Region wählen und mit einem Klick verbinden</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M8 12.5l3 3 5-6"/></svg>Server-Anzeige direkt im Spiel – du siehst, wo du spielst</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M8 12.5l3 3 5-6"/></svg>Laufzeit immer im Blick, Verlängern mit einem Klick</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M8 12.5l3 3 5-6"/></svg>Matchsuche über Mumbai</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M8 12.5l3 3 5-6"/></svg>Ping bleibt niedrig</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M8 12.5l3 3 5-6"/></svg>Geo-Fence am PC</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M8 12.5l3 3 5-6"/></svg>PS5 &amp; Xbox per DNS</li>
       </ul>
       <a class="btn pr" href="index.html#preise">Jetzt starten</a>
     </div>
-    <div class="yt q"><video src="img/promo-quer.mp4?v=1" poster="img/promo-quer.webp" controls playsinline preload="none"></video></div>
-    <div class="yt h"><video src="img/promo-hoch.mp4?v=1" poster="img/promo-hoch.webp" controls playsinline preload="none"></video></div>
+    <div class="yt q"><video src="img/promo-quer.mp4?v=2" poster="img/promo-quer.webp" controls playsinline preload="none"></video></div>
+    <div class="yt h"><video src="img/promo-hoch.mp4?v=2" poster="img/promo-hoch.webp" controls playsinline preload="none"></video></div>
   </div></div>
 </main>
 </body>
