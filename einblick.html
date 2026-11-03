@@ -95,6 +95,26 @@ body{overflow-x:hidden}
 /* Video: PC quer (unter dem Text, volle Breite), Handy hoch */
 .yt.h{background-image:url(img/promo-hoch.webp)}
 .yt.q{width:100%;aspect-ratio:16/9;border-radius:22px;background-image:url(img/promo-quer.webp)}
+.vEnd{gap:14px;padding:20px;text-align:center;background:radial-gradient(ellipse at 50% 40%,rgba(30,64,175,.5),rgba(5,8,16,.97) 72%),linear-gradient(180deg,rgba(5,8,16,.88),rgba(5,8,16,.96));backdrop-filter:blur(6px)}
+.vEnd:before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,rgba(52,211,153,.12),transparent 30%,rgba(59,130,246,.16),transparent 60%);animation:veDreh 14s linear infinite;pointer-events:none}
+@keyframes veDreh{to{transform:rotate(360deg)}}
+.vEnd>*{position:relative}
+.ve-tag{font-size:11.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#6ee7b7;padding:6px 14px;border:1px solid rgba(52,211,153,.35);border-radius:999px;background:rgba(52,211,153,.08);opacity:0;transform:translateY(10px);transition:all .5s .05s}
+.vEnd b{font-size:clamp(22px,3.4vw,40px);line-height:1.1}
+.vEnd b em{font-style:normal;background:linear-gradient(90deg,#60a5fa,#34d399);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ve-pts{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;opacity:0;transform:translateY(10px);transition:all .5s .25s}
+.ve-pts span{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#cfe0ff}
+.ve-pts svg{width:16px;height:16px;color:#34d399}
+.vEnd .ve-go{display:inline-flex;align-items:center;gap:10px;font-size:18px;padding:16px 36px;border-radius:14px;background:linear-gradient(135deg,#3b82f6,#10b981);color:#fff;box-shadow:0 10px 30px rgba(16,185,129,.3)}
+.vEnd .ve-go svg{width:20px;height:20px;transition:transform .2s}
+.vEnd .ve-go:hover svg{transform:translateX(4px)}
+@keyframes vPuls{0%,100%{box-shadow:0 10px 30px rgba(16,185,129,.3),0 0 0 0 rgba(52,211,153,.55)}50%{box-shadow:0 10px 30px rgba(16,185,129,.3),0 0 0 14px rgba(52,211,153,0)}}
+.ve-code{font-style:normal;font-size:13px;color:#9fb0d0;opacity:0;transition:opacity .4s .55s}
+.ve-code strong{color:#fbbf24;letter-spacing:.06em}
+.vEnd.an .ve-tag,.vEnd.an .ve-pts{opacity:1;transform:none}.vEnd.an .ve-code{opacity:1}
+.yt .vEnd button{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#9fb0d0}
+.yt .vEnd button svg{width:15px;height:15px}.yt .vEnd button:hover{color:#fff}
+@media(max-width:600px){.vEnd{gap:9px}.ve-pts span{font-size:12px}.vEnd .ve-go{font-size:15px;padding:12px 24px}.ve-tag{font-size:10px}}
 @media(min-width:901px){.vid .eb{grid-template-columns:1fr;gap:28px}.yt.h{display:none}.vid .eb>div:first-child{text-align:center;display:flex;flex-direction:column;align-items:center}.vid .eb ul{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 14px;margin-bottom:22px}.vid .eb li{padding:8px 14px;border:1px solid #233a66;border-radius:999px;background:rgba(59,130,246,.07);align-items:center}.vid .eb li svg{margin-top:0}.vid .eb .btn{position:absolute;top:76px;right:48px;margin:0}.vid .eb ul{margin-bottom:0}}
 @media(max-width:900px){.yt.q{display:none}}
 </style>
@@ -152,12 +172,11 @@ body{overflow-x:hidden}
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M8 12.5l3 3 5-6"/></svg>Geo-Fence am PC</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M8 12.5l3 3 5-6"/></svg>PS5 &amp; Xbox per DNS</li>
       </ul>
-      <a class="btn pr" href="index.html#preise">Jetzt starten</a>
     </div>
     <div class="yt q"><video src="img/promo-quer.mp4?v=4" poster="img/promo-quer.webp?v=4" controls playsinline preload="none"></video></div>
     <div class="yt h"><video src="img/promo-hoch.mp4?v=4" poster="img/promo-hoch.webp?v=4" controls playsinline preload="none"></video></div>
   </div></div>
 </main>
-<script src="einblick.js?v=2" defer></script>
+<script src="einblick.js?v=3" defer></script>
 </body>
 </html>
