@@ -102,7 +102,7 @@ h1{font-size:clamp(38px,5vw,78px);line-height:1.04;font-weight:900;letter-spacin
 
 /* Abschnitte */
 section{padding:90px 0}
-.resg{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1180px;margin:0 auto}@media(max-width:800px){.resg{grid-template-columns:1fr}}.resg .res h3{font-size:16px;margin:0;padding:16px 20px 0}.res{margin:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--card)}.res img{display:block;width:100%;height:auto}.res .rb{display:flex;flex-wrap:wrap;gap:10px;padding:16px 20px;border-top:1px solid var(--line)}.res .rb span{padding:7px 13px;border-radius:10px;border:1px solid var(--line);font-size:13.5px;font-weight:600;color:#c3cce0}.res .rb b{color:var(--txt)}.res p{padding:0 20px 18px;font-size:13px;color:var(--mut);margin:0}
+.resg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1440px;margin:0 auto}@media(max-width:1100px){.resg{grid-template-columns:1fr 1fr}}@media(max-width:700px){.resg{grid-template-columns:1fr}}.resg .res h3{font-size:16px;margin:0;padding:16px 20px 0}.res{margin:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--card)}.res img{display:block;width:100%;height:auto}.res .rb{display:flex;flex-wrap:wrap;gap:10px;padding:16px 20px;border-top:1px solid var(--line)}.res .rb span{padding:7px 13px;border-radius:10px;border:1px solid var(--line);font-size:13.5px;font-weight:600;color:#c3cce0}.res .rb b{color:var(--txt)}.res p{padding:0 20px 18px;font-size:13px;color:var(--mut);margin:0}
 .sh{text-align:center;max-width:640px;margin:0 auto 54px}
 .sh small{display:block;font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--blue2);text-transform:uppercase;margin-bottom:10px}
 .sh h2{font-size:clamp(30px,4vw,44px);font-weight:900;letter-spacing:-.03em;line-height:1.1}
@@ -531,12 +531,14 @@ footer .wrap{max-width:1440px}@media(max-width:1300px){nav a[href="einblick.html
 </div></section>
 
 <section id="ergebnisse"><div class="wrap">
-  <div class="sh"><small>Ergebnisse</small><h2>Echte Runden, <span class="bl">echter Ping</span></h2><p>Screenshots aus MW4 mit Geo-Fence, direkt aus dem Spiel.</p></div>
+  <div class="sh"><small>Ergebnisse</small><h2>Echte Runden, <span class="bl">echter Ping</span></h2><p>Screenshots aus MW4 und Warzone, am PC und auf Konsole, direkt aus dem Spiel.</p></div>
   <div class="resg">
   <figure class="res"><img src="img/result-london.webp" width="2000" height="1126" loading="lazy" alt="MW4 Herrschaft: Server London, 31 ms Latenz, 2.63 K/D">
   <figcaption><h3>Multiplayer · Herrschaft auf Shipment</h3><div class="rb"><span>Server <b>London · UK</b></span><span>Latenz <b>31 ms</b></span><span>K/D <b>2.63</b></span></div></figcaption></figure>
   <figure class="res"><img src="img/result-warsaw.webp" width="2000" height="1126" loading="lazy" alt="MW4 DMZ: Server Warschau, 33 ms Latenz">
   <figcaption><h3>DMZ · Südkoreanische Küste</h3><div class="rb"><span>Server <b>Warschau · PL</b></span><span>Latenz <b>33 ms</b></span><span>Modus <b>DMZ</b></span></div></figcaption></figure>
+  <figure class="res"><img src="img/result-resurgence.webp" width="2000" height="1126" loading="lazy" alt="Warzone Resurgence Quads auf PlayStation: 30 ms Latenz, 0 % Paketverlust, Platz 3">
+  <figcaption><h3>Warzone · Resurgence Quads (PS5)</h3><div class="rb"><span>Latenz <b>30 ms</b></span><span>Paketverlust <b>0 %</b></span><span>Platz <b>3</b></span></div></figcaption></figure>
   </div>
   <p style="text-align:center;font-size:13px;color:var(--mut);margin:18px auto 0;max-width:640px">Namen anderer Spieler unkenntlich gemacht. Ping und Wartezeit hängen von deiner Leitung, der Uhrzeit und dem Modus ab.</p>
 </div></section>
