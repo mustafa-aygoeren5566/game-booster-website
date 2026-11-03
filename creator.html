@@ -48,8 +48,12 @@ p,li{color:#c3cce0}small{color:var(--mut)}
 .kp>div:after{animation:glw 4s ease-in-out infinite}@keyframes glw{50%{opacity:.45;transform:scale(1.25)}}
 .kp span.cu{font-size:inherit;color:inherit}
 .out{position:relative;overflow:hidden}
-.out:before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,rgba(59,130,246,.18),transparent 30%);animation:spin 6s linear infinite;pointer-events:none}
-.out>*{position:relative}
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+.out:before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:conic-gradient(from var(--a),transparent 0 55%,rgba(96,165,250,.0) 60%,#60a5fa 78%,#a5b4fc 84%,transparent 92%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:orb 5s linear infinite;pointer-events:none;filter:drop-shadow(0 0 6px rgba(96,165,250,.7))}
+@keyframes orb{to{--a:360deg}}
+.out>.aur{position:absolute;inset:-30%;background:radial-gradient(40% 35% at 30% 30%,rgba(59,130,246,.22),transparent 70%),radial-gradient(35% 30% at 70% 70%,rgba(129,140,248,.18),transparent 70%);animation:aur 9s ease-in-out infinite alternate;pointer-events:none;filter:blur(10px)}
+@keyframes aur{to{transform:translate(6%,-4%) rotate(25deg) scale(1.1)}}
+.out>*:not(.aur):not(.coin){position:relative}
 @keyframes spin{to{transform:rotate(360deg)}}
 #cOut{font-variant-numeric:tabular-nums;transition:filter .4s}
 #cOut.pop{animation:pop .45s cubic-bezier(.3,1.5,.5,1)}@keyframes pop{35%{transform:scale(1.1) translateY(-2px);filter:drop-shadow(0 0 18px rgba(96,165,250,.8))}}
@@ -256,7 +260,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 <div><h2>Was du <span class="gr">verdienen</span> kannst</h2><p class="sub">Beispiel: Deine Zuschauer kaufen das Monats-Abo (4,49 € mit deinem Code).</p>
 <label for="cN">Verkäufe im Monat: <span class="n" id="cNv">20</span></label>
 <input type="range" id="cN" min="0" max="200" step="10" value="20"></div>
-<div class="out"><small>Dein Verdienst pro Monat</small><b class="gr" id="cOut">22,45 €</b><small>25 % von jedem Kauf</small></div>
+<div class="out"><span class="aur"></span><small>Dein Verdienst pro Monat</small><b class="gr" id="cOut">22,45 €</b><small>25 % von jedem Kauf</small></div>
 </div>
 </div>
 
