@@ -130,6 +130,8 @@ document.querySelectorAll("[data-hv]").forEach(x => x.onclick = () => {
 function sdk() {
   return ppLoad ||= new Promise((ok, err) => { const s = document.createElement("script"); s.src = `https://www.paypal.com/sdk/js?client-id=${PP_CLIENT}&currency=EUR&intent=capture`; s.onload = ok; s.onerror = err; document.head.appendChild(s) });
 }
+// PayPal im Hintergrund vorladen, damit die Zahlungsarten beim ersten Klick sofort da sind
+addEventListener("load", () => setTimeout(() => sdk().catch(() => { ppLoad = null }), 1200));
 function gate() {
   const ready = bOk.checked && codeOk();
   ppBox.classList.toggle("dis", !ready);

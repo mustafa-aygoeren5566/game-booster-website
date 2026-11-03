@@ -78,9 +78,13 @@ document.querySelectorAll(".plans button").forEach(b => b.onclick = () => {
 });
 function gate() { const ok = $("kOk").checked; $("ppBox").style.display = ok ? "" : "none"; $("ppMsg").textContent = ok ? "Wähle deine Zahlungsart:" : "Bitte noch den Haken setzen." }
 $("kOk").onchange = () => { gate(); zeichne() };
+function ppSdk() { return sdk ||= new Promise((ok, err) => { const s = document.createElement("script"); s.src = `https://www.paypal.com/sdk/js?client-id=${PP_CLIENT}&currency=EUR&intent=capture`; s.onload = ok; s.onerror = err; document.head.appendChild(s) }) }
+// PayPal schon im Hintergrund vorladen, damit die Zahlungsarten beim Haken sofort da sind
+addEventListener("load", () => setTimeout(() => ppSdk().catch(() => { sdk = null }), 1200));
 async function zeichne() {
   if (!$("kOk").checked) return;
-  try { await (sdk ||= new Promise((ok, err) => { const s = document.createElement("script"); s.src = `https://www.paypal.com/sdk/js?client-id=${PP_CLIENT}&currency=EUR&intent=capture`; s.onload = ok; s.onerror = err; document.head.appendChild(s) })) }
+  if (!window.paypal) $("ppMsg").textContent = "PayPal lädt …";
+  try { await ppSdk(); $("ppMsg").textContent = "Wähle deine Zahlungsart:" }
   catch (e) { $("ppMsg").textContent = "PayPal konnte nicht geladen werden."; return }
   try { btn && btn.close() } catch (e) {}
   $("ppBox").innerHTML = "";
