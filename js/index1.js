@@ -273,7 +273,7 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "
 const stars = n => { const s = STAR.repeat(5); return `<span class="bg">${s}</span><span class="fg" style="width:${Math.max(0, Math.min(5, n)) * 20}%">${s}</span>` };
 const QUOTE = '<svg class="q" viewBox="0 0 24 24"><path d="M10 7H6a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v3l3-3V9a2 2 0 0 0-1-2zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v3l3-3V9a2 2 0 0 0-1-2z"/></svg>';
 const rvCard = x => `<div class="rv-c">${QUOTE}<div class="rv-hd"><span class="rv-av im"><img src="op-${x.av === "w" ? "w" : "m"}.webp" alt="" loading="lazy"></span><div><b>${esc(x.name)}</b>
-  <span class="rv-ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Verifizierter Kauf</span></div></div>
+  ${x.gratis ? `<span class="rv-ok rv-gr"><svg viewBox="0 0 24 24"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/></svg>Gratis-Tester</span>` : `<span class="rv-ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Verifizierter Kauf</span>`}</div></div>
   <span class="rv-st">${stars(x.stars)}</span><p>${esc(x.text)}</p>
   <footer>${PLAN[x.tage] ? `<em>${PLAN[x.tage]}</em>` : "<span></span>"}<span>${new Date(x.zeit).toLocaleDateString("de-DE")}</span></footer></div>`;
 const rvBars = l => [5, 4, 3, 2, 1].map(s => { const c = l.filter(x => x.stars === s).length;
