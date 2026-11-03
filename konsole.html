@@ -137,6 +137,19 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 .kz .row{display:flex;gap:10px;flex-wrap:wrap}.kz .row input{flex:1;min-width:200px}
 .kn{display:inline-grid;place-items:center;width:30px;height:30px;margin-right:12px;border-radius:9px;background:#13244a;border:1px solid #2b4a86;color:#93c5fd;font-style:normal;font-size:14px;font-weight:800;vertical-align:3px}.kh2{font-size:13px;font-weight:600;color:var(--mut);margin-left:6px}
 body.vplay *,body.vplay *::before,body.vplay *::after{animation-play-state:paused!important}
+.kvid{position:relative}
+.kEnd{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;text-align:center;background:radial-gradient(ellipse at 50% 45%,rgba(5,8,16,.35),rgba(5,8,16,.82) 75%),url(img/ende-bg.webp) center/cover;opacity:0;pointer-events:none;transition:opacity .45s}
+.kEnd.an{opacity:1;pointer-events:auto}
+.kEnd>*{opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s}.kEnd.an>*{opacity:1;transform:none}
+.kEnd.an>:nth-child(2){transition-delay:.12s}.kEnd.an>:nth-child(3){transition-delay:.24s}.kEnd.an>:nth-child(4){transition-delay:.36s}.kEnd.an>:nth-child(5){transition-delay:.5s}
+.ke-tag{font-size:11.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#6ee7b7;padding:6px 14px;border:1px solid rgba(52,211,153,.35);border-radius:999px;background:rgba(52,211,153,.08)}
+.kEnd b{font-size:clamp(22px,3.4vw,38px);line-height:1.1;font-weight:900;letter-spacing:-.02em;color:#fff}
+.kEnd b em{font-style:normal;background:linear-gradient(90deg,#60a5fa,#34d399);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ke-sub{font-size:14px;color:#cfe0ff;max-width:440px}
+.kEnd .ke-go{display:inline-flex;align-items:center;gap:10px;font:inherit;font-size:17px;font-weight:800;padding:15px 34px;border:0;border-radius:14px;cursor:pointer;background:linear-gradient(135deg,#3b82f6,#10b981);color:#fff;box-shadow:0 10px 30px rgba(16,185,129,.3)}
+.kEnd .ke-go svg{width:20px;height:20px;transition:transform .2s}.kEnd .ke-go:hover svg{transform:translateX(4px)}
+.kEnd .ke-re{display:inline-flex;align-items:center;gap:6px;background:none;border:0;font:inherit;font-size:13.5px;color:#9fb0d0;cursor:pointer}.kEnd .ke-re:hover{color:#fff}.kEnd .ke-re svg{width:15px;height:15px}
+@media(max-width:600px){.kEnd{gap:8px}.ke-sub{display:none}.kEnd .ke-go{font-size:14px;padding:11px 22px}.ke-tag{font-size:10px}}
 .kvc{text-align:center}.kvh{max-width:640px;margin:0 auto 18px}.kvl{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#6ee7b7;padding:5px 12px;border:1px solid rgba(52,211,153,.35);border-radius:999px;background:rgba(52,211,153,.08);margin-bottom:10px}
 body.krueck .kn,body.krueck .kh2{display:none}
 .kvid{margin:0;box-shadow:0 30px 80px -40px rgba(59,130,246,.6);border-radius:14px;overflow:hidden;border:1px solid #233a66;background:#05080f}.kvid video{display:block;width:100%;height:auto;aspect-ratio:16/9}
@@ -446,6 +459,6 @@ body.krueck .kn,body.krueck .kh2{display:none}
 </main>
 <script src="world.js?v=4"></script>
 <script src="js/karte1.js?v=16"></script>
-<script src="js/konsole1.js?v=14"></script>
+<script src="js/konsole1.js?v=15"></script>
 </body>
 </html>

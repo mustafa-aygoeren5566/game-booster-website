@@ -140,3 +140,18 @@ if (q) {   // Rueckkehrer: Zugang ganz oben, keine Schritt-Nummern, passende Tit
   const svgs = () => document.querySelectorAll("svg");
   const an = on => { document.body.classList.toggle("vplay", on); svgs().forEach(s => { try { on ? s.pauseAnimations() : s.unpauseAnimations() } catch (e) {} }) };
   v.addEventListener("play", () => an(true)); ["pause", "ended"].forEach(e => v.addEventListener(e, () => an(false))); })();
+
+
+// Endeinblendung nach dem Video: naechster Schritt + nochmal ansehen
+(() => { const v = document.querySelector("#video video"); if (!v) return;
+  const zurueck = !!q, ziel = zurueck ? "zugang" : "kaufen";
+  const e = document.createElement("div"); e.className = "kEnd";
+  e.innerHTML = `<span class="ke-tag">Game Booster VPN</span><b>${zurueck ? "Alles eingerichtet? <em>Jetzt einschalten</em>" : "Bereit für <em>Mumbai-Lobbys?</em>"}</b>`
+    + `<span class="ke-sub">${zurueck ? "Schalter an, Spiel neu starten, fertig." : "Zugang holen, DNS eintragen, einschalten – in wenigen Minuten auf PS5 und Xbox."}</span>`
+    + `<button type="button" class="ke-go">${zurueck ? "Zum Schalter" : "Zugang holen"}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>`
+    + `<button type="button" class="ke-re"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4"/></svg>Nochmal ansehen</button>`;
+  v.parentNode.appendChild(e);
+  v.addEventListener("ended", () => { e.classList.add("an"); try { document.fullscreenElement && document.exitFullscreen() } catch (_) {} });
+  v.addEventListener("play", () => e.classList.remove("an"));
+  e.querySelector(".ke-go").onclick = () => $(ziel).scrollIntoView({ behavior: "smooth", block: "start" });
+  e.querySelector(".ke-re").onclick = () => { v.currentTime = 0; v.play() }; })();
