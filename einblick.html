@@ -66,6 +66,11 @@ body{overflow-x:hidden}
 .lbl{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue2);margin-bottom:10px}
 .yt{box-shadow:0 40px 100px -30px var(--glow),0 0 0 8px rgba(255,255,255,.03),0 0 0 9px rgba(59,130,246,.25)}
 @media(max-width:900px){.feat3{grid-template-columns:1fr}.vid{padding:26px}.win{transform:none}}
+/* Video: PC quer (unter dem Text, volle Breite), Handy hoch */
+.yt.h{background-image:url(img/promo-hoch.webp)}
+.yt.q{width:100%;aspect-ratio:16/9;border-radius:22px;background-image:url(img/promo-quer.webp)}
+@media(min-width:901px){.vid .eb{grid-template-columns:1fr}.yt.h{display:none}}
+@media(max-width:900px){.yt.q{display:none}}
 </style>
 </head>
 <body>
@@ -93,7 +98,8 @@ body{overflow-x:hidden}
       </ul>
       <a class="btn pr" href="index.html#preise">Jetzt starten</a>
     </div>
-    <div class="yt"><video src="img/promo.mp4?v=2" poster="img/short.webp" controls playsinline preload="none"></video></div>
+    <div class="yt q"><video src="img/promo-quer.mp4?v=1" poster="img/promo-quer.webp" controls playsinline preload="none"></video></div>
+    <div class="yt h"><video src="img/promo-hoch.mp4?v=1" poster="img/promo-hoch.webp" controls playsinline preload="none"></video></div>
   </div></div>
 </main>
 </body>
