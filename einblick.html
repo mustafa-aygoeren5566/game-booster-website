@@ -76,6 +76,15 @@ body{overflow-x:hidden}
 .fc .art svg{width:100%;max-width:300px;height:auto}
 .flow{animation:fcFlow 1s linear infinite}@keyframes fcFlow{to{stroke-dashoffset:-20}}
 @media(prefers-reduced-motion:reduce){.fc{opacity:1;transform:none}.fc:before,.flow{animation:none!important}}
+.vEnd{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(circle at 50% 50%,rgba(37,99,235,.35),rgba(5,8,16,.88) 70%);opacity:0;pointer-events:none;transition:opacity .4s}
+.vEnd.an{opacity:1;pointer-events:auto}
+.vEnd b{font-size:clamp(20px,2.6vw,30px);font-weight:900;letter-spacing:-.02em;color:#fff;transform:translateY(16px);opacity:0;transition:all .5s .15s}
+.vEnd.an b{transform:none;opacity:1}
+.vEnd .btn{font-size:17px;padding:16px 34px;transform:scale(.4);opacity:0;transition:transform .55s .3s cubic-bezier(.3,1.6,.5,1),opacity .3s .3s}
+.vEnd.an .btn{transform:scale(1);opacity:1;animation:vPuls 2s 1s ease-in-out infinite}
+@keyframes vPuls{0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,.6)}50%{box-shadow:0 0 0 14px rgba(59,130,246,0)}}
+.vEnd button{background:none;border:0;color:#9fb0d0;font:inherit;font-size:13.5px;cursor:pointer;text-decoration:underline;opacity:0;transition:opacity .4s .6s}
+.vEnd.an button{opacity:1}
 @media(max-width:900px){.feat3{grid-template-columns:1fr}.vid{padding:26px}.win{transform:none}}
 /* Video: PC quer (unter dem Text, volle Breite), Handy hoch */
 .yt.h{background-image:url(img/promo-hoch.webp)}
@@ -152,6 +161,6 @@ body{overflow-x:hidden}
     <div class="yt h"><video src="img/promo-hoch.mp4?v=2" poster="img/promo-hoch.webp" controls playsinline preload="none"></video></div>
   </div></div>
 </main>
-<script src="einblick.js" defer></script>
+<script src="einblick.js?v=2" defer></script>
 </body>
 </html>
