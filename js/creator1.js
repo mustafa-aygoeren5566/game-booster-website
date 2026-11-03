@@ -67,8 +67,15 @@ async function ranking() {
 if (!TOK && "IntersectionObserver" in window) ranking();
 const cN = $("cN"), cO = $("cOut"); let cCur = 0, cRaf = 0, cAuto = 0;
 const cTo = (v) => { const a = cCur, t0 = performance.now(); cancelAnimationFrame(cRaf);
-  (function f(n){ const k = Math.min(1,(n-t0)/600); cCur = a + (v-a)*(1-Math.pow(1-k,3)); cO.textContent = eur(cCur); if (k<1) cRaf = requestAnimationFrame(f) })(t0);
+  if (Math.abs(v-a) < .005) return;
+  (function f(n){ const k = Math.min(1,(n-t0)/800); cCur = a + (v-a)*(1-Math.pow(1-k,4)); cO.textContent = eur(cCur); if (k<1) cRaf = requestAnimationFrame(f) })(t0);
   cO.classList.remove("pop"); void cO.offsetWidth; cO.classList.add("pop");
+  const box = cO.parentNode; box.style.setProperty("--k", Math.min(1, v / 225).toFixed(3));
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const c = document.createElement("i"); c.className = "coin" + (v < a ? " neg" : "");
+    c.textContent = (v < a ? "−" : "+") + eur(Math.abs(v - a)); c.style.left = (25 + Math.random() * 50) + "%";
+    box.appendChild(c); c.addEventListener("animationend", () => c.remove());
+  }
 };
 const cTick = () => { $("cNv").textContent = cN.value; cN.style.setProperty("--p", (cN.value/2)+"%"); cTo(cN.value * 4.49 * .25) };
 cN.oninput = () => { cAuto = -1; cTick() }; cTick();

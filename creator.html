@@ -51,9 +51,15 @@ p,li{color:#c3cce0}small{color:var(--mut)}
 .out:before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,rgba(59,130,246,.18),transparent 30%);animation:spin 6s linear infinite;pointer-events:none}
 .out>*{position:relative}
 @keyframes spin{to{transform:rotate(360deg)}}
-#cOut.pop{animation:pop .25s ease}@keyframes pop{40%{transform:scale(1.08);filter:drop-shadow(0 0 14px rgba(96,165,250,.7))}}
-.out .coin{position:absolute;bottom:18px;font-style:normal;font-weight:900;font-size:16px;color:#34d399;pointer-events:none;animation:coin 1.4s ease-out forwards}
-@keyframes coin{from{transform:translateY(0);opacity:0}20%{opacity:1}to{transform:translateY(-110px);opacity:0}}
+#cOut{font-variant-numeric:tabular-nums;transition:filter .4s}
+#cOut.pop{animation:pop .45s cubic-bezier(.3,1.5,.5,1)}@keyframes pop{35%{transform:scale(1.1) translateY(-2px);filter:drop-shadow(0 0 18px rgba(96,165,250,.8))}}
+.out{--k:0;transition:box-shadow .5s,border-color .5s;box-shadow:0 0 calc(10px + var(--k)*50px) calc(var(--k)*-6px) rgba(59,130,246,calc(.15 + var(--k)*.4)),inset 0 0 calc(var(--k)*40px) rgba(59,130,246,calc(var(--k)*.15))}
+.out:after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.07),transparent);transform:skewX(-20deg);animation:osh 4.5s ease-in-out infinite;pointer-events:none}
+@keyframes osh{0%,60%{left:-60%}100%{left:130%}}
+.out .coin{text-shadow:0 0 12px rgba(52,211,153,.6)}
+.out .coin.neg{color:#f87171;text-shadow:0 0 12px rgba(248,113,113,.5)}
+.out .coin{position:absolute;bottom:18px;font-style:normal;font-weight:900;font-size:16px;color:#34d399;pointer-events:none;animation:coin 1.6s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes coin{from{transform:translateY(10px) scale(.7);opacity:0}20%{opacity:1;transform:translateY(-10px) scale(1.05)}to{transform:translateY(-100px) scale(.9);opacity:0}}
 #top{overflow:hidden}
 .lbh{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
 .lblive{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);font-size:12px;font-weight:700;color:var(--mut)}
@@ -306,7 +312,7 @@ td.r,th.r{text-align:right}.st{font-size:12px;font-weight:700;padding:3px 10px;b
 </div>
 
 </main>
-<script src="js/creator1.js?v=1"></script>
+<script src="js/creator1.js?v=2"></script>
 <script src="js/creator2.js?v=1"></script>
 </body>
 </html>
