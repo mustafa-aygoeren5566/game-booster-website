@@ -84,3 +84,5 @@
 .ebv .lzdt{position:relative;display:block;height:18px}.ebv .lzdt span{position:absolute;left:0;top:0;white-space:nowrap}
 .ebv .lzdt .a{animation:lzA 12s linear infinite}.ebv .lzdt .b{opacity:0;color:var(--accent);animation:lzB 12s linear infinite}
 @keyframes lzA{0%,52%{opacity:1}55%,100%{opacity:0}}@keyframes lzB{0%,52%{opacity:0}55%,96%{opacity:1}100%{opacity:0}}
+.ebv .lzw{transform:translateX(-50%) scale(1.22);transform-origin:50% 0;top:22px}
+.ebv .fade-mask{-webkit-mask-image:linear-gradient(to bottom,#000 85%,transparent 100%);mask-image:linear-gradient(to bottom,#000 85%,transparent 100%)}
