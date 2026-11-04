@@ -235,8 +235,8 @@ const promoOn = () => PROMO.code && new Date().toISOString().slice(0, 10) <= PRO
 if (promoOn()) {
   const tage = Math.ceil((new Date(PROMO.bis + "T23:59:59") - new Date()) / 864e5);
   const at = document.getElementById("annTxt");
-  if (at) at.textContent = `−${PROMO.pct} % mit ${PROMO.code} · ` + (tage <= 1 ? "nur noch heute" : `nur noch ${tage} Tage`);
-  document.getElementById("prPct").textContent = `−${PROMO.pct} %`;
+  if (at) at.innerHTML = `−${PROMO.pct}<span style="letter-spacing:0">\u202F</span>% mit ${PROMO.code} · ` + (tage <= 1 ? "nur noch heute" : `nur noch ${tage} Tage`);
+  document.getElementById("prPct").textContent = `−${PROMO.pct}\u202F%`;
   document.getElementById("prBis").textContent = PROMO.bis.split("-").reverse().join(".");
   document.getElementById("prTxt").textContent = PROMO.code;
   document.getElementById("promo").hidden = false;
