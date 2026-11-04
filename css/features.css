@@ -4,3 +4,9 @@
 @keyframes lkz{to{transform:scale(1.08)}}
 .v0b .lkd{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:lkp 2s ease-in-out infinite}@keyframes lkp{50%{opacity:.35}}
 @media(prefers-reduced-motion:reduce){.v0b .lkm svg{animation:none}}
+/* Farben an die restliche Seite angleichen */
+.v0b{--foreground:#e9eef8;--muted-foreground:#8b96ad;--card:#0d1220;--border:#1a2236;--muted:#121a2e}
+.v0b article.bg-card{background:linear-gradient(180deg,#0d1220,#080c16);border-color:#1a2236}
+.v0b article:hover{border-color:#2f4f8a}
+.v0b .light-cone{opacity:.55}
+.v0b .edge-glow{opacity:.35}
