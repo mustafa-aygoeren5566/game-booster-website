@@ -38,3 +38,22 @@
 .v0s [class*="grid-cols-[1fr_auto_1fr]"]>div{min-width:0}
 .v0s .kop{cursor:pointer;pointer-events:auto}
 .v0s .kop{flex:none}.v0s .kop~*,.v0s code.min-w-0.flex-1{white-space:normal;word-break:break-all;overflow:visible;text-overflow:clip;line-height:1.5;color:var(--foreground)}
+/* Sicherheit: fehlende Animationen */
+@keyframes scanner-check{0%,10%{opacity:0;transform:translateX(-4px)}22%,85%{opacity:1;transform:none}95%,100%{opacity:0}}
+.v0s .animate-\[scanner-check_5s_ease-in-out_infinite\]{animation:scanner-check 5s ease-in-out infinite}
+@keyframes secGlow{0%,100%{box-shadow:0 0 18px -6px rgba(52,211,153,.25)}50%{box-shadow:0 0 34px -4px rgba(52,211,153,.55)}}
+@keyframes secFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes secLock{0%,70%,100%{transform:scale(1)}80%{transform:scale(1.18)}}
+@keyframes secFlow{to{background-position:24px 0}}
+@keyframes secScan{0%{transform:translateX(-120%)}100%{transform:translateX(220%)}}
+.v0s article:nth-child(2) .glass.rounded-2xl,.v0s article:nth-child(2) [class*="rounded-2xl"]{animation:secFloat 5s ease-in-out infinite}
+.v0s article:nth-child(2) [class*="rounded-2xl"]:nth-of-type(2){animation-delay:-2.5s}
+.v0s article:nth-child(2) svg.lucide-lock,.v0s article:nth-child(2) .lucide-lock{animation:secLock 4s ease-in-out infinite}
+.v0s article:nth-child(3) [class*="bg-accent"][class*="rounded-lg"]{animation:secGlow 3s ease-in-out infinite}
+.v0s article:nth-child(3) code{position:relative;overflow:hidden}
+.v0s article:nth-child(3) .grid code::after{content:"";position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(90deg,transparent,rgba(233,238,248,.18),transparent);animation:secScan 3s ease-in-out infinite}
+.v0s article:nth-child(4) [class*="size-\[82px\]"]{animation:secGlow 3s ease-in-out infinite,secFloat 5s ease-in-out infinite}
+.v0s article:nth-child(4) .lucide-check{animation:secLock 3s ease-in-out infinite}
+.v0s article:nth-child(2) .glass.w-\[108px\]{animation:secFloat 5s ease-in-out infinite}
+.v0s article:nth-child(2) .glass.w-\[108px\]~.glass.w-\[108px\]{animation-delay:-2.5s}
+.v0s article:nth-child(2) .lucide-lock-keyhole{animation:secLock 4s ease-in-out infinite}
