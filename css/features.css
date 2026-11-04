@@ -86,3 +86,4 @@
 @keyframes lzA{0%,52%{opacity:1}55%,100%{opacity:0}}@keyframes lzB{0%,52%{opacity:0}55%,96%{opacity:1}100%{opacity:0}}
 .ebv .lzw{transform:translateX(-50%) scale(1.22);transform-origin:50% 0;top:22px}
 .ebv .fade-mask{-webkit-mask-image:linear-gradient(to bottom,#000 85%,transparent 100%);mask-image:linear-gradient(to bottom,#000 85%,transparent 100%)}
+@keyframes lzPress{0%,46%,56%,100%{transform:scale(1);filter:none;box-shadow:0 0 18px -4px rgba(59,130,246,.6)}50%{transform:scale(.95);filter:brightness(1.2);box-shadow:0 0 26px -2px rgba(59,130,246,.85)}}
