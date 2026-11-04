@@ -9,3 +9,4 @@ document.querySelectorAll('.yt video').forEach(function(v){
   v.addEventListener('ended',function(){a.classList.add('an')});
   v.addEventListener('play',function(){a.classList.remove('an')});
 });
+document.querySelectorAll(".ebv article").forEach(function(c){c.addEventListener("pointermove",function(e){var r=c.getBoundingClientRect();c.style.setProperty("--x",e.clientX-r.left+"px");c.style.setProperty("--y",e.clientY-r.top+"px")})});
