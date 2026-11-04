@@ -130,3 +130,8 @@
 .kst3 .ktg{margin-top:4px}
 .kst3 .fade-mask{height:214px}.kst3 .ksw{height:184px}
 .kst3>div:not(:nth-child(2)) .ksw{justify-content:space-between;padding-bottom:20px}.kst3>div:not(:nth-child(2)) .ksh{margin-bottom:0}
+.kst3 .kbz{display:grid}.kst3 .kbz span{grid-area:1/1;transition:none}
+.kst3 .kbz .b1{animation:kb1 12s ease-in-out infinite}.kst3 .kbz .b2{opacity:0;animation:kb2 12s ease-in-out infinite}
+@keyframes kb1{0%,51%{opacity:1}54%,93%{opacity:0}100%{opacity:1}}
+@keyframes kb2{0%,51%{opacity:0}54%,93%{opacity:1}100%{opacity:0}}
+@keyframes kbzc{0%,51%,100%{background:#2563eb}54%,93%{background:#10b981}}
