@@ -359,6 +359,13 @@ footer .wrap{max-width:1440px}@media(max-width:1300px){nav a[href="einblick.html
 .kons:hover{border-color:#3b82f6}.kons .ki{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:#0f1d3a;color:#93c5fd}.kons .ki svg{width:26px;height:26px}
 .kons b{display:block;font-size:16px}.kons b em{font-style:normal;font-size:11px;font-weight:800;padding:2px 7px;border-radius:6px;background:rgba(251,191,36,.15);color:#fbbf24;margin-left:6px;vertical-align:2px}.kons small{color:#8b96ad}
 .kons .kg{margin-left:auto;white-space:nowrap;font-weight:700;color:#60a5fa}@media(max-width:640px){.kons{flex-wrap:wrap}.kons .kg{margin-left:0}}
+
+/* Einheitliche Karten-Basis */
+.pc:not(.hot):not(.best),details,.rv-top,.rv-c,.kons{background:linear-gradient(180deg,#0a1020,#06090f);border:1px solid #1a2236;box-shadow:inset 0 1px 0 rgba(233,238,248,.06)}
+details{position:relative}details[open]{border-color:#2f4f8a}
+.pc:not(.hot):not(.best):after,.rv-top:after,.rv-c:after,details:after{content:"";position:absolute;left:15%;right:15%;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(59,130,246,.7),transparent);opacity:.45;pointer-events:none}
+.rv-c{position:relative;border-radius:18px}
+.pc:not(.hot):not(.best):hover,.rv-c:hover{border-color:#2f4f8a}
 </style>
 <link rel="stylesheet" href="css/features.css?v=27">
 </head>
