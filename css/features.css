@@ -10,3 +10,7 @@
 .v0b article:hover{border-color:#2f4f8a}
 .v0b .light-cone{opacity:.55}
 .v0b .edge-glow{opacity:.35}
+/* etwas dunkler, wie die Live-Ansicht oben */
+.v0b article.bg-card{background:linear-gradient(180deg,#0a1020,#06090f)}
+.v0b .light-cone{opacity:.35}
+.v0b .glass{background:linear-gradient(180deg,rgba(233,238,248,.05),rgba(233,238,248,.015))}
