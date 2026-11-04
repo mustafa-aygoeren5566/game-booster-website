@@ -2,11 +2,12 @@
 const API = "https://65-20-95-163.sslip.io";
 const PP_CLIENT = "BAAcQ0JuzYeVDaFygLlRZzAYNTOyEa737GmkxfFiO_MYI8ObnTcNwJhYyfMPdY1ycl6m1yeFBpYTcSmJQQ";
 const $ = id => document.getElementById(id);
-const store = { get: () => { try { return localStorage.getItem("gbKonsole") || "" } catch (e) { return "" } }, set: v => { try { localStorage.setItem("gbKonsole", v) } catch (e) {} } };
+const store = { get: () => { try { return localStorage.getItem("gbKonsole") || "" } catch (e) { return "" } }, set: v => { try { localStorage.setItem("gbKonsole", v) } catch (e) {} }, del: () => { try { localStorage.removeItem("gbKonsole") } catch (e) {} } };
 const datum = d => new Date(d).toLocaleDateString("de-DE");
 
 async function frei(an) {
   const tok = $("kTok").value.trim();
+  if (!tok) { vergessen(); return }
   if (!/^(K[A-Z0-9]{11}|GB-[A-Za-z0-9+/]{43}=)$/.test(tok)) { msg("Der Code sieht nicht richtig aus (K… oder GB-…).", "bad"); return }
   msg("Einen Moment …");
   try {
@@ -19,6 +20,8 @@ async function frei(an) {
     msg(an === true ? "Eingeschaltet. Jetzt das Spiel neu starten." : an === false ? "Ausgeschaltet. Spiel neu starten, dann bist du wieder normal unterwegs." : !r.an && r.ip_alt && r.ip_alt !== r.ip ? "Zuletzt in einem anderen Netz eingeschaltet – hier einfach nochmal einschalten." : "", "good");
   } catch (e) { msg("Server nicht erreichbar – bitte gleich nochmal.", "bad") }
 }
+// Feld geleert -> Code auf diesem Geraet vergessen
+function vergessen() { store.del(); $("kBox").hidden = true; document.documentElement.classList.remove("krueck0"); msg("Code von diesem Gerät entfernt.") }
 function karte(an) {
   $("kMap").classList.toggle("off", !an);
   $("kMs").textContent = an ? "Mumbai-Lobbys an" : "Aus · normale Lobbys";
@@ -28,6 +31,7 @@ $("kCheck").onclick = () => frei();
 $("kOn").onclick = () => frei(true);
 $("kOff").onclick = () => frei(false);
 $("kTok").onkeydown = e => { if (e.key === "Enter") frei() };
+$("kTok").oninput = () => { if (!$("kTok").value.trim() && store.get()) vergessen() };
 const q = new URLSearchParams(location.search).get("t") || store.get();
 if (q) { $("kTok").value = q; frei() }
 
