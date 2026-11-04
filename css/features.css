@@ -145,3 +145,4 @@
 .kst3 .ksw2{animation:none;background:color-mix(in srgb,#10b981 calc(var(--on)*100%),#1c2540);box-shadow:inset 0 0 0 1px rgba(233,238,248,calc(.2 - var(--on)*.2)),0 0 calc(var(--on)*14px) rgba(16,185,129,.5)}
 .kst3 .ksw2 i{animation:none;left:calc(3px + var(--on)*17px);background:color-mix(in srgb,#fff calc(var(--on)*100%),#9aa4ba)}
 .kst3 .ktg em{animation:none;color:color-mix(in srgb,#34d399 calc(var(--on)*100%),#5e6a85)}
+.kst3.st3>div,.kst3.st3>div *{animation-delay:0s!important}
