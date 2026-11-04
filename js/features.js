@@ -19,3 +19,7 @@ function copy(){if(done||!zoomed())return;done=true;
 var n=0;setTimeout(function tick(){if(done)return;var top=document.getElementById("vzTop");if(top&&top.children.length&&(n>=20||zoomed()))copy();if(!done&&++n<60)setTimeout(tick,50)},0);
 setTimeout(function(){if(!done){done=false;var top=document.getElementById("vzTop");if(top&&top.children.length){var z=zoomed;zoomed=function(){return true};copy();zoomed=z}}},3000);})();
 (function(){var b=document.querySelector(".v0s .kop");if(!b)return;b.addEventListener("click",function(){var c=b.parentNode.querySelector("code").textContent.trim();try{navigator.clipboard.writeText(c)}catch(e){}b.textContent="Kopiert ✓";setTimeout(function(){b.textContent="Kopieren"},1500)})})();
+
+(function(){if(!("IntersectionObserver" in window))return;
+var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle("anim-off",!e.isIntersecting)})},{rootMargin:"200px 0px"});
+document.querySelectorAll("main section, body > section, .v0b article, .v0s article").forEach(function(el){io.observe(el)})})();
