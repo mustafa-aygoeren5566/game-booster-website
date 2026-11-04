@@ -233,6 +233,9 @@ async function autoRab() {
 const PROMO = { code: "START10", pct: 10, bis: "2026-11-22" };
 const promoOn = () => PROMO.code && new Date().toISOString().slice(0, 10) <= PROMO.bis;
 if (promoOn()) {
+  const tage = Math.ceil((new Date(PROMO.bis + "T23:59:59") - new Date()) / 864e5);
+  const at = document.getElementById("annTxt");
+  if (at) at.textContent = `−${PROMO.pct} % mit ${PROMO.code} · ` + (tage <= 1 ? "nur noch heute" : `nur noch ${tage} Tage`);
   document.getElementById("prPct").textContent = `−${PROMO.pct} %`;
   document.getElementById("prBis").textContent = PROMO.bis.split("-").reverse().join(".");
   document.getElementById("prTxt").textContent = PROMO.code;

@@ -70,7 +70,10 @@ nav a,.btn{white-space:nowrap}@media(max-width:1480px){nav a svg{display:none}na
 .hero .wrap{max-width:1480px;display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center;position:relative}
 .kick{display:flex;align-items:center;gap:12px;font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--blue2);text-transform:uppercase;margin-bottom:22px}
 .kick{display:inline-flex}.kick:before,.kick:after{content:"";width:38px;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--blue))}.kick:after{background:linear-gradient(90deg,var(--blue),transparent)}
-.hero .kick span{display:inline-flex;align-items:center;gap:8px}.hero .kick i{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.hero .kick span{display:inline-flex;align-items:center;gap:8px}
+.kmob{display:none}
+@media(max-width:820px){.kmob{display:flex;align-items:center;gap:12px;margin-top:18px;padding:14px 18px;border-radius:14px;border:1px solid rgba(52,211,153,.35);background:rgba(52,211,153,.07);color:#d5ddec;font-size:15px;font-weight:600;text-decoration:none}.kmob b{color:var(--ok)}.kmob span{font-size:20px}.kmob i{font-style:normal;flex:1}.kmob em{margin-left:auto;font-style:normal;font-weight:800;color:var(--ok)}}
+@media(max-width:600px){.hero .kick{font-size:10.5px;letter-spacing:.07em;gap:8px}.hero .kick:before,.hero .kick:after{width:16px}}.hero .kick i{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok)}
 h1{font-size:clamp(38px,5vw,78px);line-height:1.04;font-weight:900;letter-spacing:-.035em}
 .bl{color:var(--blue)}
 .lead{margin:22px 0 32px;color:var(--mut);font-size:19px;max-width:580px}
@@ -353,7 +356,7 @@ footer .wrap{max-width:1440px}@media(max-width:1300px){nav a[href="einblick.html
 </head>
 <body>
 
-<div class="ann"><a href="#preise">Launch-Preise – Game-VPN ab 1,49 € <i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></a></div>
+<div class="ann"><a href="#preise"><span id="annTxt">Launch-Preise – Game-VPN ab 1,49 €</span> <i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></a></div>
 
 <header><div class="wrap hd">
   <a class="logo" href="#"><b><img src="img/logo.webp" alt=""></b><span>Game Booster <em>VPN</em></span></a>
@@ -380,6 +383,7 @@ footer .wrap{max-width:1440px}@media(max-width:1300px){nav a[href="einblick.html
     <p class="lead">Game-VPN und Geo-Fence für Call of Duty in einer App. Du suchst Matches über eine andere Region, das Spiel selbst läuft weiter direkt über deine Leitung.</p>
     <div class="cta"><a class="btn pr" href="#preise">Abo wählen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn dlb" href="https://github.com/mustafa-aygoeren5566/game-booster-releases/releases/latest/download/GameBooster-Setup.exe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-5-5 5 5 5-5M5 21h14"/></svg>App herunterladen</a></div>
     <p class="dlh">Kostenlos laden · Windows 10/11 · <a href="#sicher">Virengeprüft</a></p>
+    <a class="kmob" href="konsole.html"><span>🎮</span><i>Auf <b>PS5 / Xbox</b> nutzen – ohne App</i><em>→</em></a>
     <div class="trust">
       <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Kein Eingriff ins Spiel</div>
       <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Ein Klick an/aus</div>
@@ -677,7 +681,7 @@ footer .wrap{max-width:1440px}@media(max-width:1300px){nav a[href="einblick.html
 </div></div>
 
 <script src="world.js?v=4"></script>
-<script src="js/index1.js?v=4"></script>
+<script src="js/index1.js?v=5"></script>
 <script src="js/index2.js?v=1"></script>
 <a class="petab" href="https://www.provenexpert.com/game-booster-vpn/zam6/" target="_blank" rel="noopener" aria-label="Game Booster VPN auf ProvenExpert bewerten"><b class="pst">★<br>★<br>★<br>★<br>★</b><span>Bewerte uns</span><small>auf ProvenExpert</small></a>
 </body>
