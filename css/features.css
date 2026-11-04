@@ -135,3 +135,6 @@
 @keyframes kb1{0%,51%{opacity:1}54%,93%{opacity:0}100%{opacity:1}}
 @keyframes kb2{0%,51%{opacity:0}54%,93%{opacity:1}100%{opacity:0}}
 @keyframes kbzc{0%,51%,100%{background:#2563eb}54%,93%{background:#10b981}}
+@keyframes ksb{0%,50%{background:#1c2540;box-shadow:none}53%,78%{background:#10b981;box-shadow:0 0 14px rgba(16,185,129,.5)}84%,100%{background:#1c2540;box-shadow:none}}
+@keyframes ksk{0%,50%{left:3px;background:#9aa4ba}53%,78%{left:20px;background:#fff}84%,100%{left:3px;background:#9aa4ba}}
+@keyframes kanc{0%,50%{color:#5e6a85}53%,78%{color:#34d399}84%,100%{color:#5e6a85}}
