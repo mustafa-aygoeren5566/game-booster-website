@@ -124,3 +124,9 @@
 .kst3 .ksub{margin-top:10px;font-size:10.5px;text-align:center}
 .kst3 .pointer-events-none{z-index:5}
 .kst3.st3>div{border-color:#1a2236!important}.kst3.st3>div:hover{border-color:rgba(59,130,246,.35)!important}.kst3 .ktg em{flex:none}
+.kst3 .fade-mask{height:200px}
+.kst3 .ksw{top:50%;transform:translate(-50%,-50%);height:162px;display:flex;flex-direction:column;justify-content:flex-start}
+.kst3 .kdn{margin-bottom:8px;padding:7px 10px}.kst3 .kdl{margin:0 0 4px}
+.kst3 .ktg{margin-top:4px}
+.kst3 .fade-mask{height:214px}.kst3 .ksw{height:184px}
+.kst3>div:not(:nth-child(2)) .ksw{justify-content:space-between;padding-bottom:20px}.kst3>div:not(:nth-child(2)) .ksh{margin-bottom:0}
