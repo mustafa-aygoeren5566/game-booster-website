@@ -18,3 +18,4 @@
 @keyframes geoTap{0%,100%{transform:translate(8px,-6px)}45%,70%{transform:translate(0,0)}55%{transform:translate(0,0) scale(.9)}}
 .v0b .ppb{position:relative;z-index:2;margin-top:12px;width:100%;height:32px;border-radius:999px;background:#ffc439;display:flex;align-items:center;justify-content:center;font:italic 800 14px/1 Verdana,Arial,sans-serif;letter-spacing:-.02em;box-shadow:0 6px 18px -6px rgba(255,196,57,.55),inset 0 1px 0 rgba(255,255,255,.45);filter:none;opacity:1}.v0b .ppb .pp1{color:#003087}.v0b .ppb .pp2{color:#0079c1}
 .v0s .fade-mask{-webkit-mask-image:linear-gradient(to bottom,#000 82%,transparent 100%);mask-image:linear-gradient(to bottom,#000 82%,transparent 100%)}
+@keyframes btnPress{0%,48%,64%,100%{transform:scale(1);filter:none}55%{transform:scale(.96);filter:brightness(1.25)}}
