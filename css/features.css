@@ -155,3 +155,6 @@
 @keyframes kok{0%,56%{opacity:0}60%,91%{opacity:1}94%,100%{opacity:0}}
 .kst3 .kdn i{animation:kbl 1s steps(2) infinite,kcur 12s linear infinite}
 @keyframes kcur{0%,54%{visibility:visible}56%,93%{visibility:hidden}94%,100%{visibility:visible}}
+@keyframes kty{0%,8%{width:0}55%,86%{width:12ch}97%,100%{width:0}}
+@keyframes kcur{0%,55%{visibility:visible}56%,85%{visibility:hidden}86%,100%{visibility:visible}}
+@keyframes kok{0%,56%{opacity:0}60%,85%{opacity:1}87%,100%{opacity:0}}
