@@ -146,3 +146,10 @@
 .kst3 .ksw2 i{animation:none;left:calc(3px + var(--on)*17px);background:color-mix(in srgb,#fff calc(var(--on)*100%),#9aa4ba)}
 .kst3 .ktg em{animation:none;color:color-mix(in srgb,#34d399 calc(var(--on)*100%),#5e6a85)}
 .kst3.st3>div,.kst3.st3>div *{animation-delay:0s!important}
+@keyframes kon{0%,50%{--on:0}53%,91%{--on:1}94%,100%{--on:0}}
+@keyframes kb1{0%,51%{opacity:1}54%,91%{opacity:0}94%,100%{opacity:1}}
+@keyframes kb2{0%,51%{opacity:0}54%,91%{opacity:1}94%,100%{opacity:0}}
+@keyframes kbzc{0%,51%,94%,100%{background:#2563eb}54%,91%{background:#10b981}}
+@keyframes kcd{0%,52%{opacity:0;transform:translateY(4px)}58%,91%{opacity:1;transform:none}94%,100%{opacity:0}}
+@keyframes kty{0%,8%{width:0}55%,91%{width:12ch}94%,100%{width:0}}
+@keyframes kok{0%,56%{opacity:0}60%,91%{opacity:1}94%,100%{opacity:0}}
