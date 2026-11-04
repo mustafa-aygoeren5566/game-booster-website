@@ -68,7 +68,7 @@ try { const c = (new URLSearchParams(location.search).get("c") || sessionStorage
 // Laufende Aktion wie auf der Startseite (gleicher Code/Zeitraum) automatisch eintragen; mit Link-Code den hoeheren nehmen
 async function autoRab(ref) {
   const P = { code: "START10", bis: "2026-11-22" };
-  const cs = [...new Set([ref, new Date().toISOString().slice(0, 10) <= P.bis ? P.code : ""].filter(Boolean))];
+  const cs = [...new Set([ref, new Date() <= new Date(P.bis + "T23:59:59") ? P.code : ""].filter(Boolean))];
   if (!cs.length) return;
   let best = cs[0];
   if (cs.length > 1) {
