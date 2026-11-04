@@ -158,3 +158,9 @@
 @keyframes kty{0%,8%{width:0}55%,86%{width:12ch}97%,100%{width:0}}
 @keyframes kcur{0%,55%{visibility:visible}56%,85%{visibility:hidden}86%,100%{visibility:visible}}
 @keyframes kok{0%,56%{opacity:0}60%,85%{opacity:1}87%,100%{opacity:0}}
+/* Handy: Illustrationen passend skalieren, Links nicht überlappen */
+@media(max-width:420px){
+.v0b .fade-mask>div:not(.ebart){transform:scale(.86);transform-origin:50% 0}
+.v0b .fade-mask>.ebart>.lz{transform:scale(.9);transform-origin:50% 0}
+.v0s article>a[href^="http"]{position:relative!important;right:auto!important;bottom:auto!important;align-self:flex-end;margin:-6px 24px 0}
+}
