@@ -93,7 +93,7 @@
   land.addEventListener("click", e => { const p = e.target.closest(".ct"); if (p && WORLD[p.dataset.i][0] !== SRV.iso) { tip.style.opacity = 0; setMe(WORLD[p.dataset.i][0], 1100) } });
   document.getElementById("vzReset").onclick = () => { anim++; vb = [0, 0, 720, 330]; svg.setAttribute("viewBox", vb.join(" ")); pins(1); flz(1) };
   ME = { x: 380, y: 68 }; pins(1);
-  setTimeout(() => setMe(me, 1800), 700);
+  setMe(me, 1);   // sofort fertig gezoomt anzeigen (kein Reinzoomen beim Laden)
 })();
 
 // Shop-Karten (eigene Grafiken, keine fremden Logos)
