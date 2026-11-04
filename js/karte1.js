@@ -128,5 +128,5 @@
   svg.addEventListener("dblclick", e => { const [x, y] = punkt(e); zoomBei(.5, x, y) });
   document.getElementById("vzReset").onclick = () => { anim++; vb = WELT.slice(); svg.setAttribute("viewBox", vb.join(" ")); pins(1); flz(1) };
   ME = { x: 380, y: 68 }; pins(1);
-  setTimeout(() => setMe(me, 1800), 700);
+  setMe(me, 1);   // sofort fertig gezoomt anzeigen
 })();
