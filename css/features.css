@@ -138,3 +138,10 @@
 @keyframes ksb{0%,50%{background:#1c2540;box-shadow:none}53%,78%{background:#10b981;box-shadow:0 0 14px rgba(16,185,129,.5)}84%,100%{background:#1c2540;box-shadow:none}}
 @keyframes ksk{0%,50%{left:3px;background:#9aa4ba}53%,78%{left:20px;background:#fff}84%,100%{left:3px;background:#9aa4ba}}
 @keyframes kanc{0%,50%{color:#5e6a85}53%,78%{color:#34d399}84%,100%{color:#5e6a85}}
+/* Schalter: eine gemeinsame Zeitleiste, damit Knopf, Farbe und AN nie auseinanderlaufen */
+@property --on{syntax:"<number>";initial-value:0;inherits:true}
+@keyframes kon{0%,50%{--on:0}53%,78%{--on:1}84%,100%{--on:0}}
+.kst3 .ktg{animation:kon 12s ease-in-out infinite}
+.kst3 .ksw2{animation:none;background:color-mix(in srgb,#10b981 calc(var(--on)*100%),#1c2540);box-shadow:inset 0 0 0 1px rgba(233,238,248,calc(.2 - var(--on)*.2)),0 0 calc(var(--on)*14px) rgba(16,185,129,.5)}
+.kst3 .ksw2 i{animation:none;left:calc(3px + var(--on)*17px);background:color-mix(in srgb,#fff calc(var(--on)*100%),#9aa4ba)}
+.kst3 .ktg em{animation:none;color:color-mix(in srgb,#34d399 calc(var(--on)*100%),#5e6a85)}
