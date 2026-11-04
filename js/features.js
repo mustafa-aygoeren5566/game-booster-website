@@ -18,3 +18,4 @@ function copy(){if(done||!zoomed())return;done=true;
  c.setAttribute("preserveAspectRatio","xMidYMid slice");c.style.pointerEvents="none";box.innerHTML="";box.appendChild(c);box.style.opacity=1}
 var n=0;setTimeout(function tick(){if(done)return;var top=document.getElementById("vzTop");if(top&&top.children.length&&(n>=20||zoomed()))copy();if(!done&&++n<60)setTimeout(tick,50)},0);
 setTimeout(function(){if(!done){done=false;var top=document.getElementById("vzTop");if(top&&top.children.length){var z=zoomed;zoomed=function(){return true};copy();zoomed=z}}},3000);})();
+(function(){var b=document.querySelector(".v0s .kop");if(!b)return;b.addEventListener("click",function(){var c=b.parentNode.querySelector("code").textContent.trim();try{navigator.clipboard.writeText(c)}catch(e){}b.textContent="Kopiert ✓";setTimeout(function(){b.textContent="Kopieren"},1500)})})();
