@@ -153,3 +153,5 @@
 @keyframes kcd{0%,52%{opacity:0;transform:translateY(4px)}58%,91%{opacity:1;transform:none}94%,100%{opacity:0}}
 @keyframes kty{0%,8%{width:0}55%,91%{width:12ch}94%,100%{width:0}}
 @keyframes kok{0%,56%{opacity:0}60%,91%{opacity:1}94%,100%{opacity:0}}
+.kst3 .kdn i{animation:kbl 1s steps(2) infinite,kcur 12s linear infinite}
+@keyframes kcur{0%,54%{visibility:visible}56%,93%{visibility:hidden}94%,100%{visibility:visible}}
