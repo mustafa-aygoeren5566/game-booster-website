@@ -93,3 +93,7 @@
 /* einheitliches Mauszeiger-Timing wie Laufzeit */
 @keyframes curGeo{0%,28%,88%,100%{transform:translate(-44px,30px)}47%{transform:translate(0,0) scale(1)}50%{transform:translate(0,0) scale(.97)}53%{transform:translate(0,0) scale(1)}62%{transform:translate(0,0)}}
 @keyframes curDrop{0%,28%,88%,100%{transform:translate(14px,-46px)}47%{transform:translate(0,0) scale(1)}50%{transform:translate(0,0) scale(.97)}53%{transform:translate(0,0) scale(1)}62%{transform:translate(0,0)}}
+/* langsames, durchgehendes Gleiten wie bei Ein Klick */
+@keyframes curGeo{0%,100%{transform:translate(-44px,30px)}46%{transform:translate(0,0) scale(1)}50%{transform:translate(0,0) scale(.97)}54%{transform:translate(0,0) scale(1)}60%{transform:translate(0,0)}}
+@keyframes curDrop{0%,100%{transform:translate(14px,-46px)}46%{transform:translate(0,0) scale(1)}50%{transform:translate(0,0) scale(.97)}54%{transform:translate(0,0) scale(1)}60%{transform:translate(0,0)}}
+@keyframes curDiag{0%,100%{transform:translate(58px,-62px)}46%{transform:translate(0,0) scale(1)}50%{transform:translate(0,0) scale(.97)}54%{transform:translate(0,0) scale(1)}60%{transform:translate(0,0)}}
