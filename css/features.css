@@ -31,3 +31,7 @@
 @keyframes btnPress{0%,44%,57%,100%{transform:scale(1);filter:none}50%{transform:scale(.98);filter:brightness(1.15)}}
 @keyframes curEk{0%,100%{transform:translate(0)}30%{transform:translate(-12px,5px)}44%{transform:translate(-14px,-2px) scale(1)}50%{transform:translate(-14px,-2px) scale(.93)}57%{transform:translate(-14px,-2px) scale(1)}75%{transform:translate(5px,-4px)}}
 .v0b [data-ek]{animation:btnPress 12s linear infinite}
+@keyframes curGeo{0%,100%{transform:translate(-44px,30px)}44%{transform:translate(0,0) scale(1)}50%{transform:translate(0,0) scale(.97)}58%{transform:translate(0,0) scale(1)}72%{transform:translate(0,0)}}
+@keyframes curDrop{0%,100%{transform:translate(14px,-46px)}44%{transform:translate(0,0) scale(1)}50%{transform:translate(0,0) scale(.97)}58%{transform:translate(0,0) scale(1)}72%{transform:translate(0,0)}}
+@keyframes curEk{0%,100%{transform:translate(0)}30%{transform:translate(-12px,5px)}44%{transform:translate(-14px,-2px) scale(1)}50%{transform:translate(-14px,-2px) scale(.97)}58%{transform:translate(-14px,-2px) scale(1)}75%{transform:translate(5px,-4px)}}
+@keyframes btnPress{0%,44%,58%,100%{transform:scale(1);filter:none}50%{transform:scale(.99);filter:brightness(1.08)}}
