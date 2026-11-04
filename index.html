@@ -640,28 +640,6 @@ footer .wrap{max-width:1440px}@media(max-width:1300px){nav a[href="einblick.html
 <script src="js/index1.js?v=6"></script>
 <script src="js/index2.js?v=1"></script>
 <a class="petab" href="https://www.provenexpert.com/game-booster-vpn/zam6/" target="_blank" rel="noopener" aria-label="Game Booster VPN auf ProvenExpert bewerten"><b class="pst">★<br>★<br>★<br>★<br>★</b><span>Bewerte uns</span><small>auf ProvenExpert</small></a>
-<script>
-(function(){var cs=document.querySelectorAll(".feat .fc");if(!cs.length)return;
-var io="IntersectionObserver"in window?new IntersectionObserver(function(es){es.forEach(function(e){var c=e.target,sv=c.querySelector(".art svg");
- if(e.isIntersecting){if(!c.classList.contains("in")){c.classList.add("in");if(sv&&sv.setCurrentTime)sv.setCurrentTime(0)}sv&&sv.unpauseAnimations&&sv.unpauseAnimations()}else{sv&&sv.pauseAnimations&&sv.pauseAnimations()}})},{threshold:.25}):null;
-cs.forEach(function(c,i){c.classList.add("rv");c.style.setProperty("--d",(i%3)*.12+"s");if(io)io.observe(c);else c.classList.add("in");
- c.addEventListener("pointermove",function(ev){var r=c.getBoundingClientRect();c.style.setProperty("--mx",ev.clientX-r.left+"px");c.style.setProperty("--my",ev.clientY-r.top+"px")})})})();
-</script>
-<script>
-(function(){var w=document.querySelector(".v0b");if(!w)return;
-var pw=w.querySelector('button[aria-label^="VPN"]');if(!pw)return;var box=pw.closest("div.flex-col");
-var st=box.querySelector('[aria-live] span'),sub=box.querySelectorAll('[aria-live] span')[1],ring=pw.querySelector(".animate-ping-soft"),bg=pw.children[ring?1:0],ic=pw.querySelector("svg");
-var on=true,reg="Europa";function draw(){pw.setAttribute("aria-pressed",on);pw.setAttribute("aria-label",on?"VPN trennen":"VPN verbinden");st.textContent=on?"Verbunden":"Getrennt";sub.textContent=on?reg+" · 24 ms":"Direkte Leitung";
- if(ring)ring.style.display=on?"":"none";bg.style.cssText=on?"":"border-color:var(--border);background:var(--muted);box-shadow:none";ic.style.color=on?"":"var(--muted-foreground)"}
-pw.addEventListener("click",function(){on=!on;draw()});
-box.querySelectorAll('[role=group] button').forEach(function(b){b.addEventListener("click",function(){reg=b.textContent;box.querySelectorAll('[role=group] button').forEach(function(x){var a=x===b;x.setAttribute("aria-pressed",a);x.classList.toggle("bg-primary",a);x.classList.toggle("text-primary-foreground",a);x.classList.toggle("text-muted-foreground",!a)});draw()})});
-w.querySelectorAll("article").forEach(function(c){c.addEventListener("pointermove",function(e){var r=c.getBoundingClientRect();c.style.setProperty("--x",e.clientX-r.left+"px");c.style.setProperty("--y",e.clientY-r.top+"px")})})})();
-</script>
-<script>
-(function(){var box=document.querySelector(".v0b .lkm"),src=document.getElementById("vzSvg");if(!box||!src)return;
-function copy(){var c=src.cloneNode(true);c.removeAttribute("id");c.querySelectorAll("[id]").forEach(function(e){if(e.tagName!=="clipPath"&&e.tagName!=="linearGradient"&&e.tagName!=="radialGradient")e.removeAttribute("id")});
- c.setAttribute("preserveAspectRatio","xMidYMid slice");c.style.pointerEvents="none";box.innerHTML="";box.appendChild(c)}
-var t;new MutationObserver(function(){clearTimeout(t);t=setTimeout(copy,350)}).observe(src,{attributes:true,attributeFilter:["viewBox"],childList:true,subtree:false});setTimeout(copy,600);})();
-</script>
+<script src="js/features.js?v=1"></script>
 </body>
 </html>
