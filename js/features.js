@@ -7,6 +7,11 @@ pw.addEventListener("click",function(){on=!on;draw()});
 box.querySelectorAll('[role=group] button').forEach(function(b){b.addEventListener("click",function(){reg=b.textContent;box.querySelectorAll('[role=group] button').forEach(function(x){var a=x===b;x.setAttribute("aria-pressed",a);x.classList.toggle("bg-primary",a);x.classList.toggle("text-primary-foreground",a);x.classList.toggle("text-muted-foreground",!a)});draw()})});
 w.querySelectorAll("article").forEach(function(c){c.addEventListener("pointermove",function(e){var r=c.getBoundingClientRect();c.style.setProperty("--x",e.clientX-r.left+"px");c.style.setProperty("--y",e.clientY-r.top+"px")})})})();
 (function(){var box=document.querySelector(".v0b .lkm"),src=document.getElementById("vzSvg");if(!box||!src)return;
-function copy(){var c=src.cloneNode(true);c.removeAttribute("id");c.querySelectorAll("[id]").forEach(function(e){if(e.tagName!=="clipPath"&&e.tagName!=="linearGradient"&&e.tagName!=="radialGradient")e.removeAttribute("id")});
- c.setAttribute("preserveAspectRatio","xMidYMid slice");c.style.pointerEvents="none";box.innerHTML="";box.appendChild(c)}
-var t;new MutationObserver(function(){clearTimeout(t);t=setTimeout(copy,350)}).observe(src,{attributes:true,childList:true,subtree:true,attributes:true,attributeFilter:["viewBox"]});setTimeout(copy,600);})();
+// Einmal kopieren, sobald die grosse Karte auf dein Land gezoomt hat - danach bleibt die Kachel so (kein Rauszoomen)
+var done=false,t,mo;box.style.opacity=0;box.style.transition="opacity .8s";
+function zoomed(){var v=(src.getAttribute("viewBox")||"").split(/[ ,]+/).map(Number);return v.length===4&&v[2]<700}
+function copy(){if(done||!zoomed())return;done=true;if(mo)mo.disconnect();
+ var c=src.cloneNode(true);c.removeAttribute("id");c.querySelectorAll("[id]").forEach(function(e){if(e.tagName!=="clipPath"&&e.tagName!=="linearGradient"&&e.tagName!=="radialGradient")e.removeAttribute("id")});
+ c.setAttribute("preserveAspectRatio","xMidYMid slice");c.style.pointerEvents="none";box.innerHTML="";box.appendChild(c);box.style.opacity=1}
+mo=new MutationObserver(function(){clearTimeout(t);t=setTimeout(copy,500)});mo.observe(src,{attributes:true,attributeFilter:["viewBox"]});
+setTimeout(copy,900);})();
