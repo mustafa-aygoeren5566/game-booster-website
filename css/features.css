@@ -88,3 +88,4 @@
 .ebv .fade-mask{-webkit-mask-image:linear-gradient(to bottom,#000 85%,transparent 100%);mask-image:linear-gradient(to bottom,#000 85%,transparent 100%)}
 @keyframes lzPress{0%,46%,56%,100%{transform:scale(1);filter:none;box-shadow:0 0 18px -4px rgba(59,130,246,.6)}50%{transform:scale(.95);filter:brightness(1.2);box-shadow:0 0 26px -2px rgba(59,130,246,.85)}}
 @keyframes curDiag{0%,100%{transform:translate(34px,-74px)}44%{transform:translate(0,0) scale(1)}50%{transform:translate(0,0) scale(.97)}58%{transform:translate(0,0) scale(1)}72%{transform:translate(0,0)}}
+@keyframes curDiag{0%,100%{transform:translate(58px,-62px)}44%{transform:translate(0,0) scale(1)}50%{transform:translate(0,0) scale(.97)}58%{transform:translate(0,0) scale(1)}72%{transform:translate(0,0)}}
