@@ -232,7 +232,7 @@ async function autoRab() {
 }
 // Aktion oben bei den Preisen: kommt vom Shop-Server (in der Admin-App geplant, erscheint am Starttag von selbst).
 // Ohne geplante Aktion gilt die Start-Aktion als Rueckfall; nach Ablauf blendet sich das Banner selbst aus.
-let PROMO = { titel: "Start-Aktion", text: "", code: "START10", pct: 10, bis: "2026-11-22", farbe: "gruen" };
+let PROMO = { titel: "Start-Aktion", text: "", code: "START10", pct: 10, bis: "2026-11-22", farbe: "blau" };
 const promoOn = () => PROMO && PROMO.code && new Date() <= new Date(PROMO.bis + "T23:59:59");
 const promoBereit = (SHOP_API ? fetch(SHOP_API + "/api/aktion").then(r => r.json()).then(r => { if (r.ok && r.aktion) PROMO = r.aktion; }).catch(() => { }) : Promise.resolve()).then(zeigePromo);
 function zeigePromo() {
