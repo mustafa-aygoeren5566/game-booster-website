@@ -450,6 +450,16 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 .ann.pa.pf-rot .ap{background:radial-gradient(120% 120% at 50% 110%,#ef4444,#991b1b 55%,#1a0505);text-shadow:0 0 8px #f97316}
 .ann.pa.pf-gold .ap{background:radial-gradient(120% 120% at 30% 0%,#2a2010,#0b0904 75%);color:#fbbf24;box-shadow:inset 0 0 0 1px rgba(251,191,36,.5),0 0 12px rgba(251,191,36,.35)}
 .ann.pa.pf-weihnacht .ap{background:radial-gradient(120% 120% at 30% 20%,#ef4444,#b91c1c 55%,#7f1d1d)}
+
+/* Pfeil oben passend zur Prozent-Pille */
+.ann.pa i{position:relative;overflow:hidden;box-shadow:0 0 10px color-mix(in srgb,var(--pc) 45%,transparent),inset 0 1px 0 rgba(255,255,255,.3)}
+.ann.pa i:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.3) 45%,transparent 60%);pointer-events:none}
+.ann.pa i svg{position:relative}
+.ann.pa.pf-blau i{background:radial-gradient(120% 120% at 25% 15%,#3b82f6,#1d4ed8 60%,#172554)}
+.ann.pa.pf-rot i{background:radial-gradient(120% 120% at 50% 110%,#ef4444,#991b1b 55%,#1a0505)}
+.ann.pa.pf-gold i{background:radial-gradient(120% 120% at 30% 0%,#2a2010,#0b0904 75%);box-shadow:inset 0 0 0 1px rgba(251,191,36,.6),0 0 10px rgba(251,191,36,.35)}
+.ann.pa.pf-gold i svg{stroke:#fbbf24}
+.ann.pa.pf-weihnacht i{background:radial-gradient(120% 120% at 30% 20%,#ef4444,#b91c1c 55%,#7f1d1d)}
 </style>
 <link rel="stylesheet" href="css/features.css?v=38">
 <link rel="preload" as="image" href="img/bg-blau-leiste.webp" fetchpriority="high">
