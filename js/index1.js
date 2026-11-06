@@ -246,11 +246,14 @@ function zeigePromo() {
   document.getElementById("prInfo").textContent = PROMO.text || "Auf alle Abos, einmalig, kein Auto-Abo";
   document.getElementById("prTxt").textContent = PROMO.code;
   el.className = "promo pf-" + (PROMO.farbe || "gruen"); el.hidden = false;
-  document.getElementById("prCode").onclick = async e => {
+  el.classList.add("hm");
+  const kop = async e => {
     try { await navigator.clipboard.writeText(PROMO.code) } catch (x) { }
-    const b = e.currentTarget; b.classList.add("ok"); document.getElementById("prTxt").textContent = "Kopiert!";
-    setTimeout(() => { b.classList.remove("ok"); document.getElementById("prTxt").textContent = PROMO.code }, 1500);
+    for (const [b, t] of [["prCode", "prTxt"], ["prCode2", "prTxt2"]]) { document.getElementById(b).classList.add("ok"); document.getElementById(t).textContent = "Kopiert!"; }
+    setTimeout(() => { for (const [b, t] of [["prCode", "prTxt"], ["prCode2", "prTxt2"]]) { document.getElementById(b).classList.remove("ok"); document.getElementById(t).textContent = PROMO.code; } }, 1500);
   };
+  document.getElementById("prTxt2").textContent = PROMO.code;
+  document.getElementById("prCode").onclick = kop; document.getElementById("prCode2").onclick = kop;
 }
 // Rabattcode: Server prueft und nennt den Prozentsatz, PayPal bekommt den reduzierten Betrag + Code (Server prueft beim Einloesen nochmal)
 const eur = v => (+v).toFixed(2).replace(".", ",") + " €";
