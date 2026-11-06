@@ -302,7 +302,7 @@ document.getElementById("bRabGo").onclick = async () => {
     const r = await (await fetch(SHOP_API + "/api/rabatt?c=" + encodeURIComponent(c))).json();
     if (r.ok) { RABC[c] = r.pct; try { localStorage.setItem("gbRab", JSON.stringify(RABC)) } catch (e) {} if (kp === r.pct) return; rabAp(c, r.pct); }
     else { delete RABC[c]; try { localStorage.setItem("gbRab", JSON.stringify(RABC)) } catch (e) {} plan.rab = ""; plan.pay = ""; tag.hidden = true; tag.parentNode.classList.remove("on"); m.className = "rbm no"; m.textContent = r.msg || "Code ungültig"; }
-  } catch (e) { if (kp) return; m.className = "rbm no"; m.textContent = "Server nicht erreichbar – bitte später nochmal." }
+  } catch (e) { if (kp) return; m.textContent = ""; srvOk = false; gate(); }   // Hinweis steht einmal unten beim Bezahlen
   rabShow(); render();
 };
 // Creator-Link (?c=CODE): Code merken und beim Kauf automatisch eintragen
