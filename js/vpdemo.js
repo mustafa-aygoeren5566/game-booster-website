@@ -23,13 +23,26 @@
     IN: vpH(["#ff9933", "#fff", "#138808"]) + '<circle cx="15" cy="10" r="2.4" fill="none" stroke="#000080" stroke-width=".8"/>' };
   var flag = function (c) { return FLAG[c] ? '<svg class="vd-fl" viewBox="0 0 30 20" aria-hidden="true">' + FLAG[c] + "</svg>" : "" };
   var FILE = {}; (window.VPD_FILE || []).forEach(function (c) { FILE[c] = 1 });
+  // Flaggen-Inhalt fuer ein Rechteck (eigene SVG oder Datei)
+  var fin = function (c, x, y, w, h) {
+    if (FLAG[c]) return '<svg x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" viewBox="0 0 30 20" preserveAspectRatio="none">' + FLAG[c] + "</svg>";
+    if (FILE[c]) return '<image href="img/flags/' + c.toLowerCase() + '.svg" x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" preserveAspectRatio="none"/>';
+    return "";
+  };
   var uid = 0;
-  function rund(c, x, y, d) {
-    var id = "vdc" + (++uid), r = d / 2, inner;
-    if (FLAG[c]) inner = '<svg x="' + (x - r * 1.5) + '" y="' + (y - r) + '" width="' + d * 1.5 + '" height="' + d + '" viewBox="0 0 30 20" preserveAspectRatio="none">' + FLAG[c] + "</svg>";
-    else if (FILE[c]) inner = '<image href="img/flags/' + c.toLowerCase() + '.svg" x="' + (x - r * 1.34) + '" y="' + (y - r) + '" width="' + d * 1.34 + '" height="' + d + '" preserveAspectRatio="none"/>';
-    else return "";
-    return '<clipPath id="' + id + '"><circle cx="' + x + '" cy="' + y + '" r="' + r + '"/></clipPath><g clip-path="url(#' + id + ')">' + inner + '</g><circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="none" stroke="#0b1324" stroke-width="' + d * .08 + '"/>';
+  // kleine runde Kartenflagge wie in der App (viewBox 0 0 3 3, Kreis r 1.4)
+  function mf(c, x, y, f) {
+    var inner = fin(c, -.5, 0, 4, 3); if (!inner) return "";
+    var id = "vdm" + (++uid);
+    return '<svg class="vd-mf" x="' + (x - f * .6).toFixed(2) + '" y="' + (y - f * .6).toFixed(2) + '" width="' + (f * 1.2).toFixed(2) + '" height="' + (f * 1.2).toFixed(2) + '" viewBox="0 0 3 3"><clipPath id="' + id + '"><circle cx="1.5" cy="1.5" r="1.4"/></clipPath><g clip-path="url(#' + id + ')">' + inner + '</g><circle cx="1.5" cy="1.5" r="1.4" fill="none" stroke="#0a1224" stroke-width=".22"/></svg>';
+  }
+  var tc = document.createElement("canvas").getContext("2d");
+  var TW = function (t) { tc.font = '700 10.5px Inter,system-ui,"Segoe UI",sans-serif'; return Math.ceil(tc.measureText(t).width) };
+  // Pin wie in der App: runde Flagge ueber dem Punkt + Namensschild daneben
+  function pin(c, x, y, col, t, cl, q, op, links) {
+    var id = "vdp" + (++uid), w = TW(t) + 14, lx = links ? -15 - w : 15;
+    return '<g opacity="' + op + '" transform="translate(' + x + " " + (y - 26 * q) + ") scale(" + q * 1.2 + ')"><clipPath id="' + id + '"><circle r="10"/></clipPath><g clip-path="url(#' + id + ')">' + fin(c, -15, -10, 30, 20) + '</g><circle r="10.5" fill="none" stroke="' + col + '" stroke-width="2"/>' +
+      '<g transform="translate(' + lx + ' -9)"><rect width="' + w + '" height="18" rx="6" class="vd-pb ' + cl + '"/><text x="7" y="12.5" font-family="Inter,system-ui" font-size="10.5" font-weight="700" fill="#e9eef8">' + esc(t) + "</text></g></g>";
   }
 
   var NAME = { NL: "Niederlande", GB: "Großbritannien", FR: "Frankreich", SE: "Schweden", PL: "Polen", ES: "Spanien", IT: "Italien", AT: "Österreich", CH: "Schweiz",
@@ -52,6 +65,7 @@
 
   root.innerHTML =
     '<div class="vd-hint"><span class="vd-dot"></span>Vorschau zum Ausprobieren – schalte Game-VPN und Geo-Fence unten an</div>' +
+    '<div class="vd-zg"><div><small class="vd-lab">Dein Zugang</small><b>Das hier ist nur die Vorschau</b><small>In der App schaltest du den Game-VPN mit deinem Zugang genauso ein – für PC, PS5 und Xbox.</small></div><a class="vd-go" href="index.html#preise">Zugang holen</a></div>' +
     '<div class="vd-top">' +
       '<div class="vd-card vd-st">' +
         '<div class="vd-sh"><span class="vd-led"></span><div><b class="vd-t1"></b><small class="vd-t2"></small></div></div>' +
@@ -64,16 +78,19 @@
           '<div class="w"><small>Gerade Nacht</small><b class="vd-nacht"></b></div>' +
         '</div>' +
       '</div>' +
-      '<div class="vd-card vd-map"><svg viewBox="300 24 280 150" preserveAspectRatio="xMidYMid meet" aria-label="Karte: Du in Deutschland, Lobby über Mumbai">' +
-        '<rect x="0" y="0" width="720" height="300" fill="#0b1325"/><g class="vd-land">' + land + '</g><g class="vd-fls"></g><g class="vd-dyn"></g></svg>' +
-        '<div class="vd-leg"><span><i class="b"></i>Region · Lobby &amp; Matchmaking über Mumbai</span><span><i class="g"></i>Spielserver · bleibt nah, Ping bleibt niedrig</span></div>' +
+      '<div class="vd-card vd-map"><svg class="vd-svg" viewBox="0 0 720 286" aria-label="Karte: Du in Deutschland, Lobby über Mumbai">' +
+        '<defs><linearGradient id="vdRt" x1="0" x2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#34d399"/></linearGradient>' +
+        '<radialGradient id="vdGlB"><stop offset="0" stop-color="#3b82f6" stop-opacity=".55"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>' +
+        '<radialGradient id="vdGlG"><stop offset="0" stop-color="#10b981" stop-opacity=".45"/><stop offset="1" stop-color="#10b981" stop-opacity="0"/></radialGradient>' +
+        '<radialGradient id="vdVig" cx="50%" cy="50%" r="70%"><stop offset=".65" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient></defs>' +
+        '<rect x="0" y="0" width="720" height="286" fill="#0b1325"/><g class="vd-land">' + land + '</g><g class="vd-fls"></g><rect width="720" height="286" fill="url(#vdVig)" opacity=".5" pointer-events="none"/><g class="vd-dyn"></g></svg>' +
+        '<div class="vd-leg"><span><i class="b"></i>Region · Lobby &amp; Matchmaking über Mumbai</span><span><i class="g"></i>Spielserver · erscheint, wenn der VPN an ist</span></div>' +
       '</div>' +
     '</div>' +
     '<div class="vd-row">' +
       '<div class="vd-card"><div class="vd-ch"><div><b>Game-VPN</b><small>CoD sieht die Region deines Servers – Spiel, Matchmaking und deine IP bleiben direkt, der Ping bleibt niedrig</small></div>' +
         '<button type="button" class="vd-sw" id="vdOn" role="switch" aria-checked="false" aria-label="Game-VPN"><i></i></button></div>' +
-        '<small class="vd-lab">Server</small><div class="vd-srv"><b>' + flag("IN") + 'Mumbai</b><small>Indien · läuft immer</small></div>' +
-        '<div class="vd-zg"><small class="vd-lab">Dein Zugang</small><b>Das hier ist nur die Vorschau</b><small>In der App schaltest du den Game-VPN mit deinem Zugang genauso ein – für PC, PS5 und Xbox.</small><a class="vd-go" href="index.html#preise">Zugang holen</a></div></div>' +
+        '<small class="vd-lab">Server</small><div class="vd-srv"><b>' + flag("IN") + 'Mumbai</b><small>Indien · läuft immer</small></div></div>' +
       '<div class="vd-card"><div class="vd-ch"><div><b>Geo-Fence</b><small>Ping-Tests nur zu Rechenzentren in der gewählten Region – Spielserver bleiben nah</small></div>' +
         '<button type="button" class="vd-sw" id="vdFe" role="switch" aria-checked="false" aria-label="Geo-Fence"><i></i></button></div>' +
         '<small class="vd-lab">Region</small><div class="vd-grp">' +
@@ -89,15 +106,13 @@
   var cls = function (cc, c, an) { (paths[cc] || []).forEach(function (p) { p.classList.toggle(c, an) }) };
   cls("DE", "me", true);
 
-  function pill(x, y, txt, k, fl, unten) {
-    var w = txt.length * 3.15 + 9 + (fl ? 6 : 0), gx = x - w / 2, gy = unten ? y + 4.5 : y - 14;
-    return '<rect x="' + gx + '" y="' + gy + '" width="' + w + '" height="9" rx="3" class="vd-pb ' + k + '"/>' + (fl ? rund(fl, gx + 5.5, gy + 4.5, 5.4) : "") +
-      '<text x="' + (gx + (fl ? 10.5 : 4.5)) + '" y="' + (gy + 6.4) + '">' + esc(txt) + "</text>";
-  }
-  function bogen(a, b, k, h) {
-    var x1 = X(a[0]), y1 = Y(a[1]), x2 = X(b[0]), y2 = Y(b[1]), cx = (x1 + x2) / 2, cy = Math.min(y1, y2) - Math.hypot(x2 - x1, y2 - y1) * h - 4;
-    var d = "M" + x1 + "," + y1 + " Q" + cx + "," + cy + " " + x2 + "," + y2;
-    return '<path class="vd-arcg ' + k + '" d="' + d + '"/><path class="vd-arc ' + k + '" d="' + d + '"/>';
+  var VB = null, ZA = 0, svg = null;
+  function zoom(t) {               // weicher Zoom wie in der App (700 ms, ease-out)
+    svg = svg || $(".vd-svg");
+    if (!VB) { VB = t; svg.setAttribute("viewBox", t.join(" ")); return }
+    var a = VB.slice(), t0 = performance.now(), id = ++ZA;
+    (function st() { if (id !== ZA) return; var p = Math.min((performance.now() - t0) / 700, 1), k = 1 - Math.pow(1 - p, 3);
+      VB = a.map(function (v, i) { return v + (t[i] - v) * k }); svg.setAttribute("viewBox", VB.join(" ")); if (p < 1) setTimeout(st, 16) })();
   }
 
   function zeichnen() {
@@ -105,17 +120,28 @@
     FENCES.forEach(function (f) { f.cc.forEach(function (c) { cls(c, "fz", false) }) });
     if (st.fence) reg.cc.forEach(function (c) { cls(c, "fz", true) });
     cls("IN", "hl", st.on);
-    var ohne = { DE: 1, IN: 1 }; if (eins) ohne[eins] = 1;
-    $(".vd-fls").innerHTML = window.VPD_WELT.filter(function (w) { return w[5] != null && w[5] <= 3 && !ohne[w[0]] })
-      .map(function (w) { return rund(w[0], X(w[3]), Y(w[4]), w[5] <= 2 ? 4.2 : 3.4) }).join("");
-    var g = "", sx = X(SV[0]), sy = Y(SV[1]), dx = X(DU[0]), dy = Y(DU[1]);
-    if (st.on) g += bogen(DU, SV, "b", .25) + '<circle class="vd-ring" cx="' + sx + '" cy="' + sy + '" r="3"/><circle class="vd-pt b" cx="' + sx + '" cy="' + sy + '" r="2.2"/>' + pill(sx, sy, "Lobby · Mumbai", "g", "IN");
-    else g += rund("IN", sx, sy, 4.2);
-    if (eins && MID[eins]) {
-      var p = MID[eins], px = X(p[0]), py = Y(p[1]);
-      g += bogen(DU, p, "a", .3) + '<circle class="vd-pt a" cx="' + px + '" cy="' + py + '" r="2"/>' + pill(px, py, "Spielserver · " + NAME[eins], "a", eins, true);
-    } else if (st.fence) g += pill(X(-6), Y(73), "Spielserver: " + reg.name, "a");
-    g += '<circle class="vd-pt me" cx="' + dx + '" cy="' + dy + '" r="2.4"/>' + pill(dx, dy, "Du", "b", "DE");
+    var hx = X(DU[0]), hy = Y(DU[1]), x2 = X(SV[0]), y2 = Y(SV[1]), gp = eins && MID[eins] ? MID[eins] : null;
+    var zc = !st.fence && reg.cc.length === 1 ? reg.cc[0] : null, zp = zc && MID[zc] ? MID[zc] : null;   // Geo-Fence aus: Ziel gedimmt als Vorschau
+    var tz = gp || zp, PX = [hx, x2].concat(tz ? [X(tz[0])] : []), PY = [hy, y2].concat(tz ? [Y(tz[1])] : []);
+    var AR = 720 / 286, x0 = Math.min.apply(0, PX), x9 = Math.max.apply(0, PX), y0 = Math.min.apply(0, PY), y9 = Math.max.apply(0, PY);
+    var zw = Math.min(Math.max((x9 - x0) * 1.35, (y9 - y0 + 40) * 1.35 * AR, 200), 720), zh = zw / AR, cx = (x0 + x9) / 2, cy = (y0 + y9) / 2 - zh * .06;
+    zoom([Math.min(Math.max(cx - zw / 2, 0), 720 - zw), Math.min(Math.max(cy - zh / 2, 0), 286 - zh), zw, zh]);
+    var q = zw / 720, s16 = q * 1.6, tcc = eins || zc;
+    var PN = { DE: 1, IN: 1 }; if (tcc) PN[tcc] = 1;
+    $(".vd-fls").innerHTML = window.VPD_WELT.filter(function (w) { return w[3] != null && !PN[w[0]] && (w[5] <= 2 || (w[5] === 3 && w[1].length > 2500)) })
+      .map(function (w) { return mf(w[0], X(w[3]), Y(w[4]), (w[5] <= 2 ? 9 : 7) * s16) }).join("");
+    var bog = function (a, b, c, h) { return "M" + a + "," + b + " Q" + (a + c[0]) / 2 + "," + (Math.min(b, c[1]) - Math.hypot(c[0] - a, c[1] - b) * h - 6 * s16) + " " + c[0] + "," + c[1] };
+    var RT = bog(hx, hy, [x2, y2], .25), g = "", GR = "";
+    g += '<g class="vd-fade' + (st.on ? "" : " vd-pre") + '"><path class="vd-arcg" d="' + RT + '"/><path class="vd-arc" d="' + RT + '"/><circle class="vd-pt" cx="' + x2 + '" cy="' + y2 + '" r="' + 5 * s16 + '" fill="#4f8ff7"/></g>';
+    if (tz) { GR = bog(hx, hy, [X(tz[0]), Y(tz[1])], .3);
+      g += '<g' + (gp ? "" : ' opacity=".8"') + '><path class="vd-garcg" d="' + GR + '"/><path class="vd-garc" d="' + GR + '"/><circle class="vd-gpt"' + (gp ? "" : ' style="opacity:.55"') + ' cx="' + X(tz[0]) + '" cy="' + Y(tz[1]) + '" r="' + 4.5 * s16 + '"/></g>' }
+    g += '<circle cx="' + hx + '" cy="' + hy + '" r="' + 30 * s16 + '" fill="url(#vdGlB)" pointer-events="none"/><circle cx="' + x2 + '" cy="' + y2 + '" r="' + 36 * s16 + '" fill="url(#vdGlG)" pointer-events="none" opacity="' + (st.on ? 1 : .5) + '"/>';
+    g += '<circle r="' + 3.5 * s16 + '" fill="#fff" opacity="' + (st.on ? 1 : .45) + '"><animateMotion dur="2.4s" repeatCount="indefinite" path="' + RT + '"/></circle>';
+    if (gp) g += '<circle r="' + 1.9 * s16 + '" fill="#fde68a"><animateMotion dur="1.6s" repeatCount="indefinite" path="' + GR + '"/></circle>';
+    g += '<circle class="vd-pt" cx="' + hx + '" cy="' + hy + '" r="' + 4.5 * s16 + '" fill="#93c5fd"/>';
+    if (tz) g += pin(tcc, X(tz[0]), Y(tz[1]), "#f59e0b", NAME[tcc], "a", q, gp ? 1 : .8, X(tz[0]) < hx);
+    var nah = tz && Math.hypot(X(tz[0]) - hx, Y(tz[1]) - (hy - 26 * q)) < 16 * q;
+    g += pin("IN", x2, y2, "#34d399", "Lobby · Mumbai", "g", q, st.on ? 1 : .6) + pin("DE", hx, hy, "#fff", "Du", "b", nah ? q * .62 : q, 1, !!tz && X(tz[0]) > hx);
     $(".vd-dyn").innerHTML = g;
 
     root.classList.toggle("on", st.on);
