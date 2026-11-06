@@ -48,7 +48,7 @@ svg{display:block}
 .ann.pa.pf-blau .ap,.ann.pa.pf-rot .ap,.ann.pa.pf-lila .ap{color:#fff}
 .promo .pm{align-self:end;width:150px;margin:-78px 8px -4px -10px;position:relative;z-index:1;}
 .promo .pm img{display:block;width:150px;height:auto;filter:drop-shadow(0 6px 18px color-mix(in srgb,var(--pc) 55%,transparent));}
-@media(min-width:601px){.promo{margin-top:56px}.promo .pm{width:190px;margin:-132px 4px -4px -16px}.promo .pm img{width:190px}}
+@media(min-width:601px){.promo.promo.promo{margin-top:96px}.promo.promo .pm{width:180px;margin:-124px 4px -4px -16px}.promo.promo .pm img{width:180px}}
 @keyframes pmWip{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg) translateY(-3px)}}
 @media(prefers-reduced-motion:reduce){.promo .pm img{animation:none}}
 .pf-rot .promo,.promo.pf-rot{background:radial-gradient(120% 140% at 100% 100%,rgba(249,115,22,.22),transparent 55%),linear-gradient(100deg,color-mix(in srgb,var(--pc) 16%,#0b0f17),#0b0f17 55%)}
@@ -491,18 +491,25 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 /* Nach-oben-Button */
 #ppMsg.ppstoer{color:#fca5a5;background:rgba(220,38,38,.12);border:1px solid rgba(248,113,113,.35);border-radius:12px;padding:10px 12px}
 #ppMsg.ppwart{color:#fde68a;background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.45)}
-.bald{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:12px;padding:10px 12px 10px 16px;border-radius:12px;color:#e2e8f0;background:linear-gradient(90deg,rgba(251,191,36,.10),rgba(255,255,255,.03));border:1px solid rgba(251,191,36,.35);box-shadow:inset 3px 0 0 #fbbf24}
-.bald .bl{display:flex;flex-direction:column;gap:2px;min-width:0}
-.bald .bk{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:#fbbf24}
-.bald .bt{font-size:16px;color:#fff}.bald .bt i{font-style:normal;font-weight:800;color:#fbbf24}
+.bald{--bc:#fbbf24;position:relative;display:flex;align-items:center;gap:16px;max-width:780px;margin:-12px auto 30px;padding:12px 16px 12px 12px;border-radius:14px;color:#e2e8f0;overflow:hidden;
+ background:radial-gradient(120% 140% at 0% 50%,color-mix(in srgb,var(--bc) 18%,transparent),transparent 55%),linear-gradient(100deg,#0d1018,#0a0c12);border:1px solid color-mix(in srgb,var(--bc) 38%,transparent);box-shadow:0 10px 30px -12px color-mix(in srgb,var(--bc) 45%,transparent)}
+.bald:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(255,255,255,.025) 14px 15px);pointer-events:none}
+.bald>*{position:relative}
+.bald .bp{flex:none;display:grid;place-items:center;width:64px;height:64px;border-radius:12px;background:linear-gradient(145deg,var(--bc),color-mix(in srgb,var(--bc) 55%,#000));color:#1c1202;font-weight:900;font-size:19px;letter-spacing:-.5px;box-shadow:0 0 22px -4px var(--bc)}
+.bald .bl{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0}
+.bald .bk{display:flex;align-items:center;gap:7px;font-size:10.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--bc)}
+.bald .bk:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--bc);box-shadow:0 0 0 0 var(--bc);animation:bpuls 1.8s infinite}
+@keyframes bpuls{70%{box-shadow:0 0 0 7px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.bald .bt{font-size:17px;font-weight:700;color:#fff}
 .bald .bd{font-size:12.5px;color:#94a3b8}
-.bald .bc{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none}
-.bald .bs{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px}
-.bald .bz{display:flex;align-items:center;gap:3px}.bald .bz[hidden],.bald .bn[hidden]{display:none}
-.bald .bz u,.bald .bn{text-decoration:none;font-variant-numeric:tabular-nums;font-weight:800;font-size:15px;color:#fff;background:rgba(5,7,13,.75);border:1px solid rgba(251,191,36,.35);border-radius:6px;padding:4px 7px;min-width:22px;text-align:center}
-.bald .bz s{text-decoration:none;color:#fbbf24;font-weight:800}
-.bald.pf-rot{border-color:rgba(248,113,113,.5);box-shadow:inset 3px 0 0 #f87171}.bald.pf-weihnacht{border-color:rgba(74,222,128,.45);box-shadow:inset 3px 0 0 #4ade80}
-@media(max-width:560px){.bald{flex-wrap:wrap}.bald .bc{align-items:flex-start}}
+.bald .bc{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.bald .bs{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:1.2px}
+.bald .bz{display:flex;align-items:center;gap:4px}.bald .bz[hidden],.bald .bn[hidden]{display:none}
+.bald .bz u,.bald .bn{text-decoration:none;font-variant-numeric:tabular-nums;font-weight:800;font-size:18px;color:#fff;background:rgba(0,0,0,.45);border:1px solid color-mix(in srgb,var(--bc) 40%,transparent);border-radius:8px;padding:6px 8px;min-width:26px;text-align:center}
+.bald .bz s{text-decoration:none;color:var(--bc);font-weight:800}
+.bald.pf-rot{--bc:#f87171}.bald.pf-weihnacht{--bc:#4ade80}.bald.pf-blau{--bc:#60a5fa}.bald.pf-gruen{--bc:#34d399}
+@media(prefers-reduced-motion:reduce){.bald .bk:before{animation:none}}
+@media(max-width:560px){.bald{flex-wrap:wrap;margin-top:-6px}.bald .bp{width:52px;height:52px;font-size:16px}.bald .bc{width:100%;flex-direction:row;justify-content:space-between;align-items:center}}
 #toTop{position:fixed;right:28px;bottom:28px;z-index:60;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;cursor:pointer;color:#fff;background:rgba(10,14,24,.72);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid color-mix(in srgb,var(--akA,#3b82f6) 45%,transparent);box-shadow:0 10px 30px -10px rgba(0,0,0,.6),0 0 18px color-mix(in srgb,var(--akA,#3b82f6) 25%,transparent);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .2s,transform .2s,background .2s}
 #toTop.on{opacity:1;transform:none;pointer-events:auto}
 #toTop:hover,#toTop:focus-visible{background:color-mix(in srgb,var(--akA,#3b82f6) 30%,rgba(10,14,24,.85));outline:none}
@@ -590,9 +597,10 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 <section id="preise"><div class="wrap">
   <div class="sh"><small>Launch-Preise</small><h2>Wähle dein <span class="bl">Abo</span></h2><p>Gleiche Leistung in jedem Abo, nur die Laufzeit ist anders. Kein Auto-Abo: Es läuft einfach aus.</p></div>
   <div class="promo" id="promo" hidden><div class="pv"><em id="prPct"></em><span>Rabatt</span></div>
-    <div class="pt"><span class="pk" id="prTitel"></span><b id="prInfo"></b><small>Gilt bis <span id="prBis"></span> · automatisch im Warenkorb</small><div class="bald" id="prBald" hidden></div></div>
+    <div class="pt"><span class="pk" id="prTitel"></span><b id="prInfo"></b><small>Gilt bis <span id="prBis"></span> · automatisch im Warenkorb</small></div>
     <div class="pm"><svg class="pmq" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon id="prQ" points="10.8,46.0 14.3,44.7 42.1,50.5 45.0,51.9 46.5,62.4 44.5,63.3 10.2,57.1 9.1,55.5"/></svg><button type="button" class="pmc" id="prCode2" aria-label="Code kopieren"><span id="prTxt2"></span></button><img id="prMk" src="img/maskottchen.webp?v=2" alt="" width="277" height="360" loading="lazy" decoding="async"></div>
     <button type="button" class="pcd" id="prCode" title="Code kopieren"><small>Dein Code</small><span><b id="prTxt"></b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span></button></div>
+  <div class="bald" id="prBald" hidden></div>
   <div class="prices">
     <div class="pc"><h3>1 Tag</h3><div class="p">1,49<sup>€</sup></div><div class="per">Zum Testen</div>
       <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/></svg>Game-VPN + Geo-Fence</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>24 Stunden Zugang</li><li class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg>Neue Features zuerst</li><li class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg>Kommende Bereiche inklusive</li></ul>
