@@ -234,7 +234,7 @@ async function autoRab() {
 // Ohne geplante Aktion gilt die Start-Aktion als Rueckfall; nach Ablauf blendet sich das Banner selbst aus.
 let PROMO = { titel: "Start-Aktion", text: "", code: "START10", pct: 10, bis: "2026-11-22", farbe: "blau" };
 const promoOn = () => PROMO && PROMO.code && new Date() <= new Date(PROMO.bis + "T23:59:59");
-const promoBereit = (SHOP_API ? fetch(SHOP_API + "/api/aktion").then(r => r.json()).then(r => { if (r.ok && r.aktion) PROMO = r.aktion; }).catch(() => { }) : Promise.resolve()).then(zeigePromo);
+const promoBereit = (SHOP_API ? fetch(SHOP_API + "/api/aktion", { signal: AbortSignal.timeout ? AbortSignal.timeout(3500) : undefined }).then(r => r.json()).then(r => { if (r.ok && r.aktion) PROMO = r.aktion; }).catch(() => { }) : Promise.resolve()).then(zeigePromo).finally(() => { const n = document.querySelector(".ann"); n && n.classList.remove("wait"); });
 function zeigePromo() {
   if (!promoOn()) return;
   const tage = Math.ceil((new Date(PROMO.bis + "T23:59:59") - new Date()) / 864e5), rest = tage <= 1 ? "nur noch heute" : `nur noch ${tage} Tage`;

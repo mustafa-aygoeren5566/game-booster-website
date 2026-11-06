@@ -38,7 +38,7 @@ svg{display:block}
 .ann{position:relative;z-index:60;background:linear-gradient(90deg,#0b1a3a,#123170,#0b1a3a);text-align:center;font-size:13px;font-weight:800;letter-spacing:.1em;padding:14px 16px;text-transform:uppercase}
 .ann::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,transparent,#3b82f6 20%,#93c5fd 50%,#3b82f6 80%,transparent);box-shadow:0 0 12px 2px rgba(59,130,246,.7),0 0 30px 4px rgba(59,130,246,.35);animation:annGl 3s ease-in-out infinite}
 @keyframes annGl{0%,100%{opacity:.75}50%{opacity:1}}
-.ann a{display:inline-flex;align-items:center;gap:8px}
+.ann a{display:inline-flex;align-items:center;gap:8px;transition:opacity .25s}.ann.wait a{opacity:0}
 .ann.pa{--pc:#34d399;--pc2:#10b981;background:linear-gradient(90deg,#07090f,color-mix(in srgb,var(--pc2) 22%,#07090f),#07090f);letter-spacing:.04em;text-transform:none;font-weight:600;padding:10px 16px}
 .ann.pa::after{background:linear-gradient(90deg,transparent,var(--pc) 30%,var(--pc) 70%,transparent);box-shadow:0 0 14px 1px color-mix(in srgb,var(--pc) 60%,transparent)}
 .ann.pa a{gap:10px;flex-wrap:wrap;justify-content:center}.ann .ap{font:900 13px system-ui;padding:4px 9px;border-radius:7px;background:linear-gradient(160deg,var(--pc2),var(--pc));color:#05070c}
@@ -405,7 +405,7 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 </head>
 <body>
 
-<div class="ann"><a href="#preise"><span id="annTxt">Launch-Preise – Game-VPN ab 1,49 €</span> <i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></a></div>
+<div class="ann wait"><a href="#preise"><span id="annTxt">Launch-Preise – Game-VPN ab 1,49 €</span> <i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></i></a></div>
 
 <header><div class="wrap hd">
   <a class="logo" href="#"><b><img src="img/logo.webp" alt=""></b><span>Game Booster <em>VPN</em></span></a>
@@ -600,7 +600,7 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 </div></div>
 
 <script src="world.js?v=4"></script>
-<script src="js/index1.js?v=19"></script>
+<script src="js/index1.js?v=20"></script>
 <script src="js/index2.js?v=1"></script>
 <a class="petab" href="https://www.provenexpert.com/game-booster-vpn/zam6/" target="_blank" rel="noopener" aria-label="Game Booster VPN auf ProvenExpert bewerten"><b class="pst">★<br>★<br>★<br>★<br>★</b><span>Bewerte uns</span><small>auf ProvenExpert</small></a>
 <script src="js/features.js?v=8"></script>
