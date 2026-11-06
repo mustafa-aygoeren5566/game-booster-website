@@ -391,3 +391,8 @@ if ("IntersectionObserver" in window) {
   const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle("offv", !e.isIntersecting)), { rootMargin: "200px 0px" });
   document.querySelectorAll("main > section, body > section, section[id], footer").forEach(s => io.observe(s));
 }
+// Nach-oben-Button: erscheint nach etwas Scrollen
+(() => { const b = document.getElementById("toTop"); if (!b) return; let on = false;
+  const f = () => { const s = scrollY > 900; if (s !== on) { on = s; b.classList.toggle("on", s); } };
+  addEventListener("scroll", f, { passive: true }); f();
+  b.addEventListener("click", () => scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })); })();

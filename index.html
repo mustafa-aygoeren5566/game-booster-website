@@ -486,6 +486,13 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 .rbi em.akt-tag:before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.3) 45%,transparent 60%)}
 .akt-gold .rbi em.akt-tag{color:#fbbf24;box-shadow:inset 0 0 0 1px rgba(251,191,36,.55),0 0 12px rgba(251,191,36,.3)}
 .rbi.on.akt-rb input{border-color:color-mix(in srgb,var(--akA) 65%,transparent)}
+
+/* Nach-oben-Button */
+#toTop{position:fixed;right:28px;bottom:28px;z-index:60;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;cursor:pointer;color:#fff;background:rgba(10,14,24,.72);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid color-mix(in srgb,var(--akA,#3b82f6) 45%,transparent);box-shadow:0 10px 30px -10px rgba(0,0,0,.6),0 0 18px color-mix(in srgb,var(--akA,#3b82f6) 25%,transparent);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .2s,transform .2s,background .2s}
+#toTop.on{opacity:1;transform:none;pointer-events:auto}
+#toTop:hover,#toTop:focus-visible{background:color-mix(in srgb,var(--akA,#3b82f6) 30%,rgba(10,14,24,.85));outline:none}
+#toTop svg{width:20px;height:20px}
+@media(max-width:600px){#toTop{right:16px;bottom:16px;width:42px;height:42px}}
 </style>
 <link rel="stylesheet" href="css/features.css?v=38">
 <link rel="preload" as="image" href="img/bg-blau-leiste.webp" fetchpriority="high">
@@ -687,10 +694,11 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 </div></div>
 
 <script src="world.js?v=4"></script>
-<script src="js/index1.js?v=33"></script>
+<script src="js/index1.js?v=34"></script>
 <script src="js/index2.js?v=1"></script>
 <a class="petab" href="https://www.provenexpert.com/game-booster-vpn/zam6/" target="_blank" rel="noopener" aria-label="Game Booster VPN auf ProvenExpert bewerten"><b class="pst">★<br>★<br>★<br>★<br>★</b><span>Bewerte uns</span><small>auf ProvenExpert</small></a>
 <script src="js/features.js?v=8"></script>
 <script src="js/sync.js?v=1"></script>
+<button type="button" id="toTop" aria-label="Nach oben"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
 </body>
 </html>
