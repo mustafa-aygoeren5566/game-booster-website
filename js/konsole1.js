@@ -4,6 +4,7 @@ const PP_CLIENT = "BAAcQ0JuzYeVDaFygLlRZzAYNTOyEa737GmkxfFiO_MYI8ObnTcNwJhYyfMPd
 const $ = id => document.getElementById(id);
 const store = { get: () => { try { return localStorage.getItem("gbKonsole") || "" } catch (e) { return "" } }, set: v => { try { localStorage.setItem("gbKonsole", v) } catch (e) {} }, del: () => { try { localStorage.removeItem("gbKonsole") } catch (e) {} } };
 const datum = d => new Date(d).toLocaleDateString("de-DE");
+const cf = c => String(c || "").replace(/^(GAMEBOOSTERVPN)(\d+[TM])([A-Z0-9]+)$/, "$1-$2-$3");   // lesbar mit Strichen
 
 async function frei(an) {
   let tok = $("kTok").value.trim();
@@ -14,7 +15,7 @@ async function frei(an) {
   try {
     const r = await (await fetch(API + "/api/konsole/frei", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(an === undefined ? { token: tok } : { token: tok, an }) })).json();
     if (!r.ok) { $("kBox").hidden = true; msg(r.msg === "Zugang abgelaufen" ? "Dein Zugang ist am " + datum(r.bis) + " abgelaufen – unten verlängern." : r.msg === "Code unbekannt" ? "Diesen Code kennen wir nicht." : r.msg, "bad"); return }
-    if (r.token && r.token !== tok) { tok = r.token; $("kTok").value = tok.replace(/^(GAMEBOOSTERVPN)(\d+[TM])([A-Z0-9]+)$/, "$1-$2-$3") }   // alter K-Code -> neuer Code
+    if (r.token && r.token !== tok) { tok = r.token; $("kTok").value = cf(tok) }   // alter K-Code -> neuer Code
     store.set(tok); $("kBox").hidden = false;
     karte(r.an); $("kOn").hidden = r.an; $("kOff").hidden = !r.an;
     const rest = Math.round((new Date(r.bis + "T23:59:59") - Date.now()) / 864e5);
@@ -35,7 +36,7 @@ $("kOff").onclick = () => frei(false);
 $("kTok").onkeydown = e => { if (e.key === "Enter") frei() };
 $("kTok").oninput = () => { if (!$("kTok").value.trim() && store.get()) vergessen() };
 const q = new URLSearchParams(location.search).get("t") || store.get();
-if (q) { $("kTok").value = q; frei() }
+if (q) { $("kTok").value = cf(q); frei() }
 
 // Kauf
 let plan = { v: "4.99", n: "1 Monat" }, sdk = null, btn = null;
@@ -104,9 +105,9 @@ async function zeichne() {
         try {
           const r = await (await fetch(API + "/api/konsole/kauf", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ order: o.id }) })).json();
           if (r.ok) {
-            store.set(r.token); $("kNewC").textContent = r.token; $("kNew").hidden = false; $("ppBox").innerHTML = "";
+            store.set(r.token); $("kNewC").textContent = cf(r.token); $("kNew").hidden = false; $("ppBox").innerHTML = "";
             $("ppMsg").textContent = "Fertig – Zugang bis " + datum(r.bis) + ". Bestell-Nr.: " + o.id;
-            $("kTok").value = r.token; frei(true); $("zugang").scrollIntoView({ behavior: "smooth" }); return;
+            $("kTok").value = cf(r.token); frei(true); $("zugang").scrollIntoView({ behavior: "smooth" }); return;
           }
         } catch (e) {}
         await new Promise(z => setTimeout(z, 2500));
