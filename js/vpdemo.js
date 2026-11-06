@@ -56,7 +56,7 @@
   var MID = {};
   window.VPD_WELT.forEach(function (w) { if (w[3] != null) MID[w[0]] = [w[3], w[4]] });
   var DU = MID.DE || [9.68, 50.96], SV = MID.IN || [79.36, 22.69];
-  var st = { on: false, fence: false, reg: "eu" };
+  var st = { on: false, fence: false, reg: "AT" };
   var $ = function (s) { return root.querySelector(s) };
 
   var KC = { Eu: "#2b4f9c", As: "#6b5320", Af: "#1f3d73", No: "#245a51", Se: "#333" };
@@ -68,8 +68,8 @@
     '<div class="vd-zg"><div><small class="vd-lab">Dein Zugang</small><b>Das hier ist nur die Vorschau</b><small>In der App schaltest du den Game-VPN mit deinem Zugang genauso ein – für PC, PS5 und Xbox.</small></div><a class="vd-go" href="index.html#preise">Zugang holen</a></div>' +
     '<div class="vd-top">' +
       '<div class="vd-card vd-st">' +
-        '<div class="vd-sh"><span class="vd-led"></span><div><b class="vd-t1"></b><small class="vd-t2"></small></div></div>' +
-        '<span class="vd-pill">Spiel: direkt</span>' +
+        '<div class="vd-orb"><i></i></div><div class="vd-ht"><b class="vd-t1"></b><small class="vd-t2"></small></div>' +
+        '<div class="vd-chs"></div>' +
         '<div class="vd-tiles">' +
           '<div><small>Region für CoD</small><b class="vd-reg"></b></div>' +
           '<div><small>Ping zum Server</small><b class="vd-ping"></b></div>' +
@@ -88,10 +88,10 @@
       '</div>' +
     '</div>' +
     '<div class="vd-row">' +
-      '<div class="vd-card"><div class="vd-ch"><div><b>Game-VPN</b><small>CoD sieht die Region deines Servers – Spiel, Matchmaking und deine IP bleiben direkt, der Ping bleibt niedrig</small></div>' +
+      '<div class="vd-card"><div class="vd-ch"><div><div class="vd-ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5" opacity=".45"/><path d="M3.5 12h17M12 3.5c2.4 2.3 3.6 5.2 3.6 8.5s-1.2 6.2-3.6 8.5c-2.4-2.3-3.6-5.2-3.6-8.5S9.6 5.8 12 3.5" opacity=".45"/><path d="M6.2 15.2C8.6 9.6 13.4 7.4 18 8.6" stroke-width="2.1" stroke-dasharray="2.6 2.2"/><circle cx="6.2" cy="15.6" r="2" fill="currentColor" stroke="none"/><circle cx="18.2" cy="8.4" r="2.3" stroke-width="2"/></svg></div><b>Game-VPN</b><small>CoD sieht die Region deines Servers – Spiel, Matchmaking und deine IP bleiben direkt, der Ping bleibt niedrig</small></div>' +
         '<button type="button" class="vd-sw" id="vdOn" role="switch" aria-checked="false" aria-label="Game-VPN"><i></i></button></div>' +
         '<small class="vd-lab">Server</small><div class="vd-srv"><b>' + flag("IN") + 'Mumbai</b><small>Indien · läuft immer</small></div></div>' +
-      '<div class="vd-card"><div class="vd-ch"><div><b>Geo-Fence</b><small>Ping-Tests nur zu Rechenzentren in der gewählten Region – Spielserver bleiben nah</small></div>' +
+      '<div class="vd-card"><div class="vd-ch"><div><div class="vd-ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.5c0 4.6-3 8-7 9.5-4-1.5-7-4.9-7-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg></div><b>Geo-Fence</b><small>Ping-Tests nur zu Rechenzentren in der gewählten Region – Spielserver bleiben nah</small></div>' +
         '<button type="button" class="vd-sw" id="vdFe" role="switch" aria-checked="false" aria-label="Geo-Fence"><i></i></button></div>' +
         '<small class="vd-lab">Region</small><div class="vd-grp">' +
           '<button type="button" class="vd-o cust" disabled><b>Eigene Auswahl</b><small>Länder selbst wählen, mit Ping und Ortszeit · in der App</small></button>' +
@@ -145,8 +145,13 @@
     $(".vd-dyn").innerHTML = g;
 
     root.classList.toggle("on", st.on);
-    $(".vd-t1").textContent = st.on ? "Game-VPN aktiv" : "Game-VPN aus";
-    $(".vd-t2").textContent = st.on ? "Matchsuche läuft über Mumbai" : "Schalte ihn unten ein und sieh, was passiert";
+    $(".vd-t1").textContent = st.on ? "Aktiv – Region Mumbai" : "Aus – alles direkt";
+    $(".vd-t2").textContent = st.on ? "CoD sieht Mumbai, Spiel und Ping bleiben bei dir" : "Alles läuft direkt über deine Leitung";
+    var ch = [];
+    if (st.on) ch.push('<span><i style="background:#4f8ff7"></i>Server Mumbai</span>', "<span>Ping zum Server: 142 ms</span>");
+    if (st.fence) ch.push('<span><i style="background:#3ddc84"></i>Spielserver: ' + esc(reg.name) + "</span>");
+    ch.push('<span><i style="background:#3ddc84"></i>Spiel: direkt</span>');
+    $(".vd-chs").innerHTML = ch.join("");
     $(".vd-reg").innerHTML = st.on ? flag("IN") + "Mumbai" : flag("DE") + "Deutschland";
     $(".vd-ping").textContent = st.on ? "142 ms" : "–";
     $(".vd-geo").innerHTML = st.fence ? (eins ? flag(eins) : "") + esc(reg.name) : "Aus";

@@ -131,6 +131,17 @@ body{overflow-x:hidden}
 @media(max-width:900px){.yt.q{display:none}}
 
 @media(max-width:480px){.top .logo span{white-space:nowrap;font-size:15px}.top .logo b,.top .logo img{width:34px;height:34px}.top .back{font-size:12.5px;padding:7px 11px;white-space:nowrap}}
+.vd-orb{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.05);transition:background .35s;margin-bottom:12px}
+.vd-orb i{width:16px;height:16px;border-radius:50%;background:#6b6b6b;transition:background .35s}
+.vd.on .vd-orb{background:rgba(61,220,132,.12)}.vd.on .vd-orb i{background:#3ddc84;animation:vdPulse 2s infinite}
+@keyframes vdPulse{0%{box-shadow:0 0 0 0 rgba(61,220,132,.6)}70%{box-shadow:0 0 0 12px rgba(61,220,132,0)}100%{box-shadow:0 0 0 0 rgba(61,220,132,0)}}
+.vd-ht b{display:block;font-size:19px}.vd-ht small{display:block;font-size:12.5px;color:var(--mut);margin-top:3px}
+.vd-chs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+.vd-chs span{display:flex;align-items:center;gap:6px;font-size:11.5px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)}
+.vd-chs i{width:7px;height:7px;border-radius:50%}
+.vd-ti{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.05);color:rgba(255,255,255,.7);margin-bottom:10px}.vd-ti svg{width:20px;height:20px}
+.vd-ch{align-items:flex-start}.vd-ch .vd-sw{margin-top:2px}
+.vd-c.sel,.vd-o.sel{border-color:#3b82f6;background:#0e1a33}.vd-o.dim.sel{border-color:#2b4a86;background:#0e1528}
 </style>
 <link rel="stylesheet" href="css/features.css?v=37">
 <style>
@@ -172,10 +183,13 @@ body{overflow-x:hidden}
 .vd-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
 .vd-ch{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
 .vd-ch b{display:block;font-size:15px}.vd-ch small{display:block;color:var(--mut);font-size:12px;margin-top:2px}
-.vd-sw{flex:none;position:relative;width:46px;height:26px;border-radius:99px;border:1px solid #2b3650;background:#1a2236;cursor:pointer;transition:background .25s,border-color .25s}
-.vd-sw i{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#8b96ad;transition:transform .25s,background .25s}
-.vd-sw[aria-checked=true]{background:#1d4ed8;border-color:#3b82f6}
-.vd-sw[aria-checked=true] i{transform:translateX(20px);background:#fff}
+.vd-sw{flex:none;position:relative;width:44px;height:26px;border:0;padding:0;border-radius:999px;cursor:pointer;background:linear-gradient(180deg,#151517,#232326);box-shadow:inset 0 2px 4px rgba(0,0,0,.6),inset 0 -1px 0 rgba(255,255,255,.05),0 0 0 1px rgba(255,255,255,.06);transition:background .25s,box-shadow .25s,filter .2s}
+.vd-sw:hover{filter:brightness(1.18)}
+.vd-sw i{position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M7 10h6' stroke='%238b96ad' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat,linear-gradient(180deg,#fff,#d9d9de);box-shadow:0 2px 4px rgba(0,0,0,.45),inset 0 -1px 1px rgba(0,0,0,.12),inset 0 1px 0 #fff;transition:transform .38s cubic-bezier(.34,1.56,.64,1),width .16s ease}
+.vd-sw:active i{width:25px}
+.vd-sw[aria-checked=true]{background:linear-gradient(180deg,#2563eb,#3b82f6);box-shadow:inset 0 2px 3px rgba(0,0,0,.35),inset 0 -1px 0 rgba(255,255,255,.18),0 0 10px -2px rgba(59,130,246,.55)}
+.vd-sw[aria-checked=true] i{transform:translateX(18px);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6.2 10.4l2.5 2.4 5.1-5.4' fill='none' stroke='%233b82f6' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% 100% no-repeat,linear-gradient(180deg,#fff,#ececf0)}
+.vd-sw[aria-checked=true]:active i{transform:translateX(13px)}
 .vd-sw:focus-visible,.vd-chip:focus-visible{outline:2px solid var(--blue2);outline-offset:2px}
 .vd-lab{display:block;margin:12px 0 6px;color:var(--mut);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .vd-srv{display:inline-block;padding:8px 12px;border:1px solid #2b4a86;border-radius:9px;background:#0e1730}
@@ -254,7 +268,7 @@ body{overflow-x:hidden}
   </div></div>
 </main>
 <script src="js/vpdemo-karte.js?v=2" defer></script>
-<script src="js/vpdemo.js?v=4" defer></script>
+<script src="js/vpdemo.js?v=5" defer></script>
 <script src="einblick.js?v=5" defer></script>
 <script src="js/sync.js?v=1"></script>
 </body>
