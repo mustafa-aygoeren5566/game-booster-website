@@ -121,7 +121,7 @@ document.getElementById("shopGrid").innerHTML = SHOP.map(([a, t, s, p, on]) => I
 const PP_CLIENT = "BAAcQ0JuzYeVDaFygLlRZzAYNTOyEa737GmkxfFiO_MYI8ObnTcNwJhYyfMPdY1ycl6m1yeFBpYTcSmJQQ";   // Live-App
 const buy = document.getElementById("buy"), bOk = document.getElementById("bOk"), bCode = document.getElementById("bCode"), ppBox = document.getElementById("ppBox"), ppMsg = document.getElementById("ppMsg");
 let plan = null, ppLoad = null;
-let isNew = false;
+let isNew = true;
 const codeOk = () => isNew || /^GB-[A-Za-z0-9+/=_-]{6,}$/.test(bCode.value.trim());
 document.querySelectorAll("[data-hv]").forEach(x => x.onclick = () => {
   isNew = x.dataset.hv === "0"; document.querySelectorAll("[data-hv]").forEach(y => y.classList.toggle("on", y === x));
@@ -135,7 +135,7 @@ addEventListener("load", () => setTimeout(() => sdk().catch(() => { ppLoad = nul
 function gate() {
   const ready = bOk.checked && codeOk();
   ppBox.classList.toggle("dis", !ready);
-  ppMsg.textContent = !codeOk() ? "Trag zuerst deinen Code aus der App ein (GB-…)." : !bOk.checked ? "Bitte noch den Haken setzen." : "Wähle deine Zahlungsart:";
+  ppMsg.textContent = !codeOk() ? "Trag deinen GB-Code ein." : !bOk.checked ? "Bitte noch den Haken setzen." : "Wähle deine Zahlungsart:";
   ppMsg.classList.toggle("go", ready);
 }
 bOk.onchange = gate; bCode.oninput = gate;
@@ -160,8 +160,7 @@ async function render() {
       const txt = document.getElementById("bDoneTxt");
       document.getElementById("bRd").hidden = true; document.getElementById("bZ").hidden = true;
       if (isNew) {
-        document.getElementById("bRd").hidden = false; document.getElementById("bRd").textContent = "App installiert? Jetzt freischalten";
-        txt.innerHTML = 'Danke! Lade jetzt <a href="https://github.com/mustafa-aygoeren5566/game-booster-releases/releases/latest/download/GameBooster-Setup.exe">Game Booster</a> herunter. Danach kopierst du in der App unter <b>Game-VPN → Zugang anfordern</b> deinen Code und klickst unten auf <b>Jetzt freischalten</b>. <b>Schreib dir die Bestell-Nr. auf.</b>';
+                txt.innerHTML = 'Danke! Lade jetzt <a href="https://github.com/mustafa-aygoeren5566/game-booster-releases/releases/latest/download/GameBooster-Setup.exe">Game Booster</a> herunter. Danach in der App unter <b>Game-VPN → Code eingeben</b> diese Bestell-Nr. eintragen, fertig. <b>Schreib sie dir auf.</b>';
         return;
       }
       if (!SHOP_API) { txt.textContent = "Danke! Dein Freischalt-Code kommt in den nächsten Stunden per E-Mail an deine PayPal-Adresse."; return }
@@ -356,7 +355,7 @@ document.getElementById("rvGo").onclick = async () => {
 (() => {
   const c = new URLSearchParams(location.search).get("code");
   if (!c || !/^GB-[A-Za-z0-9+/=_-]{6,}$/.test(c)) return;
-  bCode.value = c; document.querySelector('[data-hv="1"]').click();
+  bCode.value = c; document.querySelector('[data-hv="1"]').click(); document.querySelector(".hv").hidden = false;
   history.replaceState(null, "", location.pathname + "#preise");
   setTimeout(() => document.getElementById("preise").scrollIntoView({ behavior: "smooth" }), 150);
 })();
