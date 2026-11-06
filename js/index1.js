@@ -232,10 +232,12 @@ async function autoRab() {
 }
 // Aktion oben bei den Preisen: kommt vom Shop-Server (in der Admin-App geplant, erscheint am Starttag von selbst).
 // Ohne geplante Aktion gilt die Start-Aktion als Rueckfall; nach Ablauf blendet sich das Banner selbst aus.
-let PROMO = { titel: "Start-Aktion", text: "", code: "START10", pct: 10, bis: "2026-11-22", farbe: "blau" };
+const PROMO0 = { titel: "Start-Aktion", text: "", code: "START10", pct: 10, bis: "2026-11-22", farbe: "blau" };
+let PROMO = PROMO0, PROMO_C = null;
+try { const c = JSON.parse(localStorage.getItem("gbPromo") || "null"); if (c && c.code && c.bis) PROMO = PROMO_C = c; } catch (e) { }
 const promoOn = () => PROMO && PROMO.code && new Date() <= new Date(PROMO.bis + "T23:59:59");
 try { const f = localStorage.getItem("gbPF"); const an = document.querySelector(".ann"); if (f && an && /^[a-z]+$/.test(f)) an.className = "ann wait pa pf-" + f; } catch (e) { }
-const promoBereit = (SHOP_API ? fetch(SHOP_API + "/api/aktion", { signal: AbortSignal.timeout ? AbortSignal.timeout(3500) : undefined }).then(r => r.json()).then(r => { if (r.ok && r.aktion) PROMO = r.aktion; }).catch(() => { }) : Promise.resolve()).then(zeigePromo).finally(() => { const n = document.querySelector(".ann"); n && n.classList.remove("wait"); });
+const promoBereit = (SHOP_API ? fetch(SHOP_API + "/api/aktion", { signal: AbortSignal.timeout ? AbortSignal.timeout(3500) : undefined }).then(r => r.json()).then(r => { if (r.ok) { PROMO = r.aktion || PROMO0; try { localStorage.setItem("gbPromo", JSON.stringify(PROMO)); } catch (e) { } } }).catch(() => { }) : Promise.resolve()).then(zeigePromo).finally(() => { const n = document.querySelector(".ann"); n && n.classList.remove("wait"); });
 function zeigePromo() {
   if (!promoOn()) return;
   const tage = Math.ceil((new Date(PROMO.bis + "T23:59:59") - new Date()) / 864e5), rest = tage <= 1 ? "nur noch heute" : `nur noch ${tage} Tage`;
@@ -349,3 +351,5 @@ document.getElementById("rvGo").onclick = async () => {
   history.replaceState(null, "", location.pathname + "#preise");
   setTimeout(() => document.getElementById("preise").scrollIntoView({ behavior: "smooth" }), 150);
 })();
+// gespeicherte Aktion sofort zeigen (kein Warten auf den Server beim Neuladen)
+if (PROMO_C) { try { zeigePromo(); const n = document.querySelector(".ann"); n && n.classList.remove("wait"); } catch (e) { console.warn("promo früh", e); } }
