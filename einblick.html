@@ -188,6 +188,18 @@ body{overflow-x:hidden}
 .vd-chip:hover{border-color:#3b82f6}
 .vd-chip.sel{border-color:#f59e0b;background:#1f1608}
 .vd-chip.dim.sel{border-color:#5b4a2a;background:#0e1528}
+.vd-fl{width:18px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:6px;flex:none}
+.vd-grp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.vd-o{text-align:left;padding:8px 10px;border-radius:9px;border:1px solid var(--line);background:#0e1528;color:var(--txt);font:600 12.5px Inter,system-ui,sans-serif;cursor:pointer;transition:border-color .2s,background .2s}
+.vd-o b{display:block;font-size:13.5px}.vd-o small{display:block;color:var(--mut);font-size:10.5px;font-weight:500;margin-top:3px}
+.vd-o:hover{border-color:#3b82f6}.vd-o.sel{border-color:#f59e0b;background:#1f1608}.vd-o.dim.sel{border-color:#5b4a2a;background:#0e1528}
+.vd-o.cust{opacity:.55;cursor:default}.vd-o.cust:hover{border-color:var(--line)}
+.vd-o:focus-visible{outline:2px solid var(--blue2);outline-offset:2px}
+.vd-flr{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;align-items:center}.vd-flr .vd-fl{width:15px;height:10px;margin:0}
+.vd-flr em{font-style:normal;color:var(--mut);font-size:10.5px;margin-left:2px}
+.vd-c{display:inline-flex;align-items:center;padding:6px 10px}
+.vd-tiles b .vd-fl,.vd-srv b .vd-fl{width:16px;height:11px}
+@media(max-width:560px){.vd-grp{grid-template-columns:1fr}}
 @media(max-width:820px){.vd{padding:12px}.vd-top,.vd-row{grid-template-columns:1fr}.vd-map{order:-1;min-height:200px}.vd-map svg{min-height:190px}}
 @media(prefers-reduced-motion:reduce){.vd-arc,.vd-ring,.vd-hint .vd-dot{animation:none}}
 </style>
@@ -241,8 +253,8 @@ body{overflow-x:hidden}
     <div class="yt h"><video src="img/promo-hoch.mp4?v=4" poster="img/promo-hoch.webp?v=4" controls playsinline preload="none"></video></div>
   </div></div>
 </main>
-<script src="js/vpdemo-karte.js?v=1" defer></script>
-<script src="js/vpdemo.js?v=1" defer></script>
+<script src="js/vpdemo-karte.js?v=2" defer></script>
+<script src="js/vpdemo.js?v=2" defer></script>
 <script src="einblick.js?v=5" defer></script>
 <script src="js/sync.js?v=1"></script>
 </body>
