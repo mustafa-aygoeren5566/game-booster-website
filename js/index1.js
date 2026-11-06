@@ -247,6 +247,15 @@ function zeigePromo() {
   document.getElementById("prPct").textContent = `−${PROMO.pct} %`;
   document.getElementById("prBis").textContent = PROMO.bis.split("-").reverse().join(".") + " (" + rest + ")";
   document.getElementById("prInfo").textContent = PROMO.text || "Auf alle Abos, einmalig, kein Auto-Abo";
+  clearInterval(zeigePromo.t);
+  if (tage <= 1) {   // letzter Tag: laufender Countdown statt "nur noch heute"
+    const ende = new Date(PROMO.bis + "T23:59:59"), bis = PROMO.bis.split("-").reverse().join(".");
+    const tick = () => { const s = Math.max(0, Math.floor((ende - new Date()) / 1000)), z = n => String(n).padStart(2, "0");
+      const t = "endet in " + z(Math.floor(s / 3600)) + ":" + z(Math.floor(s / 60) % 60) + ":" + z(s % 60);
+      const ar = document.querySelector(".ann .ar"); if (ar) ar.textContent = t;
+      document.getElementById("prBis").textContent = bis + " (" + t + ")"; };
+    tick(); zeigePromo.t = setInterval(tick, 1000);
+  }
   document.getElementById("prTxt").textContent = PROMO.code;
   el.className = "promo pf-" + (PROMO.farbe || "gruen"); el.hidden = false;
   el.classList.add("hm");
@@ -353,3 +362,20 @@ document.getElementById("rvGo").onclick = async () => {
 })();
 // gespeicherte Aktion sofort zeigen (kein Warten auf den Server beim Neuladen)
 if (PROMO_C) { try { zeigePromo(); const n = document.querySelector(".ann"); n && n.classList.remove("wait"); } catch (e) { console.warn("promo früh", e); } }
+// Preise passen sich der laufenden Aktion an: Aktionsfarbe an Karten und Button, alter Preis durchgestrichen
+function aktPreise() {
+  const F = { blau: ["#60a5fa", "#2563eb"], rot: ["#f87171", "#dc2626"], gold: ["#fbbf24", "#d97706"], weihnacht: ["#f87171", "#b91c1c"], gruen: ["#34d399", "#059669"], lila: ["#c084fc", "#7c3aed"] };
+  const on = promoOn(), c = F[PROMO.farbe] || F.blau, r = document.documentElement;
+  r.classList.toggle("akt", !!on);
+  if (on) { r.style.setProperty("--akA", c[0]); r.style.setProperty("--akB", c[1]); }
+  document.querySelectorAll(".pc .p").forEach(p => {
+    if (!p.dataset.alt) p.dataset.alt = p.firstChild.textContent.trim();
+    const alt = parseFloat(p.dataset.alt.replace(",", ".")), neu = (Math.floor(alt * (100 - PROMO.pct) + 1e-7 + 0.5) / 100).toFixed(2).replace(".", ",");
+    p.firstChild.textContent = on ? neu : p.dataset.alt;
+    let s = p.previousElementSibling && p.previousElementSibling.classList.contains("palt") ? p.previousElementSibling : null;
+    if (on) { if (!s) { s = document.createElement("div"); s.className = "palt"; p.before(s); } s.innerHTML = `<s>${p.dataset.alt} €</s><b>−${PROMO.pct} %</b>`; }
+    else if (s) s.remove();
+  });
+}
+try { aktPreise(); } catch (e) { }
+promoBereit.then(() => { try { aktPreise(); } catch (e) { } });
