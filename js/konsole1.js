@@ -6,9 +6,10 @@ const store = { get: () => { try { return localStorage.getItem("gbKonsole") || "
 const datum = d => new Date(d).toLocaleDateString("de-DE");
 
 async function frei(an) {
-  const tok = $("kTok").value.trim();
+  let tok = $("kTok").value.trim();
   if (!tok) { vergessen(); return }
-  if (!/^(K[A-Z0-9]{11}|GB-[A-Za-z0-9+/]{43}=)$/.test(tok)) { msg("Der Code sieht nicht richtig aus (K… oder GB-…).", "bad"); return }
+  if (!/^GB-/.test(tok)) tok = tok.replace(/[\s-]+/g, "").toUpperCase();   // GAMEBOOSTERVPN-7T-XXXXX geht auch mit Strichen
+  if (!/^(K[A-Z0-9]{11}|GB-[A-Za-z0-9+/]{43}=|GAMEBOOSTERVPN\d+[TM][A-Z0-9]{5}|TEST[A-Z0-9]{8})$/.test(tok)) { msg("Der Code sieht nicht richtig aus.", "bad"); return }
   msg("Einen Moment …");
   try {
     const r = await (await fetch(API + "/api/konsole/frei", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(an === undefined ? { token: tok } : { token: tok, an }) })).json();
