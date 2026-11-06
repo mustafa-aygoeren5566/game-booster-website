@@ -386,3 +386,8 @@ function aktPreise() {
 }
 try { aktPreise(); } catch (e) { }
 promoBereit.then(() => { try { aktPreise(); } catch (e) { } });
+// Endlos-Animationen nur laufen lassen, wenn der Bereich im Bild ist (spart Leistung beim Scrollen, v. a. auf Handys)
+if ("IntersectionObserver" in window) {
+  const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle("offv", !e.isIntersecting)), { rootMargin: "200px 0px" });
+  document.querySelectorAll("main > section, body > section, section[id], footer").forEach(s => io.observe(s));
+}
