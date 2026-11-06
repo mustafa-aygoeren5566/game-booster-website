@@ -367,7 +367,10 @@ function aktPreise() {
   const F = { blau: ["#60a5fa", "#2563eb"], rot: ["#f87171", "#dc2626"], gold: ["#fbbf24", "#d97706"], weihnacht: ["#f87171", "#b91c1c"], gruen: ["#34d399", "#059669"], lila: ["#c084fc", "#7c3aed"] };
   const on = promoOn(), c = F[PROMO.farbe] || F.blau, r = document.documentElement;
   r.classList.toggle("akt", !!on);
-  if (on) { r.style.setProperty("--akA", c[0]); r.style.setProperty("--akB", c[1]); }
+  if (on) { r.style.setProperty("--akA", c[0]); r.style.setProperty("--akB", c[1]);
+    const P = { blau: "radial-gradient(120% 120% at 25% 15%,#3b82f6,#1d4ed8 60%,#172554)", rot: "radial-gradient(120% 120% at 50% 110%,#ef4444,#991b1b 55%,#1a0505)",
+      gold: "radial-gradient(120% 120% at 30% 0%,#2a2010,#0b0904 75%)", weihnacht: "radial-gradient(120% 120% at 30% 20%,#ef4444,#b91c1c 55%,#7f1d1d)" };
+    r.style.setProperty("--akP", P[PROMO.farbe] || "linear-gradient(160deg," + c[1] + "," + c[0] + ")"); r.classList.toggle("akt-gold", PROMO.farbe === "gold"); }
   document.querySelectorAll(".pc .p").forEach(p => {
     if (!p.dataset.alt) p.dataset.alt = p.firstChild.textContent.trim();
     const alt = parseFloat(p.dataset.alt.replace(",", ".")), neu = (Math.floor(alt * (100 - PROMO.pct) + 1e-7 + 0.5) / 100).toFixed(2).replace(".", ",");
@@ -375,6 +378,10 @@ function aktPreise() {
     let s = p.previousElementSibling && p.previousElementSibling.classList.contains("palt") ? p.previousElementSibling : null;
     if (on) { if (!s) { s = document.createElement("div"); s.className = "palt"; p.before(s); } s.innerHTML = `<s>${p.dataset.alt} €</s><b>−${PROMO.pct} %</b>`; }
     else if (s) s.remove();
+    const per = p.parentNode.querySelector(".per");   // "pro Tag/Monat" mit dem Aktionspreis neu rechnen
+    if (per) { if (!per.dataset.alt) per.dataset.alt = per.textContent;
+      const m = per.dataset.alt.match(/([\d,]+) € pro (Tag|Monat)/), n = { "1 Monat": [30, "Tag"], "3 Monate": [3, "Monat"], "1 Jahr": [12, "Monat"] }[p.parentNode.querySelector("h3").textContent];
+      per.textContent = on && m && n ? per.dataset.alt.replace(m[1], (parseFloat(neu.replace(",", ".")) / n[0]).toFixed(2).replace(".", ",")) : per.dataset.alt; }
   });
 }
 try { aktPreise(); } catch (e) { }
