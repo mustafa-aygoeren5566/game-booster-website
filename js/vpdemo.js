@@ -148,7 +148,7 @@
       g += '<g' + (gp ? "" : ' opacity=".8"') + '><path class="vd-garcg" d="' + GR + '"/><path class="vd-garc" d="' + GR + '"/><circle class="vd-gpt"' + (gp ? "" : ' style="opacity:.55"') + ' cx="' + X(tz[0]) + '" cy="' + Y(tz[1]) + '" r="' + 4.5 * s16 + '"/></g>' }
     g += '<circle cx="' + hx + '" cy="' + hy + '" r="' + 30 * s16 + '" fill="url(#vdGlB)" pointer-events="none"/><circle cx="' + x2 + '" cy="' + y2 + '" r="' + 36 * s16 + '" fill="url(#vdGlG)" pointer-events="none" opacity="' + (st.on ? 1 : .5) + '"/>';
     g += '<circle r="' + 3.5 * s16 + '" fill="#fff" opacity="' + (st.on ? 1 : .45) + '"><animateMotion dur="2.4s" repeatCount="indefinite" path="' + RT + '"/></circle>';
-    if (gp) g += '<circle r="' + 1.9 * s16 + '" fill="#fde68a"><animateMotion dur="1.6s" repeatCount="indefinite" path="' + GR + '"/></circle>';
+    if (tz) g += '<circle r="' + 3.5 * s16 + '" fill="#fff" opacity="' + (gp ? 1 : .45) + '"><animateMotion dur="2.4s" repeatCount="indefinite" path="' + GR + '"/></circle>';
     g += '<circle class="vd-pt" cx="' + hx + '" cy="' + hy + '" r="' + 4.5 * s16 + '" fill="#93c5fd"/>';
     if (tz) g += pin(tcc, X(tz[0]), Y(tz[1]), "#f59e0b", NAME[tcc], "a", q, gp ? 1 : .8, X(tz[0]) < hx);
     var nah = tz && Math.hypot(X(tz[0]) - hx, Y(tz[1]) - (hy - 26 * q)) < 16 * q;
