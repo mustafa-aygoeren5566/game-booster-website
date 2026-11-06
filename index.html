@@ -480,6 +480,12 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 /* Rabattfeld und Einloesen-Button gleich hoch */
 #bForm .cf input:not([type=checkbox]):not([type=radio]){height:48px;box-sizing:border-box}
 .rbr{align-items:stretch}.rbr .rbi,.rbr #bRab{height:48px;box-sizing:border-box}.rbr #bRabGo{height:48px;box-sizing:border-box;padding-top:0;padding-bottom:0;display:inline-flex;align-items:center;justify-content:center}
+
+/* Rabatt-Schild im Kauffenster im Aktions-Look (nur beim Aktionscode) */
+.rbi em.akt-tag{background:var(--akP);color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.35);overflow:hidden;box-shadow:0 0 14px color-mix(in srgb,var(--akA) 45%,transparent)}
+.rbi em.akt-tag:before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.3) 45%,transparent 60%)}
+.akt-gold .rbi em.akt-tag{color:#fbbf24;box-shadow:inset 0 0 0 1px rgba(251,191,36,.55),0 0 12px rgba(251,191,36,.3)}
+.rbi.on.akt-rb input{border-color:color-mix(in srgb,var(--akA) 65%,transparent)}
 </style>
 <link rel="stylesheet" href="css/features.css?v=38">
 <link rel="preload" as="image" href="img/bg-blau-leiste.webp" fetchpriority="high">
@@ -681,7 +687,7 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 </div></div>
 
 <script src="world.js?v=4"></script>
-<script src="js/index1.js?v=32"></script>
+<script src="js/index1.js?v=33"></script>
 <script src="js/index2.js?v=1"></script>
 <a class="petab" href="https://www.provenexpert.com/game-booster-vpn/zam6/" target="_blank" rel="noopener" aria-label="Game Booster VPN auf ProvenExpert bewerten"><b class="pst">★<br>★<br>★<br>★<br>★</b><span>Bewerte uns</span><small>auf ProvenExpert</small></a>
 <script src="js/features.js?v=8"></script>

@@ -283,7 +283,7 @@ document.getElementById("bRabGo").onclick = async () => {
   m.textContent = "Wird geprüft …";
   try {
     const r = await (await fetch(SHOP_API + "/api/rabatt?c=" + encodeURIComponent(c))).json();
-    if (r.ok) { plan.rab = c; plan.pay = (Math.round(+plan.value * (100 - r.pct) + 1e-7) / 100).toFixed(2); m.textContent = ""; tag.textContent = `−${r.pct} %`; tag.hidden = false; tag.parentNode.classList.add("on"); }
+    if (r.ok) { plan.rab = c; plan.pay = (Math.round(+plan.value * (100 - r.pct) + 1e-7) / 100).toFixed(2); m.textContent = ""; tag.textContent = `−${r.pct} %`; tag.hidden = false; tag.parentNode.classList.add("on"); const ak = promoOn() && c.toUpperCase() === PROMO.code; tag.classList.toggle("akt-tag", ak); tag.parentNode.classList.toggle("akt-rb", ak); }
     else { m.className = "rbm no"; m.textContent = r.msg || "Code ungültig"; }
   } catch (e) { m.className = "rbm no"; m.textContent = "Server nicht erreichbar – bitte später nochmal." }
   rabShow(); render();
