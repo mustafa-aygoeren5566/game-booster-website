@@ -247,7 +247,7 @@ function zeigePromo() {
   document.getElementById("prTxt").textContent = PROMO.code;
   el.className = "promo pf-" + (PROMO.farbe || "gruen"); el.hidden = false;
   el.classList.add("hm");
-  const MK = { normal: ["img/maskottchen.webp?v=2", "26%", "53.5%", "19deg"], taktik: ["img/maskottchen-taktik.webp?v=1", "24.7%", "47%", "17deg"] }, mk = MK[PROMO.maskottchen] || MK.normal;
+  const MK = { normal: ["img/maskottchen.webp?v=2", "26.5%", "53.7%", "12deg"], taktik: ["img/maskottchen-taktik.webp?v=1", "27.5%", "49%", "12deg"] }, mk = MK[PROMO.maskottchen] || MK.normal;
   document.getElementById("prMk").src = mk[0]; const c2 = document.getElementById("prCode2").style; c2.setProperty("--x", mk[1]); c2.setProperty("--y", mk[2]); c2.setProperty("--r", mk[3]);
   const kop = async e => {
     try { await navigator.clipboard.writeText(PROMO.code) } catch (x) { }
