@@ -247,7 +247,7 @@ const PROMO0 = { titel: "Start-Aktion", text: "", code: "START10", pct: 10, bis:
 let PROMO = PROMO0, PROMO_C = null;
 try { const c = JSON.parse(localStorage.getItem("gbPromo") || "null"); if (c && c.code && c.bis) PROMO = PROMO_C = c; } catch (e) { }
 const promoOn = () => PROMO && PROMO.code && new Date() <= new Date(PROMO.bis + "T23:59:59");
-try { const f = localStorage.getItem("gbPF"); const an = document.querySelector(".ann"); if (f && an && /^[a-z0-9]+$/.test(f)) an.className = "ann wait pa pf-" + f; } catch (e) { }
+try { const f = (PROMO_C && promoOn() && PROMO_C.farbe) || ""; const an = document.querySelector(".ann"); if (f && an && /^[a-z0-9]+$/.test(f)) an.className = "ann wait pa pf-" + f; } catch (e) { }
 const promoBereit = (SHOP_API ? fetch(SHOP_API + "/api/aktion", { signal: AbortSignal.timeout ? AbortSignal.timeout(3500) : undefined }).then(r => r.json()).then(r => { if (r.ok) { PROMO = r.aktion || PROMO0; BALD = r.bald || null; try { localStorage.setItem("gbPromo", JSON.stringify(PROMO)); localStorage.setItem("gbBald", JSON.stringify(BALD)); } catch (e) { } zeigeBald(); } }).catch(() => { }) : Promise.resolve()).then(zeigePromo).finally(() => { const n = document.querySelector(".ann"); n && n.classList.remove("wait"); });
 // Teaser: naechste Aktion startet in 1-3 Tagen (Code erst am Starttag)
 let BALD = null; try { BALD = JSON.parse(localStorage.getItem("gbBald") || "null") } catch (e) {}
