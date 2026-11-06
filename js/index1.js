@@ -137,7 +137,8 @@ let srvOk = true, srvMsg = "";
 async function kaufCheck() {
   if (typeof SHOP_API === "undefined" || !SHOP_API) return;
   try { const r = await (await fetch(SHOP_API + "/api/health", { cache: "no-store", signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : undefined })).json();
-    srvOk = !!r.ok && !r.wartung; srvMsg = r.wartung || "";
+    const s = r.status; srvOk = !!r.ok && !s;
+    srvMsg = s ? (s.art === "stoerung" ? "Störung" : "Wartung") + (s.bis ? " bis ca. " + new Date(s.bis * 1000).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) + " Uhr" : "") + (s.text ? ": " + s.text : ".") : "";
   } catch (e) { srvOk = false; srvMsg = ""; }
   gate();
 }
@@ -145,7 +146,7 @@ function gate() {
   const ready = srvOk && bOk.checked && codeOk();
   ppBox.classList.toggle("dis", !ready);
   ppMsg.classList.toggle("ppstoer", !srvOk);
-  ppMsg.textContent = !srvOk ? (srvMsg ? "Wartung: " + srvMsg : "Unser Server ist gerade nicht erreichbar. Bitte versuch es in ein paar Minuten erneut, es wurde nichts abgebucht.") : !codeOk() ? "Trag deinen GB-Code ein." : !bOk.checked ? "Bitte noch den Haken setzen." : "Wähle deine Zahlungsart:";
+  ppMsg.textContent = !srvOk ? (srvMsg ? srvMsg + " Kauf ist gleich wieder möglich, es wurde nichts abgebucht." : "Unser Server ist gerade nicht erreichbar. Bitte versuch es in ein paar Minuten erneut, es wurde nichts abgebucht.") : !codeOk() ? "Trag deinen GB-Code ein." : !bOk.checked ? "Bitte noch den Haken setzen." : "Wähle deine Zahlungsart:";
   ppMsg.classList.toggle("go", ready);
 }
 bOk.onchange = gate; bCode.oninput = gate;
