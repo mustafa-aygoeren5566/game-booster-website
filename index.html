@@ -50,8 +50,10 @@ svg{display:block}
 @media(prefers-reduced-motion:reduce){.promo .pm img{animation:none}}
 .pf-rot .promo,.promo.pf-rot{background:radial-gradient(120% 140% at 100% 100%,rgba(249,115,22,.22),transparent 55%),linear-gradient(100deg,color-mix(in srgb,var(--pc) 16%,#0b0f17),#0b0f17 55%)}
 .promo.pf-gold{background:radial-gradient(120% 140% at 100% 0%,rgba(59,130,246,.18),transparent 55%),linear-gradient(100deg,color-mix(in srgb,var(--pc) 16%,#0b0f17),#0b0f17 55%)}
-.pmc{position:absolute;z-index:2;left:7%;top:44%;width:40%;height:15%;transform:rotate(13deg);display:grid;place-items:center;border:0;background:none;cursor:pointer;font:italic 900 11px/1 system-ui,'Segoe UI',sans-serif;letter-spacing:.1em;color:#fff;text-transform:uppercase;text-shadow:0 0 3px #4ade80,0 0 9px #22c55e,0 1px 0 #052e16;transition:transform .2s}
-.pmc:hover{transform:rotate(13deg) scale(1.08)}.pmc.ok{color:#fff}
+.pmc{position:absolute;z-index:2;left:7%;top:44%;width:40%;height:15%;transform:rotate(13deg);display:grid;place-items:center;border:0;padding:0;background:none;cursor:pointer;font:italic 900 12.5px/1 system-ui,'Segoe UI',sans-serif;letter-spacing:.06em;color:#fff;text-transform:uppercase;-webkit-text-stroke:.3px #052e16;text-shadow:0 1px 0 #052e16,0 0 6px rgba(74,222,128,.9);transition:transform .18s,filter .18s}
+.pmc:hover,.pmc:focus-visible{transform:rotate(13deg) scale(1.15);filter:brightness(1.25) drop-shadow(0 0 8px #4ade80);outline:none}
+.pmc:after{content:"Klicken zum Kopieren";position:absolute;left:50%;bottom:calc(100% + 12px);transform:translateX(-50%) rotate(-13deg);white-space:nowrap;font:600 11.5px/1 system-ui,sans-serif;letter-spacing:0;text-transform:none;-webkit-text-stroke:0;text-shadow:none;color:#04140d;background:#4ade80;padding:6px 9px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .15s}
+.pmc:hover:after,.pmc:focus-visible:after{opacity:1}.pmc.ok:after{content:"Kopiert!";opacity:1}
 .promo .pm img{pointer-events:none}
 .promo.hm .pcd{display:none}.promo.hm{margin-top:40px}
 .pf-blau{--pc:#38bdf8;--pc2:#1d4ed8}.promo.pf-blau{background:radial-gradient(90% 160% at 88% 100%,rgba(34,211,238,.16),transparent 60%),radial-gradient(60% 120% at 70% 0%,rgba(52,211,153,.08),transparent 60%),linear-gradient(100deg,#0a1633,#070b14 60%)}.promo.pf-blau .pv{background:linear-gradient(160deg,#1d4ed8,#3b82f6 55%,#22d3ee);color:#fff}.pf-blau .pv span{opacity:.85}.ann.pf-rot{--pc:#fb7185;--pc2:#dc2626}.ann.pf-gold{--pc:#fbbf24;--pc2:#d97706}.ann.pf-lila{--pc:#c084fc;--pc2:#7c3aed}
@@ -591,7 +593,7 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 </div></div>
 
 <script src="world.js?v=4"></script>
-<script src="js/index1.js?v=13"></script>
+<script src="js/index1.js?v=14"></script>
 <script src="js/index2.js?v=1"></script>
 <a class="petab" href="https://www.provenexpert.com/game-booster-vpn/zam6/" target="_blank" rel="noopener" aria-label="Game Booster VPN auf ProvenExpert bewerten"><b class="pst">★<br>★<br>★<br>★<br>★</b><span>Bewerte uns</span><small>auf ProvenExpert</small></a>
 <script src="js/features.js?v=8"></script>

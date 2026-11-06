@@ -249,7 +249,7 @@ function zeigePromo() {
   el.classList.add("hm");
   const kop = async e => {
     try { await navigator.clipboard.writeText(PROMO.code) } catch (x) { }
-    for (const [b, t] of [["prCode", "prTxt"], ["prCode2", "prTxt2"]]) { document.getElementById(b).classList.add("ok"); document.getElementById(t).textContent = "Kopiert!"; }
+    document.getElementById("prCode2").classList.add("ok"); document.getElementById("prCode").classList.add("ok"); document.getElementById("prTxt").textContent = "Kopiert!";
     setTimeout(() => { for (const [b, t] of [["prCode", "prTxt"], ["prCode2", "prTxt2"]]) { document.getElementById(b).classList.remove("ok"); document.getElementById(t).textContent = PROMO.code; } }, 1500);
   };
   document.getElementById("prTxt2").textContent = PROMO.code;
