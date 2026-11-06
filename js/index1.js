@@ -257,7 +257,7 @@ function zeigeBald() {
   const start = BALD && new Date(BALD.ab + "T00:00:00");
   if (!BALD || !(start > new Date()) || start - new Date() > 4 * 864e5) { e.hidden = true; return; }
   const tag = start.toLocaleDateString("de-DE", { weekday: "short", day: "2-digit", month: "2-digit", year: "numeric" });
-  e.className = "bald promo pf-" + (BALD.farbe || "blau"); e.hidden = false;
+  e.className = "bald promo pf-" + (BALD.farbe || "blau"); e.hidden = false; requestAnimationFrame(() => { const v = e.querySelector(".pv"); v && e.style.setProperty("--pvw", v.offsetWidth + "px"); });
   e.innerHTML = `<div class="pv"><em>−${+BALD.pct} %</em><span>Rabatt</span></div><div class="bl"><span class="pk">Demnächst</span><span class="bt">${esc(BALD.titel)}</span><span class="bd"><b>Start: ${tag} · 00:00 Uhr</b> −${+BALD.pct} % auf alle Abos</span></div>`
     + '<div class="bc"><span class="bs">startet in</span><span class="bz"><u></u><s>:</s><u></u><s>:</s><u></u></span><span class="bn" hidden></span></div>';
   const u = e.querySelectorAll(".bz u"), bz = e.querySelector(".bz"), bn = e.querySelector(".bn");
@@ -287,7 +287,7 @@ function zeigePromo() {
     tick(); zeigePromo.t = setInterval(tick, 1000);
   }
   document.getElementById("prTxt").textContent = PROMO.code;
-  el.className = "promo pf-" + (PROMO.farbe || "gruen"); el.hidden = false;
+  el.className = "promo pf-" + (PROMO.farbe || "gruen"); el.hidden = false; const pvw = () => { const v = el.querySelector(".pv"); v && el.style.setProperty("--pvw", v.offsetWidth + "px"); }; requestAnimationFrame(pvw); if (!zeigePromo.rs) { zeigePromo.rs = 1; addEventListener("resize", pvw); }
   el.classList.add("hm");
   const MK = { xmas: ["img/maskottchen-xmas.webp?v=1", "25.2%", "46.1%", "16.8deg", "13.00,37.18 40.22,44.05 41.31,45.75 38.35,53.99 36.33,54.90 9.11,48.03 8.03,46.34 10.98,38.09", "gold"], rot: ["img/maskottchen-rot.webp?v=1", "27.8%", "53.9%", "14.8deg", "13.52,44.62 45.73,51.14 47.08,52.92 44.03,61.81 41.73,62.84 9.51,56.31 8.17,54.54 11.21,45.65", "rot"], normal: ["img/maskottchen.webp?v=2", "27.8%", "53.9%", "15.2deg", "15.59,44.90 46.19,51.32 47.52,53.10 44.37,61.98 42.05,63.00 11.45,56.58 10.12,54.80 13.27,45.92"], mw4: ["img/maskottchen-mw4.webp?v=1", "26%", "46%", "16.5deg", "13.95,37.43 41.91,44.04 43.03,45.69 40.04,53.74 37.97,54.64 10.01,48.03 8.89,46.39 11.88,38.33", "mw4"], orange: ["img/maskottchen-orange.webp?v=1", "26%", "46.6%", "16.5deg", "13.15,37.36 41.60,43.91 42.75,45.56 39.69,53.59 37.57,54.48 9.12,47.93 7.97,46.28 11.03,38.25", "orange"], taktik: ["img/maskottchen-taktik.webp?v=1", "25.6%", "46.7%", "16.8deg", "13.51,38.26 41.59,44.81 42.74,46.47 39.61,54.53 37.48,55.42 9.39,48.87 8.24,47.21 11.37,39.15"] }, mk = MK[PROMO.maskottchen] || MK.normal;
   document.getElementById("prMk").src = mk[0]; el.classList.remove("mk-gold", "mk-rot", "mk-orange", "mk-mw4"); if (mk[5]) el.classList.add("mk-" + mk[5]); const c2 = document.getElementById("prCode2").style; c2.setProperty("--x", mk[1]); c2.setProperty("--y", mk[2]); c2.setProperty("--r", mk[3]); { const q = mk[4].split(" ").map(p => p.split(",").map(Number)); c2.setProperty("--x", (q.reduce((s, p) => s + p[0], 0) / q.length).toFixed(1) + "%"); c2.setProperty("--y", (q.reduce((s, p) => s + p[1], 0) / q.length).toFixed(1) + "%"); } c2.fontSize = PROMO.code.length > 7 ? (9.5 * 7 / PROMO.code.length).toFixed(1) + "px" : ""; document.getElementById("prQ").setAttribute("points", mk[4]);
