@@ -247,7 +247,7 @@ function zeigePromo() {
   document.getElementById("prTxt").textContent = PROMO.code;
   el.className = "promo pf-" + (PROMO.farbe || "gruen"); el.hidden = false;
   el.classList.add("hm");
-  const MK = { normal: ["img/maskottchen.webp?v=2", "28.2%", "53.8%", "14deg", "10.5,46.8 12.2,45.7 43.4,51.6 45.4,53.3 46.1,59.8 44.5,61.0 12.9,56.6 11.0,55.0"], taktik: ["img/maskottchen-taktik.webp?v=1", "25.4%", "46.8%", "14deg", "11.1,40.3 13.1,39.2 40.1,44.6 41.5,46.3 39.7,53.2 37.7,54.3 10.7,48.9 9.3,47.2"] }, mk = MK[PROMO.maskottchen] || MK.normal;
+  const MK = { normal: ["img/maskottchen.webp?v=2", "27.8%", "53.9%", "15deg", "10.8,46.0 14.3,44.7 42.1,50.5 45.0,51.9 46.5,62.4 44.5,63.3 10.2,57.1 9.1,55.5"], taktik: ["img/maskottchen-taktik.webp?v=1", "25.6%", "46.7%", "16.5deg", "11.2,39.5 14.4,38.7 40.1,44.6 41.9,45.8 39.7,54.2 37.3,55.4 10.6,48.4 9.2,46.9"] }, mk = MK[PROMO.maskottchen] || MK.normal;
   document.getElementById("prMk").src = mk[0]; const c2 = document.getElementById("prCode2").style; c2.setProperty("--x", mk[1]); c2.setProperty("--y", mk[2]); c2.setProperty("--r", mk[3]); document.getElementById("prQ").setAttribute("points", mk[4]);
   const kop = async e => {
     try { await navigator.clipboard.writeText(PROMO.code) } catch (x) { }
