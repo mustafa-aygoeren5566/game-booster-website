@@ -234,12 +234,13 @@ async function autoRab() {
 // Ohne geplante Aktion gilt die Start-Aktion als Rueckfall; nach Ablauf blendet sich das Banner selbst aus.
 let PROMO = { titel: "Start-Aktion", text: "", code: "START10", pct: 10, bis: "2026-11-22", farbe: "blau" };
 const promoOn = () => PROMO && PROMO.code && new Date() <= new Date(PROMO.bis + "T23:59:59");
+try { const f = localStorage.getItem("gbPF"); const an = document.querySelector(".ann"); if (f && an && /^[a-z]+$/.test(f)) an.className = "ann wait pa pf-" + f; } catch (e) { }
 const promoBereit = (SHOP_API ? fetch(SHOP_API + "/api/aktion", { signal: AbortSignal.timeout ? AbortSignal.timeout(3500) : undefined }).then(r => r.json()).then(r => { if (r.ok && r.aktion) PROMO = r.aktion; }).catch(() => { }) : Promise.resolve()).then(zeigePromo).finally(() => { const n = document.querySelector(".ann"); n && n.classList.remove("wait"); });
 function zeigePromo() {
   if (!promoOn()) return;
   const tage = Math.ceil((new Date(PROMO.bis + "T23:59:59") - new Date()) / 864e5), rest = tage <= 1 ? "nur noch heute" : `nur noch ${tage} Tage`;
   const at = document.getElementById("annTxt"), el = document.getElementById("promo");
-  if (at) { at.innerHTML = `<span class="ap">−${PROMO.pct} %</span><span class="at">${esc(PROMO.titel)}</span><span class="ac">${esc(PROMO.code)}</span><span class="ar">${rest}</span>`; at.closest(".ann").className = "ann pa pf-" + (PROMO.farbe || "gruen"); at.style.display = "contents"; }
+  if (at) { at.innerHTML = `<span class="ap">−${PROMO.pct} %</span><span class="at">${esc(PROMO.titel)}</span><span class="ac">${esc(PROMO.code)}</span><span class="ar">${rest}</span>`; at.closest(".ann").className = "ann pa pf-" + (PROMO.farbe || "gruen"); try { localStorage.setItem("gbPF", PROMO.farbe || "gruen"); } catch (e) { } at.style.display = "contents"; }
   document.getElementById("prTitel").textContent = PROMO.titel;
   document.getElementById("prPct").textContent = `−${PROMO.pct} %`;
   document.getElementById("prBis").textContent = PROMO.bis.split("-").reverse().join(".") + " (" + rest + ")";
@@ -247,8 +248,8 @@ function zeigePromo() {
   document.getElementById("prTxt").textContent = PROMO.code;
   el.className = "promo pf-" + (PROMO.farbe || "gruen"); el.hidden = false;
   el.classList.add("hm");
-  const MK = { normal: ["img/maskottchen.webp?v=2", "27.8%", "53.9%", "15deg", "10.8,46.0 14.3,44.7 42.1,50.5 45.0,51.9 46.5,62.4 44.5,63.3 10.2,57.1 9.1,55.5"], taktik: ["img/maskottchen-taktik.webp?v=1", "25.6%", "46.7%", "16.5deg", "11.2,39.5 14.4,38.7 40.1,44.6 41.9,45.8 39.7,54.2 37.3,55.4 10.6,48.4 9.2,46.9"] }, mk = MK[PROMO.maskottchen] || MK.normal;
-  document.getElementById("prMk").src = mk[0]; const c2 = document.getElementById("prCode2").style; c2.setProperty("--x", mk[1]); c2.setProperty("--y", mk[2]); c2.setProperty("--r", mk[3]); document.getElementById("prQ").setAttribute("points", mk[4]);
+  const MK = { xmas: ["img/maskottchen-xmas.webp?v=1", "25.2%", "46.1%", "16.4deg", "11.3,38.1 13.2,37.3 40.7,44.1 41.5,45.7 40.2,53.7 36.4,54.6 9.7,48.1 8.3,47.0", 1], normal: ["img/maskottchen.webp?v=2", "27.8%", "53.9%", "15deg", "10.8,46.0 14.3,44.7 42.1,50.5 45.0,51.9 46.5,62.4 44.5,63.3 10.2,57.1 9.1,55.5"], taktik: ["img/maskottchen-taktik.webp?v=1", "25.6%", "46.7%", "16.5deg", "11.2,39.5 14.4,38.7 40.1,44.6 41.9,45.8 39.7,54.2 37.3,55.4 10.6,48.4 9.2,46.9"] }, mk = MK[PROMO.maskottchen] || MK.normal;
+  document.getElementById("prMk").src = mk[0]; el.classList.toggle("mk-gold", !!mk[5]); const c2 = document.getElementById("prCode2").style; c2.setProperty("--x", mk[1]); c2.setProperty("--y", mk[2]); c2.setProperty("--r", mk[3]); { const q = mk[4].split(" ").map(p => p.split(",").map(Number)); c2.setProperty("--x", (q.reduce((s, p) => s + p[0], 0) / q.length).toFixed(1) + "%"); c2.setProperty("--y", (q.reduce((s, p) => s + p[1], 0) / q.length).toFixed(1) + "%"); } c2.fontSize = PROMO.code.length > 7 ? (9.5 * 7 / PROMO.code.length).toFixed(1) + "px" : ""; document.getElementById("prQ").setAttribute("points", mk[4]);
   const kop = async e => {
     try { await navigator.clipboard.writeText(PROMO.code) } catch (x) { }
     document.getElementById("prCode2").classList.add("ok"); document.getElementById("prCode").classList.add("ok"); document.getElementById("prTxt").textContent = "Kopiert!";
