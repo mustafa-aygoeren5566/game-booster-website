@@ -50,10 +50,10 @@ svg{display:block}
 @media(prefers-reduced-motion:reduce){.promo .pm img{animation:none}}
 .pf-rot .promo,.promo.pf-rot{background:radial-gradient(120% 140% at 100% 100%,rgba(249,115,22,.22),transparent 55%),linear-gradient(100deg,color-mix(in srgb,var(--pc) 16%,#0b0f17),#0b0f17 55%)}
 .promo.pf-gold{background:radial-gradient(120% 140% at 100% 0%,rgba(59,130,246,.18),transparent 55%),linear-gradient(100deg,color-mix(in srgb,var(--pc) 16%,#0b0f17),#0b0f17 55%)}
-.pmc{position:absolute;z-index:2;left:7%;top:44%;width:40%;height:15%;transform:rotate(13deg);display:grid;place-items:center;border:0;padding:0;background:none;cursor:pointer;font:800 9.5px/1 ui-monospace,Consolas,monospace;letter-spacing:.06em;color:#4ade80;text-transform:uppercase;transition:transform .18s,filter .18s}
+.pmc{--x:26%;--y:53.5%;--r:19deg;position:absolute;z-index:2;left:var(--x);top:var(--y);transform:translate(-50%,-50%) rotate(var(--r));display:grid;place-items:center;border:0;padding:0;background:none;cursor:pointer;font:800 9.5px/1 ui-monospace,Consolas,monospace;letter-spacing:.06em;color:#4ade80;text-transform:uppercase;transition:transform .18s,filter .18s}
 .pmc>span{display:block;padding:3px 5px;border:1.5px dashed rgba(74,222,128,.75);border-radius:6px;background:rgba(3,20,10,.85);box-shadow:0 0 8px rgba(74,222,128,.35)}
-.pmc:hover,.pmc:focus-visible{transform:rotate(13deg) scale(1.15);filter:brightness(1.25) drop-shadow(0 0 8px #4ade80);outline:none}
-.pmc:after{content:"Klicken zum Kopieren";position:absolute;right:calc(100% + 10px);top:50%;transform:translateY(-50%) rotate(-13deg);white-space:nowrap;font:600 11.5px/1 system-ui,sans-serif;letter-spacing:0;text-transform:none;-webkit-text-stroke:0;text-shadow:none;color:#04140d;background:#4ade80;padding:6px 9px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .15s}
+.pmc:hover,.pmc:focus-visible{transform:translate(-50%,-50%) rotate(var(--r)) scale(1.15);filter:brightness(1.25) drop-shadow(0 0 8px #4ade80);outline:none}
+.pmc:after{content:"Klicken zum Kopieren";position:absolute;right:calc(100% + 10px);top:50%;transform:translateY(-50%) rotate(calc(var(--r) * -1));white-space:nowrap;font:600 11.5px/1 system-ui,sans-serif;letter-spacing:0;text-transform:none;-webkit-text-stroke:0;text-shadow:none;color:#04140d;background:#4ade80;padding:6px 9px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .15s}
 .pmc:hover:after,.pmc:focus-visible:after{opacity:1}.pmc.ok:after{content:"Kopiert!";opacity:1}
 .promo .pm img{pointer-events:none}
 .promo.hm .pcd{display:none}.promo.hm{margin-top:40px}
@@ -476,7 +476,7 @@ details{position:relative}details[open]{border-color:#2f4f8a}
   <div class="sh"><small>Launch-Preise</small><h2>Wähle dein <span class="bl">Abo</span></h2><p>Gleiche Leistung in jedem Abo, nur die Laufzeit ist anders. Kein Auto-Abo: Es läuft einfach aus.</p></div>
   <div class="promo" id="promo" hidden><div class="pv"><em id="prPct"></em><span>Rabatt</span></div>
     <div class="pt"><span class="pk" id="prTitel"></span><b id="prInfo"></b><small>Gilt bis <span id="prBis"></span> · wird beim Kauf automatisch eingetragen</small></div>
-    <div class="pm"><button type="button" class="pmc" id="prCode2" aria-label="Code kopieren"><span id="prTxt2"></span></button><img src="img/maskottchen.webp?v=2" alt="" width="277" height="360" loading="lazy" decoding="async"></div>
+    <div class="pm"><button type="button" class="pmc" id="prCode2" aria-label="Code kopieren"><span id="prTxt2"></span></button><img id="prMk" src="img/maskottchen.webp?v=2" alt="" width="277" height="360" loading="lazy" decoding="async"></div>
     <button type="button" class="pcd" id="prCode" title="Code kopieren"><small>Dein Code</small><span><b id="prTxt"></b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span></button></div>
   <div class="prices">
     <div class="pc"><h3>1 Tag</h3><div class="p">1,49<sup>€</sup></div><div class="per">Zum Testen</div>
@@ -594,7 +594,7 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 </div></div>
 
 <script src="world.js?v=4"></script>
-<script src="js/index1.js?v=14"></script>
+<script src="js/index1.js?v=16"></script>
 <script src="js/index2.js?v=1"></script>
 <a class="petab" href="https://www.provenexpert.com/game-booster-vpn/zam6/" target="_blank" rel="noopener" aria-label="Game Booster VPN auf ProvenExpert bewerten"><b class="pst">★<br>★<br>★<br>★<br>★</b><span>Bewerte uns</span><small>auf ProvenExpert</small></a>
 <script src="js/features.js?v=8"></script>
