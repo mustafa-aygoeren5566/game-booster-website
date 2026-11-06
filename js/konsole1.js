@@ -14,6 +14,7 @@ async function frei(an) {
   try {
     const r = await (await fetch(API + "/api/konsole/frei", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(an === undefined ? { token: tok } : { token: tok, an }) })).json();
     if (!r.ok) { $("kBox").hidden = true; msg(r.msg === "Zugang abgelaufen" ? "Dein Zugang ist am " + datum(r.bis) + " abgelaufen – unten verlängern." : r.msg === "Code unbekannt" ? "Diesen Code kennen wir nicht." : r.msg, "bad"); return }
+    if (r.token && r.token !== tok) { tok = r.token; $("kTok").value = tok.replace(/^(GAMEBOOSTERVPN)(\d+[TM])([A-Z0-9]+)$/, "$1-$2-$3") }   // alter K-Code -> neuer Code
     store.set(tok); $("kBox").hidden = false;
     karte(r.an); $("kOn").hidden = r.an; $("kOff").hidden = !r.an;
     const rest = Math.round((new Date(r.bis + "T23:59:59") - Date.now()) / 864e5);
