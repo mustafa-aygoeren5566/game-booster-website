@@ -13,3 +13,15 @@
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", los); else los();
 })();
+
+// Beim Scrollen die aufwendigen Animationen im Sicherheits-Bereich kurz anhalten (verhindert Ruckler)
+(function () {
+  var t = 0, an = false;
+  window.addEventListener("scroll", function () {
+    var s = document.getElementById("sicher");
+    if (!s) return;
+    if (!an) { s.classList.add("gb-scr"); an = true; }
+    clearTimeout(t);
+    t = setTimeout(function () { s.classList.remove("gb-scr"); an = false; }, 160);
+  }, { passive: true });
+})();
