@@ -133,19 +133,19 @@ function sdk() {
 // PayPal im Hintergrund vorladen, damit die Zahlungsarten beim ersten Klick sofort da sind
 addEventListener("load", () => setTimeout(() => sdk().catch(() => { ppLoad = null }), 1200));
 // Server-Check: bei Stoerung oder Wartung keine Zahlung annehmen (sonst bezahlt, aber nicht freischaltbar)
-let srvOk = true, srvMsg = "";
+let srvOk = true, srvMsg = "", srvArt = "";
 async function kaufCheck() {
   if (typeof SHOP_API === "undefined" || !SHOP_API) return;
   try { const r = await (await fetch(SHOP_API + "/api/health", { cache: "no-store", signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : undefined })).json();
-    const s = r.status; srvOk = !!r.ok && !s;
+    const s = r.status; srvOk = !!r.ok && !s; srvArt = s ? s.art : "";
     srvMsg = s ? (s.art === "stoerung" ? "Störung" : "Wartung") + (s.bis ? " bis ca. " + new Date(s.bis * 1000).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) + " Uhr" : "") + (s.text ? ": " + s.text : ".") : "";
-  } catch (e) { srvOk = false; srvMsg = ""; }
+  } catch (e) { srvOk = false; srvMsg = ""; srvArt = ""; }
   gate();
 }
 function gate() {
   const ready = srvOk && bOk.checked && codeOk();
   ppBox.classList.toggle("dis", !ready);
-  ppMsg.classList.toggle("ppstoer", !srvOk);
+  ppMsg.classList.toggle("ppstoer", !srvOk); ppMsg.classList.toggle("ppwart", !srvOk && srvArt === "wartung");
   ppMsg.textContent = !srvOk ? (srvMsg ? srvMsg + " Kauf ist gleich wieder möglich, es wurde nichts abgebucht." : "Unser Server ist gerade nicht erreichbar. Bitte versuch es in ein paar Minuten erneut, es wurde nichts abgebucht.") : !codeOk() ? "Trag deinen GB-Code ein." : !bOk.checked ? "Bitte noch den Haken setzen." : "Wähle deine Zahlungsart:";
   ppMsg.classList.toggle("go", ready);
 }
