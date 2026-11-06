@@ -258,7 +258,7 @@ function zeigeBald() {
   if (!BALD || !(start > new Date()) || start - new Date() > 4 * 864e5) { e.hidden = true; return; }
   const tag = start.toLocaleDateString("de-DE", { weekday: "short", day: "2-digit", month: "2-digit" });
   e.className = "bald promo pf-" + (BALD.farbe || "blau"); e.hidden = false;
-  e.innerHTML = `<div class="pv"><em>−${+BALD.pct} %</em><span>Rabatt</span></div><div class="bl"><span class="bk">Demnächst</span><span class="bt">${esc(BALD.titel)}</span><span class="bd">Neue Aktion ab ${tag} · −${+BALD.pct} % auf alle Abos</span></div>`
+  e.innerHTML = `<div class="pv"><em>−${+BALD.pct} %</em><span>Rabatt</span></div><div class="bl"><span class="pk">Demnächst</span><span class="bt">${esc(BALD.titel)}</span><span class="bd">Neue Aktion ab ${tag} · −${+BALD.pct} % auf alle Abos</span></div>`
     + '<div class="bc"><span class="bs">startet in</span><span class="bz"><u></u><s>:</s><u></u><s>:</s><u></u></span><span class="bn" hidden></span></div>';
   const u = e.querySelectorAll(".bz u"), bz = e.querySelector(".bz"), bn = e.querySelector(".bn");
   const tick = () => { const s = Math.max(0, Math.floor((start - new Date()) / 1000)), z = n => String(n).padStart(2, "0");
