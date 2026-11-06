@@ -139,7 +139,7 @@
     zoom([Math.min(Math.max(cx - zw / 2, 0), 720 - zw), Math.min(Math.max(cy - zh / 2, 0), 286 - zh), zw, zh]);
     var q = zw / 720, s16 = q * 1.6, tcc = eins || zc;
     var PN = { DE: 1, IN: 1 }; if (tcc) PN[tcc] = 1;
-    $(".vd-fls").innerHTML = window.VPD_WELT.filter(function (w) { return w[3] != null && !PN[w[0]] && (w[5] <= 2 || (w[5] === 3 && w[1].length > 2500)) })
+    $(".vd-fls").innerHTML = window.VPD_WELT.filter(function (w) { return w[3] != null && !PN[w[0]] && (w[5] <= 3 || w[1].length > 400) })
       .map(function (w) { return mf(w[0], X(w[3]), Y(w[4]), (w[5] <= 2 ? 9 : 7) * s16) }).join("");
     var bog = function (a, b, c, h) { return "M" + a + "," + b + " Q" + (a + c[0]) / 2 + "," + (Math.min(b, c[1]) - Math.hypot(c[0] - a, c[1] - b) * h - 6 * s16) + " " + c[0] + "," + c[1] };
     var RT = bog(hx, hy, [x2, y2], .25), g = "", GR = "";
