@@ -248,7 +248,24 @@ let PROMO = PROMO0, PROMO_C = null;
 try { const c = JSON.parse(localStorage.getItem("gbPromo") || "null"); if (c && c.code && c.bis) PROMO = PROMO_C = c; } catch (e) { }
 const promoOn = () => PROMO && PROMO.code && new Date() <= new Date(PROMO.bis + "T23:59:59");
 try { const f = localStorage.getItem("gbPF"); const an = document.querySelector(".ann"); if (f && an && /^[a-z]+$/.test(f)) an.className = "ann wait pa pf-" + f; } catch (e) { }
-const promoBereit = (SHOP_API ? fetch(SHOP_API + "/api/aktion", { signal: AbortSignal.timeout ? AbortSignal.timeout(3500) : undefined }).then(r => r.json()).then(r => { if (r.ok) { PROMO = r.aktion || PROMO0; try { localStorage.setItem("gbPromo", JSON.stringify(PROMO)); } catch (e) { } } }).catch(() => { }) : Promise.resolve()).then(zeigePromo).finally(() => { const n = document.querySelector(".ann"); n && n.classList.remove("wait"); });
+const promoBereit = (SHOP_API ? fetch(SHOP_API + "/api/aktion", { signal: AbortSignal.timeout ? AbortSignal.timeout(3500) : undefined }).then(r => r.json()).then(r => { if (r.ok) { PROMO = r.aktion || PROMO0; BALD = r.bald || null; try { localStorage.setItem("gbPromo", JSON.stringify(PROMO)); localStorage.setItem("gbBald", JSON.stringify(BALD)); } catch (e) { } zeigeBald(); } }).catch(() => { }) : Promise.resolve()).then(zeigePromo).finally(() => { const n = document.querySelector(".ann"); n && n.classList.remove("wait"); });
+// Teaser: naechste Aktion startet in 1-3 Tagen (Code erst am Starttag)
+let BALD = null; try { BALD = JSON.parse(localStorage.getItem("gbBald") || "null") } catch (e) {}
+function zeigeBald() {
+  const e = document.getElementById("prBald"); if (!e) return;
+  clearInterval(zeigeBald.t);
+  const start = BALD && new Date(BALD.ab + "T00:00:00");
+  if (!BALD || !(start > new Date()) || start - new Date() > 4 * 864e5) { e.hidden = true; return; }
+  const tag = start.toLocaleDateString("de-DE", { weekday: "short", day: "2-digit", month: "2-digit" });
+  e.className = "bald pf-" + (BALD.farbe || "blau"); e.hidden = false;
+  e.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>'
+    + `<span>Demnächst: <b>${esc(BALD.titel)} −${+BALD.pct} %</b> ab ${tag} · <em></em></span>`;
+  const em = e.querySelector("em");
+  const tick = () => { const s = Math.max(0, Math.floor((start - new Date()) / 1000)), z = n => String(n).padStart(2, "0");
+    if (!s) { clearInterval(zeigeBald.t); e.hidden = true; return; }
+    em.textContent = s >= 86400 ? "noch " + Math.ceil(s / 86400) + " Tage" : "startet in " + z(Math.floor(s / 3600)) + ":" + z(Math.floor(s / 60) % 60) + ":" + z(s % 60); };
+  tick(); zeigeBald.t = setInterval(tick, 1000);
+}
 function zeigePromo() {
   if (!promoOn()) return;
   const tage = Math.ceil((new Date(PROMO.bis + "T23:59:59") - new Date()) / 864e5), rest = tage <= 1 ? "nur noch heute" : `nur noch ${tage} Tage`;
@@ -380,6 +397,7 @@ document.getElementById("rvGo").onclick = async () => {
 })();
 // gespeicherte Aktion sofort zeigen (kein Warten auf den Server beim Neuladen)
 if (PROMO_C) { try { zeigePromo(); const n = document.querySelector(".ann"); n && n.classList.remove("wait"); } catch (e) { console.warn("promo früh", e); } }
+try { zeigeBald(); } catch (e) { }
 // Preise passen sich der laufenden Aktion an: Aktionsfarbe an Karten und Button, alter Preis durchgestrichen
 function aktPreise() {
   const F = { blau: ["#60a5fa", "#2563eb"], rot: ["#f87171", "#dc2626"], gold: ["#fbbf24", "#d97706"], weihnacht: ["#f87171", "#b91c1c"], gruen: ["#34d399", "#059669"], lila: ["#c084fc", "#7c3aed"] };
