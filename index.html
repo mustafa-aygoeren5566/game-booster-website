@@ -476,6 +476,10 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 
 /* Animationen ausserhalb des Bildes pausieren */
 .offv,.offv *,.offv *:before,.offv *:after{animation-play-state:paused!important}
+
+/* Rabattfeld und Einloesen-Button gleich hoch */
+#bForm .cf input:not([type=checkbox]):not([type=radio]){height:48px;box-sizing:border-box}
+.rbr{align-items:stretch}.rbr .rbi,.rbr #bRab{height:48px;box-sizing:border-box}.rbr #bRabGo{height:48px;box-sizing:border-box;padding-top:0;padding-bottom:0;display:inline-flex;align-items:center;justify-content:center}
 </style>
 <link rel="stylesheet" href="css/features.css?v=38">
 <link rel="preload" as="image" href="img/bg-blau-leiste.webp" fetchpriority="high">
