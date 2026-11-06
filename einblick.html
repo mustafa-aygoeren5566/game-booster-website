@@ -141,7 +141,7 @@ body{overflow-x:hidden}
 .vd-chs i{width:7px;height:7px;border-radius:50%}
 .vd-ti{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.05);color:rgba(255,255,255,.7);margin-bottom:10px}.vd-ti svg{width:20px;height:20px}
 .vd-ch{align-items:flex-start}.vd-ch .vd-sw{margin-top:2px}
-.vd-c.sel,.vd-o.sel{border-color:#3b82f6;background:#0e1a33}.vd-o.dim.sel{border-color:#2b4a86;background:#0e1528}
+.vd-c.sel,.vd-o.sel{border-color:#3b82f6;background:#0e1a33}.vd-o.dim.sel{border-color:#3b82f6;background:#0e1a33}
 .vd-mt{margin-top:14px}.vd-mh{display:flex;align-items:center;gap:10px}.vd-mh b,.vd-h3{font-size:15px;display:block}
 .vd-btn{font-size:12px;padding:5px 11px;border:1px solid #2b4a86;border-radius:8px;background:#0e1730}
 .vd-sub{display:block;color:var(--mut);font-size:12px;margin:8px 0 6px}
@@ -156,6 +156,11 @@ body{overflow-x:hidden}
 .vd-fs{padding:10px 18px;border-radius:8px;background:#3b82f6;color:#fff;font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;text-decoration:none}
 .vd-imp{margin-top:12px}
 @media(max-width:600px){.vd-code{flex-direction:column}}
+.vd-bed{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+img.vd-fl{display:inline-block;object-fit:cover;border-radius:2px}
+.vd-srv:not(.bed){border-color:#3b82f6;background:#0e1a33}
+.vd-srv.bed{display:block;border-color:var(--line);background:#0e1528}.vd-srv.bed b{font-size:14px}
+.vd-srv b{font-size:14.5px}.vd-srv .vd-fl{width:20px!important;height:13px!important;vertical-align:-2px;margin-right:6px}
 </style>
 <link rel="stylesheet" href="css/features.css?v=37">
 <style>
@@ -282,7 +287,7 @@ body{overflow-x:hidden}
   </div></div>
 </main>
 <script src="js/vpdemo-karte.js?v=2" defer></script>
-<script src="js/vpdemo.js?v=6" defer></script>
+<script src="js/vpdemo.js?v=8" defer></script>
 <script src="einblick.js?v=5" defer></script>
 <script src="js/sync.js?v=1"></script>
 </body>
