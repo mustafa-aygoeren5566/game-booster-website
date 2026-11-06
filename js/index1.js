@@ -247,7 +247,7 @@ const PROMO0 = { titel: "Start-Aktion", text: "", code: "START10", pct: 10, bis:
 let PROMO = PROMO0, PROMO_C = null;
 try { const c = JSON.parse(localStorage.getItem("gbPromo") || "null"); if (c && c.code && c.bis) PROMO = PROMO_C = c; } catch (e) { }
 const promoOn = () => PROMO && PROMO.code && new Date() <= new Date(PROMO.bis + "T23:59:59");
-try { const f = localStorage.getItem("gbPF"); const an = document.querySelector(".ann"); if (f && an && /^[a-z]+$/.test(f)) an.className = "ann wait pa pf-" + f; } catch (e) { }
+try { const f = localStorage.getItem("gbPF"); const an = document.querySelector(".ann"); if (f && an && /^[a-z0-9]+$/.test(f)) an.className = "ann wait pa pf-" + f; } catch (e) { }
 const promoBereit = (SHOP_API ? fetch(SHOP_API + "/api/aktion", { signal: AbortSignal.timeout ? AbortSignal.timeout(3500) : undefined }).then(r => r.json()).then(r => { if (r.ok) { PROMO = r.aktion || PROMO0; BALD = r.bald || null; try { localStorage.setItem("gbPromo", JSON.stringify(PROMO)); localStorage.setItem("gbBald", JSON.stringify(BALD)); } catch (e) { } zeigeBald(); } }).catch(() => { }) : Promise.resolve()).then(zeigePromo).finally(() => { const n = document.querySelector(".ann"); n && n.classList.remove("wait"); });
 // Teaser: naechste Aktion startet in 1-3 Tagen (Code erst am Starttag)
 let BALD = null; try { BALD = JSON.parse(localStorage.getItem("gbBald") || "null") } catch (e) {}
@@ -402,13 +402,13 @@ if (PROMO_C) { try { zeigePromo(); const n = document.querySelector(".ann"); n &
 try { zeigeBald(); } catch (e) { }
 // Preise passen sich der laufenden Aktion an: Aktionsfarbe an Karten und Button, alter Preis durchgestrichen
 function aktPreise() {
-  const F = { blau: ["#60a5fa", "#2563eb"], rot: ["#f87171", "#dc2626"], gold: ["#fbbf24", "#d97706"], weihnacht: ["#f87171", "#b91c1c"], gruen: ["#34d399", "#059669"], lila: ["#c084fc", "#7c3aed"] };
+  const F = { blau: ["#60a5fa", "#2563eb"], rot: ["#f87171", "#dc2626"], gold: ["#fbbf24", "#d97706"], weihnacht: ["#f87171", "#b91c1c"], gruen: ["#34d399", "#059669"], lila: ["#c084fc", "#7c3aed"], orange: ["#fb923c", "#ea580c"], mw4: ["#f2b632", "#b8860b"] };
   const on = promoOn(), c = F[PROMO.farbe] || F.blau, r = document.documentElement;
   r.classList.toggle("akt", !!on);
   if (on) { r.style.setProperty("--akA", c[0]); r.style.setProperty("--akB", c[1]);
     const P = { blau: "radial-gradient(120% 120% at 25% 15%,#3b82f6,#1d4ed8 60%,#172554)", rot: "radial-gradient(120% 120% at 50% 110%,#ef4444,#991b1b 55%,#1a0505)",
-      gold: "radial-gradient(120% 120% at 30% 0%,#2a2010,#0b0904 75%)", weihnacht: "radial-gradient(120% 120% at 30% 20%,#ef4444,#b91c1c 55%,#7f1d1d)" };
-    r.style.setProperty("--akP", P[PROMO.farbe] || "linear-gradient(160deg," + c[1] + "," + c[0] + ")"); r.classList.toggle("akt-gold", PROMO.farbe === "gold"); }
+      gold: "radial-gradient(120% 120% at 30% 0%,#2a2010,#0b0904 75%)", weihnacht: "radial-gradient(120% 120% at 30% 20%,#ef4444,#b91c1c 55%,#7f1d1d)", orange: "radial-gradient(120% 120% at 30% 15%,#f97316,#c2410c 60%,#431407)", mw4: "radial-gradient(120% 90% at 30% 20%,#2a2a2a,#1b1b1b 60%,#171717)" };
+    r.style.setProperty("--akP", P[PROMO.farbe] || "linear-gradient(160deg," + c[1] + "," + c[0] + ")"); r.classList.toggle("akt-gold", PROMO.farbe === "gold" || PROMO.farbe === "mw4"); }
   document.querySelectorAll(".pc .p").forEach(p => {
     if (!p.dataset.alt) p.dataset.alt = p.firstChild.textContent.trim();
     const alt = parseFloat(p.dataset.alt.replace(",", ".")), neu = (Math.floor(alt * (100 - PROMO.pct) + 1e-7 + 0.5) / 100).toFixed(2).replace(".", ",");
