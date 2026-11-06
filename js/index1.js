@@ -132,10 +132,20 @@ function sdk() {
 }
 // PayPal im Hintergrund vorladen, damit die Zahlungsarten beim ersten Klick sofort da sind
 addEventListener("load", () => setTimeout(() => sdk().catch(() => { ppLoad = null }), 1200));
+// Server-Check: bei Stoerung oder Wartung keine Zahlung annehmen (sonst bezahlt, aber nicht freischaltbar)
+let srvOk = true, srvMsg = "";
+async function kaufCheck() {
+  if (typeof SHOP_API === "undefined" || !SHOP_API) return;
+  try { const r = await (await fetch(SHOP_API + "/api/health", { cache: "no-store", signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : undefined })).json();
+    srvOk = !!r.ok && !r.wartung; srvMsg = r.wartung || "";
+  } catch (e) { srvOk = false; srvMsg = ""; }
+  gate();
+}
 function gate() {
-  const ready = bOk.checked && codeOk();
+  const ready = srvOk && bOk.checked && codeOk();
   ppBox.classList.toggle("dis", !ready);
-  ppMsg.textContent = !codeOk() ? "Trag deinen GB-Code ein." : !bOk.checked ? "Bitte noch den Haken setzen." : "Wähle deine Zahlungsart:";
+  ppMsg.classList.toggle("ppstoer", !srvOk);
+  ppMsg.textContent = !srvOk ? (srvMsg ? "Wartung: " + srvMsg : "Unser Server ist gerade nicht erreichbar. Bitte versuch es in ein paar Minuten erneut, es wurde nichts abgebucht.") : !codeOk() ? "Trag deinen GB-Code ein." : !bOk.checked ? "Bitte noch den Haken setzen." : "Wähle deine Zahlungsart:";
   ppMsg.classList.toggle("go", ready);
 }
 bOk.onchange = gate; bCode.oninput = gate;
@@ -148,7 +158,7 @@ async function render() {
   ppBox.innerHTML = "";
   ppBtn = paypal.Buttons({
     style: { layout: "vertical", color: "blue", shape: "rect", label: "pay", height: 44 },
-    onClick: (d, actions) => { if (!(bOk.checked && codeOk())) { gate(); return actions.reject() } return actions.resolve() },
+    onClick: (d, actions) => { if (!(srvOk && bOk.checked && codeOk())) { gate(); return actions.reject() } return actions.resolve() },
     createOrder: (d, actions) => actions.order.create({
       purchase_units: [{ description: "Game-VPN – " + plan.name, custom_id: ((isNew ? "NEU" : bCode.value.trim()) + (plan.rab ? "|" + plan.rab : "")).slice(0, 127), amount: { currency_code: "EUR", value: plan.rab ? plan.pay : plan.value } }],
       application_context: { shipping_preference: "NO_SHIPPING", brand_name: "Game Booster" }
@@ -214,11 +224,12 @@ document.querySelectorAll("[data-plan]").forEach(b => b.onclick = () => {
   document.getElementById("bRab").value = ""; document.getElementById("bRabMsg").textContent = ""; document.getElementById("bRabTag").hidden = true; document.getElementById("bRabTag").parentNode.classList.remove("on");
   rabShow();
   document.getElementById("bForm").hidden = false; document.getElementById("bDone").hidden = true;
-  bOk.checked = false; gate(); buy.classList.add("on"); render();
+  bOk.checked = false; gate(); buy.classList.add("on"); render(); kaufCheck();
   autoRab();
 });
 // Link-Code (?c=, z. B. Tagesbonus aus der App) und laufende Aktion: den hoeheren Rabatt eintragen, nicht beide gegeneinander
 async function autoRab() {
+  if (!REF && promoOn()) { document.getElementById("bRab").value = PROMO.code; document.getElementById("bRabGo").click(); return }
   await promoBereit;
   const cs = [...new Set([REF, promoOn() ? PROMO.code : ""].filter(Boolean))];
   if (!cs.length) return;
@@ -270,6 +281,10 @@ function zeigePromo() {
 }
 // Rabattcode: Server prueft und nennt den Prozentsatz, PayPal bekommt den reduzierten Betrag + Code (Server prueft beim Einloesen nochmal)
 const eur = v => (+v).toFixed(2).replace(".", ",") + " €";
+let RABC = {}; try { RABC = JSON.parse(localStorage.getItem("gbRab") || "{}") || {} } catch (e) {}
+function rabAp(c, pct) {
+  const m = document.getElementById("bRabMsg"), tag = document.getElementById("bRabTag");
+  plan.rab = c; plan.pay = (Math.round(+plan.value * (100 - pct) + 1e-7) / 100).toFixed(2); m.textContent = ""; tag.textContent = `−${pct} %`; tag.hidden = false; tag.parentNode.classList.add("on"); const ak = promoOn() && c.toUpperCase() === PROMO.code; tag.classList.toggle("akt-tag", ak); tag.parentNode.classList.toggle("akt-rb", ak);  }
 function rabShow() {
   const p = document.getElementById("bP");
   p.innerHTML = plan.rab ? `Preis: <s>${eur(plan.value)}</s><b>${eur(plan.pay)}</b>, einmalig, kein Auto-Abo.` : `Preis: ${eur(plan.value)}, einmalig, kein Auto-Abo.`;
@@ -279,12 +294,15 @@ document.getElementById("bRabGo").onclick = async () => {
   const tag = document.getElementById("bRabTag"); m.className = "rbm"; plan.rab = ""; plan.pay = ""; tag.hidden = true; tag.parentNode.classList.remove("on");
   if (!c) { rabShow(); render(); m.textContent = ""; return }
   if (!SHOP_API) { m.className = "rbm no"; m.textContent = "Rabattcodes gerade nicht möglich."; return }
-  m.textContent = "Wird geprüft …";
+  // bekannter Rabatt (Cache oder laufende Aktion): sofort anzeigen, im Hintergrund still pruefen
+  const kp = RABC[c] || (promoOn() && c === PROMO.code && PROMO.pct) || 0;
+  if (kp) { rabAp(c, kp); rabShow(); render(); }
+  else m.textContent = "Wird geprüft …";
   try {
     const r = await (await fetch(SHOP_API + "/api/rabatt?c=" + encodeURIComponent(c))).json();
-    if (r.ok) { plan.rab = c; plan.pay = (Math.round(+plan.value * (100 - r.pct) + 1e-7) / 100).toFixed(2); m.textContent = ""; tag.textContent = `−${r.pct} %`; tag.hidden = false; tag.parentNode.classList.add("on"); const ak = promoOn() && c.toUpperCase() === PROMO.code; tag.classList.toggle("akt-tag", ak); tag.parentNode.classList.toggle("akt-rb", ak); }
-    else { m.className = "rbm no"; m.textContent = r.msg || "Code ungültig"; }
-  } catch (e) { m.className = "rbm no"; m.textContent = "Server nicht erreichbar – bitte später nochmal." }
+    if (r.ok) { RABC[c] = r.pct; try { localStorage.setItem("gbRab", JSON.stringify(RABC)) } catch (e) {} if (kp === r.pct) return; rabAp(c, r.pct); }
+    else { delete RABC[c]; try { localStorage.setItem("gbRab", JSON.stringify(RABC)) } catch (e) {} plan.rab = ""; plan.pay = ""; tag.hidden = true; tag.parentNode.classList.remove("on"); m.className = "rbm no"; m.textContent = r.msg || "Code ungültig"; }
+  } catch (e) { if (kp) return; m.className = "rbm no"; m.textContent = "Server nicht erreichbar – bitte später nochmal." }
   rabShow(); render();
 };
 // Creator-Link (?c=CODE): Code merken und beim Kauf automatisch eintragen
