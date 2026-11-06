@@ -180,6 +180,6 @@
 
   $("#vdOn").onclick = function () { st.on = !st.on; zeichnen() };
   $("#vdFe").onclick = function () { st.fence = !st.fence; zeichnen() };
-  root.querySelectorAll(".vd-o[data-r]").forEach(function (b) { b.onclick = function () { st.reg = b.getAttribute("data-r"); st.fence = true; zeichnen() } });
+  root.querySelectorAll(".vd-o[data-r]").forEach(function (b) { b.onclick = function () { st.reg = b.getAttribute("data-r"); zeichnen() } });
   zeichnen(); uhr(); setInterval(uhr, 30000);
 })();
