@@ -44,14 +44,10 @@ svg{display:block}
 .ann.pa a{gap:10px;flex-wrap:wrap;justify-content:center}.ann .ap{font:900 13px system-ui;padding:4px 9px;border-radius:7px;background:linear-gradient(160deg,var(--pc2),var(--pc));color:#05070c}
 .ann .at{font-weight:800;text-transform:uppercase;letter-spacing:.14em;font-size:12px}.ann .ac{font:800 12.5px ui-monospace,Consolas,monospace;letter-spacing:.08em;color:var(--pc);border:1.5px dashed color-mix(in srgb,var(--pc) 65%,transparent);border-radius:7px;padding:3px 8px}
 .ann .ar{color:var(--mut);font-size:12.5px}.ann.pa i{background:var(--pc2)}
-.ann.promo .pm{align-self:center;width:84px;height:84px;margin-right:14px;position:relative;filter:drop-shadow(0 0 14px color-mix(in srgb,var(--pc) 55%,transparent))}
-.promo .pm>svg{width:84px!important;height:84px!important;overflow:visible;display:block}
-.pm-r{stroke:color-mix(in srgb,var(--pc) 22%,transparent);stroke-width:1.5;stroke-dasharray:3 6}.pm-r.r3{animation:pmRot 24s linear infinite;transform-origin:60px 60px}
-.pm-a{stroke:var(--pc);stroke-width:3;opacity:.35;animation:pmPing 2.4s ease-out infinite}.pm-a.b{opacity:.6;animation-delay:.4s}
-.pm-s{fill:color-mix(in srgb,var(--pc2) 30%,#0b0f17);stroke:var(--pc);stroke-width:3}
-.pm-z{fill:var(--pc);stroke:none}.pm-d{fill:var(--pc);animation:pmPing 2.4s ease-out infinite}
-@keyframes pmRot{to{transform:rotate(360deg)}}@keyframes pmPing{0%,100%{opacity:.25}40%{opacity:.9}}
-@media(prefers-reduced-motion:reduce){.pm-r,.pm-a,.pm-d{animation:none}}
+.ann.promo .pm{align-self:end;width:112px;margin:-64px 8px -4px 0;position:relative;z-index:1;pointer-events:none}
+.promo .pm img{display:block;width:112px;height:auto;filter:drop-shadow(0 6px 18px color-mix(in srgb,var(--pc) 55%,transparent));transform-origin:50% 100%;animation:pmWip 4s ease-in-out infinite}
+@keyframes pmWip{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg) translateY(-3px)}}
+@media(prefers-reduced-motion:reduce){.promo .pm img{animation:none}}
 .pf-rot .promo,.promo.pf-rot{background:radial-gradient(120% 140% at 100% 100%,rgba(249,115,22,.22),transparent 55%),linear-gradient(100deg,color-mix(in srgb,var(--pc) 16%,#0b0f17),#0b0f17 55%)}
 .promo.pf-gold{background:radial-gradient(120% 140% at 100% 0%,rgba(59,130,246,.18),transparent 55%),linear-gradient(100deg,color-mix(in srgb,var(--pc) 16%,#0b0f17),#0b0f17 55%)}
 .pf-blau{--pc:#60a5fa;--pc2:#2563eb}.ann.pf-rot{--pc:#fb7185;--pc2:#dc2626}.ann.pf-gold{--pc:#fbbf24;--pc2:#d97706}.ann.pf-lila{--pc:#c084fc;--pc2:#7c3aed}
@@ -356,9 +352,9 @@ footer .wrap{max-width:1440px}@media(max-width:1300px){nav a[href="einblick.html
 .rv-c p{margin:0;color:var(--txt);line-height:1.6;font-size:14.5px}
 .rv-c footer{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--mut);font-size:12px;border:0;margin:0;padding:12px 0 0;background:none;border-top:1px solid var(--line)}
 .rv-c footer em{font-style:normal;padding:3px 9px;border-radius:99px;background:rgba(59,130,246,.12);color:#93c5fd;font-weight:600}
-.promo{--pc:#34d399;--pc2:#10b981;position:relative;display:grid;grid-template-columns:auto 1fr auto auto;align-items:stretch;max-width:780px;margin:0 auto 28px;border-radius:18px;background:linear-gradient(100deg,color-mix(in srgb,var(--pc) 16%,#0b0f17),#0b0f17 55%);border:1px solid color-mix(in srgb,var(--pc) 35%,transparent);box-shadow:0 18px 50px -20px color-mix(in srgb,var(--pc) 45%,transparent);overflow:hidden}
-.promo:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 22px,rgba(255,255,255,.018) 22px 44px);pointer-events:none}
-.promo .pv{display:grid;place-content:center;text-align:center;padding:16px 22px;background:linear-gradient(160deg,var(--pc2),var(--pc));color:#05070c;position:relative}
+.promo{--pc:#34d399;--pc2:#10b981;position:relative;display:grid;grid-template-columns:auto 1fr auto auto;align-items:stretch;max-width:780px;margin:0 auto 28px;border-radius:18px;background:linear-gradient(100deg,color-mix(in srgb,var(--pc) 16%,#0b0f17),#0b0f17 55%);border:1px solid color-mix(in srgb,var(--pc) 35%,transparent);box-shadow:0 18px 50px -20px color-mix(in srgb,var(--pc) 45%,transparent);overflow:visible}
+.promo:before{content:"";position:absolute;inset:0;border-radius:inherit;background:repeating-linear-gradient(135deg,transparent 0 22px,rgba(255,255,255,.018) 22px 44px);pointer-events:none}
+.promo .pv{border-radius:17px 0 0 17px;display:grid;place-content:center;text-align:center;padding:16px 22px;background:linear-gradient(160deg,var(--pc2),var(--pc));color:#05070c;position:relative}
 .promo .pv:after{content:"";position:absolute;right:-1px;top:0;bottom:0;width:10px;background:radial-gradient(circle at 100% 50%,#0b0f17 5px,transparent 5.5px) 0 0/10px 16px repeat-y}
 .promo .pv em{font:900 34px/1 system-ui,sans-serif;font-style:normal;letter-spacing:-.04em}.promo .pv span{font:800 10.5px/1 system-ui;letter-spacing:.22em;text-transform:uppercase;margin-top:6px;opacity:.75}
 .promo .pt{display:grid;align-content:center;gap:4px;padding:14px 20px}
@@ -473,12 +469,7 @@ details{position:relative}details[open]{border-color:#2f4f8a}
   <div class="sh"><small>Launch-Preise</small><h2>Wähle dein <span class="bl">Abo</span></h2><p>Gleiche Leistung in jedem Abo, nur die Laufzeit ist anders. Kein Auto-Abo: Es läuft einfach aus.</p></div>
   <div class="promo" id="promo" hidden><div class="pv"><em id="prPct"></em><span>Rabatt</span></div>
     <div class="pt"><span class="pk" id="prTitel"></span><b id="prInfo"></b><small>Gilt bis <span id="prBis"></span> · wird beim Kauf automatisch eingetragen</small></div>
-    <div class="pm" aria-hidden="true"><svg viewBox="0 0 120 120" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <circle class="pm-r r3" cx="60" cy="60" r="56"/><circle class="pm-r r2" cx="60" cy="60" r="44"/>
-      <path class="pm-a" d="M22 60a38 38 0 0 1 76 0"/><path class="pm-a b" d="M34 60a26 26 0 0 1 52 0"/>
-      <path class="pm-s" d="M60 26l26 10v20c0 18-11 30-26 36-15-6-26-18-26-36V36z"/>
-      <path class="pm-z" d="M64 40L50 63h11l-4 19 15-25H61z"/>
-      <circle class="pm-d" cx="60" cy="98" r="3"/></svg></div>
+    <div class="pm" aria-hidden="true"><img src="img/maskottchen.webp" alt="" width="235" height="360" loading="lazy" decoding="async"></div>
     <button type="button" class="pcd" id="prCode" title="Code kopieren"><small>Dein Code</small><span><b id="prTxt"></b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span></button></div>
   <div class="prices">
     <div class="pc"><h3>1 Tag</h3><div class="p">1,49<sup>€</sup></div><div class="per">Zum Testen</div>
