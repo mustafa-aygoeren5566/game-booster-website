@@ -408,7 +408,7 @@ function aktPreise() {
   if (on) { r.style.setProperty("--akA", c[0]); r.style.setProperty("--akB", c[1]);
     const P = { blau: "radial-gradient(120% 120% at 25% 15%,#3b82f6,#1d4ed8 60%,#172554)", rot: "radial-gradient(120% 120% at 50% 110%,#ef4444,#991b1b 55%,#1a0505)",
       gold: "radial-gradient(120% 120% at 30% 0%,#2a2010,#0b0904 75%)", weihnacht: "radial-gradient(120% 120% at 30% 20%,#ef4444,#b91c1c 55%,#7f1d1d)", orange: "radial-gradient(120% 120% at 30% 15%,#f97316,#c2410c 60%,#431407)", mw4: "radial-gradient(120% 90% at 30% 20%,#2a2a2a,#1b1b1b 60%,#171717)" };
-    r.style.setProperty("--akP", P[PROMO.farbe] || "linear-gradient(160deg," + c[1] + "," + c[0] + ")"); r.classList.toggle("akt-gold", PROMO.farbe === "gold" || PROMO.farbe === "mw4"); }
+    r.style.setProperty("--akP", P[PROMO.farbe] || "linear-gradient(160deg," + c[1] + "," + c[0] + ")"); r.classList.toggle("akt-gold", PROMO.farbe === "gold" || PROMO.farbe === "mw4");r.classList.toggle("akt-mw4", PROMO.farbe === "mw4"); }
   document.querySelectorAll(".pc .p").forEach(p => {
     if (!p.dataset.alt) p.dataset.alt = p.firstChild.textContent.trim();
     const alt = parseFloat(p.dataset.alt.replace(",", ".")), neu = (Math.floor(alt * (100 - PROMO.pct) + 1e-7 + 0.5) / 100).toFixed(2).replace(".", ",");
