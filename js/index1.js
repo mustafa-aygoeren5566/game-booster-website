@@ -247,8 +247,8 @@ function zeigePromo() {
   document.getElementById("prTxt").textContent = PROMO.code;
   el.className = "promo pf-" + (PROMO.farbe || "gruen"); el.hidden = false;
   el.classList.add("hm");
-  const MK = { normal: ["img/maskottchen.webp?v=2", "26.5%", "53.7%", "12deg"], taktik: ["img/maskottchen-taktik.webp?v=1", "27.5%", "49%", "12deg"] }, mk = MK[PROMO.maskottchen] || MK.normal;
-  document.getElementById("prMk").src = mk[0]; const c2 = document.getElementById("prCode2").style; c2.setProperty("--x", mk[1]); c2.setProperty("--y", mk[2]); c2.setProperty("--r", mk[3]);
+  const MK = { normal: ["img/maskottchen.webp?v=2", "28.2%", "53.8%", "14deg", "10.4,45.4 45.2,51.9 46.3,61.2 11.1,56.4"], taktik: ["img/maskottchen-taktik.webp?v=1", "25.4%", "46.8%", "14deg", "11.4,38.9 41.8,44.9 39.4,54.6 9,48.6"] }, mk = MK[PROMO.maskottchen] || MK.normal;
+  document.getElementById("prMk").src = mk[0]; const c2 = document.getElementById("prCode2").style; c2.setProperty("--x", mk[1]); c2.setProperty("--y", mk[2]); c2.setProperty("--r", mk[3]); document.getElementById("prQ").setAttribute("points", mk[4]);
   const kop = async e => {
     try { await navigator.clipboard.writeText(PROMO.code) } catch (x) { }
     document.getElementById("prCode2").classList.add("ok"); document.getElementById("prCode").classList.add("ok"); document.getElementById("prTxt").textContent = "Kopiert!";
