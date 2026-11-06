@@ -44,8 +44,8 @@ svg{display:block}
 .ann.pa a{gap:10px;flex-wrap:wrap;justify-content:center}.ann .ap{font:900 13px system-ui;padding:4px 9px;border-radius:7px;background:linear-gradient(160deg,var(--pc2),var(--pc));color:#05070c}
 .ann .at{font-weight:800;text-transform:uppercase;letter-spacing:.14em;font-size:12px}.ann .ac{font:800 12.5px ui-monospace,Consolas,monospace;letter-spacing:.08em;color:var(--pc);border:1.5px dashed color-mix(in srgb,var(--pc) 65%,transparent);border-radius:7px;padding:3px 8px}
 .ann .ar{color:var(--mut);font-size:12.5px}.ann.pa i{background:var(--pc2)}
-.ann.promo .pm{align-self:end;width:112px;margin:-64px 8px -4px 0;position:relative;z-index:1;pointer-events:none}
-.promo .pm img{display:block;width:112px;height:auto;filter:drop-shadow(0 6px 18px color-mix(in srgb,var(--pc) 55%,transparent));transform-origin:50% 100%;animation:pmWip 4s ease-in-out infinite}
+.ann.promo .pm{align-self:end;width:128px;margin:-64px 8px -4px 0;position:relative;z-index:1;pointer-events:none}
+.promo .pm img{display:block;width:128px;height:auto;filter:drop-shadow(0 6px 18px color-mix(in srgb,var(--pc) 55%,transparent));transform-origin:50% 100%;animation:pmWip 4s ease-in-out infinite}
 @keyframes pmWip{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg) translateY(-3px)}}
 @media(prefers-reduced-motion:reduce){.promo .pm img{animation:none}}
 .pf-rot .promo,.promo.pf-rot{background:radial-gradient(120% 140% at 100% 100%,rgba(249,115,22,.22),transparent 55%),linear-gradient(100deg,color-mix(in srgb,var(--pc) 16%,#0b0f17),#0b0f17 55%)}
@@ -469,7 +469,7 @@ details{position:relative}details[open]{border-color:#2f4f8a}
   <div class="sh"><small>Launch-Preise</small><h2>Wähle dein <span class="bl">Abo</span></h2><p>Gleiche Leistung in jedem Abo, nur die Laufzeit ist anders. Kein Auto-Abo: Es läuft einfach aus.</p></div>
   <div class="promo" id="promo" hidden><div class="pv"><em id="prPct"></em><span>Rabatt</span></div>
     <div class="pt"><span class="pk" id="prTitel"></span><b id="prInfo"></b><small>Gilt bis <span id="prBis"></span> · wird beim Kauf automatisch eingetragen</small></div>
-    <div class="pm" aria-hidden="true"><img src="img/maskottchen.webp" alt="" width="235" height="360" loading="lazy" decoding="async"></div>
+    <div class="pm" aria-hidden="true"><img src="img/maskottchen.webp?v=2" alt="" width="277" height="360" loading="lazy" decoding="async"></div>
     <button type="button" class="pcd" id="prCode" title="Code kopieren"><small>Dein Code</small><span><b id="prTxt"></b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span></button></div>
   <div class="prices">
     <div class="pc"><h3>1 Tag</h3><div class="p">1,49<sup>€</sup></div><div class="per">Zum Testen</div>
