@@ -240,10 +240,10 @@ function zeigePromo() {
   const tage = Math.ceil((new Date(PROMO.bis + "T23:59:59") - new Date()) / 864e5), rest = tage <= 1 ? "nur noch heute" : `nur noch ${tage} Tage`;
   const at = document.getElementById("annTxt"), el = document.getElementById("promo");
   if (at) at.innerHTML = `−${PROMO.pct}<span style="letter-spacing:0"> </span>% mit ${PROMO.code} · ` + rest;
-  document.getElementById("prTitel").textContent = PROMO.titel + ": ";
+  document.getElementById("prTitel").textContent = PROMO.titel;
   document.getElementById("prPct").textContent = `−${PROMO.pct} %`;
   document.getElementById("prBis").textContent = PROMO.bis.split("-").reverse().join(".") + " (" + rest + ")";
-  document.getElementById("prInfo").textContent = PROMO.text ? PROMO.text + " · " : "";
+  document.getElementById("prInfo").textContent = PROMO.text || "Auf alle Abos, einmalig, kein Auto-Abo";
   document.getElementById("prTxt").textContent = PROMO.code;
   el.className = "promo pf-" + (PROMO.farbe || "gruen"); el.hidden = false;
   document.getElementById("prCode").onclick = async e => {

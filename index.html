@@ -340,17 +340,19 @@ footer .wrap{max-width:1440px}@media(max-width:1300px){nav a[href="einblick.html
 .rv-c p{margin:0;color:var(--txt);line-height:1.6;font-size:14.5px}
 .rv-c footer{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--mut);font-size:12px;border:0;margin:0;padding:12px 0 0;background:none;border-top:1px solid var(--line)}
 .rv-c footer em{font-style:normal;padding:3px 9px;border-radius:99px;background:rgba(59,130,246,.12);color:#93c5fd;font-weight:600}
-.promo{display:flex;align-items:center;gap:16px;max-width:760px;margin:0 auto 26px;padding:14px 16px 14px 14px;border-radius:16px;background:linear-gradient(135deg,rgba(16,185,129,.14),rgba(59,130,246,.10));border:1px solid rgba(52,211,153,.4);box-shadow:0 0 30px rgba(52,211,153,.08)}
-.promo .pi{width:42px;height:42px;flex:none;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#10b981,#34d399);color:#04140d}.promo .pi svg{width:22px;height:22px}
-.promo .pt{flex:1;display:grid;gap:2px}.promo b{font-size:15.5px}.promo em{font-style:normal;color:#34d399}.promo small{color:var(--mut);font-size:12.5px}
-.pcd{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:11px;border:1.5px dashed rgba(52,211,153,.7);background:rgba(4,20,13,.6);color:#6ee7b7;font:800 15px ui-monospace,Consolas,monospace;letter-spacing:.06em;cursor:pointer;transition:.2s}
-.pcd:hover{background:rgba(52,211,153,.12)}.pcd svg{width:16px;height:16px}.pcd.ok{border-style:solid}
-.promo.pf-blau{background:linear-gradient(135deg,rgba(37,99,235,.18),rgba(96,165,250,.08));border-color:rgba(96,165,250,.45)}.pf-blau .pi{background:linear-gradient(135deg,#2563eb,#60a5fa);color:#fff}.pf-blau em{color:#60a5fa!important}
-.promo.pf-rot{background:linear-gradient(135deg,rgba(220,38,38,.2),rgba(249,115,22,.08));border-color:rgba(248,113,113,.5);box-shadow:0 0 34px rgba(239,68,68,.14)}.pf-rot .pi{background:linear-gradient(135deg,#dc2626,#f97316);color:#fff}.pf-rot em{color:#f87171!important}
-.promo.pf-gold{background:linear-gradient(135deg,rgba(180,83,9,.2),rgba(251,191,36,.08));border-color:rgba(251,191,36,.5)}.pf-gold .pi{background:linear-gradient(135deg,#b45309,#fbbf24);color:#1a1003}.pf-gold em{color:#fbbf24!important}
-.promo.pf-lila{background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(192,132,252,.08));border-color:rgba(192,132,252,.5)}.pf-lila .pi{background:linear-gradient(135deg,#7c3aed,#c084fc);color:#fff}.pf-lila em{color:#c084fc!important}
-.pf-blau .pcd{color:#60a5fa;border-color:rgba(96,165,250,.5)}.pf-rot .pcd{color:#f87171;border-color:rgba(248,113,113,.5)}.pf-gold .pcd{color:#fbbf24;border-color:rgba(251,191,36,.5)}.pf-lila .pcd{color:#c084fc;border-color:rgba(192,132,252,.5)}
-@media(max-width:600px){.logo span{display:none}.hd .btn{white-space:nowrap;padding:10px 14px}.promo{flex-wrap:wrap}.pcd{width:100%;justify-content:center}}
+.promo{--pc:#34d399;--pc2:#10b981;position:relative;display:grid;grid-template-columns:auto 1fr auto;align-items:stretch;max-width:780px;margin:0 auto 28px;border-radius:18px;background:linear-gradient(100deg,color-mix(in srgb,var(--pc) 16%,#0b0f17),#0b0f17 55%);border:1px solid color-mix(in srgb,var(--pc) 35%,transparent);box-shadow:0 18px 50px -20px color-mix(in srgb,var(--pc) 45%,transparent);overflow:hidden}
+.promo:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 22px,rgba(255,255,255,.018) 22px 44px);pointer-events:none}
+.promo .pv{display:grid;place-content:center;text-align:center;padding:16px 22px;background:linear-gradient(160deg,var(--pc2),var(--pc));color:#05070c;position:relative}
+.promo .pv:after{content:"";position:absolute;right:-1px;top:0;bottom:0;width:10px;background:radial-gradient(circle at 100% 50%,#0b0f17 5px,transparent 5.5px) 0 0/10px 16px repeat-y}
+.promo .pv em{font:900 34px/1 system-ui,sans-serif;font-style:normal;letter-spacing:-.04em}.promo .pv span{font:800 10.5px/1 system-ui;letter-spacing:.22em;text-transform:uppercase;margin-top:6px;opacity:.75}
+.promo .pt{display:grid;align-content:center;gap:4px;padding:14px 20px}
+.promo .pk{justify-self:start;font:800 10.5px/1 system-ui;letter-spacing:.2em;text-transform:uppercase;color:var(--pc);padding:5px 9px;border-radius:999px;background:color-mix(in srgb,var(--pc) 14%,transparent);border:1px solid color-mix(in srgb,var(--pc) 35%,transparent)}
+.promo .pt b{font-size:16.5px;font-weight:750;color:#fff}.promo .pt small{color:var(--mut);font-size:12.5px}.promo .pt small span{color:#fff;font-weight:600}
+.pcd{align-self:center;margin-right:16px;display:grid;justify-items:center;gap:3px;padding:9px 16px;border-radius:12px;border:1.5px dashed color-mix(in srgb,var(--pc) 70%,transparent);background:rgba(0,0,0,.35);color:var(--pc);font:800 16px ui-monospace,Consolas,monospace;letter-spacing:.08em;cursor:pointer;transition:.2s}
+.pcd b{color:inherit;font:inherit}.pcd small{font:700 9.5px system-ui;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}.pcd>span{display:flex;align-items:center;gap:7px}
+.pcd:hover{background:color-mix(in srgb,var(--pc) 12%,transparent);transform:translateY(-1px)}.pcd svg{width:15px;height:15px}.pcd.ok{border-style:solid}
+.pf-blau{--pc:#60a5fa;--pc2:#2563eb}.pf-rot{--pc:#fb7185;--pc2:#dc2626}.pf-gold{--pc:#fbbf24;--pc2:#d97706}.pf-lila{--pc:#c084fc;--pc2:#7c3aed}
+@media(max-width:600px){.logo span{display:none}.hd .btn{white-space:nowrap;padding:10px 14px}.promo{grid-template-columns:auto 1fr}.promo .pv{padding:14px 16px}.promo .pv em{font-size:28px}.pcd{grid-column:1/-1;margin:0 14px 14px}}
 .rbr{display:flex;gap:8px}.rbi{position:relative;flex:1;display:flex}.rbr input{flex:1;text-transform:uppercase;padding-right:84px}
 .rbi em{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-style:normal;font:800 12.5px Inter,sans-serif;padding:5px 10px;border-radius:8px;background:linear-gradient(135deg,#10b981,#34d399);color:#04140d;box-shadow:0 0 14px rgba(52,211,153,.35);pointer-events:none}
 .rbi.on input{border-color:rgba(52,211,153,.6)}.rbr .btn{padding:0 16px;white-space:nowrap}
@@ -453,8 +455,9 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 
 <section id="preise"><div class="wrap">
   <div class="sh"><small>Launch-Preise</small><h2>Wähle dein <span class="bl">Abo</span></h2><p>Gleiche Leistung in jedem Abo, nur die Laufzeit ist anders. Kein Auto-Abo: Es läuft einfach aus.</p></div>
-  <div class="promo" id="promo" hidden><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span><div class="pt"><b><span id="prTitel">Aktion: </span><em id="prPct"></em> auf alle Abos</b><small><span id="prInfo"></span>Nur bis <span id="prBis"></span> · Code wird beim Kauf automatisch eingetragen</small></div>
-    <button type="button" class="pcd" id="prCode" title="Code kopieren"><span id="prTxt"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></div>
+  <div class="promo" id="promo" hidden><div class="pv"><em id="prPct"></em><span>Rabatt</span></div>
+    <div class="pt"><span class="pk" id="prTitel"></span><b id="prInfo"></b><small>Gilt bis <span id="prBis"></span> · wird beim Kauf automatisch eingetragen</small></div>
+    <button type="button" class="pcd" id="prCode" title="Code kopieren"><small>Dein Code</small><span><b id="prTxt"></b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span></button></div>
   <div class="prices">
     <div class="pc"><h3>1 Tag</h3><div class="p">1,49<sup>€</sup></div><div class="per">Zum Testen</div>
       <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/></svg>Game-VPN + Geo-Fence</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>24 Stunden Zugang</li><li class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg>Neue Features zuerst</li><li class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg>Kommende Bereiche inklusive</li></ul>
@@ -571,7 +574,7 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 </div></div>
 
 <script src="world.js?v=4"></script>
-<script src="js/index1.js?v=8"></script>
+<script src="js/index1.js?v=9"></script>
 <script src="js/index2.js?v=1"></script>
 <a class="petab" href="https://www.provenexpert.com/game-booster-vpn/zam6/" target="_blank" rel="noopener" aria-label="Game Booster VPN auf ProvenExpert bewerten"><b class="pst">★<br>★<br>★<br>★<br>★</b><span>Bewerte uns</span><small>auf ProvenExpert</small></a>
 <script src="js/features.js?v=8"></script>
