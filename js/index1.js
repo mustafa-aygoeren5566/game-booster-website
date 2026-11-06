@@ -258,12 +258,14 @@ function zeigeBald() {
   if (!BALD || !(start > new Date()) || start - new Date() > 4 * 864e5) { e.hidden = true; return; }
   const tag = start.toLocaleDateString("de-DE", { weekday: "short", day: "2-digit", month: "2-digit" });
   e.className = "bald pf-" + (BALD.farbe || "blau"); e.hidden = false;
-  e.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>'
-    + `<span>Demnächst: <b>${esc(BALD.titel)} −${+BALD.pct} %</b> ab ${tag} · <em></em></span>`;
-  const em = e.querySelector("em");
+  e.innerHTML = `<div class="bl"><span class="bk">Demnächst</span><span class="bt"><b>${esc(BALD.titel)}</b> <i>−${+BALD.pct} %</i></span><span class="bd">ab ${tag}</span></div>`
+    + '<div class="bc"><span class="bs">startet in</span><span class="bz"><u></u><s>:</s><u></u><s>:</s><u></u></span><span class="bn" hidden></span></div>';
+  const u = e.querySelectorAll(".bz u"), bz = e.querySelector(".bz"), bn = e.querySelector(".bn");
   const tick = () => { const s = Math.max(0, Math.floor((start - new Date()) / 1000)), z = n => String(n).padStart(2, "0");
     if (!s) { clearInterval(zeigeBald.t); e.hidden = true; return; }
-    em.textContent = s >= 86400 ? "noch " + Math.ceil(s / 86400) + " Tage" : "startet in " + z(Math.floor(s / 3600)) + ":" + z(Math.floor(s / 60) % 60) + ":" + z(s % 60); };
+    const tg = s >= 86400; bz.hidden = tg; bn.hidden = !tg;
+    if (tg) { bn.textContent = Math.ceil(s / 86400) + " Tagen"; return; }
+    u[0].textContent = z(Math.floor(s / 3600)); u[1].textContent = z(Math.floor(s / 60) % 60); u[2].textContent = z(s % 60); };
   tick(); zeigeBald.t = setInterval(tick, 1000);
 }
 function zeigePromo() {
