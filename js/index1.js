@@ -242,7 +242,7 @@ function zeigePromo() {
   if (!promoOn()) return;
   const tage = Math.ceil((new Date(PROMO.bis + "T23:59:59") - new Date()) / 864e5), rest = tage <= 1 ? "nur noch heute" : `nur noch ${tage} Tage`;
   const at = document.getElementById("annTxt"), el = document.getElementById("promo");
-  if (at) { at.innerHTML = `<span class="ap">−${PROMO.pct} %</span><span class="at">${esc(PROMO.titel)}</span><span class="ac">${esc(PROMO.code)}</span><span class="ar">${rest}</span>`; at.closest(".ann").className = "ann pa pf-" + (PROMO.farbe || "gruen"); try { localStorage.setItem("gbPF", PROMO.farbe || "gruen"); } catch (e) { } at.style.display = "contents"; }
+  if (at) { at.innerHTML = `<span class="ap">−${PROMO.pct} %</span><span class="at">${esc(PROMO.titel)}</span><span class="ac">${esc(PROMO.code)}</span><span class="ar">${rest}</span><span class="ap">−${PROMO.pct} %</span>`; at.closest(".ann").className = "ann pa pf-" + (PROMO.farbe || "gruen"); try { localStorage.setItem("gbPF", PROMO.farbe || "gruen"); } catch (e) { } at.style.display = "contents"; }
   document.getElementById("prTitel").textContent = PROMO.titel;
   document.getElementById("prPct").textContent = `−${PROMO.pct} %`;
   document.getElementById("prBis").textContent = PROMO.bis.split("-").reverse().join(".") + " (" + rest + ")";
