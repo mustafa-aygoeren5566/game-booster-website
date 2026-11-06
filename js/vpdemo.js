@@ -99,7 +99,16 @@
         '</div><small class="vd-lab">Einzelnes Land</small><div class="vd-chips">' +
           EINZEL.map(function (c) { return '<button type="button" class="vd-o vd-c" data-r="' + c + '">' + flag(c) + esc(NAME[c]) + "</button>" }).join("") +
         '</div></div>' +
-    '</div>';
+    '</div>' +
+    '<div class="vd-card vd-mt"><div class="vd-mh"><b>Letzte Matches</b><span class="vd-btn">Aktualisieren</span></div>' +
+      '<small class="vd-sub">Welcher Spielserver es wirklich war – so siehst du, ob VPN und Geo-Fence wirken. (Beispieldaten)</small>' +
+      '<div class="vd-tw"><table class="vd-tb"><thead><tr><th>Zeit</th><th>Spielserver</th><th>Dauer</th><th>VPN</th><th>Geo-Fence</th></tr></thead><tbody>' +
+      '<tr><td>06.11. 21:42</td><td>' + flag("NL") + '<b>Niederlande</b> <small>35.204.88.17</small></td><td>24 min</td><td class="ok">an</td><td class="ok">Niederlande</td></tr><tr><td>06.11. 21:10</td><td>' + flag("NL") + '<b>Niederlande</b> <small>35.204.61.230</small></td><td>18 min</td><td class="ok">an</td><td class="ok">Niederlande</td></tr><tr><td>06.11. 20:47</td><td>' + flag("GB") + '<b>Großbritannien</b> <small>95.179.228.96</small></td><td>12 min</td><td class="ok">an</td><td class="ok">Großbritannien</td></tr><tr><td>06.11. 20:21</td><td>' + flag("GB") + '<b>Großbritannien</b> <small>78.141.236.38</small></td><td>21 min</td><td class="ok">an</td><td class="ok">Großbritannien</td></tr><tr><td>05.11. 23:05</td><td>' + flag("PL") + '<b>Polen</b> <small>70.34.246.245</small></td><td>16 min</td><td class="ok">an</td><td class="ok">Polen</td></tr><tr><td>05.11. 22:38</td><td>' + flag("DE") + '<b>Deutschland</b> <small>35.207.159.144</small></td><td>27 min</td><td>aus</td><td>aus</td></tr><tr><td>05.11. 22:02</td><td>' + flag("IT") + '<b>Italien</b> <small>72.146.29.233</small></td><td>9 min</td><td>aus</td><td>aus</td></tr><tr><td>05.11. 21:40</td><td>' + flag("FR") + '<b>Frankreich</b> <small>95.179.217.175</small></td><td>14 min</td><td class="ok">an</td><td>aus</td></tr>' +
+      '</tbody></table></div></div>' +
+    '<div class="vd-card vd-mt"><b class="vd-h3">VPN-Zugang freischalten</b><small class="vd-sub">Dein Schlüssel bleibt verschlüsselt auf diesem PC.</small>' +
+      '<div class="vd-step"><span class="vd-num">1</span><div><b>Code eingeben</b><small>Tester-Code, Bestell-Nr. aus der Kaufbestätigung oder Freischalt-Code (GBZ1:) – der Server prüft ihn und schaltet diesen PC frei.</small>' +
+      '<div class="vd-code"><span>Tester-Code, Bestell-Nr. oder GBZ1:…</span><a class="vd-fs" href="index.html#preise">Freischalten</a></div></div></div>' +
+      '<small class="vd-sub vd-imp">Hier gibst du in der App nach dem Kauf deine Bestell-Nr. ein – fertig.</small></div>';
 
   var paths = {};
   root.querySelectorAll(".vd-land path").forEach(function (p) { (paths[p.getAttribute("data-c")] = paths[p.getAttribute("data-c")] || []).push(p) });
