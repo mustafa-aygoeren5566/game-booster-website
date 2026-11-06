@@ -220,6 +220,7 @@ document.querySelectorAll("[data-plan]").forEach(b => b.onclick = () => {
 });
 // Link-Code (?c=, z. B. Tagesbonus aus der App) und laufende Aktion: den hoeheren Rabatt eintragen, nicht beide gegeneinander
 async function autoRab() {
+  await promoBereit;
   const cs = [...new Set([REF, promoOn() ? PROMO.code : ""].filter(Boolean))];
   if (!cs.length) return;
   let best = cs[0];
@@ -229,17 +230,22 @@ async function autoRab() {
   }
   document.getElementById("bRab").value = best; document.getElementById("bRabGo").click();
 }
-// Aktion oben bei den Preisen (Code muss im Freunde-Tab angelegt sein; nach Ablauf blendet sich das Banner selbst aus)
-const PROMO = { code: "START10", pct: 10, bis: "2026-11-22" };
-const promoOn = () => PROMO.code && new Date() <= new Date(PROMO.bis + "T23:59:59");
-if (promoOn()) {
-  const tage = Math.ceil((new Date(PROMO.bis + "T23:59:59") - new Date()) / 864e5);
-  const at = document.getElementById("annTxt");
-  if (at) at.innerHTML = `−${PROMO.pct}<span style="letter-spacing:0">\u202F</span>% mit ${PROMO.code} · ` + (tage <= 1 ? "nur noch heute" : `nur noch ${tage} Tage`);
-  document.getElementById("prPct").textContent = `−${PROMO.pct}\u202F%`;
-  document.getElementById("prBis").textContent = PROMO.bis.split("-").reverse().join(".");
+// Aktion oben bei den Preisen: kommt vom Shop-Server (in der Admin-App geplant, erscheint am Starttag von selbst).
+// Ohne geplante Aktion gilt die Start-Aktion als Rueckfall; nach Ablauf blendet sich das Banner selbst aus.
+let PROMO = { titel: "Start-Aktion", text: "", code: "START10", pct: 10, bis: "2026-11-22", farbe: "gruen" };
+const promoOn = () => PROMO && PROMO.code && new Date() <= new Date(PROMO.bis + "T23:59:59");
+const promoBereit = (SHOP_API ? fetch(SHOP_API + "/api/aktion").then(r => r.json()).then(r => { if (r.ok && r.aktion) PROMO = r.aktion; }).catch(() => { }) : Promise.resolve()).then(zeigePromo);
+function zeigePromo() {
+  if (!promoOn()) return;
+  const tage = Math.ceil((new Date(PROMO.bis + "T23:59:59") - new Date()) / 864e5), rest = tage <= 1 ? "nur noch heute" : `nur noch ${tage} Tage`;
+  const at = document.getElementById("annTxt"), el = document.getElementById("promo");
+  if (at) at.innerHTML = `−${PROMO.pct}<span style="letter-spacing:0"> </span>% mit ${PROMO.code} · ` + rest;
+  document.getElementById("prTitel").textContent = PROMO.titel + ": ";
+  document.getElementById("prPct").textContent = `−${PROMO.pct} %`;
+  document.getElementById("prBis").textContent = PROMO.bis.split("-").reverse().join(".") + " (" + rest + ")";
+  document.getElementById("prInfo").textContent = PROMO.text ? PROMO.text + " · " : "";
   document.getElementById("prTxt").textContent = PROMO.code;
-  document.getElementById("promo").hidden = false;
+  el.className = "promo pf-" + (PROMO.farbe || "gruen"); el.hidden = false;
   document.getElementById("prCode").onclick = async e => {
     try { await navigator.clipboard.writeText(PROMO.code) } catch (x) { }
     const b = e.currentTarget; b.classList.add("ok"); document.getElementById("prTxt").textContent = "Kopiert!";

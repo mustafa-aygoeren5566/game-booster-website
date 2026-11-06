@@ -345,6 +345,11 @@ footer .wrap{max-width:1440px}@media(max-width:1300px){nav a[href="einblick.html
 .promo .pt{flex:1;display:grid;gap:2px}.promo b{font-size:15.5px}.promo em{font-style:normal;color:#34d399}.promo small{color:var(--mut);font-size:12.5px}
 .pcd{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:11px;border:1.5px dashed rgba(52,211,153,.7);background:rgba(4,20,13,.6);color:#6ee7b7;font:800 15px ui-monospace,Consolas,monospace;letter-spacing:.06em;cursor:pointer;transition:.2s}
 .pcd:hover{background:rgba(52,211,153,.12)}.pcd svg{width:16px;height:16px}.pcd.ok{border-style:solid}
+.promo.pf-blau{background:linear-gradient(135deg,rgba(37,99,235,.18),rgba(96,165,250,.08));border-color:rgba(96,165,250,.45)}.pf-blau .pi{background:linear-gradient(135deg,#2563eb,#60a5fa);color:#fff}.pf-blau em{color:#60a5fa!important}
+.promo.pf-rot{background:linear-gradient(135deg,rgba(220,38,38,.2),rgba(249,115,22,.08));border-color:rgba(248,113,113,.5);box-shadow:0 0 34px rgba(239,68,68,.14)}.pf-rot .pi{background:linear-gradient(135deg,#dc2626,#f97316);color:#fff}.pf-rot em{color:#f87171!important}
+.promo.pf-gold{background:linear-gradient(135deg,rgba(180,83,9,.2),rgba(251,191,36,.08));border-color:rgba(251,191,36,.5)}.pf-gold .pi{background:linear-gradient(135deg,#b45309,#fbbf24);color:#1a1003}.pf-gold em{color:#fbbf24!important}
+.promo.pf-lila{background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(192,132,252,.08));border-color:rgba(192,132,252,.5)}.pf-lila .pi{background:linear-gradient(135deg,#7c3aed,#c084fc);color:#fff}.pf-lila em{color:#c084fc!important}
+.pf-blau .pcd{color:#60a5fa;border-color:rgba(96,165,250,.5)}.pf-rot .pcd{color:#f87171;border-color:rgba(248,113,113,.5)}.pf-gold .pcd{color:#fbbf24;border-color:rgba(251,191,36,.5)}.pf-lila .pcd{color:#c084fc;border-color:rgba(192,132,252,.5)}
 @media(max-width:600px){.logo span{display:none}.hd .btn{white-space:nowrap;padding:10px 14px}.promo{flex-wrap:wrap}.pcd{width:100%;justify-content:center}}
 .rbr{display:flex;gap:8px}.rbi{position:relative;flex:1;display:flex}.rbr input{flex:1;text-transform:uppercase;padding-right:84px}
 .rbi em{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-style:normal;font:800 12.5px Inter,sans-serif;padding:5px 10px;border-radius:8px;background:linear-gradient(135deg,#10b981,#34d399);color:#04140d;box-shadow:0 0 14px rgba(52,211,153,.35);pointer-events:none}
@@ -448,7 +453,7 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 
 <section id="preise"><div class="wrap">
   <div class="sh"><small>Launch-Preise</small><h2>Wähle dein <span class="bl">Abo</span></h2><p>Gleiche Leistung in jedem Abo, nur die Laufzeit ist anders. Kein Auto-Abo: Es läuft einfach aus.</p></div>
-  <div class="promo" id="promo" hidden><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span><div class="pt"><b>Start-Aktion: <em id="prPct"></em> auf alle Abos</b><small>Nur bis <span id="prBis"></span> · Code wird beim Kauf automatisch eingetragen</small></div>
+  <div class="promo" id="promo" hidden><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span><div class="pt"><b><span id="prTitel">Aktion: </span><em id="prPct"></em> auf alle Abos</b><small><span id="prInfo"></span>Nur bis <span id="prBis"></span> · Code wird beim Kauf automatisch eingetragen</small></div>
     <button type="button" class="pcd" id="prCode" title="Code kopieren"><span id="prTxt"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></div>
   <div class="prices">
     <div class="pc"><h3>1 Tag</h3><div class="p">1,49<sup>€</sup></div><div class="per">Zum Testen</div>
@@ -566,7 +571,7 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 </div></div>
 
 <script src="world.js?v=4"></script>
-<script src="js/index1.js?v=7"></script>
+<script src="js/index1.js?v=8"></script>
 <script src="js/index2.js?v=1"></script>
 <a class="petab" href="https://www.provenexpert.com/game-booster-vpn/zam6/" target="_blank" rel="noopener" aria-label="Game Booster VPN auf ProvenExpert bewerten"><b class="pst">★<br>★<br>★<br>★<br>★</b><span>Bewerte uns</span><small>auf ProvenExpert</small></a>
 <script src="js/features.js?v=8"></script>
