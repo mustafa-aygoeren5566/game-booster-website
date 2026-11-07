@@ -70,7 +70,9 @@ try { const c = (new URLSearchParams(location.search).get("c") || sessionStorage
   autoRab(c) } catch (e) {}
 // Laufende Aktion wie auf der Startseite (gleicher Code/Zeitraum) automatisch eintragen; mit Link-Code den hoeheren nehmen
 async function autoRab(ref) {
-  const P = { code: "START10", bis: "2026-11-22" };
+  let P = { code: "START10", bis: "2026-11-22" };
+  // laufende Server-Aktion (z. B. SEASON15) hat Vorrang vor dem festen Code
+  try { const r = await (await fetch(API + "/api/aktion", { signal: AbortSignal.timeout ? AbortSignal.timeout(3500) : undefined })).json(); if (r.ok && r.aktion && r.aktion.code) P = { code: r.aktion.code, bis: r.aktion.bis || P.bis } } catch (e) { }
   const cs = [...new Set([ref, new Date() <= new Date(P.bis + "T23:59:59") ? P.code : ""].filter(Boolean))];
   if (!cs.length) return;
   let best = cs[0];
