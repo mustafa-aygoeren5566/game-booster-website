@@ -27,7 +27,7 @@ async function frei(an) {
 function vergessen() { store.del(); $("kBox").hidden = true; document.documentElement.classList.remove("krueck0"); msg("Code von diesem Gerät entfernt.") }
 function karte(an) {
   $("kMap").classList.toggle("off", !an);
-  $("kMs").textContent = an ? "Lobbys an · DNS bestimmt den Ort" : "Aus · normale Lobbys";
+  $("kMs").textContent = an ? "Lobby an" : "Aus · normale Lobbys";
 }
 function msg(t, k) { $("kMsg").textContent = t; $("kMsg").className = "msg" + (k ? " " + k : "") }
 $("kCheck").onclick = () => frei();
@@ -173,7 +173,8 @@ if (q) {   // Rueckkehrer: Zugang ganz oben, keine Schritt-Nummern, passende Tit
 const ORT = { IN: ["Mumbai", "65.20.95.163"], QA: ["Doha", "34.18.236.51"] };
 function ort(iso) {
   document.querySelectorAll(".kort").forEach(b => b.classList.toggle("on", b.dataset.ort === iso));
-  $("kOrtN").textContent = ORT[iso][0]; $("kOrtD").textContent = ORT[iso][1];
+  $("kOrtN").textContent = ORT[iso][0];
+  document.querySelectorAll(".kOrtN2").forEach(e => e.textContent = ORT[iso][0]); document.querySelectorAll(".kOrtD").forEach(e => e.textContent = ORT[iso][1]);
   if (window.gbOrt) window.gbOrt(iso);
   try { localStorage.setItem("gbOrt", iso) } catch (e) {}
 }
