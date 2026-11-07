@@ -132,7 +132,7 @@
   svg.addEventListener("dblclick", e => { const [x, y] = punkt(e); zoomBei(.5, x, y) });
   document.getElementById("vzReset").onclick = () => { anim++; vb = WELT.slice(); svg.setAttribute("viewBox", vb.join(" ")); pins(1); flz(1) };
   // Ort umschalten (Konsole: Mumbai / Doha) - nur die Anzeige, der Ort selbst kommt vom DNS
-  const ORTE = { IN: { iso: "IN", x: 520, y: 127, n: "Mumbai" }, QA: { iso: "QA", x: 462.2, y: 119.3, n: "Doha" } };
+  const ORTE = { IN: { iso: "IN", x: 520, y: 127, n: "Mumbai" }, QA: { iso: "QA", x: 462.2, y: 119.3, n: "Doha" }, ZA: { iso: "ZA", x: 416, y: 230.4, n: "Johannesburg" }, IL: { iso: "IL", x: 429.6, y: 105.7, n: "Tel Aviv" } };
   window.gbOrt = iso => { if (!ORTE[iso] || SRV.iso === iso) return; SRV = ORTE[iso]; setMe(me, 700) };
   ME = { x: 380, y: 68 }; pins(1);
   setMe(me, 1);   // sofort fertig gezoomt anzeigen

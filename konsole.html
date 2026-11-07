@@ -367,7 +367,7 @@ html.krueck0 main{display:flex;flex-direction:column}html.krueck0 main>*{order:9
 
 @media(max-width:480px){.top .logo span{white-space:nowrap;font-size:15px}.top .logo b,.top .logo img{width:34px;height:34px}.top .back{font-size:12.5px;padding:7px 11px;white-space:nowrap}}
 .kseg{display:inline-flex;padding:3px;gap:2px;border-radius:999px;background:#070b14;border:1px solid var(--line)}
-.vzz .kseg .kort{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border:0!important;border-radius:999px;background:transparent!important;color:#8b97ad;font-weight:700;white-space:nowrap;transition:background .25s,color .25s,box-shadow .25s}
+.vzz .kseg .kort{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border:0!important;border-radius:999px;background:transparent!important;color:#8b97ad;font-weight:700;white-space:nowrap;transition:background .25s,color .25s,box-shadow .25s}
 .kort img{width:18px;height:18px;border-radius:50%;object-fit:cover;filter:grayscale(.7);opacity:.7;transition:filter .25s,opacity .25s}
 .vzz .kseg .kort.on{background:rgba(52,211,153,.14)!important;color:#d1fae5;box-shadow:inset 0 0 0 1px rgba(52,211,153,.55),0 0 14px rgba(52,211,153,.18)}
 .kort.on img{filter:none;opacity:1}.vzz .kseg .kort:hover:not(.on){color:#cbd5e1}
@@ -448,12 +448,12 @@ html.krueck0 main{display:flex;flex-direction:column}html.krueck0 main>*{order:9
 
 <section class="card" id="anleitung"><h2><i class="kn">2</i><span data-alt="Konsole einrichten">DNS eintragen</span> <small class="kh2">einmalig</small></h2>
   <p class="sub">Trag diese DNS-Server für <b class="kOrtN2">Mumbai</b> ein:</p>
-  <div class="dns"><div><small>Primärer DNS</small><code class="kOrtD">65.20.95.163</code></div><div><small>Sekundärer DNS</small><code class="kOrtD">65.20.95.163</code></div></div>
+  <div class="dns"><div><small>Primärer DNS</small><code class="kOrtD">65.20.95.163</code></div><div><small>Sekundärer DNS</small><code style="color:var(--mut,#8b97ad)">leer lassen</code></div></div>
   <div class="two">
-    <div><h3>PS5</h3><ol><li>Einstellungen → Netzwerk → Einstellungen</li><li>Internetverbindung einrichten → deine Verbindung → Erweiterte Einstellungen</li><li>DNS-Einstellungen: <b>Manuell</b>, beide Adressen eintragen → OK</li></ol></div>
-    <div><h3>Xbox</h3><ol><li>Einstellungen → Allgemein → Netzwerkeinstellungen</li><li>Erweiterte Einstellungen → DNS-Einstellungen → <b>Manuell</b></li><li>Beide Adressen eintragen, fertig</li></ol></div>
+    <div><h3>PS5</h3><ol><li>Einstellungen → Netzwerk → Einstellungen</li><li>Internetverbindung einrichten → deine Verbindung → Erweiterte Einstellungen</li><li>DNS-Einstellungen: <b>Manuell</b>, Primär eintragen, Sekundär leer lassen → OK</li></ol></div>
+    <div><h3>Xbox</h3><ol><li>Einstellungen → Allgemein → Netzwerkeinstellungen</li><li>Erweiterte Einstellungen → DNS-Einstellungen → <b>Manuell</b></li><li>Primär eintragen, Sekundär leer lassen, fertig</li></ol></div>
   </div>
-  <p class="note"><small><b>Gut zu wissen:</b> Auf der Konsole gibt es die Doha- und Mumbai-Lobby. Zum Wechseln oben den Ort tauschen und den neuen DNS eintragen. Erst einschalten (Schritt 3), dann DNS eintragen. Den Geo-Fence (Spielserver nach Ländern sperren) gibt es nur am PC mit der App. Beta: Klappt etwas nicht, schreib uns auf <a href="https://discord.gg/3T6rHxZGQn" target="_blank" rel="noopener">Discord</a> – innerhalb von 3 Stunden gibt es das Geld zurück.</small></p>
+  <p class="note"><small><b>Gut zu wissen:</b> Auf der Konsole gibt es die Lobby in Doha, Mumbai, Johannesburg und Tel Aviv. Zum Wechseln oben den Ort tauschen und den neuen DNS eintragen. Erst einschalten (Schritt 3), dann DNS eintragen. Den Geo-Fence (Spielserver nach Ländern sperren) gibt es nur am PC mit der App. Beta: Klappt etwas nicht, schreib uns auf <a href="https://discord.gg/3T6rHxZGQn" target="_blank" rel="noopener">Discord</a> – innerhalb von 3 Stunden gibt es das Geld zurück.</small></p>
 </section>
 
 <section class="card" id="zugang"><h2><i class="kn">3</i><span data-alt="Dein Zugang">Einschalten</span></h2>
@@ -471,7 +471,7 @@ html.krueck0 main{display:flex;flex-direction:column}html.krueck0 main>*{order:9
       </defs>
       <rect x="-200" y="-100" width="1120" height="500" fill="url(#grid)"/>
       <g id="vzLand"></g><g id="vzFl"></g><g id="vzTop"></g>
-    </svg><div id="vzTip"></div><div class="vz-hint"><b id="vzWho" hidden></b><span class="kleg"><span><i></i><b>Region</b> · Lobby &amp; Matchmaking über <span id="kOrtN">Mumbai</span></span></span><span class="vzz"><button type="button" id="vzReset" hidden>Welt</button><span class="kseg" role="group" aria-label="Ort"><button type="button" class="kort on" data-ort="IN"><img src="flags/in.svg" alt="">Mumbai</button><button type="button" class="kort" data-ort="QA"><img src="flags/qa.svg" alt="">Doha</button></span><button type="button" class="kon" id="kOn">Lobby einschalten</button><button type="button" class="kon" id="kOff" hidden>Ausschalten</button></span></div></div>
+    </svg><div id="vzTip"></div><div class="vz-hint"><b id="vzWho" hidden></b><span class="kleg"><span><i></i><b>Region</b> · Lobby &amp; Matchmaking über <span id="kOrtN">Mumbai</span></span></span><span class="vzz"><button type="button" id="vzReset" hidden>Welt</button><span class="kseg" role="group" aria-label="Ort"><button type="button" class="kort on" data-ort="IN"><img src="flags/in.svg" alt="">Mumbai</button><button type="button" class="kort" data-ort="QA"><img src="flags/qa.svg" alt="">Doha</button><button type="button" class="kort" data-ort="ZA"><img src="flags/za.svg" alt="">Johannesburg</button><button type="button" class="kort" data-ort="IL"><img src="flags/il.svg" alt="">Tel Aviv</button></span><button type="button" class="kon" id="kOn">Lobby einschalten</button><button type="button" class="kon" id="kOff" hidden>Ausschalten</button></span></div></div>
     </div>
     <p class="note kwi"><b>Wichtig:</b> Mit dem Handy <b>im selben WLAN wie die Konsole</b> einschalten, dann das Spiel neu starten. Neue Internet-Adresse (oft nachts)? Einfach nochmal einschalten.</p>
   </div>
@@ -479,8 +479,8 @@ html.krueck0 main{display:flex;flex-direction:column}html.krueck0 main>*{order:9
 </section>
 </main>
 <script src="world.js?v=4"></script>
-<script src="js/karte1.js?v=21"></script>
-<script src="js/konsole1.js?v=22"></script>
+<script src="js/karte1.js?v=22"></script>
+<script src="js/konsole1.js?v=23"></script>
 <script src="js/sync.js?v=1"></script>
 </body>
 </html>
