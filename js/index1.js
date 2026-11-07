@@ -234,8 +234,15 @@ document.querySelectorAll("[data-plan]").forEach(b => b.onclick = () => {
 });
 // Link-Code (?c=, z. B. Tagesbonus aus der App) und laufende Aktion: den hoeheren Rabatt eintragen, nicht beide gegeneinander
 async function autoRab() {
-  if (!REF && promoOn()) { document.getElementById("bRab").value = PROMO.code; document.getElementById("bRabGo").click(); return }
+  // sofort eintragen (Zwischenstand), nach dem Laden der Server-Aktion nochmal pruefen -> nie ein veralteter Code
+  const vorab = !REF && promoOn() ? PROMO.code : "";
+  if (vorab) { document.getElementById("bRab").value = vorab; document.getElementById("bRabGo").click(); }
   await promoBereit;
+  if (!REF) {
+    const jetzt = promoOn() ? PROMO.code : "", feld = document.getElementById("bRab");
+    if (jetzt !== vorab && feld.value.trim().toUpperCase() === vorab) { feld.value = jetzt; document.getElementById("bRabGo").click(); }
+    return;
+  }
   const cs = [...new Set([REF, promoOn() ? PROMO.code : ""].filter(Boolean))];
   if (!cs.length) return;
   let best = cs[0];
