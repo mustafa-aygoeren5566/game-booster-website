@@ -29,7 +29,7 @@
   function pins(s) {
     const mx = (ME.x + SRV.x) / 2, my = Math.min(ME.y, SRV.y) - Math.hypot(SRV.x - ME.x, SRV.y - ME.y) * .25 - 6 * s, R = `M${ME.x} ${ME.y} Q ${mx} ${my} ${SRV.x} ${SRV.y}`;
     const flag = (c, x, y, col, lbl, cls) => `<g transform="translate(${x} ${y - 22 * s}) scale(${s})"><clipPath id="f${c}"><circle r="10"/></clipPath><image href="flags/${c}.svg" x="-14" y="-10" width="28" height="20" clip-path="url(#f${c})" preserveAspectRatio="xMidYMid slice"/><circle r="10.5" stroke="${col}" stroke-width="2"/>
-      <g transform="translate(16 -10)"><rect width="${lbl.length * 6.2 + 20}" height="20" rx="10" class="${cls}"/><text x="${(lbl.length * 6.2 + 20) / 2}" y="10.5" text-anchor="middle" dominant-baseline="middle" font-family="Inter" font-size="10.5" font-weight="700" fill="#e9eef8">${lbl}</text></g></g>`;
+      <g transform="translate(16 -10)"><rect width="${lbl.length * 5.6 + 16}" height="20" rx="10" class="${cls}"/><text x="${(lbl.length * 5.6 + 16) / 2}" y="10.5" text-anchor="middle" dominant-baseline="middle" font-family="Inter" font-size="10.5" font-weight="700" fill="#e9eef8">${lbl}</text></g></g>`;
     top.innerHTML = `<circle cx="${ME.x}" cy="${ME.y}" r="${40 * s}" fill="url(#gl)"/><circle cx="${SRV.x}" cy="${SRV.y}" r="${48 * s}" fill="url(#gg)"/>
       <path class="kglow" d="${R}" stroke="url(#rt)" stroke-width="7" vector-effect="non-scaling-stroke"/><path class="route" d="${R}" stroke="url(#rt)" stroke-width="2.6" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
       <circle r="${3.5 * s}" fill="#fff"><animateMotion dur="2.4s" repeatCount="indefinite" path="${R}"/></circle>
