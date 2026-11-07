@@ -27,7 +27,7 @@ async function frei(an) {
 function vergessen() { store.del(); $("kBox").hidden = true; document.documentElement.classList.remove("krueck0"); msg("Code von diesem Gerät entfernt.") }
 function karte(an) {
   $("kMap").classList.toggle("off", !an);
-  $("kMs").textContent = an ? "Mumbai-Lobbys an" : "Aus · normale Lobbys";
+  $("kMs").textContent = an ? "Lobbys an · DNS bestimmt den Ort" : "Aus · normale Lobbys";
 }
 function msg(t, k) { $("kMsg").textContent = t; $("kMsg").className = "msg" + (k ? " " + k : "") }
 $("kCheck").onclick = () => frei();
@@ -168,3 +168,14 @@ if (q) {   // Rueckkehrer: Zugang ganz oben, keine Schritt-Nummern, passende Tit
   v.addEventListener("play", () => e.classList.remove("an"));
   e.querySelector(".ke-go").onclick = () => $(ziel).scrollIntoView({ behavior: "smooth", block: "start" });
   e.querySelector(".ke-re").onclick = () => { v.currentTime = 0; v.play() }; })();
+
+// Ort-Auswahl: zeigt Karte + passenden DNS (der Ort selbst kommt vom DNS an der Konsole)
+const ORT = { IN: ["Mumbai", "65.20.95.163"], QA: ["Doha", "34.18.236.51"] };
+function ort(iso) {
+  document.querySelectorAll(".kort").forEach(b => b.classList.toggle("on", b.dataset.ort === iso));
+  $("kOrtN").textContent = ORT[iso][0]; $("kOrtD").textContent = ORT[iso][1];
+  if (window.gbOrt) window.gbOrt(iso);
+  try { localStorage.setItem("gbOrt", iso) } catch (e) {}
+}
+document.querySelectorAll(".kort").forEach(b => b.onclick = () => ort(b.dataset.ort));
+try { const o = localStorage.getItem("gbOrt"); if (ORT[o] && o !== "IN") setTimeout(() => ort(o), 300) } catch (e) {}

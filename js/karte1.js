@@ -1,7 +1,7 @@
 // Weltkarte wie auf der Startseite (Kopie aus index1.js), hier ohne Geo-Fence
 (function () {
   const svg = document.getElementById("vzSvg"), land = document.getElementById("vzLand"), fl = document.getElementById("vzFl"), top = document.getElementById("vzTop"), tip = document.getElementById("vzTip");
-  const SRV = { iso: "IN", x: 520, y: 127 }, lang = document.documentElement.lang === "en" ? 4 : 3;
+  let SRV = { iso: "IN", x: 520, y: 127, n: "Mumbai" }; const lang = document.documentElement.lang === "en" ? 4 : 3;
   const TZ = { Berlin: "DE", Vienna: "AT", Zurich: "CH", London: "GB", Paris: "FR", Amsterdam: "NL", Brussels: "BE", Rome: "IT", Madrid: "ES", Warsaw: "PL", Prague: "CZ", Istanbul: "TR", Stockholm: "SE", Oslo: "NO", Copenhagen: "DK", Helsinki: "FI", Lisbon: "PT", Athens: "GR", Budapest: "HU", Bucharest: "RO", Sofia: "BG", Belgrade: "RS", Zagreb: "HR", Dublin: "IE", Kiev: "UA", Kyiv: "UA", Moscow: "RU", Dubai: "AE", Riyadh: "SA", Kolkata: "IN", New_York: "US", Chicago: "US", Los_Angeles: "US", Toronto: "CA", Sydney: "AU", Tokyo: "JP" };
   let me = "DE";   // Land grob aus Zeitzone/Sprache, nichts wird verschickt
   try { const z = Intl.DateTimeFormat().resolvedOptions().timeZone.split("/").pop(); if (TZ[z]) me = TZ[z]; else { const l = (navigator.language || "").split("-")[1]; if (l) me = l.toUpperCase() } } catch (e) { }
@@ -35,7 +35,7 @@
       <circle r="${3.5 * s}" fill="#fff"><animateMotion dur="2.4s" repeatCount="indefinite" path="${R}"/></circle>
       <circle class="pin" cx="${ME.x}" cy="${ME.y}" r="${5 * s}" fill="#60a5fa"/><circle cx="${ME.x}" cy="${ME.y}" r="${4.5 * s}" fill="#93c5fd" stroke="#fff" stroke-width="${1.4 * s}"/>
       <circle class="pin" cx="${SRV.x}" cy="${SRV.y}" r="${5 * s}" fill="#34d399"/><circle cx="${SRV.x}" cy="${SRV.y}" r="${4.5 * s}" fill="#34d399" stroke="#fff" stroke-width="${1.4 * s}"/>
-      ${flag(me.toLowerCase(), ME.x, ME.y, "#fff", "Du", "vlb")}<g class="kpin">${flag("in", SRV.x, SRV.y, "#34d399", "Lobby · Mumbai", "vlg")}</g>`
+      ${flag(me.toLowerCase(), ME.x, ME.y, "#fff", "Du", "vlb")}<g class="kpin">${flag(SRV.iso.toLowerCase(), SRV.x, SRV.y, "#34d399", "Lobby · " + SRV.n, "vlg")}</g>`
   }
   // Flaggen bleiben auf dem Bildschirm gleich gross, egal wie weit gezoomt ist
   const FG = [...fl.querySelectorAll(".fl")].map(g => [g, CEN[g.dataset.i]]);
@@ -127,6 +127,9 @@
   svg.addEventListener("touchend", e => { if (e.touches.length < 2) pinch = null });
   svg.addEventListener("dblclick", e => { const [x, y] = punkt(e); zoomBei(.5, x, y) });
   document.getElementById("vzReset").onclick = () => { anim++; vb = WELT.slice(); svg.setAttribute("viewBox", vb.join(" ")); pins(1); flz(1) };
+  // Ort umschalten (Konsole: Mumbai / Doha) - nur die Anzeige, der Ort selbst kommt vom DNS
+  const ORTE = { IN: { iso: "IN", x: 520, y: 127, n: "Mumbai" }, QA: { iso: "QA", x: 472, y: 115, n: "Doha" } };
+  window.gbOrt = iso => { if (!ORTE[iso] || SRV.iso === iso) return; SRV = ORTE[iso]; setMe(me, 700) };
   ME = { x: 380, y: 68 }; pins(1);
   setMe(me, 1);   // sofort fertig gezoomt anzeigen
 })();

@@ -366,6 +366,7 @@ html.krueck0 main{display:flex;flex-direction:column}html.krueck0 main>*{order:9
 .card:after{content:"";position:absolute;left:15%;right:15%;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(59,130,246,.7),transparent);opacity:.45;pointer-events:none}
 
 @media(max-width:480px){.top .logo span{white-space:nowrap;font-size:15px}.top .logo b,.top .logo img{width:34px;height:34px}.top .back{font-size:12.5px;padding:7px 11px;white-space:nowrap}}
+.kort{opacity:.55}.kort.on{opacity:1;border-color:#34d399!important;color:#34d399}#kOrtD{font-size:inherit;color:#34d399}
 </style>
 <link rel="stylesheet" href="css/features.css?v=37">
 <script src="js/kfrueh.js?v=1"></script>
@@ -464,7 +465,7 @@ html.krueck0 main{display:flex;flex-direction:column}html.krueck0 main>*{order:9
       </defs>
       <rect x="-200" y="-100" width="1120" height="500" fill="url(#grid)"/>
       <g id="vzLand"></g><g id="vzFl"></g><g id="vzTop"></g>
-    </svg><div id="vzTip"></div><div class="vz-hint"><b id="vzWho" hidden></b><span class="kleg"><span><i></i><b>Region</b> · Lobby &amp; Matchmaking über Mumbai</span><span class="vzh"><i class="g"></i><b>Spielserver</b> · bleiben wie gewohnt</span></span><span class="vzz"><button type="button" id="vzReset" title="Ganze Welt">Welt</button><button type="button" class="kon" id="kOn">Mumbai-Lobbys einschalten</button><button type="button" class="kon" id="kOff" hidden>Ausschalten</button></span></div></div>
+    </svg><div id="vzTip"></div><div class="vz-hint"><b id="vzWho" hidden></b><span class="kleg"><span><i></i><b>Region</b> · Lobby &amp; Matchmaking über <span id="kOrtN">Mumbai</span> · DNS <code id="kOrtD">65.20.95.163</code></span><span class="vzh"><i class="g"></i><b>Spielserver</b> · bleiben wie gewohnt</span></span><span class="vzz"><button type="button" id="vzReset" hidden>Welt</button><button type="button" class="kort on" data-ort="IN">Mumbai</button><button type="button" class="kort" data-ort="QA">Doha</button><button type="button" class="kon" id="kOn">Lobbys einschalten</button><button type="button" class="kon" id="kOff" hidden>Ausschalten</button></span></div></div>
     </div>
     <p class="note kwi"><b>Wichtig:</b> Mit dem Handy <b>im selben WLAN wie die Konsole</b> einschalten, dann das Spiel neu starten. Neue Internet-Adresse (oft nachts)? Einfach nochmal einschalten.</p>
   </div>
@@ -472,8 +473,8 @@ html.krueck0 main{display:flex;flex-direction:column}html.krueck0 main>*{order:9
 </section>
 </main>
 <script src="world.js?v=4"></script>
-<script src="js/karte1.js?v=17"></script>
-<script src="js/konsole1.js?v=20"></script>
+<script src="js/karte1.js?v=18"></script>
+<script src="js/konsole1.js?v=21"></script>
 <script src="js/sync.js?v=1"></script>
 </body>
 </html>
