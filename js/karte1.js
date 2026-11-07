@@ -65,6 +65,10 @@
       const [x, y] = CEN[i], far = Math.hypot(x - ME.x, y - ME.y) > 170 && Math.hypot(x - SRV.x, y - SRV.y) > 140;
       const cls = i === i0 ? "me" : WORLD[i][0] === SRV.iso ? "srv" : far ? "blk" : "ok"; if (cls === "blk") n++;
       p.setAttribute("class", "ct " + cls);
+      // winziges Lobby-Land (Katar) vergroessert zeigen, damit es wie Indien leuchtet
+      const b = BOX[i], klein = cls === "srv" && Math.max(b[2] - b[0], b[3] - b[1]) < 8;
+      if (klein) { const cx = (b[0] + b[2]) / 2, cy = (b[1] + b[3]) / 2; p.setAttribute("transform", `translate(${cx} ${cy}) scale(4) translate(${-cx} ${-cy})`); p.parentNode.appendChild(p) }
+      else p.removeAttribute("transform");
       const g = FLG[i]; if (g) g.setAttribute("class", "fl" + (cls === "blk" ? " off" : "") + (cls === "me" || cls === "srv" ? " hid" : ""))
     });
     const ping = iso === "DE" ? 25 : pingAt(ME.x, ME.y);          // DE: echt gemessen (naechster CoD-Server NL)
