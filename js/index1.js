@@ -414,7 +414,7 @@ if (PROMO_C) { try { zeigePromo(); const n = document.querySelector(".ann"); n &
 try { zeigeBald(); } catch (e) { }
 // Preise passen sich der laufenden Aktion an: Aktionsfarbe an Karten und Button, alter Preis durchgestrichen
 function aktPreise() {
-  const F = { blau: ["#60a5fa", "#2563eb"], rot: ["#f87171", "#dc2626"], gold: ["#fbbf24", "#d97706"], weihnacht: ["#f87171", "#b91c1c"], gruen: ["#34d399", "#059669"], lila: ["#c084fc", "#7c3aed"], blackfriday: ["#ff2e88", "#be185d"] };
+  const F = { blau: ["#60a5fa", "#2563eb"], rot: ["#f87171", "#dc2626"], gold: ["#fbbf24", "#d97706"], weihnacht: ["#f87171", "#b91c1c"], gruen: ["#34d399", "#059669"], lila: ["#c084fc", "#7c3aed"] };
   const on = promoOn(), c = F[PROMO.farbe] || F.blau, r = document.documentElement;
   r.classList.toggle("akt", !!on);
   if (on) { r.style.setProperty("--akA", c[0]); r.style.setProperty("--akB", c[1]);
