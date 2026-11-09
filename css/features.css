@@ -249,3 +249,13 @@ label.chk span,label.chk small,label.cns span{font-size:11.5px!important;line-he
 .gsup .wrap:after{content:"";display:block;height:1px;margin:22px auto 0;max-width:760px;background:linear-gradient(90deg,transparent,#3b82f6 30%,#10b981 70%,transparent);box-shadow:0 0 10px rgba(59,130,246,.45)}
 @media(max-width:600px){.gsl:before,.gsl:after{min-width:40px}}
 .gsi{width:56px!important;height:56px!important;overflow:hidden;padding:0;border:2px solid #2563eb!important;box-shadow:0 0 14px rgba(59,130,246,.4)}.gsi.d{border-color:#f5c518!important;box-shadow:0 0 14px rgba(245,197,24,.3)}.gsi img{width:100%;height:100%;object-fit:cover;display:block}
+.dlw{display:inline-flex!important;align-items:center;gap:10px;padding-top:9px!important;padding-bottom:9px!important;text-align:left}.dlw .wi{width:20px;height:20px;color:#60a5fa;flex:none}.dlw span{display:flex;flex-direction:column;line-height:1.15}.dlw b{font-size:15px}.dlw small{font-size:11px;font-weight:600;color:#8b97ad;margin-top:2px}
+.plat{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 4px}.plt{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6b7891;margin-right:2px}
+.plc{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:8px;background:#0b1326;border:1px solid #1e2a44;color:#e5e7eb!important;font-size:13px;font-weight:700;text-decoration:none!important}.plc svg{width:14px;height:14px;color:#60a5fa}.plc em{font-style:normal;font-size:10px;font-weight:800;padding:2px 5px;border-radius:5px;background:rgba(59,130,246,.15);color:#93c5fd}a.plc:hover{border-color:#3b82f6}
+.plv{font-size:12px;color:#60a5fa;margin-left:4px}
+@media(max-width:600px){.dlw{justify-content:center}.plat{justify-content:center;gap:6px}.plt{width:100%;text-align:center}.plc{font-size:12px;padding:5px 8px}.plv{width:100%;text-align:center;margin:2px 0 0}}
+.plat{gap:12px!important;margin-top:18px!important}.plt{margin-right:4px!important}.dlw .vg{font-style:normal;color:#34d399}
+@media(max-width:600px){.plat{gap:8px!important}}
+.dlw span{align-items:center;text-align:center}
+.plat{margin-top:28px!important;margin-bottom:14px!important}
+@media(max-width:600px){.plat{margin-top:20px!important}}
