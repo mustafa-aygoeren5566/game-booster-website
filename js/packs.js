@@ -63,8 +63,12 @@ function show(){const lb=document.getElementById('lb'),ls=document.getElementByI
  const L=ME.belohnungen||[];document.getElementById('rw').hidden=!L.length;
  document.getElementById('codes').innerHTML=L.map(x=>'<div class="cd" style="--r:'+R[x.r][1]+'"><b>'+esc(x.code)+'</b><span>'+(x.art==='vpn'?esc(x.tage)+(x.tage>1?' Tage':' Tag')+' Game-VPN':esc(x.pct)+' % Rabatt bis '+esc(x.bis||''))+'</span><button data-c="'+esc(x.code)+'">Kopieren</button></div>').join('')}
 document.getElementById('codes').onclick=e=>{const b=e.target.closest('button');if(b)copy(b.dataset.c,b)};
-document.getElementById('login').onclick=async()=>{if(!TOK)return login();if(ME&&!ME.bereit){if(confirm('Abmelden?')){try{await call('logout','POST')}catch(e){}TOK=null;ME=null;try{localStorage.removeItem('lpT')}catch(e){}show()}return}if(ME&&ME.bereit)open()};
+document.getElementById('login').onclick=async()=>{if(!TOK)return login();if(ME&&!ME.bereit){document.getElementById('mdl').hidden=false;document.getElementById('myes').focus();return}if(ME&&ME.bereit)open()};
 async function load(){if(!TOK)return show();try{const r=await call('me');if(r&&r.ok){ME=r;r.got.forEach(n=>got.add(n-0));T=r.sek;drawSet()}}catch(e){say('Server gerade nicht erreichbar.')}show()}
 load();
 drawSet();
 var T=86399;setInterval(()=>{T=T>0?T-1:0;if(!T&&ME&&!ME.bereit){ME.bereit=true;show()}const t=T,v=[t/3600|0,t/60%60|0,t%60].map(v=>String(v).padStart(2,'0'));document.querySelectorAll('#tm b').forEach((b,i)=>b.textContent=v[i])},1000);
+
+(function(){const md=document.getElementById('mdl'),zu=()=>md.hidden=true;
+document.getElementById('mno').onclick=zu;md.onclick=e=>{if(e.target===md)zu()};document.addEventListener('keydown',e=>{if(e.key==='Escape')zu()});
+document.getElementById('myes').onclick=async()=>{zu();try{await call('logout','POST')}catch(e){}TOK=null;ME=null;try{localStorage.removeItem('lpT')}catch(e){}show()}})();
