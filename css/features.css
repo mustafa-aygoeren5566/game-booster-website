@@ -188,7 +188,7 @@ footer .flk{justify-content:center}footer{padding-bottom:76px;text-align:center}
 #promo.promo.hm .pv span{font-size:8.5px;letter-spacing:.16em;margin-top:5px}
 #promo.promo.hm .pt{grid-area:auto;padding:10px 0 10px 12px;min-width:0}
 #promo.promo.hm .pk{white-space:nowrap;font-size:9px;padding:3px 8px}
-#promo.promo.hm .pt b{font-size:13px;line-height:1.25;margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#promo.promo.hm .pt b{font-size:13px;line-height:1.25;margin-top:6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 #promo.promo.hm .pt small{font-size:10.5px;margin-top:4px}
 #promo.promo.hm .pm{grid-area:auto;position:relative;right:auto;top:auto;width:108px;margin:-52px -8px 0 -16px;align-self:end}
 #promo.promo.hm .pm .pmc{display:grid;pointer-events:auto;font-size:6.6px!important;letter-spacing:.02em}
@@ -199,3 +199,4 @@ footer .flk{justify-content:center}footer{padding-bottom:76px;text-align:center}
 .ann.pa .at,.ann.pa .ar,.ann.pa .ac{font-size:10.5px;letter-spacing:.05em;white-space:nowrap}
 .ann.pa .ap{font-size:11px;padding:3px 8px}
 }
+@media(max-width:600px){#promo.promo.hm #prRest,#promo.promo.hm .pwk{display:block}#promo.promo.hm .pdot{display:none}#promo.promo.hm .pt small{line-height:1.45}}

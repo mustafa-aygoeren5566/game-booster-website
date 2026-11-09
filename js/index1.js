@@ -286,7 +286,7 @@ function zeigePromo() {
   if (at) { at.innerHTML = `<span class="ap">−${PROMO.pct} %</span><span class="at">${esc(PROMO.titel)}</span><span class="ac">${esc(PROMO.code)}</span><span class="ar">${rest}</span><span class="ap">−${PROMO.pct} %</span>`; at.closest(".ann").className = "ann pa pf-" + (PROMO.farbe || "blau"); try { localStorage.setItem("gbPF", PROMO.farbe || "blau"); } catch (e) { } at.style.display = "contents"; }
   document.getElementById("prTitel").textContent = PROMO.titel;
   document.getElementById("prPct").textContent = `−${PROMO.pct} %`;
-  document.getElementById("prBis").textContent = PROMO.bis.split("-").reverse().join(".") + " (" + rest + ")";
+  document.getElementById("prBis").textContent = PROMO.bis.split("-").reverse().join("."); document.getElementById("prRest").textContent = "(" + rest + ")";
   document.getElementById("prInfo").textContent = PROMO.text || "Auf alle Abos, einmalig, kein Auto-Abo";
   clearInterval(zeigePromo.t);
   if (tage <= 1) {   // letzter Tag: laufender Countdown statt "nur noch heute"
@@ -294,7 +294,7 @@ function zeigePromo() {
     const tick = () => { const s = Math.max(0, Math.floor((ende - new Date()) / 1000)), z = n => String(n).padStart(2, "0");
       const t = "endet in " + z(Math.floor(s / 3600)) + ":" + z(Math.floor(s / 60) % 60) + ":" + z(s % 60);
       const ar = document.querySelector(".ann .ar"); if (ar) ar.textContent = t;
-      document.getElementById("prBis").textContent = bis + " (" + t + ")";
+      document.getElementById("prBis").textContent = bis; document.getElementById("prRest").textContent = "(" + t + ")";
       if (!s && !zeigePromo.ab) { zeigePromo.ab = 1; clearInterval(zeigePromo.t); setTimeout(() => location.reload(), 4000); } };   // Aktion vorbei: neu laden -> naechste Aktion/Preise vom Server
     tick(); zeigePromo.t = setInterval(tick, 1000);
   }
