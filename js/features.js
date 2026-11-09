@@ -13,7 +13,7 @@ function zoomed(){var v=(src.getAttribute("viewBox")||"").split(/[ ,]+/).map(Num
 function copy(){if(done||!zoomed())return;done=true;
  var c=src.cloneNode(true);c.removeAttribute("id");c.querySelectorAll("[id]").forEach(function(e){if(e.tagName!=="clipPath"&&e.tagName!=="linearGradient"&&e.tagName!=="radialGradient")e.removeAttribute("id")});
  var me=c.querySelector('circle[fill="#93c5fd"]'),mx=me?+me.getAttribute("cx"):250,my=me?+me.getAttribute("cy"):70,sx=520,sy=127;
- var bw=box.clientWidth||360,bh=box.clientHeight||256,x0=Math.min(mx,sx)-28,x1=Math.max(mx,sx)+62,y0=Math.min(my,sy)-36,y1=Math.max(my,sy)+30,w=x1-x0,h=y1-y0,cx=(x0+x1)/2,cy=(y0+y1)/2;
+ var bw=box.clientWidth||360,bh=box.clientHeight||256,x0=Math.min(mx,sx)-28,x1=Math.max(mx,sx)+110,y0=Math.min(my,sy)-36,y1=Math.max(my,sy)+30,w=x1-x0,h=y1-y0,cx=(x0+x1)/2,cy=(y0+y1)/2;
  if(w/h>bw/bh)h=w*bh/bw;else w=h*bw/bh;c.setAttribute("viewBox",[cx-w/2,cy-h/2,w,h].join(" "));
  c.setAttribute("preserveAspectRatio","xMidYMid slice");c.style.pointerEvents="none";box.innerHTML="";box.appendChild(c);box.style.opacity=1}
 var n=0;setTimeout(function tick(){if(done)return;var top=document.getElementById("vzTop");if(top&&top.children.length&&(n>=20||zoomed()))copy();if(!done&&++n<60)setTimeout(tick,50)},0);

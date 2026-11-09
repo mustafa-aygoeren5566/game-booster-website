@@ -172,3 +172,11 @@
 header{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:rgba(5,7,13,.97)!important}
 .vz-hint{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 }
+/* Handy-Ansicht */
+@media(max-width:600px){
+.fade-mask>.w-\[340px\]:has(.left-\[268px\]){zoom:.86;margin-left:4px}
+.vz-top{white-space:nowrap;gap:8px;padding:12px 14px}.vz-top .dots{display:none}.vz-top b{margin-left:0}
+.cta{display:flex;flex-direction:column;align-items:stretch}.cta .btn{justify-content:center}
+.band{border-radius:18px!important}
+footer .flk{justify-content:center}footer{padding-bottom:76px;text-align:center}
+}
