@@ -189,7 +189,7 @@ footer .flk{justify-content:center}footer{padding-bottom:76px;text-align:center}
 #promo.promo.hm .pk{white-space:nowrap;font-size:10px}
 #promo.promo.hm .pcd{grid-area:c}
 .ann.pa a{flex-wrap:nowrap;gap:7px;padding-left:10px;padding-right:10px;max-width:100%}
-.ann.pa .ap:last-of-type,.ann.pa .ac{display:none}
+.ann.pa .ap{display:none!important}
 .ann.pa .at,.ann.pa .ar,.ann.pa .ac{font-size:10.5px;letter-spacing:.05em;white-space:nowrap}
 .ann.pa .ap{font-size:11px;padding:3px 8px}
 }
