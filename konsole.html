@@ -205,7 +205,7 @@ body.krueck .kn,body.krueck .kh2{display:none}
 .plans .bd.g{background:#0c2a20}
 .chk:has(input:checked){border-color:rgba(52,211,153,.55)!important;background:rgba(52,211,153,.06)!important}.chk input:checked{background:linear-gradient(135deg,#10b981,#34d399)!important;border-color:#34d399!important;box-shadow:0 0 0 4px rgba(52,211,153,.15)!important}
 #ppBox{max-width:520px;margin:0 auto}#ppMsg{text-align:center}
-.flow .desk{display:none}.flow .mob{display:block;max-width:420px;margin:0 auto}.flow text{font-size:14px}.flow text.s{font-size:11.5px}@media(max-width:640px){.flow .mob{max-width:360px}}
+.flow .mob{display:none}@media(max-width:640px){.flow .desk{display:none}.flow .mob{display:block;max-width:360px;margin:0 auto}.flow text{font-size:14px}.flow text.s{font-size:11.5px}}
 .chk small{font-size:14px;line-height:1.6;color:#c3cce0}
 @media(max-width:720px){.plans button{padding-top:24px}.plans .rb{top:6px;right:6px}}
 .stp .an{margin-left:auto;flex:none;display:grid;place-items:center}
@@ -387,24 +387,18 @@ html.krueck0 main{display:flex;flex-direction:column}html.krueck0 main>*{order:9
   <p class="lead">Ohne PC und ohne App: Du stellst einmal den DNS deiner Konsole um und schaltest hier frei. Nur die Anmeldung zur Matchsuche läuft über Mumbai – gespielt wird über deine eigene Leitung.</p>
   <div class="flow" aria-label="So funktioniert es: Nur die Region-Anmeldung geht über Mumbai, das Spiel läuft direkt.">
   <svg class="desk" viewBox="0 0 760 250">
-    <path id="pA" class="ln l1" d="M150 125 C 260 125, 270 55, 380 55"/>
-    <path class="ln l1" d="M380 55 C 490 55, 500 55, 610 55"/>
-    <path id="pB" class="ln l2" d="M150 125 C 260 125, 300 195, 610 195"/>
-    <circle r="5" fill="#60a5fa"><animateMotion dur="2.4s" repeatCount="indefinite" path="M150 125 C 260 125, 270 55, 380 55 C 490 55, 500 55, 610 55"/></circle>
-    <circle r="5" fill="#34d399"><animateMotion dur="1.6s" repeatCount="indefinite" path="M150 125 C 260 125, 300 195, 610 195"/></circle>
-    <circle r="5" fill="#34d399" opacity=".6"><animateMotion dur="1.6s" begin=".8s" repeatCount="indefinite" path="M150 125 C 260 125, 300 195, 610 195"/></circle>
+    <path class="ln l1" d="M150 125 L 165 125 C 205 125, 200 55, 250 55 L 610 55"/><path class="ln l2" d="M150 125 L 165 125 C 205 125, 200 195, 250 195 L 610 195"/>
+    <circle r="5" fill="#60a5fa"><animateMotion dur="2s" repeatCount="indefinite" path="M150 125 L 165 125 C 205 125, 200 55, 250 55 L 610 55"/></circle>
+    <circle r="5" fill="#34d399"><animateMotion dur="2s" repeatCount="indefinite" path="M150 125 L 165 125 C 205 125, 200 195, 250 195 L 610 195"/></circle>
     <g class="nd"><rect x="20" y="88" width="130" height="74" rx="16"/>
       <g class="gi" stroke="#93c5fd"><path d="M75 105h20a6 6 0 0 1 5.8 7.4l-1.2 4.8a2.6 2.6 0 0 1-4.4 1.1L92 115H78l-3.2 3.3a2.6 2.6 0 0 1-4.4-1.1l-1.2-4.8A6 6 0 0 1 75 105z"/><path d="M78 109v4M76 111h4"/><circle cx="92" cy="111" r=".8" fill="#93c5fd"/></g>
       <text x="85" y="140" text-anchor="middle">Deine Konsole</text><text class="s" x="85" y="155" text-anchor="middle">PS5 · Xbox</text></g>
-    <g class="nd m"><rect class="pulse" x="320" y="20" width="120" height="74" rx="16" fill="none" stroke="#3b82f6"/><rect x="320" y="20" width="120" height="74" rx="16"/>
-      <g class="gi" stroke="#60a5fa"><circle cx="380" cy="40" r="8"/><path d="M372 40h16M380 32c3 3 3 13 0 16M380 32c-3 3-3 13 0 16"/></g>
-      <text x="380" y="70" text-anchor="middle">Unser Server</text><text class="s" x="380" y="85" text-anchor="middle">Mumbai</text></g>
-    <g class="nd m"><rect x="610" y="22" width="130" height="66" rx="16"/>
-      <text x="675" y="50" text-anchor="middle">CoD-Anmeldung</text><text class="s" x="675" y="67" text-anchor="middle">sieht: Region Mumbai</text></g>
-    <g class="nd g"><rect x="610" y="162" width="130" height="66" rx="16"/>
-      <text x="675" y="190" text-anchor="middle">Spielserver</text><text class="s" x="675" y="207" text-anchor="middle">z. B. London · 31 ms</text></g>
-    <text class="tag" x="235" y="72" text-anchor="middle" fill="#60a5fa">NUR REGION-CHECK</text>
-    <text class="tag" x="400" y="226" text-anchor="middle" fill="#34d399">DEIN SPIEL · EIGENE LEITUNG</text>
+    <g class="nd m"><rect x="250" y="23" width="130" height="64" rx="14"/><text x="315" y="52" text-anchor="middle">Unser Server</text><text class="s" x="315" y="69" text-anchor="middle">Mumbai</text></g>
+    <g class="nd m"><rect x="610" y="23" width="130" height="64" rx="14"/><text x="675" y="52" text-anchor="middle">CoD-Anmeldung</text><text class="s" x="675" y="69" text-anchor="middle">sieht: Region Mumbai</text></g>
+    <g class="nd g"><rect x="250" y="163" width="130" height="64" rx="14"/><text x="315" y="192" text-anchor="middle">Deine Leitung</text><text class="s" x="315" y="209" text-anchor="middle">direkt, ohne Umweg</text></g>
+    <g class="nd g"><rect x="610" y="163" width="130" height="64" rx="14"/><text x="675" y="192" text-anchor="middle">Spielserver</text><text class="s" x="675" y="209" text-anchor="middle">z. B. London · 31 ms</text></g>
+    <rect x="420" y="42" width="150" height="26" rx="8" fill="#0a1122" stroke="#1e3a6e"/><text class="tag" x="495" y="59" text-anchor="middle" fill="#60a5fa">NUR REGION-CHECK</text>
+    <rect x="420" y="182" width="150" height="26" rx="8" fill="#0a1122" stroke="#14532d"/><text class="tag" x="495" y="199" text-anchor="middle" fill="#34d399">DIREKT SPIELEN</text>
   </svg>
   <svg class="mob" viewBox="0 0 340 360">
     <path class="ln l1" d="M170 72 L 170 86 C 170 116, 85 106, 85 140"/>
