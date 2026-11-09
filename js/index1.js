@@ -332,6 +332,7 @@ document.getElementById("bRabGo").onclick = async () => {
   else m.textContent = "Wird geprüft …";
   try {
     const r = await (await fetch(SHOP_API + "/api/rabatt?c=" + encodeURIComponent(c))).json();
+    if (r.ok && r.code && r.code !== c) { document.getElementById("bRab").value = r.code; rabAp(r.code, r.pct); m.className = "rbm"; m.textContent = r.hinweis || ""; rabShow(); render(); return; }
     if (r.ok) { RABC[c] = r.pct; try { localStorage.setItem("gbRab", JSON.stringify(RABC)) } catch (e) {} if (kp === r.pct) return; rabAp(c, r.pct); }
     else { delete RABC[c]; try { localStorage.setItem("gbRab", JSON.stringify(RABC)) } catch (e) {} plan.rab = ""; plan.pay = ""; tag.hidden = true; tag.parentNode.classList.remove("on"); m.className = "rbm no"; m.textContent = r.msg || "Code ungültig"; }
   } catch (e) { if (kp) return; m.textContent = ""; srvOk = false; gate(); }   // Hinweis steht einmal unten beim Bezahlen

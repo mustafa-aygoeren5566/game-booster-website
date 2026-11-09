@@ -58,7 +58,8 @@ async function rabattPruefen() {
     m.textContent = "Wird geprüft …";
     try {
       const r = await (await fetch(API + "/api/rabatt?c=" + encodeURIComponent(c))).json();
-      if (r.ok) { rab = { c, pct: r.pct }; m.textContent = `Rabattcode ${c} aktiv: −${r.pct} % auf alle Tarife` }
+      if (r.ok && r.code && r.code !== c) { rab = { c: r.code, pct: r.pct }; $("kRab").value = r.code; m.textContent = r.hinweis || "" }
+      else if (r.ok) { rab = { c, pct: r.pct }; m.textContent = `Rabattcode ${c} aktiv: −${r.pct} % auf alle Tarife` }
       else { m.className = "krabm no"; m.textContent = r.msg || "Code ungültig" }
     } catch (e) { m.className = "krabm no"; m.textContent = "Server nicht erreichbar – bitte später nochmal." }
   } else m.textContent = "";
