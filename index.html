@@ -571,6 +571,7 @@ details{position:relative}details[open]{border-color:#2f4f8a}
     <a href="updates.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>Updates</a>
     <a href="einblick.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10.5 9.5v5l4-2.5z" fill="currentColor"/></svg>Einblick</a>
     <a href="konsole.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9h10a4 4 0 0 1 3.9 4.8l-.8 3.6a2 2 0 0 1-3.4.9L14.5 16h-5l-2.2 2.3a2 2 0 0 1-3.4-.9l-.8-3.6A4 4 0 0 1 7 9z"/><path d="M8 12v2M7 13h2"/><circle cx="16" cy="12.5" r=".6" fill="currentColor"/></svg>Konsole</a>
+    <a href="packs.html" class="npk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="1.5"/><path d="M12 8v13M3 12.5h18"/><path d="M12 8c-1.5-3.5-5.5-4-5.5-1.5S12 8 12 8s5.5.5 5.5-2S13.5 4.5 12 8z"/></svg>Packs</a>
     <a href="creator.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M19 8v6M16 11h6"/></svg>Creator</a>
   </nav>
   <div class="sp"></div>
@@ -637,6 +638,26 @@ details{position:relative}details[open]{border-color:#2f4f8a}
   <p class="gsn">Geo-Fence nur am PC. Konsole läuft per DNS, ohne App.</p>
 </div></section>
 
+<section class="lpb"><div class="wrap"><a class="lpc" href="packs.html">
+  <div class="lpt"><span class="lpk">Täglich gratis · Neu</span><b>Lobby <em>Packs</em></b><p>Jeden Tag ein Gratis-Pack öffnen: echte Rabattcodes, Game-VPN Testtage und Karten fürs Smiley-Squad Set. Anmelden mit Discord.</p><span class="lpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="1.5"/><path d="M12 8v13M3 12.5h18"/><path d="M12 8c-1.5-3.5-5.5-4-5.5-1.5S12 8 12 8s5.5.5 5.5-2S13.5 4.5 12 8z"/></svg>Pack öffnen</span></div>
+  <div class="lpi"><img src="img/packs/hero.webp" alt="Lobby Packs" loading="lazy"></div>
+</a></div></section>
+<style>
+.npk{color:#fbbf24!important}
+.lpb{padding:10px 0 30px}
+.lpc{position:relative;display:grid;grid-template-columns:1.1fr 1fr;align-items:center;overflow:hidden;border:1px solid rgba(59,130,246,.35);border-radius:18px;background:linear-gradient(110deg,#070b16 35%,#0b1630);box-shadow:0 0 40px -12px rgba(59,130,246,.45);color:inherit;text-decoration:none!important;transition:transform .2s,box-shadow .2s}
+.lpc:hover{transform:translateY(-2px);box-shadow:0 0 50px -8px rgba(59,130,246,.6)}
+.lpt{position:relative;z-index:1;padding:30px 32px}
+.lpk{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#34d399}
+.lpt b{display:block;margin:6px 0 8px;font-size:clamp(30px,5vw,46px);font-weight:900;font-style:italic;letter-spacing:-.02em;line-height:1;text-transform:uppercase;color:#fff}
+.lpt b em{font-style:italic;color:#60a5fa}
+.lpt p{color:#8b96ad;max-width:440px;margin-bottom:18px}
+.lpg{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:10px;background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;font-weight:800}
+.lpg svg,.npk svg{width:18px;height:18px}
+.lpi{align-self:stretch;position:relative;min-height:220px}
+.lpi img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 30%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
+@media(max-width:720px){.lpc{grid-template-columns:1fr}.lpi{order:-1;min-height:170px}.lpi img{-webkit-mask-image:linear-gradient(0deg,transparent,#000 40%);mask-image:linear-gradient(0deg,transparent,#000 40%)}.lpt{padding:4px 22px 24px}}
+</style>
 <section id="shop"><div class="wrap">
   <div class="sh"><small>Top Picks</small><h2>Unsere <span class="bl">Produkte</span></h2><p>Mit Game-VPN und Geo-Fence geht es los, weitere Bereiche der App werden nach und nach freigeschaltet.</p></div>
   <div class="shop" id="shopGrid"></div>
