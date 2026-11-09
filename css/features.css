@@ -260,3 +260,4 @@ label.chk span,label.chk small,label.cns span{font-size:11.5px!important;line-he
 .plat{margin-top:28px!important;margin-bottom:14px!important}
 @media(max-width:600px){.plat{margin-top:20px!important}}
 @media(min-width:601px){.kz .row{display:flex!important;flex-wrap:nowrap!important;align-items:center;gap:0!important;padding:5px 5px 5px 0;border-radius:14px;background:#070b14;border:1px solid #1e2a44}.kz .row:focus-within{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.15)}.kz .row input{flex:1;min-width:0;width:auto!important;border:0!important;background:transparent!important;box-shadow:none!important;outline:0;padding:11px 14px!important;font-size:14px!important;letter-spacing:.02em}.kz .row .btn{flex:none;margin:0!important;padding:10px 20px!important;border-radius:10px!important;font-size:14px;background:#2563eb!important;color:#fff!important;border:0!important}}
+.kleg .kub{display:none!important}
