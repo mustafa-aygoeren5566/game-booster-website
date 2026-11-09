@@ -193,3 +193,11 @@ footer .flk{justify-content:center}footer{padding-bottom:76px;text-align:center}
 .ann.pa .at,.ann.pa .ar,.ann.pa .ac{font-size:10.5px;letter-spacing:.05em;white-space:nowrap}
 .ann.pa .ap{font-size:11px;padding:3px 8px}
 }
+@media(max-width:600px){
+#promo.promo.hm{grid-template-columns:1fr 124px}
+#promo.promo.hm .pv{display:flex;flex-direction:row;align-items:center;gap:12px;padding:14px 34px;justify-self:start;-webkit-mask:none;mask:none;border-radius:17px 0 14px 0;align-self:start}
+#promo.promo.hm .pv span{margin-top:0}
+#promo.promo.hm .pm{width:124px;margin-top:-58px}
+#promo.promo.hm .pm .pmc{display:grid;pointer-events:auto;font-size:7.4px!important;letter-spacing:.02em}
+#promo.promo.hm .pm .pmc:after{display:none}
+}
