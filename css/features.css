@@ -227,3 +227,4 @@ footer .flk{justify-content:center}footer{padding-bottom:76px;text-align:center}
 .kz .row:focus-within{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.15)}
 .kz .row input{flex:1;min-width:0;width:auto!important;border:0!important;background:transparent!important;box-shadow:none!important;outline:0;padding:10px 12px!important;font-size:13.5px!important;letter-spacing:.02em}
 .kz .row .btn{flex:none;margin:0!important;padding:10px 16px!important;border-radius:10px!important;font-size:14px;background:#2563eb!important;color:#fff!important;border:0!important}}
+@media(max-width:600px){.kz .row input{font-size:12px!important;letter-spacing:0!important;padding:10px 8px 10px 12px!important}.kz .row .btn{padding:9px 12px!important;font-size:13px}}
