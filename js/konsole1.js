@@ -19,7 +19,7 @@ async function frei(an) {
     store.set(tok); $("kBox").hidden = false;
     karte(r.an); $("kOn").hidden = r.an; $("kOff").hidden = !r.an;
     const rest = Math.round((new Date(r.bis + "T23:59:59") - Date.now()) / 864e5);
-    $("kStS").innerHTML = "bis " + datum(r.bis) + " · <b>" + (rest <= 0 ? "läuft heute ab" : "noch " + rest + (rest === 1 ? " Tag" : " Tage")) + "</b>";
+    $("kStS").innerHTML = "<span class=\"kbd\">bis " + datum(r.bis) + " · </span><b>" + (rest <= 0 ? "läuft heute ab" : "noch " + rest + (rest === 1 ? " Tag" : " Tage")) + "</b>";
     msg(an === true ? "Eingeschaltet. Jetzt das Spiel neu starten." : an === false ? "Ausgeschaltet. Spiel neu starten, dann bist du wieder normal unterwegs." : !r.an && r.ip_alt && r.ip_alt !== r.ip ? "Zuletzt in einem anderen Netz eingeschaltet – hier einfach nochmal einschalten." : "", "good");
   } catch (e) { msg("Server nicht erreichbar – bitte gleich nochmal.", "bad") }
 }
@@ -27,7 +27,7 @@ async function frei(an) {
 function vergessen() { store.del(); $("kBox").hidden = true; document.documentElement.classList.remove("krueck0"); msg("Code von diesem Gerät entfernt.") }
 function karte(an) {
   $("kMap").classList.toggle("off", !an);
-  $("kMs").textContent = an ? "Lobby an" : "Aus · normale Lobbys";
+  $("kMs").innerHTML = an ? "Lobby an" : "Aus<span class=\"kms2\"> · normale Lobbys</span>";
 }
 function msg(t, k) { $("kMsg").textContent = t; $("kMsg").className = "msg" + (k ? " " + k : "") }
 $("kCheck").onclick = () => frei();
