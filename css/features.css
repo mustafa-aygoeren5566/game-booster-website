@@ -231,3 +231,4 @@ footer .flk{justify-content:center}footer{padding-bottom:76px;text-align:center}
 @media(max-width:600px){.kleg .kub{display:none}.kz .row input{padding-left:10px!important;padding-right:4px!important}}
 @media(max-width:600px){.kz .row input{font-size:11.2px!important}}
 @media(max-width:600px){.kz .row input{font-size:11.7px!important}}
+@media(max-width:600px){.kvc .kvh .sub{display:none!important}.kvc{padding:18px 8px 8px!important}.kvc .kvh{margin-bottom:12px!important}.kvc .kvid{margin:0!important;border-radius:14px!important}.kvc .kvid video{width:100%!important;border-radius:14px}}
