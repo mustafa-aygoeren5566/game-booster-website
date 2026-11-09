@@ -266,3 +266,8 @@ label.chk span,label.chk small,label.cns span{font-size:11.5px!important;line-he
 .rbr .rbi,.rbr #bRab{height:42px!important}
 .rbr #bRab{border:0!important;background:transparent!important;box-shadow:none!important;outline:0;padding-left:10px;letter-spacing:.04em}
 .rbr #bRabGo{height:40px!important;padding:0 18px!important;border-radius:10px!important;background:#2563eb!important;color:#fff!important;border:0!important;font-weight:700}
+.krab{display:flex!important;gap:0!important;align-items:center;padding:5px;border-radius:14px;background:#070b14;border:1px solid #1e2a44}
+.krab:focus-within{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.15)}
+.krab #kRab{flex:1;min-width:0;height:42px;border:0!important;background:transparent!important;box-shadow:none!important;outline:0;padding:0 10px!important;text-transform:uppercase;letter-spacing:.04em}
+.krab #kRab::placeholder{text-transform:none;letter-spacing:0}
+.krab #kRabGo{flex:none;height:40px;margin:0!important;padding:0 18px!important;border-radius:10px!important;background:#2563eb!important;color:#fff!important;border:0!important;font-weight:700}
