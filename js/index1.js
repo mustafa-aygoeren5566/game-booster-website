@@ -259,7 +259,7 @@ let PROMO = PROMO0, PROMO_C = null;
 try { const c = JSON.parse(localStorage.getItem("gbPromo") || "null"); if (c && c.code && c.bis) PROMO = PROMO_C = c; } catch (e) { }
 const promoOn = () => PROMO && PROMO.code && new Date() <= new Date(PROMO.bis + "T23:59:59");
 try { const f = (PROMO_C && promoOn() && PROMO_C.farbe) || ""; const an = document.querySelector(".ann"); if (f && an && /^[a-z0-9]+$/.test(f)) an.className = "ann wait pa pf-" + f; } catch (e) { }
-const promoBereit = (SHOP_API ? fetch(SHOP_API + "/api/aktion", { signal: AbortSignal.timeout ? AbortSignal.timeout(3500) : undefined }).then(r => r.json()).then(r => { if (r.ok) { PROMO = r.aktion || PROMO0; BALD = r.bald || null; try { localStorage.setItem("gbPromo", JSON.stringify(PROMO)); localStorage.setItem("gbBald", JSON.stringify(BALD)); } catch (e) { } zeigeBald(); } }).catch(() => { }) : Promise.resolve()).then(zeigePromo).finally(() => { const n = document.querySelector(".ann"); n && n.classList.remove("wait"); });
+const promoBereit = (SHOP_API ? fetch(SHOP_API + "/api/aktion", { signal: AbortSignal.timeout ? AbortSignal.timeout(3500) : undefined }).then(r => r.json()).then(r => { if (r.ok) { PROMO = r.aktion && new Date() <= new Date(r.aktion.bis + "T23:59:59") ? r.aktion : PROMO0; BALD = r.bald || null; try { localStorage.setItem("gbPromo", JSON.stringify(PROMO)); localStorage.setItem("gbBald", JSON.stringify(BALD)); } catch (e) { } zeigeBald(); } }).catch(() => { }) : Promise.resolve()).then(zeigePromo).finally(() => { const n = document.querySelector(".ann"); n && n.classList.remove("wait"); });
 // Teaser: naechste Aktion startet in 1-3 Tagen (Code erst am Starttag)
 let BALD = null; try { BALD = JSON.parse(localStorage.getItem("gbBald") || "null") } catch (e) {}
 function zeigeBald() {
@@ -294,7 +294,8 @@ function zeigePromo() {
     const tick = () => { const s = Math.max(0, Math.floor((ende - new Date()) / 1000)), z = n => String(n).padStart(2, "0");
       const t = "endet in " + z(Math.floor(s / 3600)) + ":" + z(Math.floor(s / 60) % 60) + ":" + z(s % 60);
       const ar = document.querySelector(".ann .ar"); if (ar) ar.textContent = t;
-      document.getElementById("prBis").textContent = bis + " (" + t + ")"; };
+      document.getElementById("prBis").textContent = bis + " (" + t + ")";
+      if (!s && !zeigePromo.ab) { zeigePromo.ab = 1; clearInterval(zeigePromo.t); setTimeout(() => location.reload(), 4000); } };   // Aktion vorbei: neu laden -> naechste Aktion/Preise vom Server
     tick(); zeigePromo.t = setInterval(tick, 1000);
   }
   document.getElementById("prTxt").textContent = PROMO.code;
