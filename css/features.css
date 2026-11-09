@@ -202,4 +202,4 @@ footer .flk{justify-content:center}footer{padding-bottom:76px;text-align:center}
 @media(max-width:600px){#promo.promo.hm #prRest,#promo.promo.hm .pwk{display:block}#promo.promo.hm .pdot{display:none}#promo.promo.hm .pt small{line-height:1.45}}
 .kst3 .ksw{left:0!important;right:0!important;margin-left:auto!important;margin-right:auto!important;translate:none;transform:none!important;max-width:calc(100% - 32px)}
 @media(max-width:600px){.sp-cr2{left:6px;bottom:6px;padding:3px 6px 3px 4px;gap:4px;font-size:9.5px;border-radius:6px}.sp-cr2 small{display:none}.sp-cr2 svg{width:10px;height:12px}}
-@media(max-width:600px){.shop .st2{top:auto!important;left:auto!important;right:6px!important;bottom:6px!important;padding:3px 6px;font-size:8px;border-radius:5px;letter-spacing:.04em}}
+@media(max-width:600px){.shop .st2{display:none!important}}
