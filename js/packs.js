@@ -63,7 +63,7 @@ function show(){const lb=document.getElementById('lb'),ls=document.getElementByI
  const L=ME.belohnungen||[];document.getElementById('rw').hidden=!L.length;
  document.getElementById('codes').innerHTML=L.map(x=>'<div class="cd" style="--r:'+R[x.r][1]+'"><b>'+esc(x.code)+'</b><span>'+(x.art==='vpn'?esc(x.tage)+(x.tage>1?' Tage':' Tag')+' Game-VPN':esc(x.pct)+' % Rabatt bis '+esc(x.bis||''))+'</span><button data-c="'+esc(x.code)+'">Kopieren</button></div>').join('')}
 document.getElementById('codes').onclick=e=>{const b=e.target.closest('button');if(b)copy(b.dataset.c,b)};
-document.getElementById('login').onclick=async()=>{if(!TOK)return login();if(ME&&!ME.bereit){document.getElementById('mdl').hidden=false;document.getElementById('myes').focus();return}if(ME&&ME.bereit)open()};
+document.getElementById('login').onclick=async()=>{if(!TOK)return login();if(ME&&!ME.bereit){document.getElementById('mnm').textContent=ME.name||'';document.getElementById('mse').textContent=got.size+'/8';document.getElementById('mco').textContent=(ME.belohnungen||[]).length;document.getElementById('mdl').hidden=false;document.getElementById('myes').focus();return}if(ME&&ME.bereit)open()};
 async function load(){if(!TOK)return show();try{const r=await call('me');if(r&&r.ok){ME=r;r.got.forEach(n=>got.add(n-0));T=r.sek;drawSet()}}catch(e){say('Server gerade nicht erreichbar.')}show()}
 load();
 drawSet();
