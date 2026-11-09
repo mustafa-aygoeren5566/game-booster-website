@@ -180,3 +180,16 @@ header{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;bac
 .band{border-radius:18px!important}
 footer .flk{justify-content:center}footer{padding-bottom:76px;text-align:center}
 }
+/* Handy: Aktionsbox + Leiste */
+@media(max-width:600px){
+#promo.promo.hm{grid-template-columns:1fr 104px;grid-template-areas:"v m" "t t" "c c";margin-top:28px;overflow:visible}
+#promo.promo.hm .pv{grid-area:v;flex-direction:row;align-items:baseline;justify-content:flex-start;gap:10px;padding:14px 16px;border-radius:inherit;border-bottom-right-radius:0}
+#promo.promo.hm .pm{grid-area:m;position:relative;right:auto;top:auto;width:104px;margin:-46px 0 0;align-self:end}
+#promo.promo.hm .pt{grid-area:t;padding:4px 16px 12px}
+#promo.promo.hm .pk{white-space:nowrap;font-size:10px}
+#promo.promo.hm .pcd{grid-area:c}
+.ann.pa a{flex-wrap:nowrap;gap:7px;padding-left:10px;padding-right:10px;max-width:100%}
+.ann.pa .ap:last-of-type,.ann.pa .ac{display:none}
+.ann.pa .at,.ann.pa .ar,.ann.pa .ac{font-size:10.5px;letter-spacing:.05em;white-space:nowrap}
+.ann.pa .ap{font-size:11px;padding:3px 8px}
+}
