@@ -172,7 +172,7 @@ if (q) {   // Rueckkehrer: Zugang ganz oben, keine Schritt-Nummern, passende Tit
   e.querySelector(".ke-re").onclick = () => { v.currentTime = 0; v.play() }; })();
 
 // Ort-Auswahl: zeigt Karte + passenden DNS (der Ort selbst kommt vom DNS an der Konsole)
-const ORT = { IN: ["Mumbai", "65.20.95.163"], QA: ["Doha", "34.18.236.51"], ZA: ["Johannesburg", "34.35.30.99"], IL: ["Tel Aviv", "34.165.208.94"] };
+const ORT = { IN: ["Mumbai", "65.20.95.163"], QA: ["Doha", "34.18.236.51"], ZA: ["Johannesburg", "34.35.30.99"], IL: ["Tel Aviv", "34.165.208.94"], DL: ["Delhi", "34.131.73.59"], ID: ["Jakarta", "34.128.66.250"] };
 function ort(iso) {
   document.querySelectorAll(".kort").forEach(b => b.classList.toggle("on", b.dataset.ort === iso));
   $("kOrtN").textContent = ORT[iso][0];
