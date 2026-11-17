@@ -96,3 +96,17 @@ textarea{font-size:17px;min-height:260px}
 .punkte b{font-size:14px}.punkte b::before{display:none}
 .punkte p{font-size:13px;line-height:1.55}
 @media (max-width:720px){.hero{display:block}.hero p{text-align:left;margin-top:8px}.karte.gelb{border-left:0;border-top:1px solid var(--line)}.punkte{gap:16px}.punkte div{border:0;padding:0}}
+
+/* ---- Glas-Karten (wie Werbefrei) ---- */
+body{background:radial-gradient(60% 50% at 85% 10%,rgba(59,130,246,.22),transparent 65%),radial-gradient(50% 45% at 10% 70%,rgba(34,230,255,.10),transparent 65%),var(--bg)}
+.tool{padding:10px;border-radius:22px;overflow:visible;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 30px 60px -30px rgba(0,0,0,.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.leiste{padding:0 0 10px;border-bottom:0;background:none}
+select{background-color:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px}
+.felder{gap:10px}
+.karte,.karte.gelb{border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(5,8,16,.45);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.karte.gelb{background:linear-gradient(180deg,rgba(59,130,246,.12),rgba(59,130,246,.04));border-color:rgba(59,130,246,.25)}
+.karte:focus-within{border-color:rgba(59,130,246,.5)}
+.punkte{gap:12px}
+.punkte div,.punkte div:first-child{padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));box-shadow:inset 0 1px 0 rgba(255,255,255,.07);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.punkte svg{width:38px;height:38px;padding:9px;margin:0;border-radius:11px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);color:#7cb4ff}
+@media (max-width:720px){.punkte div{padding:16px}}
