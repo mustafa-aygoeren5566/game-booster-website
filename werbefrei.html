@@ -55,12 +55,12 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
 #ppBox{max-width:none}
 @media (max-width:720px){.kasse{grid-template-columns:1fr}.ksum{border-right:0;border-bottom:1px solid var(--line)}}
 .chk{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
-.chk input{appearance:none;-webkit-appearance:none;margin-top:2px;width:22px;height:22px;flex:none;border-radius:7px;border:2px solid rgba(34,230,255,.6);background:#0a0f1a;cursor:pointer;display:grid;place-items:center;transition:.2s;box-shadow:0 0 8px rgba(34,230,255,.25)}
-.chk input:hover{border-color:var(--cyan);box-shadow:0 0 12px rgba(34,230,255,.5)}
-.chk input::after{content:"";width:6px;height:11px;border:solid #07070f;border-width:0 3px 3px 0;transform:rotate(45deg) scale(0);margin-top:-3px;transition:transform .15s}
-.chk input:checked{background:linear-gradient(135deg,#22e6ff,#ff2bd6);border-color:transparent;box-shadow:0 0 14px rgba(255,43,214,.55)}
-.chk input:checked::after{transform:rotate(45deg) scale(1)}
-.kpay .chk:has(input:checked){border-color:rgba(255,43,214,.45)}
+.chk input{appearance:none;-webkit-appearance:none;margin:1px 0 0;width:20px;height:20px;flex:none;border-radius:6px;border:2px solid rgba(255,197,61,.6);background:#0a0f1a center/14px no-repeat;cursor:pointer;transition:.2s}
+.chk input:hover{border-color:var(--gold);box-shadow:0 0 10px rgba(255,197,61,.45)}
+
+.chk input:checked{background-color:var(--gold);border-color:var(--gold);background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%231a1200%27 stroke-width=%273.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpath d=%27M5 12.5l4.5 4.5L19 7.5%27/%3E%3C/svg%3E");box-shadow:0 0 12px rgba(255,197,61,.5)}
+
+.kpay .chk:has(input:checked){border-color:rgba(255,197,61,.4)}
 .chk small{color:#b9bdd8;font-size:12.5px;line-height:1.5}
 #ppMsg{margin:14px 0 10px;color:var(--mut);font-size:14px}
 .code{display:none;margin-top:18px;padding:20px;border-radius:14px;border:1.5px solid var(--cyan);background:rgba(34,230,255,.06);box-shadow:0 0 18px rgba(34,230,255,.25)}
