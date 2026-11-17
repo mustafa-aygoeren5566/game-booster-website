@@ -128,3 +128,12 @@ select{background-color:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,
 .wahl-l button.an i{color:#fff;background:var(--blue);border-color:var(--blue)}
 
 .hero{display:block;text-align:center;margin:44px 0 22px}
+
+/* ---- Infos mit Abbildung ---- */
+.punkte div,.punkte div:first-child{display:block;padding:0 0 20px;overflow:hidden;text-align:center}
+.punkte .abb{display:block;width:100%;height:auto;padding:14px 20px 8px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:16px;background:radial-gradient(60% 80% at 50% 100%,rgba(59,130,246,.14),transparent 70%);border-radius:0;border:0;color:inherit}
+.punkte b{padding:0 20px;font-size:16px}
+.punkte p{padding:0 20px;margin-top:4px}
+.schweb{animation:schweb 3.2s ease-in-out infinite}
+@keyframes schweb{50%{transform:translateY(-4px)}}
+@media (prefers-reduced-motion:reduce){.schweb{animation:none}}
