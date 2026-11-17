@@ -123,15 +123,12 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
 .kweg{position:relative;padding-top:22px;margin-top:20px!important}.kweg::before,.ktrust::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(34,230,255,.35),transparent)}.ktrust{display:grid!important;grid-template-columns:1.3fr 1.1fr 1fr;gap:8px!important}.ktrust span{justify-content:center;white-space:nowrap;padding:8px 14px!important;gap:7px!important}.ktrust{position:relative;padding-top:18px!important;margin-top:18px}
 
 
-.seite{position:fixed;top:50%;z-index:-1;pointer-events:none;font:900 12.5vh/.9 'Barlow Condensed',Inter,sans-serif;letter-spacing:-.02em;text-transform:uppercase;white-space:nowrap;writing-mode:vertical-rl;color:transparent;-webkit-text-stroke:1.5px rgba(233,238,248,.07);display:none}
-.seite.l{left:calc(25vw - 185px);transform:translate(-50%,-50%) rotate(180deg)}
-.seite.r{right:calc(25vw - 185px);transform:translate(50%,-50%)}
-.seite b{color:transparent;-webkit-text-stroke:1.5px rgba(34,230,255,.28)}
-@media (min-width:1500px){.seite{display:block}}
+
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:conic-gradient(from 180deg at 50% -8%,transparent 160deg,rgba(34,230,255,.10) 172deg,rgba(255,255,255,.06) 180deg,rgba(34,230,255,.10) 188deg,transparent 200deg),radial-gradient(60% 40% at 50% 0,rgba(34,230,255,.08),transparent 70%)}
+body::before{background-image:radial-gradient(rgba(233,238,248,.11) 1px,transparent 1.2px)!important;background-size:22px 22px!important;mask-image:radial-gradient(ellipse 70% 90% at 50% 40%,transparent 38%,#000 75%)!important;-webkit-mask-image:radial-gradient(ellipse 70% 90% at 50% 40%,transparent 38%,#000 75%)!important}
 </style>
 </head>
 <body>
-<div class="seite l" aria-hidden="true">Kein <b>Werbe</b>block</div><div class="seite r" aria-hidden="true">Weiter<b>schauen</b></div>
 <div class="wrap">
   <div class="top"><a class="logo" href="/"><b><img src="img/logo.webp" alt=""></b><span>Game Booster <em>VPN</em></span><i>WERBEFREI</i></a><a class="home" href="/">Zur Hauptseite<i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i></a></div>
 
