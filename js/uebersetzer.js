@@ -112,3 +112,32 @@ $("merken").addEventListener("click", () => {
 });
 
 ein.focus();
+
+// ---- eigene Glas-Auswahl statt der Browser-Liste ----
+function glasAuswahl(sel) {
+  const box = document.createElement("div"); box.className = "wahl";
+  const knopf = document.createElement("button"); knopf.type = "button"; knopf.className = "wahl-k";
+  knopf.setAttribute("aria-haspopup", "listbox"); knopf.setAttribute("aria-label", sel.getAttribute("aria-label"));
+  const liste = document.createElement("div"); liste.className = "wahl-l"; liste.setAttribute("role", "listbox"); liste.hidden = true;
+  sel.after(box); box.append(sel, knopf, liste); sel.classList.add("versteckt"); sel.tabIndex = -1;
+  const malen = () => {
+    knopf.innerHTML = `<span>${sel.options[sel.selectedIndex].text}</span><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`;
+    liste.innerHTML = "";
+    for (const o of sel.options) {
+      const b = document.createElement("button"); b.type = "button"; b.setAttribute("role", "option");
+      b.className = o.value === sel.value ? "an" : ""; b.innerHTML = `<i>${o.value.toUpperCase()}</i>${o.text}`;
+      b.addEventListener("click", () => { sel.value = o.value; zu(); sel.dispatchEvent(new Event("change")); });
+      liste.append(b);
+    }
+  };
+  const zu = () => { liste.hidden = true; box.classList.remove("offen"); };
+  knopf.addEventListener("click", (e) => { e.stopPropagation(); const war = liste.hidden; document.querySelectorAll(".wahl-l").forEach((l) => { l.hidden = true; l.parentNode.classList.remove("offen"); }); if (war) { malen(); liste.hidden = false; box.classList.add("offen"); } });
+  document.addEventListener("click", (e) => { if (!box.contains(e.target)) zu(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") zu(); });
+  sel.addEventListener("change", malen);
+  new MutationObserver(malen).observe(sel, { childList: true });
+  malen();
+  return malen;
+}
+const neuMalen = [glasAuswahl(von), glasAuswahl(nach)];
+$("tausch").addEventListener("click", () => neuMalen.forEach((f) => f()));
