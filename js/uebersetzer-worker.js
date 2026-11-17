@@ -7,6 +7,8 @@ env.backends.onnx.wasm.wasmPaths = "/tf/";
 env.backends.onnx.wasm.numThreads = 1;
 
 const netze = {};
+// Satzanfang groß: kleingeschriebene Eingaben liefern sonst kleingeschriebene Sätze
+const gross = (t) => t.replace(/^(\s*["„»(]?)(\p{Ll})/u, (m, a, b) => a + b.toUpperCase());
 
 function netz(name) {
   if (!netze[name]) {
@@ -30,8 +32,8 @@ onmessage = async (e) => {
       // Satz für Satz: verhindert, dass kurze Sätze im Stapel mit Füllzeichen „auslaufen“
       const neu = [];
       for (const x of akt) {
-        const [a] = await t(s.vorsatz + x, { num_beams: 2, max_new_tokens: Math.min(400, 20 + x.length), no_repeat_ngram_size: 4, repetition_penalty: 1.2 });
-        neu.push(a.translation_text.replace(/([.!?,\-])\1{2,}.*$/s, "$1").trim());
+        const [a] = await t(s.vorsatz + gross(x), { num_beams: 2, max_new_tokens: Math.min(400, 20 + x.length), no_repeat_ngram_size: 4, repetition_penalty: 1.2 });
+        neu.push(gross(a.translation_text.replace(/([.!?,\-])\1{2,}.*$/s, "$1").trim()));
       }
       akt = neu;
     }
