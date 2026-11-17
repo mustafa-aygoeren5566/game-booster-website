@@ -68,7 +68,7 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
 
 .kweg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 20px}.kweg div{--f:34,230,255;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:16px 8px 14px;border-radius:14px;font-size:11.5px;line-height:1.35;color:var(--mut);background:linear-gradient(180deg,rgba(var(--f),.10),rgba(var(--f),.02));border:1px solid rgba(var(--f),.28);transition:.2s}.kweg div:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(var(--f),.18)}.kweg div:nth-child(2){--f:255,197,61}.kweg div:nth-child(3){--f:255,43,214}.kweg strong{display:block;font-size:13px;color:#eef1fb;font-weight:800;margin-bottom:2px}.kweg b{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;color:rgb(var(--f));background:rgba(var(--f),.12);box-shadow:0 0 16px rgba(var(--f),.35),inset 0 0 0 1px rgba(var(--f),.5)}.kweg b svg{width:20px;height:20px}@media (max-width:420px){.kweg{grid-template-columns:1fr}.kweg div{flex-direction:row;text-align:left}}
 
-.kliste{gap:8px}.kliste li{padding:10px 14px 10px 42px;border-radius:12px;background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 4px 14px rgba(0,0,0,.25);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#e2e6f5;font-weight:500}.kliste li::before{left:14px;top:50%;margin-top:-8px}.kliste li::after{left:19px;top:50%;margin-top:-4px}.kweg div{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.kliste{gap:9px}.kliste li{--f:34,230,255;position:relative;display:flex;align-items:center;gap:12px;padding:9px 14px 9px 9px;border-radius:13px;overflow:hidden;background:linear-gradient(110deg,rgba(var(--f),.13),rgba(255,255,255,.03) 55%);border:1px solid rgba(var(--f),.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 6px 18px rgba(0,0,0,.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#eef1fb;font-weight:600;font-size:14px;transition:.2s}.kliste li:hover{transform:translateX(3px);border-color:rgba(var(--f),.55);box-shadow:0 0 18px rgba(var(--f),.2)}.kliste li:nth-child(2){--f:255,43,214}.kliste li:nth-child(3){--f:255,197,61}.kliste li:nth-child(4){--f:120,140,255}.kliste li::before,.kliste li::after{content:none}.kliste li i{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:9px;color:rgb(var(--f));background:rgba(var(--f),.14);box-shadow:inset 0 0 0 1px rgba(var(--f),.4)}.kliste li i svg{width:18px;height:18px}.kweg div{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
 #ppGeist{display:grid;gap:14px}#ppGeist i{position:relative;display:flex;align-items:center;justify-content:center;gap:6px;height:46px;border-radius:23px;font-style:normal;font-size:16px;cursor:not-allowed;opacity:.38;filter:saturate(.7)}#ppGeist .g1{background:#ffc439;color:#111}#ppGeist .g2{background:#eee;color:#333}#ppGeist .g3{background:#333;color:#fff}#ppGeist .pp{font:italic 900 20px/1 Verdana,sans-serif;color:#009cde;letter-spacing:-.02em}#ppGeist .pp em{color:#003087;font-style:italic}#ppGeist .sepa{display:flex;flex-direction:column;align-items:flex-start;font:900 17px/1 Arial,sans-serif;color:#222}#ppGeist .sepa small{font-size:7.5px;font-weight:700;letter-spacing:.02em}#ppGeist .g3 b{font-size:17px;font-weight:700}#ppGeist .kk{width:26px;height:20px;margin-right:4px}#ppGeist .sl{position:absolute;left:18px;width:17px;height:17px}
 .kpay .chk.warte{border-color:rgba(255,197,61,.65);animation:hk 1.8s ease-in-out infinite}
 @keyframes hk{50%{box-shadow:0 0 14px rgba(255,197,61,.35)}}
@@ -103,7 +103,7 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
 
   <h2>Premium wählen</h2>
   <div class="plans">
-    <button data-v="1.49" data-n="1 Monat"><div class="n">1 Monat</div><div class="p">1,49 €</div><div class="m">einmalig, kein Abo</div></button>
+    <button data-v="1.49" data-n="1 Monat"><div class="n">1 Monat</div><div class="p">1,49 €</div><div class="m">einmal zahlen, kein Abo</div></button>
     <button data-v="2.99" data-n="3 Monate"><div class="n">3 Monate</div><div class="p">2,99 €</div><div class="m">1,00 € pro Monat</div></button>
     <button data-v="4.99" data-n="12 Monate" class="on"><span class="tag">BELIEBT</span><div class="n">12 Monate</div><div class="p">4,99 €</div><div class="m">nur 0,42 € pro Monat</div></button>
   </div>
@@ -112,12 +112,12 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
     <div class="ksum">
       <div class="klabel">Deine Auswahl</div>
       <div class="kplan" id="kPlan">12 Monate</div>
-      <div class="kpreis"><span id="kPreis">4,99 €</span><small>einmalig · kein Abo</small></div>
+      <div class="kpreis"><span id="kPreis">4,99 €</span><small id="kHin">einmal zahlen · 12 Monate werbefrei</small></div>
       <ul class="kliste">
-        <li>Live-Streams ohne Werbepause</li>
-        <li>Video-Werbung sofort übersprungen</li>
-        <li>Automatische Regel-Updates</li>
-        <li>Bis zu 2 Geräte</li>
+        <li><i><svg viewBox="0 0 24 24"><path d="M5 6a9 9 0 0 0 0 12M19 6a9 9 0 0 1 0 12M8.5 9a4.5 4.5 0 0 0 0 6M15.5 9a4.5 4.5 0 0 1 0 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/></svg></i>Live-Streams ohne Werbepause</li>
+        <li><i><svg viewBox="0 0 24 24"><path d="M5 6l8 6-8 6zM14 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></i>Video-Werbung sofort übersprungen</li>
+        <li><i><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Automatische Regel-Updates</li>
+        <li><i><svg viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="10" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 19h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="16" y="9" width="5" height="10" rx="1.2" fill="none" stroke="currentColor" stroke-width="2"/></svg></i>Bis zu 2 Geräte</li>
       </ul>
       <div class="kweg">
         <div><b><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6M3 3l18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></b><span><strong>Kein Konto nötig</strong>Nur der Code, keine Anmeldung</span></div>
@@ -155,6 +155,6 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
 
   <div class="fuss"><div>© 2026 Game Booster VPN</div><div class="flk"><a href="/">Game Booster VPN</a><a href="/recht#agb">AGB</a><a href="/recht#widerruf">Widerruf</a><a href="/recht#impressum">Impressum</a><a href="/werbefrei-datenschutz">Datenschutz</a></div></div>
 </div>
-<script src="js/werbefrei1.js?v=3"></script>
+<script src="js/werbefrei1.js?v=4"></script>
 </body>
 </html>

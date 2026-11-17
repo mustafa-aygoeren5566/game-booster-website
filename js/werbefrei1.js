@@ -7,7 +7,7 @@ let plan = { v: "4.99", n: "12 Monate" }, sdk = null, btn = null;
 document.querySelectorAll(".plans button").forEach(b => b.addEventListener("click", () => {
   document.querySelectorAll(".plans button").forEach(x => x.classList.toggle("on", x === b));
   plan = { v: b.dataset.v, n: b.dataset.n };
-  $("kPlan").textContent = plan.n; $("kPreis").textContent = plan.v.replace(".", ",") + " €";
+  $("kPlan").textContent = plan.n; $("kHin").textContent = "einmal zahlen · " + plan.n + " werbefrei"; $("kPreis").textContent = plan.v.replace(".", ",") + " €";
   zeichne();
 }));
 
