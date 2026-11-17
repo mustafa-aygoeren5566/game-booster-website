@@ -118,11 +118,19 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
 .plans .p{font-size:36px;letter-spacing:-.02em}
 .plans button.on{background:linear-gradient(150deg,rgba(34,230,255,.16),rgba(255,43,214,.06) 70%),linear-gradient(150deg,rgba(255,255,255,.06),rgba(255,255,255,.01));border-color:rgba(34,230,255,.7);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 0 0 1px rgba(34,230,255,.25),0 0 30px rgba(34,230,255,.25),0 16px 36px -14px rgba(0,0,0,.8)}
 .plans button.on .p{color:var(--cyan);text-shadow:0 0 16px rgba(34,230,255,.5)}
+.top a.home{display:flex;align-items:center;gap:10px;padding:6px 16px 6px 6px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(150deg,rgba(255,255,255,.08),rgba(255,255,255,.02));box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 10px 28px -12px rgba(0,0,0,.7);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font-weight:700;font-size:14px;line-height:1.1}
+.top a.home:hover{border-color:rgba(34,230,255,.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 0 22px rgba(34,230,255,.22)}
+.top a.home .hp{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;color:var(--cyan);background:linear-gradient(145deg,rgba(34,230,255,.22),rgba(34,230,255,.05));box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 0 0 1px rgba(34,230,255,.35);transition:.25s}
+.top a.home:hover .hp{transform:translateX(-3px)}
+.top a.home .hp svg{width:17px;height:17px}
+.top a.home .ht{display:flex;flex-direction:column}
+.top a.home small{font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+@media(max-width:560px){.top a.home small{display:none}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><a class="logo" href="/"><b><img src="img/logo.webp" alt=""></b><span>Game Booster <em>VPN</em></span><i>WERBEFREI</i></a><a class="home" href="/">← Game Booster VPN</a></div>
+  <div class="top"><a class="logo" href="/"><b><img src="img/logo.webp" alt=""></b><span>Game Booster <em>VPN</em></span><i>WERBEFREI</i></a><a class="home" href="/"><span class="hp"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ht"><small>Zurück zu</small>Game Booster VPN</span></a></div>
 
   <div class="hero">
     <img src="img/werbefrei.png" alt="GB Werbefrei Icon" width="150" height="150">
