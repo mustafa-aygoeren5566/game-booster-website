@@ -1,5 +1,5 @@
 // Läuft im Hintergrund, damit die Seite beim Übersetzen nicht hängt.
-import { pipeline, env } from "../tf/transformers.min.js";
+import { pipeline, env } from "../tf/transformers.min.js?v=2";
 
 env.allowLocalModels = false;
 env.useBrowserCache = true;
