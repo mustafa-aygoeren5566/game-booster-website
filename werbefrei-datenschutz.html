@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GB Werbefrei – Datenschutz</title>
+<link rel="canonical" href="https://lobbycontrol.pages.dev/werbefrei-datenschutz">
+<meta name="robots" content="noindex">
+<link rel="icon" href="img/logo.webp">
+<link href="fonts/inter.css" rel="stylesheet">
+<style>
+:root{--bg:#05070d;--card:#0d1220;--line:#1a2236;--txt:#e9eef8;--mut:#8b96ad;--blue:#3b82f6;--blue2:#60a5fa;--ok:#34d399}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font:15px/1.7 Inter,system-ui,sans-serif}
+a{color:var(--blue2);text-decoration:none}a:hover{text-decoration:underline}
+.top{border-bottom:1px solid var(--line);padding:14px 20px}
+.top .in{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;letter-spacing:-.02em;color:var(--txt)}.logo:hover{text-decoration:none}.logo b{display:grid;place-items:center;width:52px;height:52px;border-radius:12px;overflow:hidden;background:#000;border:1px solid rgba(59,130,246,.35);box-shadow:0 0 24px rgba(59,130,246,.35)}.logo b img{width:100%;height:100%;object-fit:cover;transform:scale(1.3) translateY(2%)}.logo span em{font-style:normal;color:var(--blue2)}
+nav.tabs{max-width:900px;margin:30px auto 0;padding:0 20px;display:flex;gap:8px;flex-wrap:wrap}
+nav.tabs a{padding:7px 14px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--mut);font-weight:600;font-size:13.5px}
+nav.tabs a:hover{color:var(--txt);text-decoration:none;border-color:#2b4a86}
+main{max-width:900px;margin:0 auto;padding:10px 20px 80px}
+section{margin-top:34px;padding:30px;border-radius:18px;background:var(--card);border:1px solid var(--line);scroll-margin-top:20px}
+h1{font-size:26px;font-weight:900;letter-spacing:-.02em;margin-bottom:14px}
+h2{font-size:16px;font-weight:800;margin:22px 0 6px}
+p,li{color:#c3cce0}ul,ol{padding-left:20px;margin:6px 0}
+.ph{background:rgba(250,204,21,.12);color:#fde68a;padding:0 5px;border-radius:5px;font-weight:600}
+.box{margin:14px 0;padding:14px 16px;border-radius:12px;border:1px solid rgba(52,211,153,.3);background:rgba(52,211,153,.07)}
+.box.b{border-color:rgba(59,130,246,.35);background:rgba(59,130,246,.08)}
+.form{white-space:pre-line;font-family:ui-monospace,Consolas,monospace;font-size:13px;background:#080c16;border:1px solid var(--line);border-radius:12px;padding:16px;color:#c3cce0}
+small{color:var(--mut)}
+</style>
+</head>
+<body>
+<div class="top"><div class="in"><a class="logo" href="/"><b><img src="img/logo.webp" alt=""></b><span>Game Booster <em>VPN</em></span></a><a href="/">← Zur Startseite</a></div></div>
+<main>
+<section>
+<h1>Datenschutz – Browser-Erweiterung „GB Werbefrei“</h1>
+<p>Diese Erklärung gilt für die Browser-Erweiterung „GB Werbefrei“. Verantwortlich ist der Anbieter laut <a href="/recht#impressum">Impressum</a>.</p>
+
+<h2>Was die Erweiterung nicht tut</h2>
+<ul>
+<li>Sie liest, speichert oder überträgt <b>keinen Browserverlauf</b>, keine besuchten Webseiten, keine Formulareingaben und keine Passwörter.</li>
+<li>Sie verkauft oder teilt keine Daten mit Dritten und nutzt keine Tracker oder Analyse-Dienste.</li>
+</ul>
+
+<h2>Welche Daten an unseren Server gehen</h2>
+<p>Die Erweiterung spricht nur mit unserem eigenen Server (65-20-95-163.sslip.io), und nur für diese Zwecke:</p>
+<ul>
+<li><b>Regeln abrufen</b> (etwa alle 3 Stunden): Damit die Werbeerkennung aktuell bleibt. Bei Premium wird dabei ein zufälliges Lizenz-Token mitgeschickt.</li>
+<li><b>Premium-Code einlösen</b>: Der eingegebene Code und eine zufällig erzeugte Geräte-ID (keine Hardware-Kennung, kein Name). Damit binden wir den Code an höchstens 2 Geräte.</li>
+<li><b>Werbung melden</b>: Wenn trotzdem Werbung erscheint, schickt die Erweiterung technische Kennzeichen aus der Video-Playlist (z. B. „twitch-trigger“) und die Versionsnummer. Keine Webseiten-Adressen, keine Nutzerdaten.</li>
+</ul>
+<p>Unser Server sieht dabei technisch bedingt deine IP-Adresse. Wir speichern sie nicht dauerhaft; sie wird nur kurzzeitig im Arbeitsspeicher als Schutz gegen Missbrauch (zu viele Code-Versuche) genutzt.</p>
+
+<h2>Lokal im Browser gespeichert</h2>
+<p>Deine Schalter-Einstellungen, der Zähler „Werbungen geblockt“, die Geräte-ID und das Lizenz-Token liegen nur in deinem Browser. Beim Entfernen der Erweiterung werden sie gelöscht.</p>
+
+<h2>Berechtigungen und wofür</h2>
+<ul>
+<li><b>Zugriff auf Webseiten (Inhaltsskripte)</b>: um Werbeflächen und Werbe-Videos auszublenden oder zu überspringen.</li>
+<li><b>declarativeNetRequest</b>: um Anfragen an bekannte Werbenetzwerke zu blockieren.</li>
+<li><b>storage, alarms</b>: Einstellungen speichern und Regeln regelmäßig aktualisieren.</li>
+</ul>
+
+<h2>Speicherdauer und deine Rechte</h2>
+<p>Lizenzdaten (Code, Geräte-Token, Einlösezeit) speichern wir, solange der Code gültig ist, danach höchstens 12 Monate. Du kannst jederzeit Auskunft oder Löschung verlangen; schreib uns über die Kontaktdaten im <a href="/recht#impressum">Impressum</a>. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertrag) bzw. lit. f (Schutz vor Missbrauch, Funktion der Erweiterung).</p>
+</section>
+<p style="margin-top:30px"><small>Stand: 17.11.2026</small></p>
+</main>
+</body>
+</html>
