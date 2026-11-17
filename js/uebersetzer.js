@@ -174,14 +174,17 @@ function tonfall(t, sprache) {
   if (sprache === "de") return ton === "formell" ? deFormell(t) : deLocker(t);
   return t;
 }
-const tonBox = document.querySelector(".ton"), tonKnoepfe = tonBox.querySelectorAll("button");
+const tonW = $("tonwahl"), tonBox = document.querySelector(".ton"), tonKnoepfe = tonBox.querySelectorAll("button");
 function tonZeigen() {
   tonKnoepfe.forEach((k) => k.classList.toggle("an", k.dataset.ton === ton));
   const geht = nach.value === "de" || nach.value === "en";
-  tonBox.classList.toggle("aus", !geht);
-  tonBox.title = geht ? "" : "Tonfall gibt es für Deutsch und Englisch als Zielsprache";
+  tonW.classList.toggle("aus", !geht);
+  $("tonN").textContent = { normal: "Normal", locker: "Locker", formell: "Formell" }[ton];
+  tonW.title = geht ? "" : "Tonfall gibt es für Deutsch und Englisch als Zielsprache";
 }
-tonKnoepfe.forEach((k) => k.addEventListener("click", () => { ton = k.dataset.ton; speicher("ue_ton", ton); tonZeigen(); los(); }));
+tonKnoepfe.forEach((k) => k.addEventListener("click", () => { tonBox.hidden = true; tonW.classList.remove("offen"); ton = k.dataset.ton; speicher("ue_ton", ton); tonZeigen(); los(); }));
 nach.addEventListener("change", tonZeigen);
 $("tausch").addEventListener("click", tonZeigen);
 tonZeigen();
+$("tonK").addEventListener("click", (e) => { e.stopPropagation(); tonBox.hidden = !tonBox.hidden; tonW.classList.toggle("offen", !tonBox.hidden); });
+document.addEventListener("click", (e) => { if (!tonW.contains(e.target)) { tonBox.hidden = true; tonW.classList.remove("offen"); } });
