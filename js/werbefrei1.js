@@ -7,6 +7,7 @@ let plan = { v: "4.99", n: "12 Monate" }, sdk = null, btn = null;
 document.querySelectorAll(".plans button").forEach(b => b.addEventListener("click", () => {
   document.querySelectorAll(".plans button").forEach(x => x.classList.toggle("on", x === b));
   plan = { v: b.dataset.v, n: b.dataset.n };
+  $("kPlan").textContent = plan.n; $("kPreis").textContent = plan.v.replace(".", ",") + " €";
   zeichne();
 }));
 
@@ -34,7 +35,7 @@ async function zeichne() {
   try { btn && btn.close() } catch (e) {}
   $("ppBox").innerHTML = "";
   btn = paypal.Buttons({
-    style: { layout: "vertical", color: "blue", shape: "rect", label: "pay", height: 44 },
+    style: { layout: "vertical", color: "gold", shape: "pill", label: "pay", height: 46 },
     createOrder: (d, a) => a.order.create({
       purchase_units: [{ description: "GB Werbefrei Premium – " + plan.n, custom_id: "WERBEFREI", amount: { currency_code: "EUR", value: plan.v } }],
       application_context: { shipping_preference: "NO_SHIPPING", brand_name: "Game Booster" }

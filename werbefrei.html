@@ -16,7 +16,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;background-im
 a{color:var(--cyan);text-decoration:none}
 .wrap{position:relative;max-width:980px;margin:0 auto;padding:0 18px 80px}
 .top{display:flex;justify-content:space-between;align-items:center;padding:16px 0}
-.top a.home{color:var(--mut);font-size:14px}
+.top a.home{color:var(--txt);font-size:14px;font-weight:600;padding:8px 16px;border-radius:10px;border:1.5px solid rgba(34,230,255,.55);background:rgba(34,230,255,.06);box-shadow:0 0 12px rgba(34,230,255,.25);transition:.2s}.top a.home:hover{border-color:var(--cyan);box-shadow:0 0 18px rgba(34,230,255,.5)}
 .hero{display:flex;gap:34px;align-items:center;padding:40px 0 20px;flex-wrap:wrap}
 .hero img{width:150px;height:150px;filter:drop-shadow(0 0 30px rgba(34,230,255,.35))}
 .hero h1{font-size:clamp(30px,6vw,48px);font-weight:900;letter-spacing:-.02em;line-height:1.05}
@@ -35,13 +35,29 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
 .plans .n{font-weight:700;font-size:15px}
 .plans .p{font-size:32px;font-weight:900;margin:4px 0}
 .plans .m{color:var(--mut);font-size:13px}
-.plans .tag{position:absolute;top:-10px;right:14px;padding:2px 10px;border-radius:999px;background:var(--pink);color:#fff;font-size:11px;font-weight:800;letter-spacing:.5px;box-shadow:0 0 12px var(--pink)}
-.kasse{margin-top:18px;padding:22px;border-radius:16px;border:1px solid var(--line);background:rgba(0,0,0,.35)}
+.plans .tag{position:absolute;top:-11px;left:50%;transform:translateX(-50%);white-space:nowrap;padding:2px 10px;border-radius:999px;background:var(--pink);color:#fff;font-size:11px;font-weight:800;letter-spacing:.5px;box-shadow:0 0 12px var(--pink)}
+.kasse{margin-top:18px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);border-radius:20px;position:relative;background:linear-gradient(#0b0b16,#0b0b16) padding-box,linear-gradient(135deg,#22e6ff,#ff2bd6) border-box;border:1.5px solid transparent;box-shadow:0 0 30px rgba(34,230,255,.15),0 0 40px rgba(255,43,214,.12);overflow:hidden}
+.ksum{padding:26px;background:radial-gradient(120% 90% at 0% 0%,rgba(34,230,255,.12),transparent 60%);border-right:1px solid var(--line)}
+.klabel{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut)}
+.kplan{font-size:20px;font-weight:800;margin-top:4px}
+.kpreis{display:flex;align-items:baseline;gap:10px;margin:6px 0 16px}
+.kpreis span{font-size:44px;font-weight:900;color:var(--cyan);text-shadow:0 0 18px rgba(34,230,255,.6);line-height:1}
+.kpreis small{color:var(--mut);font-size:13px}
+.kliste{list-style:none;display:grid;gap:8px}
+.kliste li{position:relative;padding-left:26px;color:#c9cde6;font-size:14px}
+.kliste li::before{content:"";position:absolute;left:0;top:3px;width:16px;height:16px;border-radius:50%;background:rgba(255,43,214,.15);border:1.5px solid var(--pink);box-shadow:0 0 6px var(--pink)}
+.kliste li::after{content:"";position:absolute;left:5px;top:7px;width:6px;height:3.5px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg)}
+.ktrust{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+.ktrust span{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--mut)}
+.ktrust svg{width:16px;height:16px;color:var(--cyan)}
+.kpay{padding:26px;display:flex;flex-direction:column}
+.kpay .chk{padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+#ppBox{max-width:none}
+@media (max-width:720px){.kasse{grid-template-columns:1fr}.ksum{border-right:0;border-bottom:1px solid var(--line)}}
 .chk{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
 .chk input{margin-top:4px;width:18px;height:18px;accent-color:#22e6ff;flex:none}
 .chk small{color:#b9bdd8;font-size:12.5px;line-height:1.5}
 #ppMsg{margin:14px 0 10px;color:var(--mut);font-size:14px}
-#ppBox{max-width:420px}
 .code{display:none;margin-top:18px;padding:20px;border-radius:14px;border:1.5px solid var(--cyan);background:rgba(34,230,255,.06);box-shadow:0 0 18px rgba(34,230,255,.25)}
 .code.zeigen{display:block}
 .code .c{font:800 24px Consolas,monospace;letter-spacing:1px;color:var(--cyan);text-shadow:0 0 10px var(--cyan);margin:6px 0 10px;word-break:break-all}
@@ -78,13 +94,30 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
   </div>
 
   <div class="kasse">
-    <label class="chk"><input type="checkbox" id="wOk"><span><small>Ich verlange ausdrücklich, dass mein Code sofort – also vor Ablauf der 14-tägigen Widerrufsfrist – bereitgestellt wird. Mir ist bekannt, dass mein Widerrufsrecht mit Bereitstellung des Codes erlischt. Es gelten die <a href="/recht#agb" target="_blank">AGB</a>, die <a href="/recht#widerruf" target="_blank">Widerrufsbelehrung</a> und der <a href="/werbefrei-datenschutz" target="_blank">Datenschutz</a>.</small></span></label>
-    <div id="ppMsg">Bitte noch den Haken setzen.</div>
-    <div id="ppBox"></div>
-    <div class="code" id="wCode">
-      <div>Dein Premium-Code (auch per Mail an deine PayPal-Adresse):</div>
-      <div class="c" id="wCodeT"></div>
-      <button id="wCopy">Kopieren</button>
+    <div class="ksum">
+      <div class="klabel">Deine Auswahl</div>
+      <div class="kplan" id="kPlan">12 Monate</div>
+      <div class="kpreis"><span id="kPreis">4,99 €</span><small>einmalig · kein Abo</small></div>
+      <ul class="kliste">
+        <li>Live-Streams ohne Werbepause</li>
+        <li>Video-Werbung sofort übersprungen</li>
+        <li>Automatische Regel-Updates</li>
+        <li>Bis zu 2 Geräte</li>
+      </ul>
+      <div class="ktrust">
+        <span><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Sichere Zahlung</span>
+        <span><svg viewBox="0 0 24 24"><path d="M13 3L4 14h7l-1 7 9-11h-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Code sofort</span>
+      </div>
+    </div>
+    <div class="kpay">
+      <label class="chk"><input type="checkbox" id="wOk"><span><small>Ich verlange ausdrücklich, dass mein Code sofort – also vor Ablauf der 14-tägigen Widerrufsfrist – bereitgestellt wird. Mir ist bekannt, dass mein Widerrufsrecht mit Bereitstellung des Codes erlischt. Es gelten die <a href="/recht#agb" target="_blank">AGB</a>, die <a href="/recht#widerruf" target="_blank">Widerrufsbelehrung</a> und der <a href="/werbefrei-datenschutz" target="_blank">Datenschutz</a>.</small></span></label>
+      <div id="ppMsg">Bitte noch den Haken setzen.</div>
+      <div id="ppBox"></div>
+      <div class="code" id="wCode">
+        <div>Dein Premium-Code (auch per Mail an deine PayPal-Adresse):</div>
+        <div class="c" id="wCodeT"></div>
+        <button id="wCopy">Kopieren</button>
+      </div>
     </div>
   </div>
 
@@ -97,6 +130,6 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
 
   <div class="fuss"><a href="/recht#impressum">Impressum</a><a href="/werbefrei-datenschutz">Datenschutz</a><a href="/recht#agb">AGB</a><a href="/">Game Booster VPN</a></div>
 </div>
-<script src="js/werbefrei1.js?v=1"></script>
+<script src="js/werbefrei1.js?v=2"></script>
 </body>
 </html>
