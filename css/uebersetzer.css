@@ -71,3 +71,28 @@ textarea::placeholder{color:#5d6780}
   .hero{margin-top:36px}
   textarea{min-height:160px}
 }
+
+/* ---- ruhiger, weniger Schablone ---- */
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin:48px 0 18px}
+.hero h1{font-size:clamp(30px,4vw,44px);letter-spacing:-.03em}
+.hero p{margin:0 0 6px;max-width:380px;font-size:14px;color:var(--mut);text-align:right}
+.tool{padding:0;border-radius:18px;overflow:hidden;background:#0a0e18;box-shadow:0 30px 60px -35px rgba(0,0,0,.9)}
+.leiste{margin:0;padding:10px;gap:8px;border-bottom:1px solid var(--line);background:#0c111d}
+select{border:0;background-color:transparent;font-size:15px;padding:10px 40px 10px 12px;border-radius:10px}
+select:hover,select:focus{background-color:rgba(255,255,255,.05)}
+.rund{width:38px;height:38px;background:rgba(255,255,255,.06);box-shadow:none;color:var(--txt);border:1px solid var(--line)}
+.rund:hover{background:var(--blue);border-color:var(--blue)}
+.felder{gap:0}
+.karte,.karte.gelb{border:0;border-radius:0;background:none}
+.karte.gelb{background:#0c1220;border-left:1px solid var(--line)}
+.karte:focus-within{box-shadow:none}
+textarea{font-size:17px;min-height:260px}
+.unten{border-top:0;padding:10px 12px 12px 18px}
+.laden{margin:0;padding:10px 16px;border-top:1px solid var(--line)}
+.punkte{grid-template-columns:repeat(3,1fr);gap:0;margin-top:26px}
+.punkte div{display:flex;gap:14px;padding:4px 22px;border:0;border-radius:0;background:none;box-shadow:none;border-left:1px solid var(--line)}
+.punkte div:first-child{border-left:0;padding-left:0}
+.punkte svg{flex:none;width:20px;height:20px;margin-top:2px;color:var(--blue2)}
+.punkte b{font-size:14px}.punkte b::before{display:none}
+.punkte p{font-size:13px;line-height:1.55}
+@media (max-width:720px){.hero{display:block}.hero p{text-align:left;margin-top:8px}.karte.gelb{border-left:0;border-top:1px solid var(--line)}.punkte{gap:16px}.punkte div{border:0;padding:0}}
