@@ -63,6 +63,17 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
 .kpay .chk:has(input:checked){border-color:rgba(255,197,61,.4)}
 .chk small{color:#b9bdd8;font-size:12.5px;line-height:1.5}
 #ppMsg{margin:14px 0 10px;color:var(--mut);font-size:14px}
+.ksum{display:flex;flex-direction:column}.ksum .ktrust{margin-top:auto}
+.kweg{display:grid;gap:10px;margin:22px 0 20px;padding:16px;border-radius:14px;background:rgba(255,255,255,.025);border:1px dashed var(--line)}
+.kweg div{display:flex;align-items:center;gap:12px;font-size:12.5px;color:var(--mut);line-height:1.35}.kweg strong{display:block;font-size:14px;color:#e2e6f5;font-weight:700}
+.kweg b{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;color:var(--cyan);background:rgba(34,230,255,.07);border:1px solid rgba(34,230,255,.35)}.kweg b svg{width:18px;height:18px}
+#ppGeist{display:grid;gap:10px}
+#ppGeist i{display:flex;align-items:center;justify-content:center;gap:8px;height:46px;border-radius:24px;font-style:normal;font-weight:600;font-size:14.5px;color:#5d667d;background:rgba(255,255,255,.035);border:1px dashed #2a3349;cursor:not-allowed}
+#ppGeist i.g1{color:#8a7a4a;border-color:rgba(255,197,61,.3);background:rgba(255,197,61,.05)}
+#ppGeist svg{width:16px;height:16px}
+.kpay .chk.warte{border-color:rgba(255,197,61,.65);animation:hk 1.8s ease-in-out infinite}
+@keyframes hk{50%{box-shadow:0 0 14px rgba(255,197,61,.35)}}
+@media (prefers-reduced-motion:reduce){.kpay .chk.warte{animation:none}}
 .code{display:none;margin-top:18px;padding:20px;border-radius:14px;border:1.5px solid var(--cyan);background:rgba(34,230,255,.06);box-shadow:0 0 18px rgba(34,230,255,.25)}
 .code.zeigen{display:block}
 .code .c{font:800 24px Consolas,monospace;letter-spacing:1px;color:var(--cyan);text-shadow:0 0 10px var(--cyan);margin:6px 0 10px;word-break:break-all}
@@ -109,6 +120,11 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
         <li>Automatische Regel-Updates</li>
         <li>Bis zu 2 Geräte</li>
       </ul>
+      <div class="kweg">
+        <div><b><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6M3 3l18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></b><span><strong>Kein Konto nötig</strong>Nur der Code, keine Anmeldung</span></div>
+        <div><b><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></b><span><strong>Kein Tracking</strong>Keine Verlaufsdaten, keine Weitergabe</span></div>
+        <div><b><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></b><span><strong>Endet von selbst</strong>Kein Abo, nichts zu kündigen</span></div>
+      </div>
       <div class="ktrust">
         <span><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Sichere Zahlung</span>
         <span><svg viewBox="0 0 24 24"><path d="M13 3L4 14h7l-1 7 9-11h-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Code sofort</span>
@@ -118,6 +134,11 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
       <label class="chk"><input type="checkbox" id="wOk"><span><small>Ich verlange ausdrücklich, dass mein Code sofort – also vor Ablauf der 14-tägigen Widerrufsfrist – bereitgestellt wird. Mir ist bekannt, dass mein Widerrufsrecht mit Bereitstellung des Codes erlischt. Es gelten die <a href="/recht#agb" target="_blank">AGB</a>, die <a href="/recht#widerruf" target="_blank">Widerrufsbelehrung</a> und der <a href="/werbefrei-datenschutz" target="_blank">Datenschutz</a>.</small></span></label>
       <div id="ppMsg">Bitte noch den Haken setzen.</div>
       <div id="ppBox"></div>
+      <div id="ppGeist" aria-hidden="true">
+        <i class="g1"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>PayPal</i>
+        <i><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>SEPA-Lastschrift</i>
+        <i><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Kredit- oder Debitkarte</i>
+      </div>
       <div class="code" id="wCode">
         <div>Dein Premium-Code (auch per Mail an deine PayPal-Adresse):</div>
         <div class="c" id="wCodeT"></div>

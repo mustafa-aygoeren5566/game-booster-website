@@ -23,7 +23,9 @@ addEventListener("load", () => setTimeout(() => ppSdk().catch(() => { sdk = null
 function gate() {
   const ok = $("wOk").checked;
   $("ppBox").style.display = ok ? "" : "none";
-  $("ppMsg").textContent = ok ? "Wähle deine Zahlungsart:" : "Bitte noch den Haken setzen.";
+  $("ppGeist").style.display = ok ? "none" : "";
+  $("wOk").closest(".chk").classList.toggle("warte", !ok);
+  $("ppMsg").textContent = ok ? "Wähle deine Zahlungsart:" : "Haken oben setzen, dann werden die Zahlungsarten freigeschaltet:";
 }
 $("wOk").addEventListener("change", () => { gate(); zeichne() });
 

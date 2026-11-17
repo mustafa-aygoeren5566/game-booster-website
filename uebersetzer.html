@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GB Übersetzer – kostenlos, privat, direkt im Browser</title>
+<meta name="description" content="Kostenloser Übersetzer, der komplett in deinem Browser läuft. Deine Texte verlassen nie deinen PC. Deutsch, Englisch, Türkisch, Arabisch, Russisch, Spanisch, Französisch, Polnisch.">
+<link rel="canonical" href="https://lobbycontrol.pages.dev/übersetzer">
+<link href="fonts/inter.css" rel="stylesheet">
+<link href="fonts/barlow.css" rel="stylesheet">
+<link href="css/uebersetzer.css?v=1" rel="stylesheet">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/übersetzer">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="4" width="18" height="16" rx="3" fill="#ffd23f" stroke="#111" stroke-width="2.4"/><rect x="12" y="12" width="18" height="16" rx="3" fill="#ff5a36" stroke="#111" stroke-width="2.4"/><path d="M7 9h8M11 9v2c0 3-2 5-4 6M9 13c1 2 3 3 5 3" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/><path d="M17 24l4-9 4 9M18.5 21h5" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>GB <b>Übersetzer</b></span>
+    </a>
+    <a class="home" href="/">Game Booster VPN</a>
+  </header>
+
+  <section class="hero">
+    <div class="stempel">100 % offline</div>
+    <h1>Übersetzen,<br><span>ohne dass jemand mitliest.</span></h1>
+    <p>Das Übersetzungsnetz läuft direkt in deinem Browser. Kein Server, kein Konto, keine Weitergabe. Einfach tippen.</p>
+  </section>
+
+  <section class="tool" aria-label="Übersetzer">
+    <div class="leiste">
+      <select id="von" aria-label="Ausgangssprache"></select>
+      <button id="tausch" class="rund" type="button" title="Sprachen tauschen" aria-label="Sprachen tauschen">
+        <svg viewBox="0 0 24 24"><path d="M4 8h14l-4-4M20 16H6l4 4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <select id="nach" aria-label="Zielsprache"></select>
+    </div>
+    <div class="felder">
+      <div class="karte">
+        <textarea id="ein" placeholder="Text hier eintippen …" spellcheck="true" maxlength="5000"></textarea>
+        <div class="unten"><span id="zeichen">0 / 5000</span>
+          <button id="leeren" class="klein" type="button" title="Leeren" aria-label="Text leeren"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+        </div>
+      </div>
+      <div class="karte gelb">
+        <textarea id="aus" placeholder="Übersetzung" spellcheck="true"></textarea>
+        <div class="unten"><span id="status">Bereit</span>
+          <span class="knoepfe">
+            <button id="merken" class="klein text" type="button" title="Deine Verbesserung merken">
+              <svg viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4zM14 6l3 3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>Verbesserung merken</button>
+            <button id="kopieren" class="klein" type="button" title="Kopieren" aria-label="Übersetzung kopieren"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div id="laden" class="laden" hidden><div class="balken"><i id="ladebalken"></i></div><span id="ladetext">Sprachnetz wird geladen …</span></div>
+  </section>
+
+  <section class="punkte">
+    <div><b>Privat</b><p>Dein Text bleibt auf deinem Gerät. Wir sehen ihn nie.</p></div>
+    <div><b>Lernt mit</b><p>Übersetzung falsch? Rechts verbessern und „Verbesserung merken“ drücken. Beim nächsten Mal kommt deine Version.</p></div>
+    <div><b>Offline</b><p>Beim ersten Mal lädt das Sprachnetz einmalig (ca. 50–100 MB). Danach geht es auch ohne Internet.</p></div>
+  </section>
+
+  <footer class="fuss">
+    <div>© 2026 Game Booster VPN · Übersetzungsnetze: Opus-MT (Helsinki-NLP, CC-BY 4.0)</div>
+    <div class="flk"><a href="/">Game Booster VPN</a><a href="/werbefrei">GB Werbefrei</a><a href="/recht#impressum">Impressum</a></div>
+  </footer>
+</div>
+<script type="module" src="js/uebersetzer.js?v=1"></script>
+</body>
+</html>
