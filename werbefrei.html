@@ -120,7 +120,7 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
 .plans button.on .p{color:var(--cyan);text-shadow:0 0 16px rgba(34,230,255,.5)}
 .top a.home{display:flex;align-items:center;gap:12px;color:#e9eef8;font-weight:700;font-size:14px;padding:4px 4px 4px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);box-shadow:none;transition:.25s}.top a.home:hover{border-color:rgba(34,230,255,.4);box-shadow:none;background:rgba(255,255,255,.07)}.top a.home i{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#e9eef8;color:#05070d;transition:.3s}.top a.home svg{width:16px;height:16px}.top a.home:hover i{transform:rotate(-45deg);background:var(--cyan)}
 
-.kweg{position:relative;padding-top:22px;margin-top:20px!important}.kweg::before,.ktrust::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(34,230,255,.35),transparent)}.ktrust{position:relative;padding-top:18px!important;margin-top:18px}
+.kweg{position:relative;padding-top:22px;margin-top:20px!important}.kweg::before,.ktrust::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(34,230,255,.35),transparent)}.ktrust{display:grid!important;grid-template-columns:repeat(3,1fr);gap:10px!important}.ktrust span{justify-content:center;white-space:nowrap;padding:7px 8px!important}.ktrust{position:relative;padding-top:18px!important;margin-top:18px}
 </style>
 </head>
 <body>
@@ -167,6 +167,7 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
       <div class="ktrust">
         <span><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Sichere Zahlung</span>
         <span><svg viewBox="0 0 24 24"><path d="M13 3L4 14h7l-1 7 9-11h-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Code sofort</span>
+        <span><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 10h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Support</span>
       </div>
     </div>
     <div class="kpay">
