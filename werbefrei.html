@@ -67,10 +67,7 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
 .kweg{display:grid;gap:10px;margin:22px 0 20px;padding:16px;border-radius:14px;background:rgba(255,255,255,.025);border:1px dashed var(--line)}
 .kweg div{display:flex;align-items:center;gap:12px;font-size:12.5px;color:var(--mut);line-height:1.35}.kweg strong{display:block;font-size:14px;color:#e2e6f5;font-weight:700}
 .kweg b{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;color:var(--cyan);background:rgba(34,230,255,.07);border:1px solid rgba(34,230,255,.35)}.kweg b svg{width:18px;height:18px}
-#ppGeist{display:grid;gap:10px}
-#ppGeist i{display:flex;align-items:center;justify-content:center;gap:8px;height:46px;border-radius:24px;font-style:normal;font-weight:600;font-size:14.5px;color:#5d667d;background:rgba(255,255,255,.035);border:1px dashed #2a3349;cursor:not-allowed}
-#ppGeist i.g1{color:#8a7a4a;border-color:rgba(255,197,61,.3);background:rgba(255,197,61,.05)}
-#ppGeist svg{width:16px;height:16px}
+#ppGeist{display:grid;gap:14px}#ppGeist i{position:relative;display:flex;align-items:center;justify-content:center;gap:6px;height:46px;border-radius:23px;font-style:normal;font-size:16px;cursor:not-allowed;opacity:.38;filter:saturate(.7)}#ppGeist .g1{background:#ffc439;color:#111}#ppGeist .g2{background:#eee;color:#333}#ppGeist .g3{background:#333;color:#fff}#ppGeist .pp{font:italic 900 20px/1 Verdana,sans-serif;color:#009cde;letter-spacing:-.02em}#ppGeist .pp em{color:#003087;font-style:italic}#ppGeist .sepa{display:flex;flex-direction:column;align-items:flex-start;font:900 17px/1 Arial,sans-serif;color:#222}#ppGeist .sepa small{font-size:7.5px;font-weight:700;letter-spacing:.02em}#ppGeist .g3 b{font-size:17px;font-weight:700}#ppGeist .kk{width:26px;height:20px;margin-right:4px}#ppGeist .sl{position:absolute;left:18px;width:17px;height:17px}
 .kpay .chk.warte{border-color:rgba(255,197,61,.65);animation:hk 1.8s ease-in-out infinite}
 @keyframes hk{50%{box-shadow:0 0 14px rgba(255,197,61,.35)}}
 @media (prefers-reduced-motion:reduce){.kpay .chk.warte{animation:none}}
@@ -135,9 +132,9 @@ h2{font-size:24px;font-weight:900;margin:44px 0 16px}
       <div id="ppMsg">Bitte noch den Haken setzen.</div>
       <div id="ppBox"></div>
       <div id="ppGeist" aria-hidden="true">
-        <i class="g1"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>PayPal</i>
-        <i><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>SEPA-Lastschrift</i>
-        <i><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Kredit- oder Debitkarte</i>
+        <i class="g1"><svg class="sl" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Pay with <b class="pp"><em>Pay</em>Pal</b></i>
+        <i class="g2"><svg class="sl" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Pay with <b class="sepa">SEPA<small>Lastschrift</small></b></i>
+        <i class="g3"><svg class="sl" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg><svg class="kk" viewBox="0 0 26 20"><rect x="1.5" y="1.5" width="23" height="17" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M1.5 6.5h23" stroke="currentColor" stroke-width="2"/></svg><b>Debit or Credit Card</b></i>
       </div>
       <div class="code" id="wCode">
         <div>Dein Premium-Code (auch per Mail an deine PayPal-Adresse):</div>
