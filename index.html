@@ -554,6 +554,9 @@ details{position:relative}details[open]{border-color:#2f4f8a}
 @media(max-width:600px){#toTop{right:16px;bottom:16px;width:42px;height:42px}}
 .gb-off,.gb-off *,#sicher.gb-scr *{animation-play-state:paused!important}#sicher.gb-scr *{transition:none!important}
 @media (max-width:820px),(pointer:coarse){.blk{animation:none}}
+
+/* Weltkarten statisch: SVG-Animationen malen sonst jedes Bild die ganze Karte neu */
+.vz-map svg *,.lkm svg *{animation:none!important}.vz-map svg .pin,.lkm svg .pin{opacity:.35}
 </style>
 <link rel="stylesheet" href="css/features.css?v=73">
 <link rel="preload" as="image" href="img/bg-blau-leiste.webp" fetchpriority="high">
