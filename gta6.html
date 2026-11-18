@@ -141,6 +141,18 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
 .credit .kd{font:italic 800 13.5px/1 'Barlow Condensed',sans-serif;letter-spacing:.1em;color:#fff}
 #tip{position:fixed;left:0;top:0;z-index:50;pointer-events:none;max-width:260px;padding:8px 12px;border-radius:11px;background:linear-gradient(180deg,rgba(30,15,52,.97),rgba(16,8,30,.97));border:1px solid rgba(255,255,255,.1);box-shadow:0 10px 30px rgba(0,0,0,.5),0 0 0 1px rgba(255,61,139,.12);opacity:0;transition:opacity .12s;font-size:12.5px;line-height:1.4}
 #tip.an{opacity:1}#tip b{display:block;font:italic 800 16px/1.1 'Barlow Condensed',sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#ffd166}#tip span{display:block;margin-top:3px;color:#d9c9ee}
+.card{background:linear-gradient(180deg,rgba(24,12,42,.94),rgba(12,6,22,.95));border:1px solid rgba(255,255,255,.07);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 20px 50px rgba(0,0,0,.45);border-radius:18px}
+.card h2{background:linear-gradient(90deg,#ffd166,#ff7a45 45%,#ff3d8b);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+.card>p{color:#c9b6e4;font-size:14px}
+.kap{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:12px 14px;position:relative;overflow:hidden;transition:.15s}
+.kap:hover{background:rgba(255,255,255,.06)}
+.kap::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:0 3px 3px 0;background:linear-gradient(180deg,#ff3d8b,#c46bff)}
+.kap h3{color:#fff;font-size:18px;letter-spacing:.04em}.kap .leer{color:#9d8bb8;font-size:12.5px}
+.liste{list-style:none;display:grid;gap:2px;margin-top:8px}
+.liste li{display:flex;align-items:center;gap:12px;padding:8px;border-radius:10px;transition:background .15s}.liste li:hover{background:rgba(255,255,255,.05)}
+.liste b{display:block;font-size:14px;color:#fff}.liste small{display:block;font-size:12.5px;color:#b9a6cf;line-height:1.4}
+.gic{width:32px;height:32px;border-radius:9px;border:1.5px solid #ffd166;color:#ffd166;background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.02) 50%,rgba(0,0,0,.4));box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 0 12px -3px #ffd166}.gic svg{width:17px;height:17px;fill:#ffd166}
+.gic.st{border-color:#ff3d8b;box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 0 12px -3px #ff3d8b}.gic.st svg{fill:none}
 </style>
 </head>
 <body>
@@ -199,16 +211,16 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
   <div class="zwei">
     <section class="card">
       <h2>Die 6 Regionen</h2>
-      <p><b>Vice City</b> ist die größte Stadt mit Ocean Beach, Little Cuba und dem Kreuzfahrthafen. Im Süden liegen die <b>Leonida Keys</b>, eine Inselkette, auf der die Story von Jason und Lucia beginnt. <b>Grassrivers</b> ist das große Sumpfgebiet, <b>Port Gellhorn</b> eine heruntergekommene Hafenstadt an der Golfküste. Im Landesinneren liegt <b>Ambrosia</b> mit der Zuckerraffinerie am Lake Leonida, ganz im Norden der Nationalpark <b>Mount Kalaga</b>.</p>
+      <ul class="liste"><li><span class="ic gic"><svg viewBox="0 0 24 24"><path d="M2 21V12h4V7h4v4h3V3h4v8h3v4h2v6z"/></svg></span><div><b>Vice City</b><small>Größte Stadt mit Ocean Beach, Little Cuba und dem Kreuzfahrthafen.</small></div></li><li><span class="ic gic"><svg viewBox="0 0 24 24"><path d="M11 21c0-4 .6-8 2.2-11.2l1.7.7C13.5 13.6 13 17 13 21zM13.4 9.5C10.5 6.5 6.5 6 3 8c3.4-.4 6.6.4 9.6 2.6zM14 9c1-3.4 4.4-5.6 8.4-4.6-3.4.4-6.4 2-8 5zM2 21h20v1.5H2z"/></svg></span><div><b>Leonida Keys</b><small>Inselkette im Süden, hier beginnt die Story von Jason und Lucia.</small></div></li><li><span class="ic gic"><svg viewBox="0 0 24 24"><path d="M11 3h2v12h-2zM6 7h2v8H6zM16 6h2v9h-2zM2 18c2-2 4-2 6 0s4 2 6 0 4-2 6 0 2 0 2 0v3c-2-2-4-2-6 0s-4 2-6 0-4-2-6 0-2 0-2 0z"/></svg></span><div><b>Grassrivers</b><small>Das große Sumpfgebiet mit Airboats.</small></div></li><li><span class="ic gic"><svg viewBox="0 0 24 24"><path d="M12 2a2.5 2.5 0 110 5 2.5 2.5 0 010-5zM11 7h2v12c2.5-.4 4.5-2 5.4-4.2l-2.4.6 3.5-4.4 1.2 5.6-1.6-1.2C18 19 15.5 21 12 21s-6-2-7.1-5.6L3.3 16.6l1.2-5.6L8 15.4l-2.4-.6C6.5 17 8.5 18.6 11 19z"/></svg></span><div><b>Port Gellhorn</b><small>Heruntergekommene Hafenstadt an der Golfküste.</small></div></li><li><span class="ic gic"><svg viewBox="0 0 24 24"><path d="M3 21V11l5 3v-3l5 3V5h3v16zM18 21V8h3v13z"/></svg></span><div><b>Ambrosia</b><small>Zuckerraffinerie am Lake Leonida im Landesinneren.</small></div></li><li><span class="ic gic"><svg viewBox="0 0 24 24"><path d="M2 20l7-12 4 6 3-4 6 10z"/></svg></span><div><b>Mount Kalaga</b><small>Nationalpark ganz im Norden.</small></div></li></ul>
     </section>
     <section class="card">
       <h2>So nutzt du die Karte</h2>
-      <p>Im Filter links auf der Karte Kategorien an- und ausschalten (mit dem Pfeil einklappbar), mit dem Mausrad oder zwei Fingern zoomen, mit gedrückter Maus verschieben. Tippe auf ein Icon für Details und hake erledigte Orte ab. Dein Fortschritt wird nur auf deinem Gerät gespeichert.</p>
+      <ul class="liste"><li><span class="ic gic st"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg></span><div><b>Filter</b><small>Im Filter links Kategorien an- und ausschalten, mit dem Pfeil einklappen.</small></div></li><li><span class="ic gic st"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-5-5M8 11h6M11 8v6"/></svg></span><div><b>Zoomen</b><small>Mausrad oder zwei Finger, Zahlen-Kreise antippen zoomt hinein.</small></div></li><li><span class="ic gic st"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M12 2l-3 3M12 2l3 3M12 22l-3-3M12 22l3-3M2 12l3-3M2 12l3 3M22 12l-3-3M22 12l-3 3"/></svg></span><div><b>Verschieben</b><small>Mit gedrückter Maus oder einem Finger über die Karte ziehen.</small></div></li><li><span class="ic gic st"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><div><b>Abhaken</b><small>Icon antippen, Details lesen und erledigte Orte abhaken. Bleibt nur auf deinem Gerät.</small></div></li></ul>
     </section>
   </div>
 </main>
 <footer>© 2026 Game Booster VPN. Fanseite, nicht mit Rockstar Games oder Take-Two verbunden. Grand Theft Auto ist eine Marke von Take-Two Interactive. Kartendaten: <a href="https://www.gtabase.com/de/gta-6/karte/">GTABase</a> mit freundlicher Erlaubnis. Kartengrafik: <a href="https://gtadb.org">gtadb.org</a> und Mitwirkende, CC BY 4.0. Eigene Icons.<br><a href="/">Startseite</a><a href="/mw4">MW4</a><a href="/updates">Updates</a><a href="/recht">Impressum</a></footer>
 <script src="js/gta6-daten.js?v=6"></script>
-<script src="js/gta6.js?v=25"></script>
+<script src="js/gta6.js?v=26"></script>
 </body>
 </html>
