@@ -64,7 +64,38 @@
     svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h);
     var s = (r.width ? vb.w / r.width : 1) * (vb.w > 300 ? .62 : vb.w > 120 ? .8 : 1);
     if (Math.abs(s - altS) > 1e-9) { altS = s; Array.prototype.forEach.call(pins.children, function (g) { g.setAttribute("transform", "translate(" + g.dataset.x + "," + g.dataset.y + ") scale(" + s + ")"); }); }
-    kacheln();
+    kacheln(); buendeln(r);
+  }
+  // ---------- Bündeln beim Rauszoomen (Zahlen-Kreise statt Icon-Haufen) ----------
+  var haufen = document.getElementById("haufen"), bundKey = "", pinVer = 0;
+  function farbe(n) { var t = Math.min(1, Math.log(n) / Math.log(150)); return "hsl(" + Math.round(95 - t * 70) + ",95%," + Math.round(62 - t * 4) + "%)"; }
+  function buendeln(r) {
+    if (!r.width) return;
+    var proPx = vb.w / r.width, an = vb.w > 210;
+    var zelle = an ? Math.pow(2, Math.ceil(Math.log2(78 * proPx))) : 0;
+    var key = pinVer + ":" + zelle + ":" + (an ? Math.round(proPx * 1000) : 0);
+    if (key === bundKey) return; bundKey = key;
+    haufen.innerHTML = ""; pins.classList.toggle("bund", an);
+    if (!an) return;
+    var zellen = {};
+    Array.prototype.forEach.call(pins.children, function (g) {
+      g.classList.remove("solo");
+      var x = +g.dataset.x, y = +g.dataset.y, k = Math.floor(x / zelle) + "_" + Math.floor(y / zelle);
+      (zellen[k] = zellen[k] || []).push(g);
+    });
+    Object.keys(zellen).forEach(function (k) {
+      var l = zellen[k];
+      if (l.length < 3) { l.forEach(function (g) { g.classList.add("solo"); }); return; }
+      var sx = 0, sy = 0; l.forEach(function (g) { sx += +g.dataset.x; sy += +g.dataset.y; });
+      var cx = sx / l.length, cy = sy / l.length, rad = 13 + Math.min(12, Math.log(l.length) * 2.6), f = farbe(l.length);
+      var g = el("g", { class: "hf", transform: "translate(" + cx + "," + cy + ") scale(" + proPx + ")", role: "button", tabindex: "0", "aria-label": l.length + " Orte, hineinzoomen" }, haufen);
+      el("circle", { r: rad + 7, fill: f, class: "ha" }, g);
+      el("circle", { r: rad, fill: f, stroke: "rgba(26,11,46,.55)", "stroke-width": 1.5, class: "hk" }, g);
+      el("text", {}, g).textContent = l.length;
+      function rein() { if (bewegt) return; fliegen(cx, cy, Math.max(60, vb.w / 3)); }
+      g.addEventListener("click", rein);
+      g.addEventListener("keydown", function (e) { if (e.key === "Enter") rein(); });
+    });
   }
   window.addEventListener("resize", setzen);
   function zoom(f, cx, cy, schnell) {
@@ -153,7 +184,7 @@
     info.appendChild(kopf); info.appendChild(p); info.appendChild(b);
   }
   function zeichnen() {
-    pins.innerHTML = ""; altS = -1;
+    pins.innerHTML = ""; altS = -1; pinVer++;
     D.punkte.forEach(function (pt, i) {
       if (aus[pt.k]) return;
       if (suche && pt.n.toLowerCase().indexOf(suche) < 0) return;

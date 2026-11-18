@@ -80,7 +80,7 @@ h1 em{font-style:inherit;display:block;color:var(--gelb);-webkit-text-fill-color
 .rname{font:italic 800 1em 'Barlow Condensed',sans-serif;fill:#fff;stroke:#2a9ac0;stroke-width:var(--sw,3px);paint-order:stroke;text-anchor:middle;letter-spacing:.08em;pointer-events:none;opacity:.95}
 .pin{cursor:pointer;outline:none}.pin .pform{fill:url(#glas);stroke-width:2}.pin .pico{fill:#fff;pointer-events:none}
 .pin:hover .pform,.pin:focus .pform{fill:url(#glas2);stroke-width:3}
-.pin.ok{opacity:.45}.zieht #pins,#karte.zieht #pins{pointer-events:none}
+.pin.ok{opacity:.45}#pins.bund .pin{display:none}#pins.bund .pin.solo{display:inline}.hf{cursor:pointer}.hf .ha{opacity:.35}.hf text{font:800 13px Inter,sans-serif;fill:#1a0b2e;text-anchor:middle;dominant-baseline:central;pointer-events:none}.hf:hover .hk{stroke:#fff;stroke-width:2.5}.zieht #haufen{pointer-events:none}.zieht #pins,#karte.zieht #pins{pointer-events:none}
 .credit{position:absolute;right:10px;bottom:8px;z-index:2;display:flex;align-items:center;gap:7px;font-size:11.5px;padding:4px 10px;border-radius:999px;background:rgba(18,8,31,.8);color:#fff}.credit a{color:#fff;display:flex;align-items:center;gap:6px}.credit img{height:13px;width:auto}
 .zk{position:absolute;right:14px;top:14px;display:grid;gap:8px;z-index:2}
 .zk button{width:42px;height:42px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(29,16,48,.92);display:grid;place-items:center;cursor:pointer}.zk button:hover{background:var(--pink)}
@@ -141,6 +141,7 @@ footer{border-top:1px solid var(--line);padding:24px 20px;text-align:center;colo
       <rect x="-2000" y="-2000" width="5000" height="5000" fill="#2c66a5"/>
       <g id="kacheln"></g>
       <g id="pins"></g>
+      <g id="haufen"></g>
     </svg>
     <div class="zk">
       <button id="zplus" type="button" aria-label="Hineinzoomen"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></button>
@@ -171,6 +172,6 @@ footer{border-top:1px solid var(--line);padding:24px 20px;text-align:center;colo
 </main>
 <footer>© 2026 Game Booster VPN. Fanseite, nicht mit Rockstar Games oder Take-Two verbunden. Grand Theft Auto ist eine Marke von Take-Two Interactive. Kartendaten: <a href="https://www.gtabase.com/de/gta-6/karte/">GTABase</a> mit freundlicher Erlaubnis. Kartengrafik: <a href="https://gtadb.org">gtadb.org</a> und Mitwirkende, CC BY 4.0. Eigene Icons.<br><a href="/">Startseite</a><a href="/mw4">MW4</a><a href="/updates">Updates</a><a href="/recht">Impressum</a></footer>
 <script src="js/gta6-daten.js?v=5"></script>
-<script src="js/gta6.js?v=13"></script>
+<script src="js/gta6.js?v=14"></script>
 </body>
 </html>
