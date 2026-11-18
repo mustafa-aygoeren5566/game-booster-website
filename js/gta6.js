@@ -84,7 +84,7 @@
   (D.bezirke || []).forEach(function (b) {
     var d = b.ringe.map(function (r) { return "M" + r.map(function (p) { return p[0] + " " + p[1]; }).join("L") + "Z"; }).join("");
     var rg = el("g", { class: "rg", id: "rg-" + b.id }, gg);
-    el("title", {}, rg).textContent = b.name;
+    rg.dataset.tip = b.name;
     el("path", { d: d, class: "fl" }, rg); el("path", { d: d, class: "rand" }, rg);
   });
   var regmark = document.getElementById("regmark");
@@ -94,7 +94,7 @@
     D.regionen.forEach(function (r) {
       var g = el("g", { class: "rm", role: "button", tabindex: "0", "aria-label": "Region " + r.name }, regmark);
       g.dataset.x = r.x; g.dataset.y = r.y;
-      el("title", {}, g).textContent = r.name + ": " + r.text;
+      g.dataset.tip = r.name; g.dataset.tip2 = r.text;
       el("rect", { x: -17, y: -17, width: 34, height: 34, rx: 9, class: "rb" }, g);
       el("path", { d: RICON[r.id] || RICON.vice, transform: "translate(-10,-10) scale(.833)", class: "ri" }, g);
       el("text", { y: 34 }, g).textContent = r.name;
@@ -230,7 +230,7 @@
       var k = KAT[pt.k];
       var g = el("g", { class: "pin" + (erledigt["p" + i] ? " ok" : ""), tabindex: "0", role: "button", "aria-label": pt.n }, pins);
       g.dataset.x = pt.x; g.dataset.y = pt.y;
-      el("title", {}, g).textContent = pt.n;
+      g.dataset.tip = pt.n; g.dataset.tip2 = k.name;
       el("rect", { x: -13, y: -13, width: 26, height: 26, rx: 7, stroke: k.farbe, class: "pform" }, g);
       el("rect", { x: -11, y: -11.5, width: 22, height: 9, rx: 5, fill: "rgba(255,255,255,.13)", "pointer-events": "none" }, g);
       el("path", { d: k.icon, transform: "translate(-8,-8) scale(.667)", class: "pico" }, g);
@@ -299,7 +299,7 @@
     var b = document.createElement("button"); b.type = "button"; b.className = "kat an";
     var anz = D.punkte.filter(function (p) { return p.r === r.id; }).length;
     b.innerHTML = '<span class="ic" style="color:#ffd166"><svg viewBox="0 0 24 24"><path d="' + (RICON[r.id] || "") + '"/></svg></span><span class="kn"></span><span class="kz">' + anz + '</span>';
-    b.querySelector(".kn").textContent = r.name; b.title = r.text;
+    b.querySelector(".kn").textContent = r.name; b.dataset.tip = r.name; b.dataset.tip2 = r.text;
     b.onclick = function () { fliegen(r.x, r.y, r.id === "vice" ? 120 : 200); };
     var bz = bezirkBei(r.x, r.y), rgE = bz && document.getElementById("rg-" + bz.id);
     if (rgE) { b.addEventListener("mouseenter", function () { rgE.classList.add("an"); }); b.addEventListener("mouseleave", function () { rgE.classList.remove("an"); }); }
@@ -308,6 +308,19 @@
   var A0 = verh(); if (A0 > 1) { START.w = 560 / A0 * 1.1; START.x = 430 - START.w / 2; } START.y = 480 - START.w * A0 / 2;
   vb.x = START.x; vb.y = START.y; vb.w = START.w;
   zeichnen();
+
+  // ---------- Eigener Tooltip statt Browser-Standard ----------
+  var tip = document.createElement("div"); tip.id = "tip"; tip.innerHTML = "<b></b><span></span>"; document.body.appendChild(tip);
+  var tipAn = null;
+  document.addEventListener("pointermove", function (e) {
+    var t = e.target.closest && e.target.closest("[data-tip]");
+    if (!t || svg.classList.contains("zieht")) { if (tipAn) { tip.classList.remove("an"); tipAn = null; } return; }
+    if (t !== tipAn) { tipAn = t; tip.firstChild.textContent = t.dataset.tip; tip.lastChild.textContent = t.dataset.tip2 || ""; tip.lastChild.style.display = t.dataset.tip2 ? "" : "none"; tip.classList.add("an"); }
+    var x = e.clientX + 14, y = e.clientY + 16, w = tip.offsetWidth, h = tip.offsetHeight;
+    if (x + w > innerWidth - 8) x = e.clientX - w - 14; if (y + h > innerHeight - 8) y = e.clientY - h - 12;
+    tip.style.transform = "translate(" + x + "px," + y + "px)";
+  }, { passive: true });
+  document.addEventListener("pointerdown", function () { tip.classList.remove("an"); tipAn = null; });
 
   // ---------- Countdown ----------
   var cd = document.getElementById("countdown"), ziel = Date.parse("2026-11-19T00:00:00+01:00"); // Release Deutschland 00:00 Uhr MEZ

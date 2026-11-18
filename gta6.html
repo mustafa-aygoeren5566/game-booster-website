@@ -138,6 +138,9 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
 #suche::placeholder{color:#9d8bb8}
 #suche:focus{border-color:rgba(255,61,139,.6);box-shadow:inset 0 1px 3px rgba(0,0,0,.4),0 0 0 3px rgba(255,61,139,.15)}
 #suche::-webkit-search-cancel-button{filter:invert(1) opacity(.6)}
+.credit .kd{font:italic 800 13.5px/1 'Barlow Condensed',sans-serif;letter-spacing:.1em;color:#fff}
+#tip{position:fixed;left:0;top:0;z-index:50;pointer-events:none;max-width:260px;padding:8px 12px;border-radius:11px;background:linear-gradient(180deg,rgba(30,15,52,.97),rgba(16,8,30,.97));border:1px solid rgba(255,255,255,.1);box-shadow:0 10px 30px rgba(0,0,0,.5),0 0 0 1px rgba(255,61,139,.12);opacity:0;transition:opacity .12s;font-size:12.5px;line-height:1.4}
+#tip.an{opacity:1}#tip b{display:block;font:italic 800 16px/1.1 'Barlow Condensed',sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#ffd166}#tip span{display:block;margin-top:3px;color:#d9c9ee}
 </style>
 </head>
 <body>
@@ -183,7 +186,7 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
       <button id="zreset" type="button" aria-label="Ganze Karte"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
     </div>
     <div id="info" hidden></div>
-    <div class="credit"><a href="https://www.gtabase.com/de/gta-6/karte/" target="_blank" rel="noopener" title="Kartendaten: GTABase"><img src="img/gtabase-logo.webp" alt="GTABase" width="54" height="13"> Kartendaten <img src="img/gtabase-logo.webp" alt="" width="54" height="13"></a></div>
+    <div class="credit"><a href="https://www.gtabase.com/de/gta-6/karte/" target="_blank" rel="noopener" data-tip="GTABase" data-tip2="Kartendaten mit freundlicher Erlaubnis"><img src="img/gtabase-logo.webp" alt="GTABase" width="54" height="13"> <span class="kd">KARTENDATEN</span> <img src="img/gtabase-logo.webp" alt="" width="54" height="13"></a></div>
   </div>
 </div>
 
@@ -206,6 +209,6 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
 </main>
 <footer>© 2026 Game Booster VPN. Fanseite, nicht mit Rockstar Games oder Take-Two verbunden. Grand Theft Auto ist eine Marke von Take-Two Interactive. Kartendaten: <a href="https://www.gtabase.com/de/gta-6/karte/">GTABase</a> mit freundlicher Erlaubnis. Kartengrafik: <a href="https://gtadb.org">gtadb.org</a> und Mitwirkende, CC BY 4.0. Eigene Icons.<br><a href="/">Startseite</a><a href="/mw4">MW4</a><a href="/updates">Updates</a><a href="/recht">Impressum</a></footer>
 <script src="js/gta6-daten.js?v=6"></script>
-<script src="js/gta6.js?v=24"></script>
+<script src="js/gta6.js?v=25"></script>
 </body>
 </html>
