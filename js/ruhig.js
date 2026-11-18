@@ -25,3 +25,9 @@
     t = setTimeout(function () { s.classList.remove("gb-scr"); an = false; }, 160);
   }, { passive: true });
 })();
+
+// Startseite statisch: SVG-Animationen anhalten
+(function () {
+  function stopp() { document.querySelectorAll("svg").forEach(function (s) { try { s.pauseAnimations(); s.setCurrentTime(0); } catch (e) {} }); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", stopp); else stopp();
+})();
