@@ -206,21 +206,30 @@
   function reg(id) { for (var i = 0; i < D.regionen.length; i++) if (D.regionen[i].id === id) return D.regionen[i]; }
   var info = document.getElementById("info");
   function zeige(pt, i) {
-    var k = KAT[pt.k], re = reg(pt.r);
-    info.hidden = false; info.innerHTML = "";
+    var k = KAT[pt.k], re = reg(pt.r), ok = !!erledigt["p" + i];
+    info.hidden = false; info.innerHTML = ""; info.style.setProperty("--kf", k.farbe);
+    info.classList.remove("pop"); void info.offsetWidth; info.classList.add("pop");
     var kopf = document.createElement("div"); kopf.className = "ikopf";
-    kopf.innerHTML = '<span class="ic" style="background:' + k.farbe + '"><svg viewBox="0 0 24 24"><path d="' + k.icon + '"/></svg></span>';
+    kopf.innerHTML = '<span class="ic iic"><svg viewBox="0 0 24 24"><path d="' + k.icon + '"/></svg></span>';
     var tt = document.createElement("div"); var h = document.createElement("h3"); h.textContent = pt.n;
-    var u = document.createElement("div"); u.className = "unter"; u.textContent = k.name + " · " + (re ? re.name : "");
-    tt.appendChild(h); tt.appendChild(u); kopf.appendChild(tt);
+    var chips = document.createElement("div"); chips.className = "chips";
+    var c1 = document.createElement("span"); c1.className = "chip kc"; c1.textContent = k.name; chips.appendChild(c1);
+    if (re) { var c2 = document.createElement("span"); c2.className = "chip"; c2.innerHTML = '<svg viewBox="0 0 24 24"><path d="' + (RICON[re.id] || "") + '"/></svg>'; c2.appendChild(document.createTextNode(re.name)); chips.appendChild(c2); }
+    tt.appendChild(h); tt.appendChild(chips); kopf.appendChild(tt);
     var x = document.createElement("button"); x.className = "izu"; x.setAttribute("aria-label", "Schließen");
     x.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
     x.onclick = function () { info.hidden = true; }; kopf.appendChild(x);
     var p = document.createElement("p"); p.textContent = pt.t || ""; if (!pt.t) p.hidden = true;
-    var b = document.createElement("button"); b.className = "hak" + (erledigt["p" + i] ? " ok" : "");
-    b.textContent = erledigt["p" + i] ? "Erledigt" : "Als erledigt markieren";
+    var akt = document.createElement("div"); akt.className = "iakt";
+    var b = document.createElement("button"); b.className = "hak" + (ok ? " ok" : "");
+    b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><span></span>';
+    b.lastChild.textContent = ok ? "Erledigt" : "Als erledigt markieren";
     b.onclick = function () { erledigt["p" + i] = !erledigt["p" + i]; speichern(); zeichnen(); zeige(pt, i); };
-    info.appendChild(kopf); info.appendChild(p); info.appendChild(b);
+    var z = document.createElement("button"); z.className = "hin"; z.setAttribute("aria-label", "Hinzoomen"); z.dataset.tip = "Hinzoomen";
+    z.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg>';
+    z.onclick = function () { fliegen(pt.x, pt.y, 30); };
+    akt.appendChild(b); akt.appendChild(z);
+    info.appendChild(kopf); info.appendChild(p); info.appendChild(akt);
   }
   function zeichnen() {
     pins.innerHTML = ""; altS = -1; pinVer++;
