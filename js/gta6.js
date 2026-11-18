@@ -347,9 +347,9 @@
   document.addEventListener("pointerdown", function () { tip.classList.remove("an"); tipAn = null; });
 
   // ---------- Countdown ----------
-  var cd = document.getElementById("countdown"), ziel = Date.parse("2026-11-19T00:00:00+01:00"); // Release Deutschland 00:00 Uhr MEZ
+  var cd = document.getElementById("countdown"), releaseZeit = Date.parse("2026-11-19T00:00:00+01:00"); // Release Deutschland 00:00 Uhr MEZ
   function tick() {
-    var r = ziel - Date.now();
+    var r = releaseZeit - Date.now();
     if (r <= 0) { cd.innerHTML = "<b>Jetzt erhältlich</b>"; cd.classList.add("raus"); var rl2 = document.querySelector(".rel"); if (rl2) rl2.remove(); return; }
     var s = Math.floor(r / 1000), z = [Math.floor(s / 86400), Math.floor(s / 3600) % 24, Math.floor(s / 60) % 60, s % 60];
     Array.prototype.forEach.call(cd.querySelectorAll("b"), function (b, i) { b.textContent = String(z[i]).padStart(2, "0"); });
