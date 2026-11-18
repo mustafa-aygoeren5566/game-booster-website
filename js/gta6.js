@@ -78,36 +78,15 @@
     vice: "M2 21V12h4V7h4v4h3V3h4v8h3v4h2v6z",
     keys: "M11 21c0-4 .6-8 2.2-11.2l1.7.7C13.5 13.6 13 17 13 21zM13.4 9.5C10.5 6.5 6.5 6 3 8c3.4-.4 6.6.4 9.6 2.6zM14 9c1-3.4 4.4-5.6 8.4-4.6-3.4.4-6.4 2-8 5zM2 21h20v1.5H2z"
   };
-  (function () {
-    var P = D.punkte.map(function (p) { return [p.x, p.y]; });
-    P.sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; });
-    function kr(o, a, b) { return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]); }
-    var lo = [], hi = [];
-    P.forEach(function (p) { while (lo.length > 1 && kr(lo[lo.length - 2], lo[lo.length - 1], p) <= 0) lo.pop(); lo.push(p); });
-    P.slice().reverse().forEach(function (p) { while (hi.length > 1 && kr(hi[hi.length - 2], hi[hi.length - 1], p) <= 0) hi.pop(); hi.push(p); });
-    var hull = lo.slice(0, -1).concat(hi.slice(0, -1));
-    var mx = 0, my = 0; hull.forEach(function (p) { mx += p[0]; my += p[1]; }); mx /= hull.length; my /= hull.length;
-    hull = hull.map(function (p) { var dx = p[0] - mx, dy = p[1] - my, l = Math.hypot(dx, dy) || 1; return [p[0] + dx / l * 18, p[1] + dy / l * 18]; });
-    function schneide(poly, a, b) { // behalte Seite naeher an a
-      var nx = b.x - a.x, ny = b.y - a.y, c = (b.x * b.x + b.y * b.y - a.x * a.x - a.y * a.y) / 2, out = [];
-      function inn(p) { return p[0] * nx + p[1] * ny <= c; }
-      for (var i = 0; i < poly.length; i++) {
-        var p = poly[i], q = poly[(i + 1) % poly.length], ip = inn(p), iq = inn(q);
-        if (ip) out.push(p);
-        if (ip !== iq) { var t = (c - (p[0] * nx + p[1] * ny)) / ((q[0] - p[0]) * nx + (q[1] - p[1]) * ny); out.push([p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t]); }
-      }
-      return out;
-    }
-    var gg = document.getElementById("grenzen");
-    D.regionen.forEach(function (a) {
-      var poly = hull;
-      D.regionen.forEach(function (b) { if (b !== a) poly = schneide(poly, a, b); });
-      if (poly.length < 3) return;
-      var d = "M" + poly.map(function (p) { return p[0].toFixed(1) + " " + p[1].toFixed(1); }).join("L") + "Z";
-      var rg = el("g", { class: "rg", id: "rg-" + a.id }, gg);
-      el("path", { d: d, class: "fl" }, rg); el("path", { d: d, class: "rand" }, rg);
-    });
-  })();
+  var gg = document.getElementById("grenzen");
+  function imPoly(x, y, r) { var drin = false; for (var i = 0, k = r.length - 1; i < r.length; k = i++) if ((r[i][1] > y) !== (r[k][1] > y) && x < (r[k][0] - r[i][0]) * (y - r[i][1]) / (r[k][1] - r[i][1]) + r[i][0]) drin = !drin; return drin; }
+  function bezirkBei(x, y) { var B = D.bezirke || []; for (var i = 0; i < B.length; i++) for (var j = 0; j < B[i].ringe.length; j++) if (imPoly(x, y, B[i].ringe[j])) return B[i]; return null; }
+  (D.bezirke || []).forEach(function (b) {
+    var d = b.ringe.map(function (r) { return "M" + r.map(function (p) { return p[0] + " " + p[1]; }).join("L") + "Z"; }).join("");
+    var rg = el("g", { class: "rg", id: "rg-" + b.id }, gg);
+    el("title", {}, rg).textContent = b.name;
+    el("path", { d: d, class: "fl" }, rg); el("path", { d: d, class: "rand" }, rg);
+  });
   var regmark = document.getElementById("regmark");
   function regMarken(s) {
     regmark.classList.toggle("weg", vb.w < 90);
@@ -120,7 +99,7 @@
       el("path", { d: RICON[r.id] || RICON.vice, transform: "translate(-10,-10) scale(.833)", class: "ri" }, g);
       el("text", { y: 34 }, g).textContent = r.name;
       function hin() { if (bewegt) return; fliegen(r.x, r.y, r.id === "vice" ? 120 : 200); }
-      var rgEl = document.getElementById("rg-" + r.id);
+      var bz = bezirkBei(r.x, r.y), rgEl = bz && document.getElementById("rg-" + bz.id);
       if (rgEl) { g.addEventListener("mouseenter", function () { rgEl.classList.add("an"); }); g.addEventListener("mouseleave", function () { rgEl.classList.remove("an"); }); g.addEventListener("focus", function () { rgEl.classList.add("an"); }); g.addEventListener("blur", function () { rgEl.classList.remove("an"); }); }
       g.addEventListener("click", hin); g.addEventListener("keydown", function (e) { if (e.key === "Enter") hin(); });
       g.setAttribute("transform", "translate(" + r.x + "," + r.y + ") scale(" + s + ")");
@@ -317,8 +296,14 @@
   // Regionen: Liste in der Seitenleiste, Klick = hinfliegen
   var rl = document.getElementById("regs");
   D.regionen.forEach(function (r) {
-    var b = document.createElement("button"); b.type = "button"; b.className = "reg"; b.innerHTML = '<svg viewBox="0 0 24 24"><path d="' + (RICON[r.id] || "") + '"/></svg><span></span>'; b.lastChild.textContent = r.name; b.title = r.text;
-    b.onclick = function () { fliegen(r.x, r.y, r.id === "vice" ? 120 : 200); }; rl.appendChild(b);
+    var b = document.createElement("button"); b.type = "button"; b.className = "kat an";
+    var anz = D.punkte.filter(function (p) { return p.r === r.id; }).length;
+    b.innerHTML = '<span class="ic" style="color:#ffd166"><svg viewBox="0 0 24 24"><path d="' + (RICON[r.id] || "") + '"/></svg></span><span class="kn"></span><span class="kz">' + anz + '</span>';
+    b.querySelector(".kn").textContent = r.name; b.title = r.text;
+    b.onclick = function () { fliegen(r.x, r.y, r.id === "vice" ? 120 : 200); };
+    var bz = bezirkBei(r.x, r.y), rgE = bz && document.getElementById("rg-" + bz.id);
+    if (rgE) { b.addEventListener("mouseenter", function () { rgE.classList.add("an"); }); b.addEventListener("mouseleave", function () { rgE.classList.remove("an"); }); }
+    rl.appendChild(b);
   });
   var A0 = verh(); if (A0 > 1) { START.w = 560 / A0 * 1.1; START.x = 430 - START.w / 2; } START.y = 480 - START.w * A0 / 2;
   vb.x = START.x; vb.y = START.y; vb.w = START.w;
