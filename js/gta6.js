@@ -8,7 +8,9 @@
   // ---------- Kartenkacheln (gtabase.com, mit Erlaubnis) ----------
   var kach = document.getElementById("kacheln"), HAT = {};
   Object.keys(D.kacheln).forEach(function (z) { HAT[z] = {}; D.kacheln[z].forEach(function (k) { HAT[z][k] = 1; }); });
-  var basis = el("g", {}, kach), fein = el("g", {}, kach), feinZ = -1, feinKey = "";
+  var basis = el("g", {}, kach), fein = el("g", {}, kach), feinZ = -1, feinKey = "", altZ = null, altT = 0, offen = 0;
+  function weg() { if (altZ) { altZ.remove(); altZ = null; } }
+  function fertig() { if (--offen <= 0) { offen = 0; clearTimeout(altT); altT = setTimeout(weg, 80); } }
   D.kacheln["0"].forEach(function (k) { var p = k.split("_"); el("image", { href: "img/gta6/0/" + k + ".jpg", x: p[0] * 256, y: p[1] * 256, width: 256.6, height: 256.6 }, basis); });
   function kacheln() {
     var r = rect(); if (!r.width) return;
@@ -17,12 +19,18 @@
     var g = 256 / Math.pow(2, z);
     var x0 = Math.floor(vb.x / g), x1 = Math.floor((vb.x + vb.w) / g), y0 = Math.floor(vb.y / g), y1 = Math.floor((vb.y + vb.h) / g);
     var key = z + ":" + x0 + ":" + x1 + ":" + y0 + ":" + y1; if (key === feinKey) return; feinKey = key;
-    if (z !== feinZ) { fein.innerHTML = ""; feinZ = z; }
+    if (z !== feinZ) {
+      // alte Stufe als Platzhalter behalten, bis die neue geladen ist (kein Blur-Flackern)
+      var altG = fein; altG.removeAttribute("id");
+      fein = el("g", {}, kach); feinZ = z; offen = 0;
+      if (altZ) altZ.remove(); altZ = altG; kach.insertBefore(altG, fein);
+      clearTimeout(altT); altT = setTimeout(weg, 2500);
+    }
     var da = {}; Array.prototype.forEach.call(fein.children, function (i) { da[i.dataset.k] = i; });
     var soll = {};
     for (var x = x0; x <= x1; x++) for (var y = y0; y <= y1; y++) {
       var k = x + "_" + y; if (z <= 3 ? !HAT[z][k] : !HAT[3][Math.floor(x / Math.pow(2, z - 3)) + "_" + Math.floor(y / Math.pow(2, z - 3))]) continue; soll[k] = 1;
-      if (!da[k]) { var im = el("image", { href: "img/gta6/" + z + "/" + k + ".jpg", x: x * g, y: y * g, width: g * 1.004, height: g * 1.004 }, fein); im.dataset.k = k; im.addEventListener("error", function () { this.style.display = "none"; }); }
+      if (!da[k]) { var im = el("image", { href: "img/gta6/" + z + "/" + k + ".jpg", x: x * g, y: y * g, width: g * 1.004, height: g * 1.004 }, fein); im.dataset.k = k; offen++; im.addEventListener("load", fertig); im.addEventListener("error", function () { this.style.display = "none"; fertig(); }); }
     }
     Object.keys(da).forEach(function (k) { if (!soll[k]) da[k].remove(); });
   }
