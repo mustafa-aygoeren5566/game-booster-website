@@ -81,7 +81,7 @@ h1 em{font-style:inherit;display:block;color:var(--gelb);-webkit-text-fill-color
 .pin{cursor:pointer;outline:none}.pin .pform{fill:#16161c;stroke-width:2;filter:drop-shadow(0 2px 3px rgba(0,0,0,.45))}.pin .pico{fill:#fff;pointer-events:none}
 .pin:hover .pform,.pin:focus .pform{fill:#2a2a34;stroke-width:3}
 .pin.ok{opacity:.45}
-.credit{position:absolute;right:10px;bottom:8px;z-index:2;font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(18,8,31,.75);color:#fff}
+.credit{position:absolute;right:10px;bottom:8px;z-index:2;display:flex;align-items:center;gap:7px;font-size:11.5px;padding:4px 10px;border-radius:999px;background:rgba(18,8,31,.8);color:#fff}.credit a{color:#fff;display:flex;align-items:center;gap:6px}.credit img{height:13px;width:auto}
 .zk{position:absolute;right:14px;top:14px;display:grid;gap:8px;z-index:2}
 .zk button{width:42px;height:42px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(29,16,48,.92);display:grid;place-items:center;cursor:pointer}.zk button:hover{background:var(--pink)}
 .zk svg{width:18px;height:18px}
@@ -119,7 +119,7 @@ footer{border-top:1px solid var(--line);padding:24px 20px;text-align:center;colo
   <div class="in">
     <div class="tag">Interaktive Karte · Deutsch</div>
     <h1><span>GTA 6 Karte</span><em>Leonida</em></h1>
-    <p class="lead">Alle Regionen von Vice City bis zu den Keys, Orte mit Filter und eine Missions-Checkliste zum Abhaken. Kostenlos und ohne Werbung.</p>
+    <p class="lead">Über 900 Orte von Vice City bis zu den Keys mit Filter und eine Missions-Checkliste zum Abhaken. Kostenlos und ohne Werbung.</p>
     <div id="countdown" aria-label="Countdown bis zum Release"><div><b>00</b><small>Tage</small></div><div><b>00</b><small>Std</small></div><div><b>00</b><small>Min</small></div><div><b>00</b><small>Sek</small></div></div>
   </div>
 </section>
@@ -132,7 +132,7 @@ footer{border-top:1px solid var(--line);padding:24px 20px;text-align:center;colo
     <div id="kats"></div>
     <h4>Regionen</h4>
     <div id="regs"></div>
-    <p class="hinweis">Kartengrafik von gtabase.com mit Erlaubnis, Lage unserer Orte ungefähr. Genaue Positionen, Sammelobjekte und Missionen kommen nach dem Release dazu. Dein Fortschritt bleibt nur in deinem Browser. Stand: <span id="stand"></span></p>
+    <p class="hinweis">Orte von GTABase (mit Erlaubnis), Kartengrafik von gtadb.org (CC BY 4.0). Genaue Positionen, Sammelobjekte und Missionen kommen nach dem Release dazu. Dein Fortschritt bleibt nur in deinem Browser. Stand: <span id="stand"></span></p>
   </aside>
   <div class="kbox">
     <svg id="karte" viewBox="0 0 700 1050" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Eigene Karte von Leonida">
@@ -146,7 +146,7 @@ footer{border-top:1px solid var(--line);padding:24px 20px;text-align:center;colo
       <button id="zreset" type="button" aria-label="Ganze Karte"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
     </div>
     <div id="info" hidden></div>
-    <a class="credit" href="https://www.gtabase.com/de/gta-6/karte/" target="_blank" rel="noopener">Kartengrafik: gtabase.com</a>
+    <div class="credit"><a href="https://www.gtabase.com/de/gta-6/karte/" target="_blank" rel="noopener" title="Kartendaten: GTABase"><img src="img/gtabase-logo.webp" alt="GTABase" width="54" height="13"> Kartendaten</a><span>·</span><a href="https://gtadb.org" target="_blank" rel="noopener">Karte: gtadb.org, CC BY 4.0</a></div>
   </div>
 </div>
 
@@ -167,8 +167,8 @@ footer{border-top:1px solid var(--line);padding:24px 20px;text-align:center;colo
     </section>
   </div>
 </main>
-<footer>© 2026 Game Booster VPN. Fanseite, nicht mit Rockstar Games oder Take-Two verbunden. Grand Theft Auto ist eine Marke von Take-Two Interactive. Kartengrafik: gtabase.com, mit freundlicher Erlaubnis. Eigene Icons und Daten.<br><a href="/">Startseite</a><a href="/mw4">MW4</a><a href="/updates">Updates</a><a href="/recht">Impressum</a></footer>
-<script src="js/gta6-daten.js?v=3"></script>
-<script src="js/gta6.js?v=4"></script>
+<footer>© 2026 Game Booster VPN. Fanseite, nicht mit Rockstar Games oder Take-Two verbunden. Grand Theft Auto ist eine Marke von Take-Two Interactive. Kartendaten: <a href="https://www.gtabase.com/de/gta-6/karte/">GTABase</a> mit freundlicher Erlaubnis. Kartengrafik: <a href="https://gtadb.org">gtadb.org</a> und Mitwirkende, CC BY 4.0. Eigene Icons.<br><a href="/">Startseite</a><a href="/mw4">MW4</a><a href="/updates">Updates</a><a href="/recht">Impressum</a></footer>
+<script src="js/gta6-daten.js?v=5"></script>
+<script src="js/gta6.js?v=5"></script>
 </body>
 </html>

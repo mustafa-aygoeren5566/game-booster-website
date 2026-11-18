@@ -13,7 +13,7 @@
   function kacheln() {
     var r = svg.getBoundingClientRect(); if (!r.width) return;
     var px = r.width / vb.w * (window.devicePixelRatio || 1);
-    var z = Math.max(1, Math.min(3, Math.ceil(Math.log2(px) - .2)));
+    var z = Math.max(1, Math.min(5, Math.ceil(Math.log2(px) - .2)));
     var g = 256 / Math.pow(2, z);
     var x0 = Math.floor(vb.x / g), x1 = Math.floor((vb.x + vb.w) / g), y0 = Math.floor(vb.y / g), y1 = Math.floor((vb.y + vb.h) / g);
     var key = z + ":" + x0 + ":" + x1 + ":" + y0 + ":" + y1; if (key === feinKey) return; feinKey = key;
@@ -21,8 +21,8 @@
     var da = {}; Array.prototype.forEach.call(fein.children, function (i) { da[i.dataset.k] = i; });
     var soll = {};
     for (var x = x0; x <= x1; x++) for (var y = y0; y <= y1; y++) {
-      var k = x + "_" + y; if (!HAT[z][k]) continue; soll[k] = 1;
-      if (!da[k]) { var im = el("image", { href: "img/gta6/" + z + "/" + k + ".jpg", x: x * g, y: y * g, width: g * 1.004, height: g * 1.004 }, fein); im.dataset.k = k; }
+      var k = x + "_" + y; if (z <= 3 ? !HAT[z][k] : !HAT[3][Math.floor(x / Math.pow(2, z - 3)) + "_" + Math.floor(y / Math.pow(2, z - 3))]) continue; soll[k] = 1;
+      if (!da[k]) { var im = el("image", { href: "img/gta6/" + z + "/" + k + ".jpg", x: x * g, y: y * g, width: g * 1.004, height: g * 1.004 }, fein); im.dataset.k = k; im.addEventListener("error", function () { this.style.display = "none"; }); }
     }
     Object.keys(da).forEach(function (k) { if (!soll[k]) da[k].remove(); });
   }
@@ -34,10 +34,10 @@
   function verh() { var r = svg.getBoundingClientRect(); return r.width ? r.height / r.width : 1; }
   function setzen() {
     var A = verh();
-    vb.w = Math.max(40, Math.min(900, vb.w)); vb.h = vb.w * A;
+    vb.w = Math.max(12, Math.min(900, vb.w)); vb.h = vb.w * A;
     vb.x = Math.max(-100, Math.min(VW + 100 - vb.w, vb.x)); vb.y = Math.max(-100, Math.min(VH + 100 - vb.h, vb.y));
     svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h);
-    var r = svg.getBoundingClientRect(), s = r.width ? vb.w / r.width : 1;
+    var r = svg.getBoundingClientRect(), s = (r.width ? vb.w / r.width : 1) * (vb.w > 300 ? .62 : vb.w > 120 ? .8 : 1);
     Array.prototype.forEach.call(pins.children, function (g) { g.setAttribute("transform", "translate(" + g.dataset.x + "," + g.dataset.y + ") scale(" + s + ")"); });
     kacheln();
   }
@@ -45,7 +45,7 @@
   function zoom(f, cx, cy) {
     var r = svg.getBoundingClientRect();
     var px = vb.x + (cx - r.left) / r.width * vb.w, py = vb.y + (cy - r.top) / r.height * vb.h;
-    var nw = Math.max(40, Math.min(900, vb.w * f)); f = nw / vb.w;
+    var nw = Math.max(12, Math.min(900, vb.w * f)); f = nw / vb.w;
     vb.x = px - (px - vb.x) * f; vb.y = py - (py - vb.y) * f; vb.w = nw; setzen();
   }
   svg.addEventListener("wheel", function (e) { e.preventDefault(); zoom(e.deltaY > 0 ? 1.2 : 1 / 1.2, e.clientX, e.clientY); }, { passive: false });
@@ -95,12 +95,12 @@
     var kopf = document.createElement("div"); kopf.className = "ikopf";
     kopf.innerHTML = '<span class="ic" style="background:' + k.farbe + '"><svg viewBox="0 0 24 24"><path d="' + k.icon + '"/></svg></span>';
     var tt = document.createElement("div"); var h = document.createElement("h3"); h.textContent = pt.n;
-    var u = document.createElement("div"); u.className = "unter"; u.textContent = k.name + " · " + (re ? re.name : "") + " · Lage ungefähr";
+    var u = document.createElement("div"); u.className = "unter"; u.textContent = k.name + " · " + (re ? re.name : "");
     tt.appendChild(h); tt.appendChild(u); kopf.appendChild(tt);
     var x = document.createElement("button"); x.className = "izu"; x.setAttribute("aria-label", "Schließen");
     x.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
     x.onclick = function () { info.hidden = true; }; kopf.appendChild(x);
-    var p = document.createElement("p"); p.textContent = pt.t;
+    var p = document.createElement("p"); p.textContent = pt.t || ""; if (!pt.t) p.hidden = true;
     var b = document.createElement("button"); b.className = "hak" + (erledigt["p" + i] ? " ok" : "");
     b.textContent = erledigt["p" + i] ? "Erledigt" : "Als erledigt markieren";
     b.onclick = function () { erledigt["p" + i] = !erledigt["p" + i]; speichern(); zeichnen(); zeige(pt, i); };
@@ -130,9 +130,9 @@
     setzen();
   }
   var liste = document.getElementById("kats");
-  var GR = { ort: "Orte", geschaeft: "Orte", garage: "Orte", mission: "Story", sammel: "Sammeln", sprung: "Sammeln", waffe: "Ausrüstung", fahrzeug: "Ausrüstung" }, letzteGr = "";
+  var letzteGr = "";
   D.kategorien.forEach(function (k) {
-    if (GR[k.id] !== letzteGr) { letzteGr = GR[k.id]; var h = document.createElement("div"); h.className = "gr"; h.textContent = letzteGr; liste.appendChild(h); }
+    if (k.gruppe !== letzteGr) { letzteGr = k.gruppe; var h = document.createElement("div"); h.className = "gr"; h.textContent = letzteGr; liste.appendChild(h); }
     var n = D.punkte.filter(function (p) { return p.k === k.id; }).length;
     var b = document.createElement("button"); b.type = "button";
     b.className = "kat" + (aus[k.id] ? "" : " an") + (n ? "" : " leer");
@@ -150,7 +150,7 @@
   var such = document.getElementById("suche");
   such.addEventListener("input", function () {
     suche = such.value.trim().toLowerCase(); zeichnen();
-    if (suche) { var t = D.punkte.filter(function (p) { return p.n.toLowerCase().indexOf(suche) >= 0 && !aus[p.k]; }); if (t.length === 1) { fliegen(t[0].x, t[0].y, 90); zeige(t[0], D.punkte.indexOf(t[0])); } }
+    if (suche) { var t = D.punkte.filter(function (p) { return p.n.toLowerCase().indexOf(suche) >= 0 && !aus[p.k]; }); if (t.length === 1) { fliegen(t[0].x, t[0].y, 40); zeige(t[0], D.punkte.indexOf(t[0])); } }
   });
   // Regionen: Liste in der Seitenleiste, Klick = hinfliegen
   var rl = document.getElementById("regs");
