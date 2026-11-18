@@ -2,76 +2,50 @@
   var D = window.GTA6; if (!D) return;
   var NS = "http://www.w3.org/2000/svg";
   var svg = document.getElementById("karte");
-  var VW = 700, VH = 1050;
+  var VW = 1024, VH = 1024;
   function el(n, a, p) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
 
-  // ---------- eigene Karte: weiche Küste aus Stützpunkten + leichtes Rauschen ----------
-  function rausch(i, s) { return Math.sin(i * .37 + s) * .9 + Math.sin(i * 1.13 + s * 2.1) * .5 + Math.sin(i * 2.9 + s * 3.7) * .25; }
-  function kueste(pts, stark, seed, schritte) {
-    var out = [], n = pts.length;
-    for (var i = 0; i < n; i++) {
-      var p0 = pts[(i - 1 + n) % n], p1 = pts[i], p2 = pts[(i + 1) % n], p3 = pts[(i + 2) % n];
-      for (var t = 0; t < 1; t += 1 / schritte) {
-        var t2 = t * t, t3 = t2 * t;
-        var x = .5 * (2 * p1[0] + (-p0[0] + p2[0]) * t + (2 * p0[0] - 5 * p1[0] + 4 * p2[0] - p3[0]) * t2 + (-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]) * t3);
-        var y = .5 * (2 * p1[1] + (-p0[1] + p2[1]) * t + (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * t2 + (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * t3);
-        var k = out.length;
-        out.push([x + rausch(k * .9, seed) * stark, y + rausch(k * .9, seed + 5) * stark]);
-      }
+  // ---------- Kartenkacheln (gtabase.com, mit Erlaubnis) ----------
+  var kach = document.getElementById("kacheln"), HAT = {};
+  Object.keys(D.kacheln).forEach(function (z) { HAT[z] = {}; D.kacheln[z].forEach(function (k) { HAT[z][k] = 1; }); });
+  var basis = el("g", {}, kach), fein = el("g", {}, kach), feinZ = -1, feinKey = "";
+  D.kacheln["0"].forEach(function (k) { var p = k.split("_"); el("image", { href: "img/gta6/0/" + k + ".jpg", x: p[0] * 256, y: p[1] * 256, width: 256.6, height: 256.6 }, basis); });
+  function kacheln() {
+    var r = svg.getBoundingClientRect(); if (!r.width) return;
+    var px = r.width / vb.w * (window.devicePixelRatio || 1);
+    var z = Math.max(1, Math.min(3, Math.ceil(Math.log2(px) - .2)));
+    var g = 256 / Math.pow(2, z);
+    var x0 = Math.floor(vb.x / g), x1 = Math.floor((vb.x + vb.w) / g), y0 = Math.floor(vb.y / g), y1 = Math.floor((vb.y + vb.h) / g);
+    var key = z + ":" + x0 + ":" + x1 + ":" + y0 + ":" + y1; if (key === feinKey) return; feinKey = key;
+    if (z !== feinZ) { fein.innerHTML = ""; feinZ = z; }
+    var da = {}; Array.prototype.forEach.call(fein.children, function (i) { da[i.dataset.k] = i; });
+    var soll = {};
+    for (var x = x0; x <= x1; x++) for (var y = y0; y <= y1; y++) {
+      var k = x + "_" + y; if (!HAT[z][k]) continue; soll[k] = 1;
+      if (!da[k]) { var im = el("image", { href: "img/gta6/" + z + "/" + k + ".jpg", x: x * g, y: y * g, width: g * 1.004, height: g * 1.004 }, fein); im.dataset.k = k; }
     }
-    return "M" + out.map(function (p) { return p[0].toFixed(1) + " " + p[1].toFixed(1); }).join("L") + "Z";
+    Object.keys(da).forEach(function (k) { if (!soll[k]) da[k].remove(); });
   }
-  function oval(cx, cy, rx, ry, rot, seed, stark) {
-    var p = []; for (var i = 0; i < 10; i++) { var a = i / 10 * 6.283; var c = Math.cos(rot), s = Math.sin(rot); var x = Math.cos(a) * rx, y = Math.sin(a) * ry; p.push([cx + x * c - y * s, cy + x * s + y * c]); }
-    return kueste(p, stark || 1.2, seed, 6);
-  }
-  var FESTLAND = [[250,-40],[420,-40],[470,60],[520,140],[555,240],[585,350],[600,450],[590,540],[575,640],[560,730],[530,810],[480,870],[420,915],[360,935],[300,920],[250,880],[210,820],[170,740],[130,660],[100,580],[75,500],[52,420],[45,340],[60,270],[95,200],[140,130],[190,40]];
-  var karte = document.getElementById("land");
-  var wellen = el("path", { d: kueste(FESTLAND, 2.2, 1, 14), class: "ufer2" }, karte);
-  el("path", { d: kueste(FESTLAND, 2.2, 1, 14), class: "ufer" }, karte);
-  el("path", { d: kueste(FESTLAND, 2.2, 1, 14), class: "fest" }, karte);
-  // Nehrungsinseln vor Vice City (Ocean Beach) und Inseln in der Bucht
-  [[640, 520, 12, 70, .15], [650, 640, 9, 45, .1], [612, 455, 8, 30, .3], [590, 600, 14, 10, 0], [605, 560, 10, 8, 0], [575, 650, 12, 9, .4]].forEach(function (o, i) {
-    el("path", { d: oval(o[0], o[1], o[2], o[3], o[4], 20 + i), class: "fest insel" }, karte);
-  });
-  // Leonida Keys
-  var kx = [[330, 945], [295, 965], [258, 982], [222, 996], [186, 1010], [150, 1022], [116, 1032]];
-  kx.forEach(function (p, i) { el("path", { d: oval(p[0], p[1], 20 - i, 6, -.35, 40 + i), class: "fest insel" }, karte); });
-  el("polyline", { points: [[350, 930]].concat(kx).map(function (p) { return p.join(","); }).join(" "), class: "bruecke" }, karte);
-  // Sumpf (Grassrivers): hellere Flächen + Wasserläufe
-  [[300, 760, 120, 90, .2], [380, 830, 70, 50, -.3], [230, 700, 60, 70, .5]].forEach(function (o, i) { el("path", { d: oval(o[0], o[1], o[2], o[3], o[4], 60 + i, 6), class: "sumpf" }, karte); });
-  ["M230 690q40 30 60 70t70 60q30 20 60 70", "M300 720q-20 40 10 80t-10 70", "M360 760q30-10 50 20t40 10"].forEach(function (d) { el("path", { d: d, class: "fluss" }, karte); });
-  // Berge (Mount Kalaga): Schattierung
-  [[260, 120, 90, 50, .2], [400, 150, 80, 45, -.2], [330, 60, 110, 40, 0]].forEach(function (o, i) { el("path", { d: oval(o[0], o[1], o[2], o[3], o[4], 80 + i, 5), class: "berg" }, karte); });
-  // Lake Leonida
-  el("path", { d: oval(395, 300, 55, 34, .1, 90, 3), class: "see" }, karte);
-  // Stadtfläche Vice City
-  el("path", { d: oval(560, 590, 55, 120, .05, 95, 5), class: "stadt" }, karte);
-  // Straßen
-  ["M545 700C560 600 575 450 545 300S470 80 460 -20", "M545 700C470 640 380 600 300 560S160 420 130 360", "M545 600C470 520 420 420 395 340", "M130 360C200 300 300 260 360 270", "M300 560C320 640 340 700 350 930"].forEach(function (d) { el("path", { d: d, class: "strasse" }, karte); });
-  // Regionsnamen
-  var namen = document.getElementById("namen");
-  D.regionen.forEach(function (r) {
-    var t = el("text", { x: r.x, y: r.y, class: "rname", "data-r": r.id }, namen); t.textContent = r.name.toUpperCase();
-  });
 
   // ---------- Zoom + Verschieben (viewBox) ----------
-  var vb = { x: 0, y: 0, w: VW, h: VH };
+  var START = { x: 150, y: 190, w: 560 };
+  var vb = { x: START.x, y: START.y, w: START.w, h: START.w };
   var pins = document.getElementById("pins");
+  function verh() { var r = svg.getBoundingClientRect(); return r.width ? r.height / r.width : 1; }
   function setzen() {
-    var min = 70, m = .35;
-    vb.w = Math.max(min, Math.min(VW * 1.15, vb.w)); vb.h = vb.w * VH / VW;
-    vb.x = Math.max(-VW * m, Math.min(VW * (1 + m) - vb.w, vb.x)); vb.y = Math.max(-VH * .2, Math.min(VH * 1.2 - vb.h, vb.y));
+    var A = verh();
+    vb.w = Math.max(40, Math.min(900, vb.w)); vb.h = vb.w * A;
+    vb.x = Math.max(-100, Math.min(VW + 100 - vb.w, vb.x)); vb.y = Math.max(-100, Math.min(VH + 100 - vb.h, vb.y));
     svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h);
-    var s = vb.w / VW;
+    var r = svg.getBoundingClientRect(), s = r.width ? vb.w / r.width : 1;
     Array.prototype.forEach.call(pins.children, function (g) { g.setAttribute("transform", "translate(" + g.dataset.x + "," + g.dataset.y + ") scale(" + s + ")"); });
-    namen.setAttribute("font-size", Math.max(9, 17 * s));
-    namen.style.setProperty("--sw", (3 * s) + "px");
+    kacheln();
   }
+  window.addEventListener("resize", setzen);
   function zoom(f, cx, cy) {
     var r = svg.getBoundingClientRect();
     var px = vb.x + (cx - r.left) / r.width * vb.w, py = vb.y + (cy - r.top) / r.height * vb.h;
-    var nw = Math.max(70, Math.min(VW * 1.15, vb.w * f)); f = nw / vb.w;
+    var nw = Math.max(40, Math.min(900, vb.w * f)); f = nw / vb.w;
     vb.x = px - (px - vb.x) * f; vb.y = py - (py - vb.y) * f; vb.w = nw; setzen();
   }
   svg.addEventListener("wheel", function (e) { e.preventDefault(); zoom(e.deltaY > 0 ? 1.2 : 1 / 1.2, e.clientX, e.clientY); }, { passive: false });
@@ -97,9 +71,9 @@
   function mitte(f) { var r = svg.getBoundingClientRect(); zoom(f, r.left + r.width / 2, r.top + r.height / 2); }
   document.getElementById("zplus").onclick = function () { mitte(1 / 1.4); };
   document.getElementById("zminus").onclick = function () { mitte(1.4); };
-  document.getElementById("zreset").onclick = function () { vb = { x: 0, y: 0, w: VW, h: VH }; setzen(); };
+  document.getElementById("zreset").onclick = function () { vb.x = START.x; vb.y = START.y; vb.w = START.w; setzen(); };
   function fliegen(x, y, w) {
-    var z0 = { x: vb.x, y: vb.y, w: vb.w }, z1 = { w: w, x: x - w / 2, y: y - w * VH / VW / 2 }, t0 = performance.now();
+    var A = verh(), z0 = { x: vb.x, y: vb.y, w: vb.w }, z1 = { w: w, x: x - w / 2, y: y - w * A / 2 }, t0 = performance.now();
     (function schritt(t) {
       var k = Math.min(1, (t - t0) / 450); k = 1 - Math.pow(1 - k, 3);
       vb.w = z0.w + (z1.w - z0.w) * k; vb.x = z0.x + (z1.x - z0.x) * k; vb.y = z0.y + (z1.y - z0.y) * k; setzen();
@@ -151,16 +125,18 @@
     D.kategorien.forEach(function (k) {
       var alle = D.punkte.map(function (p, i) { return [p, i]; }).filter(function (x) { return x[0].k === k.id; });
       var fertig = alle.filter(function (x) { return erledigt["p" + x[1]]; }).length;
-      var z = document.getElementById("z-" + k.id); if (z) z.textContent = alle.length ? fertig + "/" + alle.length : "bald";
+      var z = document.getElementById("z-" + k.id); if (z) z.textContent = alle.length ? (fertig ? fertig + "/" : "") + alle.length : "bald";
     });
     setzen();
   }
   var liste = document.getElementById("kats");
+  var GR = { ort: "Orte", geschaeft: "Orte", garage: "Orte", mission: "Story", sammel: "Sammeln", sprung: "Sammeln", waffe: "Ausrüstung", fahrzeug: "Ausrüstung" }, letzteGr = "";
   D.kategorien.forEach(function (k) {
+    if (GR[k.id] !== letzteGr) { letzteGr = GR[k.id]; var h = document.createElement("div"); h.className = "gr"; h.textContent = letzteGr; liste.appendChild(h); }
     var n = D.punkte.filter(function (p) { return p.k === k.id; }).length;
     var b = document.createElement("button"); b.type = "button";
     b.className = "kat" + (aus[k.id] ? "" : " an") + (n ? "" : " leer");
-    b.innerHTML = '<span class="ic" style="background:' + k.farbe + '"><svg viewBox="0 0 24 24"><path d="' + k.icon + '"/></svg></span><span class="kn"></span><span class="kz" id="z-' + k.id + '"></span>';
+    b.innerHTML = '<span class="ic" style="color:' + k.farbe + '"><svg viewBox="0 0 24 24"><path d="' + k.icon + '"/></svg></span><span class="kn"></span><span class="kz" id="z-' + k.id + '"></span>';
     b.querySelector(".kn").textContent = k.name;
     b.onclick = function () { aus[k.id] = !aus[k.id]; b.classList.toggle("an", !aus[k.id]); speichern(); zeichnen(); };
     liste.appendChild(b);
@@ -168,20 +144,22 @@
   document.getElementById("alle").onclick = function () {
     var irgendAus = D.kategorien.some(function (k) { return aus[k.id]; });
     D.kategorien.forEach(function (k) { aus[k.id] = !irgendAus; });
-    Array.prototype.forEach.call(liste.children, function (b) { b.classList.toggle("an", irgendAus); });
+    Array.prototype.forEach.call(liste.querySelectorAll(".kat"), function (b) { b.classList.toggle("an", irgendAus); });
     speichern(); zeichnen();
   };
   var such = document.getElementById("suche");
   such.addEventListener("input", function () {
     suche = such.value.trim().toLowerCase(); zeichnen();
-    if (suche) { var t = D.punkte.filter(function (p) { return p.n.toLowerCase().indexOf(suche) >= 0 && !aus[p.k]; }); if (t.length === 1) { fliegen(t[0].x, t[0].y, 220); zeige(t[0], D.punkte.indexOf(t[0])); } }
+    if (suche) { var t = D.punkte.filter(function (p) { return p.n.toLowerCase().indexOf(suche) >= 0 && !aus[p.k]; }); if (t.length === 1) { fliegen(t[0].x, t[0].y, 90); zeige(t[0], D.punkte.indexOf(t[0])); } }
   });
   // Regionen: Liste in der Seitenleiste, Klick = hinfliegen
   var rl = document.getElementById("regs");
   D.regionen.forEach(function (r) {
     var b = document.createElement("button"); b.type = "button"; b.className = "reg"; b.textContent = r.name; b.title = r.text;
-    b.onclick = function () { fliegen(r.x, r.y, r.id === "vice" ? 260 : 380); }; rl.appendChild(b);
+    b.onclick = function () { fliegen(r.x, r.y, r.id === "vice" ? 120 : 200); }; rl.appendChild(b);
   });
+  var A0 = verh(); if (A0 > 1) { START.w = 560 / A0 * 1.1; START.x = 430 - START.w / 2; } START.y = 480 - START.w * A0 / 2;
+  vb.x = START.x; vb.y = START.y; vb.w = START.w;
   zeichnen();
 
   // ---------- Countdown ----------

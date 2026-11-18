@@ -1,14 +1,15 @@
 // GTA 6 Leonida: eigene Datensammlung aus öffentlichen Angaben (Trailer, Rockstar-Webseite, Editionstexte).
-// x/y auf der eigenen Karte (viewBox 0 0 700 1050). Lage = ungefähr, bis genaue Positionen bekannt sind.
+// x/y auf der eigenen Karte (Kartenwelt 0..1024, Kacheln mit Erlaubnis von gtabase.com). Lage = ungefähr, bis genaue Positionen bekannt sind.
 window.GTA6 = {
+  kacheln: {"0": ["0_0", "1_0", "2_0", "3_0", "0_1", "1_1", "2_1", "3_1", "0_2", "1_2", "2_2", "3_2", "0_3", "1_3", "2_3", "3_3"], "1": ["1_1", "2_1", "3_1", "4_1", "5_1", "6_1", "1_2", "2_2", "3_2", "4_2", "5_2", "6_2", "1_3", "2_3", "3_3", "4_3", "5_3", "6_3", "1_4", "2_4", "3_4", "4_4", "5_4", "6_4", "1_5", "2_5", "3_5", "4_5", "5_5", "6_5", "1_6", "2_6", "3_6", "4_6", "5_6", "6_6"], "2": ["10_10", "11_10", "12_10", "2_10", "3_10", "4_10", "5_10", "6_10", "7_10", "8_10", "9_10", "10_11", "11_11", "12_11", "2_11", "3_11", "4_11", "5_11", "6_11", "7_11", "8_11", "9_11", "10_12", "11_12", "12_12", "2_12", "3_12", "4_12", "5_12", "6_12", "7_12", "8_12", "9_12", "10_2", "11_2", "12_2", "2_2", "3_2", "4_2", "5_2", "6_2", "7_2", "8_2", "9_2", "10_3", "11_3", "12_3", "2_3", "3_3", "4_3", "5_3", "6_3", "7_3", "8_3", "9_3", "10_4", "11_4", "12_4", "2_4", "3_4", "4_4", "5_4", "6_4", "7_4", "8_4", "9_4", "10_5", "11_5", "12_5", "2_5", "3_5", "4_5", "5_5", "6_5", "7_5", "8_5", "9_5", "10_6", "11_6", "12_6", "2_6", "3_6", "4_6", "5_6", "6_6", "7_6", "8_6", "9_6", "10_7", "11_7", "12_7", "2_7", "3_7", "4_7", "5_7", "6_7", "7_7", "8_7", "9_7", "10_8", "11_8", "12_8", "2_8", "3_8", "4_8", "5_8", "6_8", "7_8", "8_8", "9_8", "10_9", "11_9", "12_9", "2_9", "3_9", "4_9", "5_9", "6_9", "7_9", "8_9", "9_9"], "3": ["10_10", "11_10", "12_10", "13_10", "14_10", "15_10", "16_10", "17_10", "18_10", "19_10", "20_10", "21_10", "22_10", "23_10", "24_10", "25_10", "5_10", "6_10", "7_10", "8_10", "9_10", "10_11", "11_11", "12_11", "13_11", "14_11", "15_11", "16_11", "17_11", "18_11", "19_11", "20_11", "21_11", "22_11", "23_11", "24_11", "25_11", "5_11", "6_11", "7_11", "8_11", "9_11", "10_12", "11_12", "12_12", "13_12", "14_12", "15_12", "16_12", "17_12", "18_12", "19_12", "20_12", "21_12", "22_12", "23_12", "24_12", "25_12", "5_12", "6_12", "7_12", "8_12", "9_12", "10_13", "11_13", "12_13", "13_13", "14_13", "15_13", "16_13", "17_13", "18_13", "19_13", "20_13", "21_13", "22_13", "23_13", "24_13", "25_13", "5_13", "6_13", "7_13", "8_13", "9_13", "10_14", "11_14", "12_14", "13_14", "14_14", "15_14", "16_14", "17_14", "18_14", "19_14", "20_14", "21_14", "22_14", "23_14", "24_14", "25_14", "5_14", "6_14", "7_14", "8_14", "9_14", "10_15", "11_15", "12_15", "13_15", "14_15", "15_15", "16_15", "17_15", "18_15", "19_15", "20_15", "21_15", "22_15", "23_15", "24_15", "25_15", "5_15", "6_15", "7_15", "8_15", "9_15", "10_16", "11_16", "12_16", "13_16", "14_16", "15_16", "16_16", "17_16", "18_16", "19_16", "20_16", "21_16", "22_16", "23_16", "24_16", "25_16", "5_16", "6_16", "7_16", "8_16", "9_16", "10_17", "11_17", "12_17", "13_17", "14_17", "15_17", "16_17", "17_17", "18_17", "19_17", "20_17", "21_17", "22_17", "23_17", "24_17", "25_17", "5_17", "6_17", "7_17", "8_17", "9_17", "10_18", "11_18", "12_18", "13_18", "14_18", "15_18", "16_18", "17_18", "18_18", "19_18", "20_18", "21_18", "22_18", "23_18", "24_18", "25_18", "5_18", "6_18", "7_18", "8_18", "9_18", "10_19", "11_19", "12_19", "13_19", "14_19", "15_19", "16_19", "17_19", "18_19", "19_19", "20_19", "21_19", "22_19", "23_19", "24_19", "25_19", "5_19", "6_19", "7_19", "8_19", "9_19", "10_20", "11_20", "12_20", "13_20", "14_20", "15_20", "16_20", "17_20", "18_20", "19_20", "20_20", "21_20", "22_20", "23_20", "24_20", "25_20", "5_20", "6_20", "7_20", "8_20", "9_20", "10_21", "11_21", "12_21", "13_21", "14_21", "15_21", "16_21", "17_21", "18_21", "19_21", "20_21", "21_21", "22_21", "23_21", "24_21", "25_21", "5_21", "6_21", "7_21", "8_21", "9_21", "10_22", "11_22", "12_22", "13_22", "14_22", "15_22", "16_22", "17_22", "18_22", "19_22", "20_22", "21_22", "22_22", "23_22", "24_22", "25_22", "5_22", "6_22", "7_22", "8_22", "9_22", "10_23", "11_23", "12_23", "13_23", "14_23", "15_23", "16_23", "17_23", "18_23", "19_23", "20_23", "21_23", "22_23", "23_23", "24_23", "25_23", "5_23", "6_23", "7_23", "8_23", "9_23", "10_24", "11_24", "12_24", "13_24", "14_24", "15_24", "16_24", "17_24", "18_24", "19_24", "20_24", "21_24", "22_24", "23_24", "24_24", "25_24", "5_24", "6_24", "7_24", "8_24", "9_24", "10_5", "11_5", "12_5", "13_5", "14_5", "15_5", "16_5", "17_5", "18_5", "19_5", "20_5", "21_5", "22_5", "23_5", "24_5", "25_5", "5_5", "6_5", "7_5", "8_5", "9_5", "10_6", "11_6", "12_6", "13_6", "14_6", "15_6", "16_6", "17_6", "18_6", "19_6", "20_6", "21_6", "22_6", "23_6", "24_6", "25_6", "5_6", "6_6", "7_6", "8_6", "9_6", "10_7", "11_7", "12_7", "13_7", "14_7", "15_7", "16_7", "17_7", "18_7", "19_7", "20_7", "21_7", "22_7", "23_7", "24_7", "25_7", "5_7", "6_7", "7_7", "8_7", "9_7", "10_8", "11_8", "12_8", "13_8", "14_8", "15_8", "16_8", "17_8", "18_8", "19_8", "20_8", "21_8", "22_8", "23_8", "24_8", "25_8", "5_8", "6_8", "7_8", "8_8", "9_8", "10_9", "11_9", "12_9", "13_9", "14_9", "15_9", "16_9", "17_9", "18_9", "19_9", "20_9", "21_9", "22_9", "23_9", "24_9", "25_9", "5_9", "6_9", "7_9", "8_9", "9_9"]},
   stand: "18.11.2026",
   regionen: [
-    { id: "kalaga", name: "Mount Kalaga", x: 330, y: 130, text: "Nationalpark und Berge im Norden an der Staatsgrenze." },
-    { id: "ambrosia", name: "Ambrosia", x: 400, y: 410, text: "Ländlich und industriell im Landesinneren, rund um den Lake Leonida. Hier steht die Zuckerraffinerie." },
-    { id: "gellhorn", name: "Port Gellhorn", x: 135, y: 360, text: "Heruntergekommene Hafenstadt an der Golfküste im Westen." },
-    { id: "grass", name: "Grassrivers", x: 320, y: 770, text: "Riesiges Sumpfgebiet mit Airboats und abgelegenen Siedlungen." },
-    { id: "vice", name: "Vice City", x: 545, y: 590, text: "Größte und reichste Stadt von Leonida, mit Strand, Hochhäusern und Kanälen." },
-    { id: "keys", name: "Leonida Keys", x: 215, y: 1000, text: "Inselkette im Süden, verbunden über lange Brücken. Hier beginnt die Story." }
+    { id: "kalaga", name: "Mount Kalaga", x: 397, y: 314, text: "Nationalpark und Berge im Norden an der Staatsgrenze." },
+    { id: "ambrosia", name: "Ambrosia", x: 438, y: 422, text: "Ländlich und industriell im Landesinneren, rund um den Lake Leonida. Hier steht die Zuckerraffinerie." },
+    { id: "gellhorn", name: "Port Gellhorn", x: 289, y: 384, text: "Heruntergekommene Hafenstadt an der Golfküste im Westen." },
+    { id: "grass", name: "Grassrivers", x: 388, y: 638, text: "Riesiges Sumpfgebiet mit Airboats und abgelegenen Siedlungen." },
+    { id: "vice", name: "Vice City", x: 513, y: 484, text: "Größte und reichste Stadt von Leonida, mit Strand, Hochhäusern und Kanälen." },
+    { id: "keys", name: "Leonida Keys", x: 380, y: 717, text: "Inselkette im Süden, verbunden über lange Brücken. Hier beginnt die Story." }
   ],
   kategorien: [
     { id: "ort", name: "Orte", farbe: "#ec4899", icon: "M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" },
@@ -21,17 +22,17 @@ window.GTA6 = {
     { id: "fahrzeug", name: "Fahrzeuge", farbe: "#10b981", icon: "M5 11l2-5h10l2 5h1a1 1 0 0 1 1 1v5h-2v2h-3v-2H8v2H5v-2H3v-5a1 1 0 0 1 1-1zm2.5 0h9l-1.2-3H8.7zM6.5 15a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm11 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" }
   ],
   punkte: [
-    { n: "Ocean Beach", k: "ort", r: "vice", x: 640, y: 560, t: "Strandviertel von Vice City." },
-    { n: "Shore Drive", k: "ort", r: "vice", x: 642, y: 600, t: "Straße entlang von Ocean Beach." },
-    { n: "Shore Court", k: "garage", r: "vice", x: 632, y: 530, t: "Garage aus dem Vintage-Vice-City-Paket, wenige Schritte von Ocean Beach." },
-    { n: "Little Cuba", k: "ort", r: "vice", x: 545, y: 625, t: "Viertel mit kubanischen Bäckereien." },
-    { n: "VC Port", k: "ort", r: "vice", x: 590, y: 585, t: "Kreuzfahrthafen von Vice City." },
-    { n: "Southside Vice City", k: "ort", r: "vice", x: 535, y: 690, t: "Stadtteil im Süden der Stadt." },
-    { n: "Stockyard", k: "geschaeft", r: "vice", x: 515, y: 560, t: "Einkaufsviertel mit Stock 305 und Electric Fang Tattoo. Zuordnung zu Vice City noch nicht sicher." },
-    { n: "Paradise Garage", k: "garage", r: "vice", x: 560, y: 505, t: "In Watson Bay. Zuordnung zu Vice City noch nicht sicher." },
-    { n: "Allied Crystal Raffinerie", k: "ort", r: "ambrosia", x: 330, y: 420, t: "Zuckerraffinerie, größter Arbeitgeber in Ambrosia." },
-    { n: "Lake Leonida", k: "ort", r: "ambrosia", x: 395, y: 300, t: "Großer See zwischen Ambrosia und Mount Kalaga." },
-    { n: "One-Eyed Willie's", k: "geschaeft", r: "ambrosia", x: 445, y: 275, t: "Offroad-Werkstatt am Lake Leonida." }
+    { n: "Ocean Beach", k: "ort", r: "vice", x: 567, y: 480, t: "Strandviertel von Vice City." },
+    { n: "Shore Drive", k: "ort", r: "vice", x: 572, y: 513, t: "Straße entlang von Ocean Beach." },
+    { n: "Shore Court", k: "garage", r: "vice", x: 562, y: 455, t: "Garage aus dem Vintage-Vice-City-Paket, wenige Schritte von Ocean Beach." },
+    { n: "Little Cuba", k: "ort", r: "vice", x: 484, y: 497, t: "Viertel mit kubanischen Bäckereien." },
+    { n: "VC Port", k: "ort", r: "vice", x: 530, y: 530, t: "Kreuzfahrthafen von Vice City." },
+    { n: "Southside Vice City", k: "ort", r: "vice", x: 480, y: 551, t: "Stadtteil im Süden der Stadt." },
+    { n: "Stockyard", k: "geschaeft", r: "vice", x: 463, y: 455, t: "Einkaufsviertel mit Stock 305 und Electric Fang Tattoo. Zuordnung zu Vice City noch nicht sicher." },
+    { n: "Paradise Garage", k: "garage", r: "vice", x: 526, y: 430, t: "In Watson Bay. Zuordnung zu Vice City noch nicht sicher." },
+    { n: "Allied Crystal Raffinerie", k: "ort", r: "ambrosia", x: 422, y: 430, t: "Zuckerraffinerie, größter Arbeitgeber in Ambrosia." },
+    { n: "Lake Leonida", k: "ort", r: "ambrosia", x: 451, y: 359, t: "Großer See zwischen Ambrosia und Mount Kalaga." },
+    { n: "One-Eyed Willie's", k: "geschaeft", r: "ambrosia", x: 473, y: 339, t: "Offroad-Werkstatt am Lake Leonida." }
   ],
   missionen: {
     text: "Laut Leaks gibt es einen Prolog, 5 Kapitel, fast 100 Story-Missionen und 2 große Heists. Die Namen sind noch nicht bestätigt und kommen nach dem Release.",
