@@ -243,8 +243,8 @@
     var z = document.createElement("button"); z.className = "hin"; z.setAttribute("aria-label", "Hinzoomen"); z.dataset.tip = "Hinzoomen";
     z.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg>';
     z.onclick = function () { fliegen(pt.x, pt.y, 30); };
-    akt.appendChild(b); akt.appendChild(z);
-    info.appendChild(kopf); info.appendChild(p); info.appendChild(akt);
+    akt.appendChild(b); akt.appendChild(z); tt.appendChild(akt);
+    info.appendChild(kopf); info.appendChild(p);
   }
   function zeichnen() {
     pins.innerHTML = ""; altS = -1; pinVer++;
