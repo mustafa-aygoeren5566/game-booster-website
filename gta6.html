@@ -30,7 +30,7 @@ button{font:inherit;color:inherit}
 a.gbhome{display:inline-flex;align-items:center;gap:12px;padding:4px 4px 4px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:var(--txt);font-weight:700;font-size:14px;white-space:nowrap}a.gbhome:hover{text-decoration:none;border-color:var(--pink)}a.gbhome i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--txt);color:var(--bg);transition:.3s}a.gbhome svg{width:16px;height:16px}a.gbhome:hover i{transform:rotate(-45deg);background:var(--pink);color:#fff}
 
 /* Hero: Sonnenuntergang, Palmen, Retro-Sonne */
-.hero{position:relative;overflow:hidden;padding:64px 20px 0;text-align:center;background:linear-gradient(180deg,#1a0b2e 0%,#4a1252 38%,#c2306b 66%,#ff7a45 86%,#ffc46b 100%);min-height:400px}
+.hero{position:relative;overflow:hidden;padding:64px 20px 0;text-align:center;background:linear-gradient(180deg,rgba(26,11,46,.55),rgba(26,11,46,0) 40%,rgba(18,8,31,.2) 85%,#12081f),url(img/gta6/hero.webp) center 60%/cover no-repeat,linear-gradient(180deg,#1a0b2e 0%,#4a1252 38%,#c2306b 66%,#ff7a45 86%,#ffc46b 100%);min-height:400px}.deko{display:none}@media(min-width:1700px){.deko{display:block;position:absolute;top:0;bottom:0;width:calc((100vw - 1440px)/2);background:center/cover no-repeat;pointer-events:none;-webkit-mask:linear-gradient(90deg,#000 60%,transparent);mask:linear-gradient(90deg,#000 60%,transparent)}.deko.l{right:100%;background-image:url(img/gta6/seite-links.webp)}.deko.r{left:100%;background-image:url(img/gta6/seite-rechts.webp);-webkit-mask:linear-gradient(270deg,#000 60%,transparent);mask:linear-gradient(270deg,#000 60%,transparent)}}
 .sonne{position:absolute;left:50%;bottom:-150px;width:420px;height:420px;transform:translateX(-50%);border-radius:50%;background:linear-gradient(180deg,#ffe08a,#ff8a3c 55%,#ff3d8b);-webkit-mask:repeating-linear-gradient(180deg,#000 0 22px,transparent 22px 30px);mask:repeating-linear-gradient(180deg,#000 0 22px,transparent 22px 30px);opacity:.9}
 .palme{position:absolute;bottom:0;fill:#12081f;pointer-events:none}
 .palme.l{left:-20px;width:260px}.palme.r{right:-30px;width:300px;transform:scaleX(-1)}
@@ -38,15 +38,15 @@ a.gbhome{display:inline-flex;align-items:center;gap:12px;padding:4px 4px 4px 18p
 .hero .in{position:relative;z-index:2;max-width:760px;margin:0 auto}
 .tag{display:inline-block;padding:5px 14px;border-radius:999px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.2);font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
 h1{font:italic 800 clamp(46px,9vw,92px)/.9 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;letter-spacing:.01em;text-shadow:0 4px 0 rgba(26,11,46,.35)}
-h1 span{display:block;background:linear-gradient(180deg,#fff 30%,#ffd1e4);-webkit-background-clip:text;background-clip:text;color:transparent}
-h1 em{font-style:inherit;display:block;color:var(--gelb);-webkit-text-fill-color:var(--gelb)}
-.lead{max-width:560px;margin:16px auto 0;color:#ffe9f2;font-size:16.5px}
+h1 span{display:block;color:#fff;text-shadow:0 3px 0 #1a0b2e,0 6px 0 rgba(26,11,46,.5),0 0 28px rgba(255,61,139,.45);-webkit-text-stroke:1.5px #1a0b2e}
+h1 em{font-style:inherit;display:block;color:var(--gelb);-webkit-text-fill-color:var(--gelb);-webkit-text-stroke:1.5px #1a0b2e;text-shadow:0 3px 0 #1a0b2e,0 6px 0 rgba(26,11,46,.5)}
+.lead{display:inline-block;max-width:600px;margin:18px auto 0;padding:10px 18px;border-radius:14px;background:rgba(18,8,31,.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:16px;font-weight:500;text-shadow:0 1px 2px rgba(0,0,0,.5)}
 #countdown{display:inline-flex;gap:10px;margin:22px 0 120px;padding:10px 16px;border-radius:16px;background:rgba(18,8,31,.55);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px)}
 #countdown div{min-width:54px}#countdown b{display:block;font:italic 800 30px/1 'Barlow Condensed',sans-serif;color:#fff}#countdown small{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#ffc9de}
 
 /* Karten-App */
-.app{max-width:1400px;margin:-60px auto 0;padding:0 20px;position:relative;z-index:3;display:grid;grid-template-columns:290px 1fr;gap:16px}
-.seite{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;align-self:start;position:sticky;top:76px;max-height:calc(100vh - 92px);overflow:auto}
+.app{max-width:1400px;margin:-60px auto 0;padding:0 20px;position:relative;z-index:3}
+.seite{position:absolute;left:12px;top:12px;bottom:12px;width:290px;z-index:4;background:rgba(22,12,38,.86);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px;overflow:auto;scrollbar-width:thin;scrollbar-color:#5a3d80 transparent;box-shadow:0 12px 36px rgba(0,0,0,.4);transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .2s}.kbox.zu .seite{transform:translateX(calc(-100% - 16px));opacity:0;pointer-events:none}#klapp{position:absolute;left:310px;top:50%;z-index:5;width:26px;height:56px;margin-top:-28px;border-radius:0 10px 10px 0;border:1px solid rgba(255,255,255,.14);border-left:0;background:rgba(22,12,38,.9);display:grid;place-items:center;cursor:pointer;transition:left .28s cubic-bezier(.2,.8,.2,1)}#klapp:hover{background:var(--pink)}#klapp svg{width:14px;height:14px;transition:transform .28s}.kbox.zu #klapp{left:0}.kbox.zu #klapp svg{transform:rotate(180deg)}
 .seite h2{font:italic 800 22px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.03em;margin:4px 0 12px;color:var(--gelb)}
 .seite h4{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:16px 0 8px;display:flex;justify-content:space-between;align-items:center}
 #suche{width:100%;padding:10px 12px 10px 36px;border-radius:12px;border:1px solid var(--line);background:var(--panel2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b9a6cf' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E") 11px 50%/16px no-repeat;color:var(--txt);font:14px Inter,sans-serif;outline:none}#suche:focus{border-color:var(--pink)}
@@ -85,7 +85,7 @@ h1 em{font-style:inherit;display:block;color:var(--gelb);-webkit-text-fill-color
 .zk{position:absolute;right:14px;top:14px;display:grid;gap:8px;z-index:2}
 .zk button{width:42px;height:42px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(29,16,48,.92);display:grid;place-items:center;cursor:pointer}.zk button:hover{background:var(--pink)}
 .zk svg{width:18px;height:18px}
-#info{position:absolute;left:14px;bottom:14px;width:min(340px,calc(100% - 28px));background:rgba(29,16,48,.96);border:1px solid var(--line);border-radius:16px;padding:14px;z-index:3;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+#info{position:absolute;right:66px;bottom:14px;width:min(340px,calc(100% - 28px));background:rgba(29,16,48,.96);border:1px solid var(--line);border-radius:16px;padding:14px;z-index:3;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 .ikopf{display:flex;gap:10px;align-items:flex-start}.ikopf>div{flex:1}.ikopf h3{font-size:16px;font-weight:800;line-height:1.3}
 .unter{font-size:12px;color:var(--mut)}
 #info p{font-size:14px;color:#e8dcf5;margin-top:8px}
@@ -104,7 +104,7 @@ main{max-width:1400px;margin:0 auto;padding:0 20px 80px}
 .zwei{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 footer{border-top:1px solid var(--line);padding:24px 20px;text-align:center;color:var(--mut);font-size:13px}footer a{margin:0 8px}
 @media(max-width:1000px){#missionen{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:860px){.app{grid-template-columns:1fr}.seite{position:static;max-height:none}.kbox{height:78vh}.zwei{grid-template-columns:1fr}}
+@media(max-width:860px){.seite{width:min(270px,calc(100% - 60px))}#klapp{left:calc(min(270px,100% - 60px) + 20px)}.kbox{height:80vh}#info{right:auto;left:14px}.zwei{grid-template-columns:1fr}}
 @media(max-width:520px){.top{padding:10px 16px}.app,main{padding-left:16px;padding-right:16px}.logo span{display:none}a.gbhome{font-size:12.5px}.palme.l{width:170px}.palme.r{width:190px}.sonne{width:300px;height:300px;bottom:-110px}#missionen{grid-template-columns:1fr 1fr}#countdown div{min-width:44px}#kats{grid-template-columns:1fr}}
 </style>
 </head>
@@ -125,7 +125,9 @@ footer{border-top:1px solid var(--line);padding:24px 20px;text-align:center;colo
 </section>
 
 <div class="app">
-  <aside class="seite">
+  <div class="deko l" aria-hidden="true"></div><div class="deko r" aria-hidden="true"></div>
+  <div class="kbox" id="kbox">
+    <aside class="seite">
     <h2>Leonida</h2>
     <input id="suche" type="search" placeholder="Ort suchen …" aria-label="Ort suchen">
     <h4>Kategorien <button id="alle" type="button">Alle an/aus</button></h4>
@@ -134,7 +136,7 @@ footer{border-top:1px solid var(--line);padding:24px 20px;text-align:center;colo
     <div id="regs"></div>
     <p class="hinweis">Orte von GTABase (mit Erlaubnis), Kartengrafik von gtadb.org (CC BY 4.0). Genaue Positionen, Sammelobjekte und Missionen kommen nach dem Release dazu. Dein Fortschritt bleibt nur in deinem Browser. Stand: <span id="stand"></span></p>
   </aside>
-  <div class="kbox">
+    <button id="klapp" type="button" aria-label="Filter ein- oder ausklappen" aria-expanded="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
     <svg id="karte" viewBox="0 0 700 1050" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Eigene Karte von Leonida"><defs><linearGradient id="glas" x1="0" y1="0" x2=".4" y2="1"><stop offset="0" stop-color="#5a5a70" stop-opacity=".9"/><stop offset=".45" stop-color="#22222c" stop-opacity=".88"/><stop offset="1" stop-color="#0c0c12" stop-opacity=".92"/></linearGradient><linearGradient id="glas2" x1="0" y1="0" x2=".4" y2="1"><stop offset="0" stop-color="#7a7a92"/><stop offset="1" stop-color="#22222c"/></linearGradient></defs>
       <rect x="-2000" y="-2000" width="5000" height="5000" fill="#2c66a5"/>
       <g id="kacheln"></g>
@@ -163,12 +165,12 @@ footer{border-top:1px solid var(--line);padding:24px 20px;text-align:center;colo
     </section>
     <section class="card">
       <h2>So nutzt du die Karte</h2>
-      <p>Links Kategorien an- und ausschalten, mit dem Mausrad oder zwei Fingern zoomen, mit gedrückter Maus verschieben. Tippe auf ein Icon für Details und hake erledigte Orte ab. Dein Fortschritt wird nur auf deinem Gerät gespeichert.</p>
+      <p>Im Filter links auf der Karte Kategorien an- und ausschalten (mit dem Pfeil einklappbar), mit dem Mausrad oder zwei Fingern zoomen, mit gedrückter Maus verschieben. Tippe auf ein Icon für Details und hake erledigte Orte ab. Dein Fortschritt wird nur auf deinem Gerät gespeichert.</p>
     </section>
   </div>
 </main>
 <footer>© 2026 Game Booster VPN. Fanseite, nicht mit Rockstar Games oder Take-Two verbunden. Grand Theft Auto ist eine Marke von Take-Two Interactive. Kartendaten: <a href="https://www.gtabase.com/de/gta-6/karte/">GTABase</a> mit freundlicher Erlaubnis. Kartengrafik: <a href="https://gtadb.org">gtadb.org</a> und Mitwirkende, CC BY 4.0. Eigene Icons.<br><a href="/">Startseite</a><a href="/mw4">MW4</a><a href="/updates">Updates</a><a href="/recht">Impressum</a></footer>
 <script src="js/gta6-daten.js?v=5"></script>
-<script src="js/gta6.js?v=12"></script>
+<script src="js/gta6.js?v=13"></script>
 </body>
 </html>

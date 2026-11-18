@@ -213,6 +213,11 @@
     D.kategorien.forEach(function (k) { aus[k.id] = !irgendAus; });
     syncKat(); speichern(); zeichnen();
   };
+  var kbox = document.getElementById("kbox"), klapp = document.getElementById("klapp");
+  function klappen(zu) { kbox.classList.toggle("zu", zu); klapp.setAttribute("aria-expanded", zu ? "false" : "true"); try { localStorage.setItem("gta6_zu", zu ? "1" : "0"); } catch (e) {} }
+  var gemerkt = null; try { gemerkt = localStorage.getItem("gta6_zu"); } catch (e) {}
+  klappen(gemerkt === null ? window.innerWidth < 860 : gemerkt === "1");
+  klapp.onclick = function () { klappen(!kbox.classList.contains("zu")); };
   var such = document.getElementById("suche");
   such.addEventListener("input", function () {
     suche = such.value.trim().toLowerCase(); zeichnen();
