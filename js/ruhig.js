@@ -26,8 +26,8 @@
   }, { passive: true });
 })();
 
-// Startseite statisch: SVG-Animationen anhalten
+// Startseite statisch, nur die Weltkarten bleiben animiert (Karten = SVGs mit eigenen Animationen)
 (function () {
-  function stopp() { document.querySelectorAll("svg").forEach(function (s) { try { s.pauseAnimations(); s.setCurrentTime(0); } catch (e) {} }); }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", stopp); else stopp();
+  function los() { document.querySelectorAll("svg").forEach(function (s) { if (s.querySelector("animate,animateMotion,animateTransform")) s.classList.add("gb-karte"); }); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", los); else los();
 })();
