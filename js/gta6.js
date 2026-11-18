@@ -17,7 +17,8 @@
     var px = r.width / vb.w * (window.devicePixelRatio || 1);
     var z = Math.max(1, Math.min(5, Math.ceil(Math.log2(px) - .2)));
     var g = 256 / Math.pow(2, z);
-    var x0 = Math.floor(vb.x / g), x1 = Math.floor((vb.x + vb.w) / g), y0 = Math.floor(vb.y / g), y1 = Math.floor((vb.y + vb.h) / g);
+    var rx = vb.w * .5, ry = vb.h * .5;
+    var x0 = Math.floor((vb.x - rx) / g), x1 = Math.floor((vb.x + vb.w + rx) / g), y0 = Math.floor((vb.y - ry) / g), y1 = Math.floor((vb.y + vb.h + ry) / g);
     var key = z + ":" + x0 + ":" + x1 + ":" + y0 + ":" + y1; if (key === feinKey) return; feinKey = key;
     if (z !== feinZ) {
       // alte Stufe als Platzhalter behalten, bis die neue geladen ist (kein Blur-Flackern)
@@ -32,7 +33,7 @@
       var k = x + "_" + y; if (z <= 3 ? !HAT[z][k] : !HAT[3][Math.floor(x / Math.pow(2, z - 3)) + "_" + Math.floor(y / Math.pow(2, z - 3))]) continue; soll[k] = 1;
       if (!da[k]) { var im = el("image", { href: "img/gta6/" + z + "/" + k + ".jpg", x: x * g, y: y * g, width: g * 1.004, height: g * 1.004 }, fein); im.dataset.k = k; offen++; im.addEventListener("load", fertig); im.addEventListener("error", function () { this.style.display = "none"; fertig(); }); }
     }
-    Object.keys(da).forEach(function (k) { if (!soll[k]) da[k].remove(); });
+    var weg2 = Object.keys(da).filter(function (k) { return !soll[k]; }); if (fein.children.length > 220) weg2.forEach(function (k) { da[k].remove(); });
   }
 
   // ---------- Zoom + Verschieben (viewBox) ----------
@@ -44,7 +45,7 @@
   function rect() { if (!rc || !rc.width) rc = svg.getBoundingClientRect(); return rc; }
   window.addEventListener("resize", function () { rc = null; });
   window.addEventListener("scroll", function () { rc = null; }, { passive: true });
-  var vbC = null, live = false, ruhe = 0;
+  var vbC = null, live = false, ruhe = 0, liveK = 0;
   function setzen(schnell) {
     if (schnell) { live = true; clearTimeout(ruhe); ruhe = setTimeout(function () { live = false; setzen(); }, 160); }
     else live = false;
@@ -58,7 +59,9 @@
     vb.x = Math.max(-100, Math.min(VW + 100 - vb.w, vb.x)); vb.y = Math.max(-100, Math.min(VH + 100 - vb.h, vb.y));
     if (live && vbC && r.width) {
       var k = vbC.w / vb.w, tx = (vbC.x - vb.x) / vb.w * r.width, ty = (vbC.y - vb.y) / vb.h * r.height;
-      svg.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")"; return;
+      svg.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
+      var jt = performance.now(); if (jt - liveK > 120) { liveK = jt; kacheln(); }
+      return;
     }
     svg.style.transform = ""; vbC = { x: vb.x, y: vb.y, w: vb.w, h: vb.h };
     svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h);
