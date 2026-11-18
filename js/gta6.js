@@ -116,6 +116,7 @@
       g.dataset.x = pt.x; g.dataset.y = pt.y;
       el("title", {}, g).textContent = pt.n;
       el("rect", { x: -13, y: -13, width: 26, height: 26, rx: 7, stroke: k.farbe, class: "pform" }, g);
+      el("rect", { x: -11, y: -11.5, width: 22, height: 9, rx: 5, fill: "rgba(255,255,255,.13)", "pointer-events": "none" }, g);
       el("path", { d: k.icon, transform: "translate(-8,-8) scale(.667)", class: "pico" }, g);
       function wahl() { if (bewegt) return; zeige(pt, i); }
       g.addEventListener("click", wahl);
