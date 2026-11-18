@@ -53,6 +53,7 @@
   function jetzt() {
     plan = 0;
     var r = rect(), A = r.width ? r.height / r.width : 1;
+    if (!isFinite(vb.x + vb.y + vb.w)) { vb.x = START.x; vb.y = START.y; vb.w = START.w; ziel = null; }
     vb.w = Math.max(12, Math.min(900, vb.w)); vb.h = vb.w * A;
     vb.x = Math.max(-100, Math.min(VW + 100 - vb.w, vb.x)); vb.y = Math.max(-100, Math.min(VH + 100 - vb.h, vb.y));
     if (live && vbC && r.width) {
@@ -72,9 +73,30 @@
     var nw = Math.max(12, Math.min(900, vb.w * f)); f = nw / vb.w;
     vb.x = px - (px - vb.x) * f; vb.y = py - (py - vb.y) * f; vb.w = nw; setzen(schnell);
   }
-  svg.addEventListener("wheel", function (e) { e.preventDefault(); zoom(e.deltaY > 0 ? 1.2 : 1 / 1.2, e.clientX, e.clientY, true); }, { passive: false });
+  // weiches Zoomen: Ziel setzen, pro Frame hingleiten
+  var ziel = null, animiert = 0;
+  function weich(f, cx, cy) {
+    var r = rect(); if (!r.width || !r.height) return;
+    var b = ziel || { x: vb.x, y: vb.y, w: vb.w };
+    var px = b.x + (cx - r.left) / r.width * b.w, py = b.y + (cy - r.top) / r.height * b.w * (r.height / r.width);
+    var nw = Math.max(12, Math.min(900, b.w * f)); f = nw / b.w;
+    ziel = { x: px - (px - b.x) * f, y: py - (py - b.y) * f, w: nw };
+    if (!animiert) animiert = requestAnimationFrame(gleiten);
+  }
+  function gleiten() {
+    animiert = 0; if (!ziel) return;
+    var k = 0.2;
+    vb.w += (ziel.w - vb.w) * k; vb.x += (ziel.x - vb.x) * k; vb.y += (ziel.y - vb.y) * k;
+    if (Math.abs(ziel.w - vb.w) / ziel.w < 0.003) { vb.w = ziel.w; vb.x = ziel.x; vb.y = ziel.y; ziel = null; setzen(true); return; }
+    setzen(true); animiert = requestAnimationFrame(gleiten);
+  }
+  svg.addEventListener("wheel", function (e) {
+    e.preventDefault();
+    var d = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaY;
+    weich(Math.pow(1.0018, Math.max(-300, Math.min(300, d))), e.clientX, e.clientY);
+  }, { passive: false });
   var zeiger = {}, start = null, bewegt = false;
-  svg.addEventListener("pointerdown", function (e) { zeiger[e.pointerId] = [e.clientX, e.clientY]; start = null; bewegt = false; });
+  svg.addEventListener("pointerdown", function (e) { ziel = null; zeiger[e.pointerId] = [e.clientX, e.clientY]; start = null; bewegt = false; });
   svg.addEventListener("pointermove", function (e) {
     if (!zeiger[e.pointerId]) return;
     var ids = Object.keys(zeiger), alt = zeiger[e.pointerId];
@@ -92,7 +114,7 @@
   });
   function los(e) { delete zeiger[e.pointerId]; start = null; svg.classList.remove("zieht"); clearTimeout(ruhe); setzen(); }
   svg.addEventListener("pointerup", los); svg.addEventListener("pointercancel", los);
-  function mitte(f) { var r = svg.getBoundingClientRect(); zoom(f, r.left + r.width / 2, r.top + r.height / 2); }
+  function mitte(f) { var r = rect(); weich(f, r.left + r.width / 2, r.top + r.height / 2); }
   document.getElementById("zplus").onclick = function () { mitte(1 / 1.4); };
   document.getElementById("zminus").onclick = function () { mitte(1.4); };
   document.getElementById("zreset").onclick = function () { vb.x = START.x; vb.y = START.y; vb.w = START.w; setzen(); };
