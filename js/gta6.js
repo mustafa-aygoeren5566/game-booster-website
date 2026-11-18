@@ -11,7 +11,7 @@
   var basis = el("g", {}, kach), fein = el("g", {}, kach), feinZ = -1, feinKey = "";
   D.kacheln["0"].forEach(function (k) { var p = k.split("_"); el("image", { href: "img/gta6/0/" + k + ".jpg", x: p[0] * 256, y: p[1] * 256, width: 256.6, height: 256.6 }, basis); });
   function kacheln() {
-    var r = svg.getBoundingClientRect(); if (!r.width) return;
+    var r = rect(); if (!r.width) return;
     var px = r.width / vb.w * (window.devicePixelRatio || 1);
     var z = Math.max(1, Math.min(5, Math.ceil(Math.log2(px) - .2)));
     var g = 256 / Math.pow(2, z);
@@ -32,41 +32,57 @@
   var vb = { x: START.x, y: START.y, w: START.w, h: START.w };
   var pins = document.getElementById("pins");
   function verh() { var r = svg.getBoundingClientRect(); return r.width ? r.height / r.width : 1; }
-  function setzen() {
-    var A = verh();
+  var plan = 0, altS = -1, rc = null;
+  function rect() { if (!rc || !rc.width) rc = svg.getBoundingClientRect(); return rc; }
+  window.addEventListener("resize", function () { rc = null; });
+  window.addEventListener("scroll", function () { rc = null; }, { passive: true });
+  var vbC = null, live = false, ruhe = 0;
+  function setzen(schnell) {
+    if (schnell) { live = true; clearTimeout(ruhe); ruhe = setTimeout(function () { live = false; setzen(); }, 160); }
+    else live = false;
+    if (!plan) plan = requestAnimationFrame(jetzt);
+  }
+  function jetzt() {
+    plan = 0;
+    var r = rect(), A = r.width ? r.height / r.width : 1;
     vb.w = Math.max(12, Math.min(900, vb.w)); vb.h = vb.w * A;
     vb.x = Math.max(-100, Math.min(VW + 100 - vb.w, vb.x)); vb.y = Math.max(-100, Math.min(VH + 100 - vb.h, vb.y));
+    if (live && vbC && r.width) {
+      var k = vbC.w / vb.w, tx = (vbC.x - vb.x) / vb.w * r.width, ty = (vbC.y - vb.y) / vb.h * r.height;
+      svg.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")"; return;
+    }
+    svg.style.transform = ""; vbC = { x: vb.x, y: vb.y, w: vb.w, h: vb.h };
     svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h);
-    var r = svg.getBoundingClientRect(), s = (r.width ? vb.w / r.width : 1) * (vb.w > 300 ? .62 : vb.w > 120 ? .8 : 1);
-    Array.prototype.forEach.call(pins.children, function (g) { g.setAttribute("transform", "translate(" + g.dataset.x + "," + g.dataset.y + ") scale(" + s + ")"); });
+    var s = (r.width ? vb.w / r.width : 1) * (vb.w > 300 ? .62 : vb.w > 120 ? .8 : 1);
+    if (Math.abs(s - altS) > 1e-9) { altS = s; Array.prototype.forEach.call(pins.children, function (g) { g.setAttribute("transform", "translate(" + g.dataset.x + "," + g.dataset.y + ") scale(" + s + ")"); }); }
     kacheln();
   }
   window.addEventListener("resize", setzen);
-  function zoom(f, cx, cy) {
-    var r = svg.getBoundingClientRect();
+  function zoom(f, cx, cy, schnell) {
+    var r = rect();
     var px = vb.x + (cx - r.left) / r.width * vb.w, py = vb.y + (cy - r.top) / r.height * vb.h;
     var nw = Math.max(12, Math.min(900, vb.w * f)); f = nw / vb.w;
-    vb.x = px - (px - vb.x) * f; vb.y = py - (py - vb.y) * f; vb.w = nw; setzen();
+    vb.x = px - (px - vb.x) * f; vb.y = py - (py - vb.y) * f; vb.w = nw; setzen(schnell);
   }
-  svg.addEventListener("wheel", function (e) { e.preventDefault(); zoom(e.deltaY > 0 ? 1.2 : 1 / 1.2, e.clientX, e.clientY); }, { passive: false });
+  svg.addEventListener("wheel", function (e) { e.preventDefault(); zoom(e.deltaY > 0 ? 1.2 : 1 / 1.2, e.clientX, e.clientY, true); }, { passive: false });
   var zeiger = {}, start = null, bewegt = false;
   svg.addEventListener("pointerdown", function (e) { zeiger[e.pointerId] = [e.clientX, e.clientY]; start = null; bewegt = false; });
   svg.addEventListener("pointermove", function (e) {
     if (!zeiger[e.pointerId]) return;
     var ids = Object.keys(zeiger), alt = zeiger[e.pointerId];
     if (ids.length === 1) {
-      var r = svg.getBoundingClientRect(), dx = e.clientX - alt[0], dy = e.clientY - alt[1];
+      var r = rect(), dx = e.clientX - alt[0], dy = e.clientY - alt[1];
       if (Math.abs(dx) + Math.abs(dy) > 2) { bewegt = true; svg.setPointerCapture(e.pointerId); svg.classList.add("zieht"); }
       vb.x -= dx / r.width * vb.w; vb.y -= dy / r.height * vb.h;
-      zeiger[e.pointerId] = [e.clientX, e.clientY]; setzen();
+      zeiger[e.pointerId] = [e.clientX, e.clientY]; setzen(true);
     } else if (ids.length === 2) {
       zeiger[e.pointerId] = [e.clientX, e.clientY];
       var a = zeiger[ids[0]], b = zeiger[ids[1]], d = Math.hypot(a[0] - b[0], a[1] - b[1]);
-      if (start) zoom(start / d, (a[0] + b[0]) / 2, (a[1] + b[1]) / 2);
+      if (start) zoom(start / d, (a[0] + b[0]) / 2, (a[1] + b[1]) / 2, true);
       start = d; bewegt = true;
     }
   });
-  function los(e) { delete zeiger[e.pointerId]; start = null; svg.classList.remove("zieht"); }
+  function los(e) { delete zeiger[e.pointerId]; start = null; svg.classList.remove("zieht"); clearTimeout(ruhe); setzen(); }
   svg.addEventListener("pointerup", los); svg.addEventListener("pointercancel", los);
   function mitte(f) { var r = svg.getBoundingClientRect(); zoom(f, r.left + r.width / 2, r.top + r.height / 2); }
   document.getElementById("zplus").onclick = function () { mitte(1 / 1.4); };
@@ -107,7 +123,7 @@
     info.appendChild(kopf); info.appendChild(p); info.appendChild(b);
   }
   function zeichnen() {
-    pins.innerHTML = "";
+    pins.innerHTML = ""; altS = -1;
     D.punkte.forEach(function (pt, i) {
       if (aus[pt.k]) return;
       if (suche && pt.n.toLowerCase().indexOf(suche) < 0) return;
@@ -133,20 +149,39 @@
   var liste = document.getElementById("kats");
   var letzteGr = "";
   D.kategorien.forEach(function (k) {
-    if (k.gruppe !== letzteGr) { letzteGr = k.gruppe; var h = document.createElement("div"); h.className = "gr"; h.textContent = letzteGr; liste.appendChild(h); }
+    if (k.gruppe !== letzteGr) {
+      letzteGr = k.gruppe; var gname = letzteGr;
+      var h = document.createElement("div"); h.className = "gr";
+      h.innerHTML = '<span></span><button type="button" class="tg" role="switch"><i></i></button>';
+      h.firstChild.textContent = gname;
+      var tg = h.querySelector(".tg"); tg.setAttribute("aria-label", gname + " an oder aus"); tg.dataset.g = gname;
+      tg.onclick = function () {
+        var an = this.getAttribute("aria-checked") !== "true";
+        D.kategorien.forEach(function (x) { if (x.gruppe === gname) aus[x.id] = !an; });
+        syncKat(); speichern(); zeichnen();
+      };
+      liste.appendChild(h);
+    }
     var n = D.punkte.filter(function (p) { return p.k === k.id; }).length;
-    var b = document.createElement("button"); b.type = "button";
+    var b = document.createElement("button"); b.type = "button"; b.dataset.k = k.id;
     b.className = "kat" + (aus[k.id] ? "" : " an") + (n ? "" : " leer");
     b.innerHTML = '<span class="ic" style="color:' + k.farbe + '"><svg viewBox="0 0 24 24"><path d="' + k.icon + '"/></svg></span><span class="kn"></span><span class="kz" id="z-' + k.id + '"></span>';
     b.querySelector(".kn").textContent = k.name;
-    b.onclick = function () { aus[k.id] = !aus[k.id]; b.classList.toggle("an", !aus[k.id]); speichern(); zeichnen(); };
+    b.onclick = function () { aus[k.id] = !aus[k.id]; syncKat(); speichern(); zeichnen(); };
     liste.appendChild(b);
   });
+  function syncKat() {
+    Array.prototype.forEach.call(liste.querySelectorAll(".kat"), function (b) { b.classList.toggle("an", !aus[b.dataset.k]); });
+    Array.prototype.forEach.call(liste.querySelectorAll(".tg"), function (t) {
+      var an = D.kategorien.some(function (x) { return x.gruppe === t.dataset.g && !aus[x.id]; });
+      t.setAttribute("aria-checked", an ? "true" : "false");
+    });
+  }
+  syncKat();
   document.getElementById("alle").onclick = function () {
     var irgendAus = D.kategorien.some(function (k) { return aus[k.id]; });
     D.kategorien.forEach(function (k) { aus[k.id] = !irgendAus; });
-    Array.prototype.forEach.call(liste.querySelectorAll(".kat"), function (b) { b.classList.toggle("an", irgendAus); });
-    speichern(); zeichnen();
+    syncKat(); speichern(); zeichnen();
   };
   var such = document.getElementById("suche");
   such.addEventListener("input", function () {
