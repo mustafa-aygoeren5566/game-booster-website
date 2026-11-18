@@ -115,8 +115,8 @@
       var g = el("g", { class: "pin" + (erledigt["p" + i] ? " ok" : ""), tabindex: "0", role: "button", "aria-label": pt.n }, pins);
       g.dataset.x = pt.x; g.dataset.y = pt.y;
       el("title", {}, g).textContent = pt.n;
-      el("path", { d: "M0 0C-4-6-13-12-13-22a13 13 0 0 1 26 0C13-12 4-6 0 0z", fill: k.farbe, class: "pform" }, g);
-      el("path", { d: k.icon, transform: "translate(-8,-30) scale(.667)", class: "pico" }, g);
+      el("rect", { x: -13, y: -13, width: 26, height: 26, rx: 7, stroke: k.farbe, class: "pform" }, g);
+      el("path", { d: k.icon, transform: "translate(-8,-8) scale(.667)", class: "pico" }, g);
       function wahl() { if (bewegt) return; zeige(pt, i); }
       g.addEventListener("click", wahl);
       g.addEventListener("keydown", function (e) { if (e.key === "Enter") zeige(pt, i); });
