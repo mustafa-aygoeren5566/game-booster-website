@@ -33,7 +33,7 @@ function weg(a, b) {
 }
 
 // ---- Hintergrund-Rechner ----
-const rechner = new Worker(new URL("./uebersetzer-worker.js?v=4", import.meta.url), { type: "module" });
+const rechner = new Worker(new URL("./uebersetzer-worker.js?v=5", import.meta.url), { type: "module" });
 let auftrag = 0, letzt = null;
 const dateien = {};
 rechner.onmessage = (e) => {
