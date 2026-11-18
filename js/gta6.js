@@ -236,7 +236,7 @@
     var p = document.createElement("p"); p.textContent = pt.t || ""; if (!pt.t) p.hidden = true;
     var akt = document.createElement("div"); akt.className = "iakt";
     var b = document.createElement("button"); b.className = "hak" + (ok ? " ok" : "");
-    b.innerHTML = '<i class="sw"><i></i></i><span>Besucht</span>';
+    b.innerHTML = '<svg class="bi" viewBox="0 0 24 24"><path class="bo" d="M12 2.5c-3.9 0-7 3-7 6.9 0 5.1 7 12.1 7 12.1s7-7 7-12.1c0-3.9-3.1-6.9-7-6.9z"/><path class="bh" d="M8.6 9.6l1.5-1.5 1.5 1.5 3.3-3.5 1.5 1.4-4.8 5.1z"/></svg><span>Besucht</span>';
     b.setAttribute("role", "switch"); b.setAttribute("aria-checked", ok ? "true" : "false");
     b.onclick = function () { erledigt["p" + i] = !erledigt["p" + i]; speichern(); zeichnen(); zeige(pt, i); };
     var z = document.createElement("button"); z.className = "hin"; z.setAttribute("aria-label", "Hinzoomen"); z.dataset.tip = "Hinzoomen";
