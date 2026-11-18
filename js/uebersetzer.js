@@ -1,7 +1,10 @@
 // GB Übersetzer: Oberfläche, Sprachwege und eigene Verbesserungen (bleiben im Browser).
 const SPRACHEN = { de: "Deutsch", en: "Englisch", tr: "Türkisch", ar: "Arabisch", ru: "Russisch", es: "Spanisch", fr: "Französisch", pl: "Polnisch" };
-const NACH_EN = (s) => ({ netz: `Xenova/opus-mt-${s}-en`, vorsatz: "" });
-const VON_EN = (s) => s === "tr" ? { netz: "Xenova/opus-mt-en-mul", vorsatz: ">>tur<< " }
+// Deutsch <-> Englisch: eigene, nachtrainierte Netze (verstehen Umgangssprache, Tippfehler, Tonlage)
+const EIGEN = "gamebooster-vpn/gb-uebersetzer-";
+const NACH_EN = (s) => ({ netz: s === "de" ? EIGEN + "de-en" : `Xenova/opus-mt-${s}-en`, vorsatz: "" });
+const VON_EN = (s) => s === "de" ? { netz: EIGEN + "en-de", vorsatz: `<${ton}> ` }
+  : s === "tr" ? { netz: "Xenova/opus-mt-en-mul", vorsatz: ">>tur<< " }
   : s === "pl" ? { netz: "Xenova/opus-mt-en-mul", vorsatz: ">>pol<< " }
   : { netz: `Xenova/opus-mt-en-${s}`, vorsatz: "" };
 
@@ -30,7 +33,7 @@ function weg(a, b) {
 }
 
 // ---- Hintergrund-Rechner ----
-const rechner = new Worker(new URL("./uebersetzer-worker.js?v=3", import.meta.url), { type: "module" });
+const rechner = new Worker(new URL("./uebersetzer-worker.js?v=4", import.meta.url), { type: "module" });
 let auftrag = 0, letzt = null;
 const dateien = {};
 rechner.onmessage = (e) => {
@@ -171,6 +174,7 @@ function deLocker(t) {
 function tonfall(t, sprache) {
   if (ton === "normal") return t;
   if (sprache === "en") return ersetze(t, ton === "locker" ? EN_LOCKER : EN_FORMELL);
+  // Deutsch: Tonlage macht das eigene Netz selbst (Steuerwort), nur als Absicherung nachbessern
   if (sprache === "de") return ton === "formell" ? deFormell(t) : deLocker(t);
   return t;
 }
