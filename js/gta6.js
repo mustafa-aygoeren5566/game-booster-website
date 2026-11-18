@@ -104,7 +104,8 @@
       D.regionen.forEach(function (b) { if (b !== a) poly = schneide(poly, a, b); });
       if (poly.length < 3) return;
       var d = "M" + poly.map(function (p) { return p[0].toFixed(1) + " " + p[1].toFixed(1); }).join("L") + "Z";
-      el("path", { d: d, class: "fl" }, gg); el("path", { d: d }, gg);
+      var rg = el("g", { class: "rg", id: "rg-" + a.id }, gg);
+      el("path", { d: d, class: "fl" }, rg); el("path", { d: d, class: "rand" }, rg);
     });
   })();
   var regmark = document.getElementById("regmark");
@@ -119,6 +120,8 @@
       el("path", { d: RICON[r.id] || RICON.vice, transform: "translate(-10,-10) scale(.833)", class: "ri" }, g);
       el("text", { y: 34 }, g).textContent = r.name;
       function hin() { if (bewegt) return; fliegen(r.x, r.y, r.id === "vice" ? 120 : 200); }
+      var rgEl = document.getElementById("rg-" + r.id);
+      if (rgEl) { g.addEventListener("mouseenter", function () { rgEl.classList.add("an"); }); g.addEventListener("mouseleave", function () { rgEl.classList.remove("an"); }); g.addEventListener("focus", function () { rgEl.classList.add("an"); }); g.addEventListener("blur", function () { rgEl.classList.remove("an"); }); }
       g.addEventListener("click", hin); g.addEventListener("keydown", function (e) { if (e.key === "Enter") hin(); });
       g.setAttribute("transform", "translate(" + r.x + "," + r.y + ") scale(" + s + ")");
     });
