@@ -236,12 +236,11 @@
     var p = document.createElement("p"); p.textContent = pt.t || ""; if (!pt.t) p.hidden = true;
     var akt = document.createElement("div"); akt.className = "iakt";
     var b = document.createElement("button"); b.className = "hak" + (ok ? " ok" : "");
-    b.innerHTML = '<i class="box"><svg viewBox="0 0 16 16"><path d="M2.6 8.4l1.7-1.7 2.4 2.4 5-5.6 1.7 1.6-6.7 7.3z"/></svg></i><span></span>';
-    b.lastChild.textContent = "Besucht";
-    b.setAttribute("role", "checkbox"); b.setAttribute("aria-checked", ok ? "true" : "false");
+    b.innerHTML = '<i class="sw"><i></i></i><span>Besucht</span>';
+    b.setAttribute("role", "switch"); b.setAttribute("aria-checked", ok ? "true" : "false");
     b.onclick = function () { erledigt["p" + i] = !erledigt["p" + i]; speichern(); zeichnen(); zeige(pt, i); };
     var z = document.createElement("button"); z.className = "hin"; z.setAttribute("aria-label", "Hinzoomen"); z.dataset.tip = "Hinzoomen";
-    z.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg>';
+    z.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><span>Hinzoomen</span>'; z.removeAttribute("data-tip");
     z.onclick = function () { fliegen(pt.x, pt.y, 30); };
     akt.appendChild(b); akt.appendChild(z); tt.appendChild(akt);
     info.appendChild(kopf); info.appendChild(p);
