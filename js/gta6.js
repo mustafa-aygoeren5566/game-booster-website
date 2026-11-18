@@ -335,5 +335,5 @@
     });
     m.appendChild(box);
   });
-  document.getElementById("stand").textContent = D.stand;
+  var standEl = document.getElementById("stand"); if (standEl) standEl.textContent = D.stand;
 })();
