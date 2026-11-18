@@ -67,7 +67,61 @@
     svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h);
     var s = (r.width ? vb.w / r.width : 1) * (vb.w > 300 ? .62 : vb.w > 120 ? .8 : 1);
     if (Math.abs(s - altS) > 1e-9) { altS = s; Array.prototype.forEach.call(pins.children, function (g) { g.setAttribute("transform", "translate(" + g.dataset.x + "," + g.dataset.y + ") scale(" + s + ")"); }); }
-    kacheln(); buendeln(r);
+    kacheln(); buendeln(r); regMarken(r.width ? vb.w / r.width : 1);
+  }
+  // ---------- Regionsgrenzen (Voronoi der Regionsmitten, auf Umriss aller Orte begrenzt) + Regions-Icons ----------
+  var RICON = {
+    kalaga: "M2 20l7-12 4 6 3-4 6 10z",
+    ambrosia: "M3 21V11l5 3v-3l5 3V5h3v16zM18 21V8h3v13z",
+    gellhorn: "M12 2a2.5 2.5 0 110 5 2.5 2.5 0 010-5zM11 7h2v12c2.5-.4 4.5-2 5.4-4.2l-2.4.6 3.5-4.4 1.2 5.6-1.6-1.2C18 19 15.5 21 12 21s-6-2-7.1-5.6L3.3 16.6l1.2-5.6L8 15.4l-2.4-.6C6.5 17 8.5 18.6 11 19z",
+    grass: "M11 3h2v12h-2zM6 7h2v8H6zM16 6h2v9h-2zM2 18c2-2 4-2 6 0s4 2 6 0 4-2 6 0 2 0 2 0v3c-2-2-4-2-6 0s-4 2-6 0-4-2-6 0-2 0-2 0z",
+    vice: "M2 21V12h4V7h4v4h3V3h4v8h3v4h2v6z",
+    keys: "M11 21c0-4 .6-8 2.2-11.2l1.7.7C13.5 13.6 13 17 13 21zM13.4 9.5C10.5 6.5 6.5 6 3 8c3.4-.4 6.6.4 9.6 2.6zM14 9c1-3.4 4.4-5.6 8.4-4.6-3.4.4-6.4 2-8 5zM2 21h20v1.5H2z"
+  };
+  (function () {
+    var P = D.punkte.map(function (p) { return [p.x, p.y]; });
+    P.sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; });
+    function kr(o, a, b) { return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]); }
+    var lo = [], hi = [];
+    P.forEach(function (p) { while (lo.length > 1 && kr(lo[lo.length - 2], lo[lo.length - 1], p) <= 0) lo.pop(); lo.push(p); });
+    P.slice().reverse().forEach(function (p) { while (hi.length > 1 && kr(hi[hi.length - 2], hi[hi.length - 1], p) <= 0) hi.pop(); hi.push(p); });
+    var hull = lo.slice(0, -1).concat(hi.slice(0, -1));
+    var mx = 0, my = 0; hull.forEach(function (p) { mx += p[0]; my += p[1]; }); mx /= hull.length; my /= hull.length;
+    hull = hull.map(function (p) { var dx = p[0] - mx, dy = p[1] - my, l = Math.hypot(dx, dy) || 1; return [p[0] + dx / l * 18, p[1] + dy / l * 18]; });
+    function schneide(poly, a, b) { // behalte Seite naeher an a
+      var nx = b.x - a.x, ny = b.y - a.y, c = (b.x * b.x + b.y * b.y - a.x * a.x - a.y * a.y) / 2, out = [];
+      function inn(p) { return p[0] * nx + p[1] * ny <= c; }
+      for (var i = 0; i < poly.length; i++) {
+        var p = poly[i], q = poly[(i + 1) % poly.length], ip = inn(p), iq = inn(q);
+        if (ip) out.push(p);
+        if (ip !== iq) { var t = (c - (p[0] * nx + p[1] * ny)) / ((q[0] - p[0]) * nx + (q[1] - p[1]) * ny); out.push([p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t]); }
+      }
+      return out;
+    }
+    var gg = document.getElementById("grenzen");
+    D.regionen.forEach(function (a) {
+      var poly = hull;
+      D.regionen.forEach(function (b) { if (b !== a) poly = schneide(poly, a, b); });
+      if (poly.length < 3) return;
+      var d = "M" + poly.map(function (p) { return p[0].toFixed(1) + " " + p[1].toFixed(1); }).join("L") + "Z";
+      el("path", { d: d, class: "fl" }, gg); el("path", { d: d }, gg);
+    });
+  })();
+  var regmark = document.getElementById("regmark");
+  function regMarken(s) {
+    regmark.classList.toggle("weg", vb.w < 90);
+    if (regmark.childNodes.length) { Array.prototype.forEach.call(regmark.children, function (g) { g.setAttribute("transform", "translate(" + g.dataset.x + "," + g.dataset.y + ") scale(" + s + ")"); }); return; }
+    D.regionen.forEach(function (r) {
+      var g = el("g", { class: "rm", role: "button", tabindex: "0", "aria-label": "Region " + r.name }, regmark);
+      g.dataset.x = r.x; g.dataset.y = r.y;
+      el("title", {}, g).textContent = r.name + ": " + r.text;
+      el("rect", { x: -17, y: -17, width: 34, height: 34, rx: 9, class: "rb" }, g);
+      el("path", { d: RICON[r.id] || RICON.vice, transform: "translate(-10,-10) scale(.833)", class: "ri" }, g);
+      el("text", { y: 34 }, g).textContent = r.name;
+      function hin() { if (bewegt) return; fliegen(r.x, r.y, r.id === "vice" ? 120 : 200); }
+      g.addEventListener("click", hin); g.addEventListener("keydown", function (e) { if (e.key === "Enter") hin(); });
+      g.setAttribute("transform", "translate(" + r.x + "," + r.y + ") scale(" + s + ")");
+    });
   }
   // ---------- Bündeln beim Rauszoomen (Zahlen-Kreise statt Icon-Haufen) ----------
   var haufen = document.getElementById("haufen"), bundKey = "", pinVer = 0;
@@ -260,7 +314,7 @@
   // Regionen: Liste in der Seitenleiste, Klick = hinfliegen
   var rl = document.getElementById("regs");
   D.regionen.forEach(function (r) {
-    var b = document.createElement("button"); b.type = "button"; b.className = "reg"; b.textContent = r.name; b.title = r.text;
+    var b = document.createElement("button"); b.type = "button"; b.className = "reg"; b.innerHTML = '<svg viewBox="0 0 24 24"><path d="' + (RICON[r.id] || "") + '"/></svg><span></span>'; b.lastChild.textContent = r.name; b.title = r.text;
     b.onclick = function () { fliegen(r.x, r.y, r.id === "vice" ? 120 : 200); }; rl.appendChild(b);
   });
   var A0 = verh(); if (A0 > 1) { START.w = 560 / A0 * 1.1; START.x = 430 - START.w / 2; } START.y = 480 - START.w * A0 / 2;
