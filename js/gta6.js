@@ -331,6 +331,7 @@
   var A0 = verh(); if (A0 > 1) { START.w = 560 / A0 * 1.1; START.x = 430 - START.w / 2; } START.y = 480 - START.w * A0 / 2;
   vb.x = START.x; vb.y = START.y; vb.w = START.w;
   zeichnen();
+  requestAnimationFrame(function () { rc = null; var t = fliegen; fliegen = function (x, y, w) { vb.w = w; vb.x = x - w / 2; vb.y = y - w * verh() / 2; setzen(); }; ganz(); fliegen = t; });
 
   // ---------- Eigener Tooltip statt Browser-Standard ----------
   var tip = document.createElement("div"); tip.id = "tip"; tip.innerHTML = "<b></b><span></span>"; document.body.appendChild(tip);
@@ -349,7 +350,7 @@
   var cd = document.getElementById("countdown"), ziel = Date.parse("2026-11-19T00:00:00+01:00"); // Release Deutschland 00:00 Uhr MEZ
   function tick() {
     var r = ziel - Date.now();
-    if (r <= 0) { cd.innerHTML = "<b>GTA 6 ist draußen</b>"; return; }
+    if (r <= 0) { cd.innerHTML = "<b>Jetzt erhältlich</b>"; cd.classList.add("raus"); var rl2 = document.querySelector(".rel"); if (rl2) rl2.remove(); return; }
     var s = Math.floor(r / 1000), z = [Math.floor(s / 86400), Math.floor(s / 3600) % 24, Math.floor(s / 60) % 60, s % 60];
     Array.prototype.forEach.call(cd.querySelectorAll("b"), function (b, i) { b.textContent = String(z[i]).padStart(2, "0"); });
     setTimeout(tick, 1000);
