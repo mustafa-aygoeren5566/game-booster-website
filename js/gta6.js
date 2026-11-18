@@ -265,7 +265,7 @@
   zeichnen();
 
   // ---------- Countdown ----------
-  var cd = document.getElementById("countdown"), ziel = new Date(2026, 10, 19, 0, 0, 0).getTime();
+  var cd = document.getElementById("countdown"), ziel = Date.parse("2026-11-19T00:00:00+01:00"); // Release Deutschland 00:00 Uhr MEZ
   function tick() {
     var r = ziel - Date.now();
     if (r <= 0) { cd.innerHTML = "<b>GTA 6 ist draußen</b>"; return; }
