@@ -55,8 +55,9 @@
     plan = 0;
     var r = rect(), A = r.width ? r.height / r.width : 1;
     if (!isFinite(vb.x + vb.y + vb.w)) { vb.x = START.x; vb.y = START.y; vb.w = START.w; ziel = null; }
-    vb.w = Math.max(12, Math.min(900, vb.w)); vb.h = vb.w * A;
-    vb.x = Math.max(-100, Math.min(VW + 100 - vb.w, vb.x)); vb.y = Math.max(-100, Math.min(VH + 100 - vb.h, vb.y));
+    vb.w = Math.max(12, Math.min(1500, vb.w)); vb.h = vb.w * A;
+    function kl(v, s, L) { var lo = -300, hi = L + 300 - s; return hi < lo ? Math.max(hi, Math.min(lo, v)) : Math.max(lo, Math.min(hi, v)); }
+    vb.x = kl(vb.x, vb.w, VW); vb.y = kl(vb.y, vb.h, VH);
     if (live && vbC && r.width) {
       var k = vbC.w / vb.w, tx = (vbC.x - vb.x) / vb.w * r.width, ty = (vbC.y - vb.y) / vb.h * r.height;
       svg.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
@@ -140,7 +141,7 @@
   function zoom(f, cx, cy, schnell) {
     var r = rect();
     var px = vb.x + (cx - r.left) / r.width * vb.w, py = vb.y + (cy - r.top) / r.height * vb.h;
-    var nw = Math.max(12, Math.min(900, vb.w * f)); f = nw / vb.w;
+    var nw = Math.max(12, Math.min(1500, vb.w * f)); f = nw / vb.w;
     vb.x = px - (px - vb.x) * f; vb.y = py - (py - vb.y) * f; vb.w = nw; setzen(schnell);
   }
   // weiches Zoomen: Ziel setzen, pro Frame hingleiten
@@ -149,7 +150,7 @@
     var r = rect(); if (!r.width || !r.height) return;
     var b = ziel || { x: vb.x, y: vb.y, w: vb.w };
     var px = b.x + (cx - r.left) / r.width * b.w, py = b.y + (cy - r.top) / r.height * b.w * (r.height / r.width);
-    var nw = Math.max(12, Math.min(900, b.w * f)); f = nw / b.w;
+    var nw = Math.max(12, Math.min(1500, b.w * f)); f = nw / b.w;
     ziel = { x: px - (px - b.x) * f, y: py - (py - b.y) * f, w: nw };
     if (!animiert) animiert = requestAnimationFrame(gleiten);
   }
@@ -187,7 +188,20 @@
   function mitte(f) { var r = rect(); weich(f, r.left + r.width / 2, r.top + r.height / 2); }
   document.getElementById("zplus").onclick = function () { mitte(1 / 1.4); };
   document.getElementById("zminus").onclick = function () { mitte(1.4); };
-  document.getElementById("zreset").onclick = function () { vb.x = START.x; vb.y = START.y; vb.w = START.w; setzen(); };
+  document.getElementById("zreset").onclick = function () { ganz(); };
+  // ganze Insel mittig einpassen (Filter-Panel offen = Mitte rechts davon)
+  function ganz() {
+    var x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+    (D.bezirke || []).forEach(function (b) { b.ringe.forEach(function (r) { r.forEach(function (p) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }); }); });
+    if (x0 > x1) { x0 = 280; x1 = 780; y0 = 40; y1 = 1000; }
+    var r = rect(); if (!r.width) return;
+    var kb = document.getElementById("kbox"), offen = kb && !kb.classList.contains("zu") && r.width > 700;
+    var frei = offen ? 316 : 0, W = r.width - frei, H = r.height;
+    var bw = (x1 - x0) * 1.08, bh = (y1 - y0) * 1.06;
+    var proPx = Math.max(bw / W, bh / H), w = proPx * r.width;
+    var cx = (x0 + x1) / 2 - frei / 2 * proPx, cy = (y0 + y1) / 2;
+    ziel = null; fliegen(cx + 0, cy, w);
+  }
   function fliegen(x, y, w) {
     var A = verh(), z0 = { x: vb.x, y: vb.y, w: vb.w }, z1 = { w: w, x: x - w / 2, y: y - w * A / 2 }, t0 = performance.now();
     (function schritt(t) {
