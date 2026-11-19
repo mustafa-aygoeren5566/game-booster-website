@@ -65,7 +65,7 @@ h1 em{font-style:inherit;display:block;color:var(--gelb);-webkit-text-fill-color
 
 .kbox{position:relative;contain:strict;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#2c66a5;height:min(86vh,1000px);min-height:520px}
 #karte{width:100%;height:100%;display:block;overflow:visible;transform-origin:0 0;will-change:transform;cursor:grab;touch-action:none;user-select:none}
-#karte.zieht{cursor:grabbing}
+#karte{will-change:transform}#karte.zieht{cursor:grabbing}#karte.zieht #pins,#karte.zieht #haufen,#karte.zieht #grenzen,#karte.zieht .rm{pointer-events:none}
 .ufer2{fill:#8be6fb;stroke:#8be6fb;stroke-width:26;stroke-linejoin:round;opacity:.55}
 .ufer{fill:#c6f3ff;stroke:#c6f3ff;stroke-width:9;stroke-linejoin:round}
 .fest{fill:#fff4c2}
@@ -267,6 +267,6 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
 </main>
 <footer>© 2026 Game Booster VPN. Fanseite, nicht mit Rockstar Games oder Take-Two verbunden. Grand Theft Auto ist eine Marke von Take-Two Interactive.<br><a href="/">Startseite</a><a href="/mw4">MW4</a><a href="/updates">Updates</a><a href="/recht">Impressum</a><a href="https://gtadb.org" target="_blank" rel="noopener">GTADB</a><a href="https://creativecommons.org/licenses/by/4.0/deed.de" target="_blank" rel="noopener">CC BY 4.0</a></footer>
 <script src="js/gta6-daten.js?v=12"></script>
-<script src="js/gta6.js?v=38"></script>
+<script src="js/gta6.js?v=39"></script>
 </body>
 </html>
