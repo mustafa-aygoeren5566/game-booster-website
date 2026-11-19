@@ -72,7 +72,14 @@
     svg.style.transform = ""; vbC = { x: vb.x, y: vb.y, w: vb.w, h: vb.h };
     svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h);
     var s = (r.width ? vb.w / r.width : 1) * (vb.w > 300 ? .62 : vb.w > 120 ? .8 : 1);
-    if (Math.abs(s - altS) > 1e-9) { altS = s; Array.prototype.forEach.call(pins.children, function (g) { g.setAttribute("transform", "translate(" + g.dataset.x + "," + g.dataset.y + ") scale(" + s + ")"); }); }
+    // Nur Pins im Ausschnitt (+ halber Rand zum Verschieben) zeichnen und skalieren: bei 2800+ Orten ruckelt sonst jeder Zoomschritt
+    if (Math.abs(s - altS) > 1e-9) altS = s;
+    var mx = vb.w * .5, my = vb.h * .5, x0 = vb.x - mx, x1 = vb.x + vb.w + mx, y0 = vb.y - my, y1 = vb.y + vb.h + my;
+    Array.prototype.forEach.call(pins.children, function (g) {
+      var x = +g.dataset.x, y = +g.dataset.y, drin = x >= x0 && x <= x1 && y >= y0 && y <= y1;
+      if (drin !== g._drin) { g._drin = drin; g.style.display = drin ? "" : "none"; }
+      if (drin && g._s !== s) { g._s = s; g.setAttribute("transform", "translate(" + x + "," + y + ") scale(" + s + ")"); }
+    });
     clipSetzen(); kacheln(); buendeln(r); regMarken(r.width ? vb.w / r.width : 1);
   }
   // ---------- Regionsgrenzen (Voronoi der Regionsmitten, auf Umriss aller Orte begrenzt) + Regions-Icons ----------
