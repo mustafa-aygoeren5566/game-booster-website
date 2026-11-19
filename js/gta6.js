@@ -8,6 +8,11 @@
   // ---------- Kartenkacheln (gtabase.com, mit Erlaubnis) ----------
   var kach = document.getElementById("kacheln"), HAT = {};
   Object.keys(D.kacheln).forEach(function (z) { HAT[z] = {}; D.kacheln[z].forEach(function (k) { HAT[z][k] = 1; }); });
+  // Kacheln nur im Umfeld des Ausschnitts zeichnen: ohne Begrenzung rastert die Grafikkarte beim Zoomen
+  // die ganze (stark vergroesserte) Karte neben dem Bildschirm mit = Ruckeln ganz nah
+  var kdefs = svg.querySelector("defs") || el("defs", {}, svg), kclip = el("clipPath", { id: "kclip" }, kdefs), krect = el("rect", { x: -9999, y: -9999, width: 30000, height: 30000 }, kclip);
+  kach.setAttribute("clip-path", "url(#kclip)");
+  function clipSetzen() { var w = vb.w, h = vb.h || vb.w; krect.setAttribute("x", vb.x - w); krect.setAttribute("y", vb.y - h); krect.setAttribute("width", w * 3); krect.setAttribute("height", h * 3); }
   var basis = el("g", {}, kach), fein = el("g", {}, kach), feinZ = -1, feinKey = "", altZ = null, altT = 0, offen = 0;
   function weg() { if (altZ) { altZ.remove(); altZ = null; } }
   function fertig() { if (--offen <= 0) { offen = 0; clearTimeout(altT); altT = setTimeout(weg, 80); } }
@@ -61,14 +66,14 @@
     if (live && vbC && r.width) {
       var k = vbC.w / vb.w, tx = (vbC.x - vb.x) / vb.w * r.width, ty = (vbC.y - vb.y) / vb.h * r.height;
       svg.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
-      var jt = performance.now(); if (jt - liveK > 120) { liveK = jt; kacheln(); }
+      var jt = performance.now(); if (jt - liveK > 120) { liveK = jt; kacheln(); if (k < 1) clipSetzen(); }
       return;
     }
     svg.style.transform = ""; vbC = { x: vb.x, y: vb.y, w: vb.w, h: vb.h };
     svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h);
     var s = (r.width ? vb.w / r.width : 1) * (vb.w > 300 ? .62 : vb.w > 120 ? .8 : 1);
     if (Math.abs(s - altS) > 1e-9) { altS = s; Array.prototype.forEach.call(pins.children, function (g) { g.setAttribute("transform", "translate(" + g.dataset.x + "," + g.dataset.y + ") scale(" + s + ")"); }); }
-    kacheln(); buendeln(r); regMarken(r.width ? vb.w / r.width : 1);
+    clipSetzen(); kacheln(); buendeln(r); regMarken(r.width ? vb.w / r.width : 1);
   }
   // ---------- Regionsgrenzen (Voronoi der Regionsmitten, auf Umriss aller Orte begrenzt) + Regions-Icons ----------
   var RICON = {
