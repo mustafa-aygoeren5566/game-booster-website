@@ -116,12 +116,15 @@ document.getElementById("shopGrid").innerHTML = SHOP.map(([a, t, s, p, on]) => I
   <div class="ttl">${t}<small>${s}</small></div>
   <span class="pill">${p}</span><span class="st2">${on ? "Verfügbar" : "Bald"}</span></a>`).join("");
 // Gratis-Tool: DMZ-Karte (Kartendaten von DMZ Codex, mit deren Erlaubnis und Link)
-{ const g = document.getElementById("shopGrid"); g.classList.add("drei");
+{ const g = document.getElementById("shopGrid"); g.classList.add("vier");
   g.insertAdjacentHTML("beforeend", `<div class="sp-w"><div style="position:relative"><a class="sp-cr2" href="https://dmzcodex.com" target="_blank" rel="noopener" title="Kartendaten von DMZ Codex"><svg viewBox="0 0 20 24" width="15" height="18"><path d="M2 3a2 2 0 0 1 2-2h8l6 6v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" fill="#f5c518"/><circle cx="6" cy="6" r="1.6" fill="#111"/><path d="M5 15l5-3.5 5 3.5M5 19.5l5-3.5 5 3.5" stroke="#111" stroke-width="2.2" fill="none"/></svg><span><small>Kartendaten</small><b>DMZ</b> CODEX</span></a><a class="sc" href="https://github.com/mustafa-aygoeren5566/game-booster-releases/releases/latest/download/GameBooster-Setup.exe"><img class="bgx" src="img/dmz-karte.webp?v=1" alt="DMZ-Karte" style="object-fit:cover" loading="lazy"><span class="st2" style="top:10px;bottom:auto">Gratis</span></a></div>
   <div class="sp-t">DMZ-Karte <em>Schlüssel, Loot &amp; Infos</em></div></div>`) }
 // Eigenes Produkt: GB Werbefrei (Browser-Erweiterung, separat verkauft)
 document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class="sp-w"><div style="position:relative"><a class="sp-cr2 wfb" href="/werbefrei" title="Zur Werbefrei-Seite"><img src="img/werbefrei.png" alt="" width="22" height="22" style="border-radius:5px;display:block"><span><small>Erweiterung</small><b>GB</b> WERBEFREI</span></a><a class="sc wf" href="/werbefrei"><img class="bgx" src="img/werbefrei-karte.webp?v=3" alt="Werbefrei" style="object-fit:cover" loading="lazy"><span class="st2" style="top:10px;bottom:auto">Neu</span></a></div>
   <div class="sp-t">Werbefrei <em class="wfe">Streams &amp; Videos ohne Werbung</em></div></div>`);
+// GTA 6 Karte (gratis, eigene Seite). Kartendaten-Hinweis GTABase bleibt immer drin
+document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class="sp-w"><div style="position:relative"><a class="sp-cr2" href="https://www.gtabase.com/de/gta-6/karte/" target="_blank" rel="noopener" title="Kartendaten von GTABase"><img src="img/gtabase-logo.webp" alt="" width="18" height="18" style="border-radius:4px;display:block;object-fit:contain"><span><small>Kartendaten</small><b>GTA</b> BASE</span></a><a class="sc" href="/gta6"><img class="bgx" src="img/gta6-karte.webp?v=1" alt="GTA 6 Karte" style="object-fit:cover" loading="lazy"><span class="st2" style="top:10px;bottom:auto">Gratis</span></a></div>
+  <div class="sp-t">GTA 6 Karte <em>Alle Orte auf einer Karte</em></div></div>`);
 
 // PayPal direkt im Kauf-Fenster (Kunde bleibt auf der Seite).
 // PP_CLIENT: "sb" = PayPal-Testmodus. Fuer echte Zahlungen hier die Client-ID aus developer.paypal.com eintragen (die ist oeffentlich, kein Geheimnis).
