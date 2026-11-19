@@ -66,7 +66,9 @@
     if (live && vbC && r.width) {
       var k = vbC.w / vb.w, tx = (vbC.x - vb.x) / vb.w * r.width, ty = (vbC.y - vb.y) / vb.h * r.height;
       svg.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
-      var jt = performance.now(); if (jt - liveK > 120) { liveK = jt; kacheln(); if (k < 1) clipSetzen(); }
+      // Waehrend der Geste nichts im SVG anfassen (jede Aenderung rastert die ganze Ebene neu = Ruckeln).
+      // Erst wenn der Massstab stark abweicht, einmal leicht neu aufsetzen (viewBox + Kacheln, ohne Pins/Buendel).
+      if (k > 1.8 || k < .6) { svg.style.transform = ""; vbC = { x: vb.x, y: vb.y, w: vb.w, h: vb.h }; svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h); clipSetzen(); kacheln(); }
       return;
     }
     svg.style.transform = ""; vbC = { x: vb.x, y: vb.y, w: vb.w, h: vb.h };
@@ -76,7 +78,8 @@
     if (Math.abs(s - altS) > 1e-9) altS = s;
     var mx = vb.w * .5, my = vb.h * .5, x0 = vb.x - mx, x1 = vb.x + vb.w + mx, y0 = vb.y - my, y1 = vb.y + vb.h + my;
     Array.prototype.forEach.call(pins.children, function (g) {
-      var x = +g.dataset.x, y = +g.dataset.y, drin = x >= x0 && x <= x1 && y >= y0 && y <= y1;
+      if (g._x === undefined) { g._x = +g.dataset.x; g._y = +g.dataset.y; }
+      var x = g._x, y = g._y, drin = x >= x0 && x <= x1 && y >= y0 && y <= y1;
       if (drin !== g._drin) { g._drin = drin; g.style.display = drin ? "" : "none"; }
       if (drin && g._s !== s) { g._s = s; g.setAttribute("transform", "translate(" + x + "," + y + ") scale(" + s + ")"); }
     });
@@ -125,8 +128,9 @@
     if (!r.width) return;
     var proPx = vb.w / r.width, an = vb.w > 210;
     var zelle = an ? Math.pow(2, Math.ceil(Math.log2(78 * proPx))) : 0;
-    var key = pinVer + ":" + zelle + ":" + (an ? Math.round(proPx * 1000) : 0);
-    if (key === bundKey) return; bundKey = key;
+    var key = pinVer + ":" + zelle;
+    if (key === bundKey) { if (an) Array.prototype.forEach.call(haufen.children, function (g) { g.setAttribute("transform", "translate(" + g._cx + "," + g._cy + ") scale(" + proPx + ")"); }); return; }
+    bundKey = key;
     haufen.innerHTML = ""; pins.classList.toggle("bund", an);
     if (!an) return;
     var zellen = {};
@@ -141,6 +145,7 @@
       var sx = 0, sy = 0; l.forEach(function (g) { sx += +g.dataset.x; sy += +g.dataset.y; });
       var cx = sx / l.length, cy = sy / l.length, rad = 13 + Math.min(12, Math.log(l.length) * 2.6), f = farbe(l.length);
       var g = el("g", { class: "hf", transform: "translate(" + cx + "," + cy + ") scale(" + proPx + ")", role: "button", tabindex: "0", "aria-label": l.length + " Orte, hineinzoomen" }, haufen);
+      g._cx = cx; g._cy = cy;
       el("circle", { r: rad + 7, fill: f, class: "ha" }, g);
       el("circle", { r: rad, fill: f, stroke: "rgba(26,11,46,.55)", "stroke-width": 1.5, class: "hk" }, g);
       el("text", {}, g).textContent = l.length;
