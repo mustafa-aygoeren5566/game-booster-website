@@ -19,14 +19,16 @@
   D.kacheln["0"].forEach(function (k) { var p = k.split("_"); el("image", { href: "img/gta6/0/" + k + ".jpg", x: p[0] * 256, y: p[1] * 256, width: 256.6, height: 256.6 }, basis); });
   // Kachel erst im Hintergrund dekodieren, dann einsetzen: sonst dekodiert der Browser jedes JPEG
   // beim Zeichnen auf dem Hauptthread = harte Hänger beim Zoomen, sobald neue Kacheln ankommen
-  var LAD = {};
+  var LAD = {}, SCHL = [], schlRaf = 0;
+  function einsetzen() { schlRaf = 0; for (var i = 0; i < 4 && SCHL.length; i++) SCHL.shift()(); if (SCHL.length) schlRaf = requestAnimationFrame(einsetzen); }
   function lade(z, k, x, y, g, ziel) {
     var u = "img/gta6/" + z + "/" + k + ".jpg", pic = new Image(), id = z + "/" + k;
     LAD[id] = 1; offen++; pic.decoding = "async"; pic.src = u;
     (pic.decode ? pic.decode() : new Promise(function (ok, nein) { pic.onload = ok; pic.onerror = nein; })).then(function () {
       delete LAD[id];
-      if (ziel === fein) { var im = el("image", { href: u, x: x * g, y: y * g, width: g * 1.004, height: g * 1.004 }, ziel); im.dataset.k = k; }
-      fertig();
+      // nicht alle auf einmal einsetzen: viele neue Kacheln in einem Bild = langer GPU-Hänger
+      SCHL.push(function () { if (ziel === fein) { var im = el("image", { href: u, x: x * g, y: y * g, width: g * 1.004, height: g * 1.004 }, ziel); im.dataset.k = k; } fertig(); });
+      if (!schlRaf) schlRaf = requestAnimationFrame(einsetzen);
     }, function () { delete LAD[id]; fertig(); });
   }
   function kacheln() {
