@@ -6,33 +6,67 @@
   function el(n, a, p) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
 
   // ---------- Kartenkacheln (gtabase.com, mit Erlaubnis) ----------
-  var kach = document.getElementById("kacheln"), HAT = {};
+  // Eigene HTML-Ebene unter dem SVG (wie Leaflet): jede Kachel ist ein <img> mit translate3d = eigene GPU-Ebene.
+  // Beim Zoomen/Verschieben wird nur die Ebene verschoben/skaliert, nichts neu gezeichnet = keine Hänger.
+  var HAT = {};
   Object.keys(D.kacheln).forEach(function (z) { HAT[z] = {}; D.kacheln[z].forEach(function (k) { HAT[z][k] = 1; }); });
-  // Kacheln nur im Umfeld des Ausschnitts zeichnen: ohne Begrenzung rastert die Grafikkarte beim Zoomen
-  // die ganze (stark vergroesserte) Karte neben dem Bildschirm mit = Ruckeln ganz nah
-  var kdefs = svg.querySelector("defs") || el("defs", {}, svg), kclip = el("clipPath", { id: "kclip" }, kdefs), krect = el("rect", { x: -9999, y: -9999, width: 30000, height: 30000 }, kclip);
-  kach.setAttribute("clip-path", "url(#kclip)");
-  function clipSetzen() { var w = vb.w, h = vb.h || vb.w; krect.setAttribute("x", vb.x - w); krect.setAttribute("y", vb.y - h); krect.setAttribute("width", w * 3); krect.setAttribute("height", h * 3); }
-  var basis = el("g", {}, kach), fein = el("g", {}, kach), feinZ = -1, feinKey = "", altZ = null, altT = 0, offen = 0;
+  var kachSvg = document.getElementById("kacheln"); if (kachSvg) kachSvg.style.display = "none";
+  function clipSetzen() {}
+  var kdiv = document.createElement("div"), kpane = document.createElement("div");
+  kdiv.style.cssText = "position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:0;background:#2c66a5";
+  // Meeresfläche im SVG würde die Kachel-Ebene verdecken
+  var meer = svg.querySelector('rect[fill="#2c66a5"]'); if (meer) meer.style.display = "none";
+  kpane.style.cssText = "position:absolute;left:0;top:0;width:0;height:0;transform-origin:0 0;will-change:transform";
+  kdiv.appendChild(kpane); svg.parentNode.insertBefore(kdiv, svg);
+  if (getComputedStyle(svg).position === "static") svg.style.position = "relative";
+  svg.style.zIndex = "1";
+  function ebene() { var d = document.createElement("div"); d.style.cssText = "position:absolute;left:0;top:0"; kpane.appendChild(d); return d; }
+  var basis = ebene(), fein = ebene(), feinZ = -1, feinKey = "", altZ = null, altT = 0, offen = 0;
+  var P = null;   // Ausschnitt, auf den die Kacheln gerade ausgerichtet sind
   function weg() { if (altZ) { altZ.remove(); altZ = null; } }
   function fertig() { if (--offen <= 0) { offen = 0; clearTimeout(altT); altT = setTimeout(weg, 80); } }
-  D.kacheln["0"].forEach(function (k) { var p = k.split("_"); el("image", { href: "img/gta6/0/" + k + ".jpg", x: p[0] * 256, y: p[1] * 256, width: 256.6, height: 256.6 }, basis); });
-  // Kachel erst im Hintergrund dekodieren, dann einsetzen: sonst dekodiert der Browser jedes JPEG
-  // beim Zeichnen auf dem Hauptthread = harte Hänger beim Zoomen, sobald neue Kacheln ankommen
+  function setz(im) {
+    var sc = P.s, x = (im._mx - P.x) * sc, y = (im._my - P.y) * sc, w = im._mg * sc;
+    // auf ganze Pixel runden + 1 px Überlappung: keine Haarlinien zwischen Kacheln
+    var x0 = Math.floor(x), y0 = Math.floor(y), x1 = Math.ceil(x + w), y1 = Math.ceil(y + w);
+    im.style.width = (x1 - x0 + 1) + "px"; im.style.height = (y1 - y0 + 1) + "px";
+    im.style.transform = "translate3d(" + x0 + "px," + y0 + "px,0)";
+    // riesig vergrößerte grobe Kacheln (Platzhalter) ausblenden: sonst sehr große GPU-Texturen
+    var aus = w > 4096; if (aus !== im._aus) { im._aus = aus; im.style.display = aus ? "none" : ""; }
+  }
+  function bild(u, mx, my, mg, ziel) {
+    var im = document.createElement("img"); im.decoding = "async"; im.alt = ""; im.draggable = false; im.src = u;
+    im.style.cssText = "position:absolute;left:0;top:0;max-width:none;user-select:none";
+    im._mx = mx; im._my = my; im._mg = mg; if (P) setz(im); ziel.appendChild(im); return im;
+  }
+  // Ebene an den aktuellen Ausschnitt anpassen (nur nach der Geste, einmal)
+  function ausrichten(r) {
+    P = { x: vb.x, y: vb.y, w: vb.w, s: r.width / vb.w };
+    kpane.style.transform = "";
+    [basis, fein, altZ].forEach(function (d) { if (d) for (var i = 0; i < d.children.length; i++) setz(d.children[i]); });
+  }
+  // während der Geste: nur die ganze Ebene per GPU verschieben/skalieren
+  function paneLive(r) {
+    if (!P) return;
+    var k = P.w / vb.w, tx = (P.x - vb.x) / vb.w * r.width, ty = (P.y - vb.y) / vb.w * r.width;
+    kpane.style.transform = "translate3d(" + tx + "px," + ty + "px,0) scale(" + k + ")";
+  }
+  D.kacheln["0"].forEach(function (k) { var p = k.split("_"); bild("img/gta6/0/" + k + ".jpg", p[0] * 256, p[1] * 256, 256, basis); });
+  // Kachel erst im Hintergrund dekodieren, dann einsetzen (Dekodieren beim Zeichnen = Hänger)
   var LAD = {}, SCHL = [], schlRaf = 0;
-  function einsetzen() { schlRaf = 0; for (var i = 0; i < 4 && SCHL.length; i++) SCHL.shift()(); if (SCHL.length) schlRaf = requestAnimationFrame(einsetzen); }
+  function einsetzen() { schlRaf = 0; for (var i = 0; i < 6 && SCHL.length; i++) SCHL.shift()(); if (SCHL.length) schlRaf = requestAnimationFrame(einsetzen); }
   function lade(z, k, x, y, g, ziel) {
     var u = "img/gta6/" + z + "/" + k + ".jpg", pic = new Image(), id = z + "/" + k;
     LAD[id] = 1; offen++; pic.decoding = "async"; pic.src = u;
     (pic.decode ? pic.decode() : new Promise(function (ok, nein) { pic.onload = ok; pic.onerror = nein; })).then(function () {
       delete LAD[id];
-      // nicht alle auf einmal einsetzen: viele neue Kacheln in einem Bild = langer GPU-Hänger
-      SCHL.push(function () { if (ziel === fein) { var im = el("image", { href: u, x: x * g, y: y * g, width: g * 1.004, height: g * 1.004 }, ziel); im.dataset.k = k; } fertig(); });
+      SCHL.push(function () { if (ziel === fein) { var im = bild(u, x * g, y * g, g, ziel); im.dataset.k = k; } fertig(); });
       if (!schlRaf) schlRaf = requestAnimationFrame(einsetzen);
     }, function () { delete LAD[id]; fertig(); });
   }
   function kacheln() {
     var r = rect(); if (!r.width) return;
+    if (!P) ausrichten(r);
     var px = r.width / vb.w * (window.devicePixelRatio || 1);
     var z = Math.max(1, Math.min(5, Math.ceil(Math.log2(px) - .2)));
     var g = 256 / Math.pow(2, z);
@@ -41,9 +75,8 @@
     var key = z + ":" + x0 + ":" + x1 + ":" + y0 + ":" + y1; if (key === feinKey) return; feinKey = key;
     if (z !== feinZ) {
       // alte Stufe als Platzhalter behalten, bis die neue geladen ist (kein Blur-Flackern)
-      var altG = fein; altG.removeAttribute("id");
-      fein = el("g", {}, kach); feinZ = z; offen = 0;
-      if (altZ) altZ.remove(); altZ = altG; kach.insertBefore(altG, fein);
+      if (altZ) altZ.remove(); altZ = fein;
+      fein = ebene(); feinZ = z; offen = 0;
       clearTimeout(altT); altT = setTimeout(weg, 2500);
     }
     var da = {}; Array.prototype.forEach.call(fein.children, function (i) { da[i.dataset.k] = i; });
@@ -88,9 +121,11 @@
     if (live && vbC && r.width) {
       var k = vbC.w / vb.w, tx = (vbC.x - vb.x) / vb.w * r.width, ty = (vbC.y - vb.y) / vb.h * r.height;
       svg.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
+      paneLive(r);
+      var jt = performance.now(); if (jt - liveK > 120) { liveK = jt; kacheln(); }
       // Waehrend der Geste nichts im SVG anfassen (jede Aenderung rastert die ganze Ebene neu = Ruckeln).
       // Erst wenn der Massstab stark abweicht, einmal leicht neu aufsetzen (viewBox + Kacheln, ohne Pins/Buendel).
-      if (k > 1.8 || k < .6) { svg.style.transform = ""; vbC = { x: vb.x, y: vb.y, w: vb.w, h: vb.h }; svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h); clipSetzen(); kacheln(); }
+      if (k > 1.8 || k < .6) { svg.style.transform = ""; vbC = { x: vb.x, y: vb.y, w: vb.w, h: vb.h }; svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h); }
       return;
     }
     svg.style.transform = ""; vbC = { x: vb.x, y: vb.y, w: vb.w, h: vb.h };
@@ -114,7 +149,7 @@
       if (q._s !== s) { q._s = s; q.setAttribute("transform", "translate(" + q._x + "," + q._y + ") scale(" + s + ")"); }
     }
     sicht = neu;
-    clipSetzen(); kacheln();
+    ausrichten(r); kacheln();
     // Bündel und Regions-Icons ein Bild später: verteilt die Arbeit, kein einzelnes langes Bild
     if (!nachRaf) nachRaf = requestAnimationFrame(function () { nachRaf = 0; var r2 = rect(); regMarken(r2.width ? vb.w / r2.width : 1); });
   }
