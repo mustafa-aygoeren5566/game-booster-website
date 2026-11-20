@@ -37,7 +37,9 @@
     im.style.width = (x1 - x0 + 1) + "px"; im.style.height = (y1 - y0 + 1) + "px";
     im.style.transform = "translate3d(" + x0 + "px," + y0 + "px,0)";
     // riesig vergrößerte grobe Kacheln (Platzhalter) ausblenden: sonst sehr große GPU-Texturen
-    var aus = w > 4096; if (aus !== im._aus) { im._aus = aus; im.style.display = aus ? "none" : ""; }
+    // Grundebenen: weit außerhalb des Bildes ausblenden (eine Bildschirmbreite Rand für flüssiges Verschieben)
+    var R = rc || { width: 1600, height: 900 }, aus = w > 4096 || (im._g && (x + w < -R.width || y + w < -R.height || x > 2 * R.width || y > 2 * R.height));
+    if (aus !== im._aus) { im._aus = aus; im.style.display = aus ? "none" : ""; }
   }
   function bild(u, mx, my, mg, ziel) {
     var im = document.createElement("img"); im.decoding = "async"; im.alt = ""; im.draggable = false; im.src = u;
@@ -70,7 +72,7 @@
         (function (k) {
           var u = "img/gta6/" + z + "/" + k + ".jpg", p = k.split("_"), pic = new Image(); aktiv++; pic.decoding = "async"; pic.src = u;
           (pic.decode ? pic.decode() : new Promise(function (ok, nein) { pic.onload = ok; pic.onerror = nein; })).then(function () {
-            SCHL.push(function () { bild(u, p[0] * g, p[1] * g, g, ziel); });
+            var im = bild(u, p[0] * g, p[1] * g, g, ziel); im._g = 1; if (P) setz(im);
             if (!schlRaf) schlRaf = requestAnimationFrame(einsetzen);
           }, function () {}).then(function () { aktiv--; if (liste.length) weiter(); else if (!aktiv && fertigCb) fertigCb(); });
         })(liste.shift());
@@ -78,7 +80,14 @@
     }
     weiter();
   }
-  setTimeout(function () { vorladen(2, grund2, function () { vorladen(3, grund3); }); }, 300);
+  // Stufe 4 (~10 MB) danach leise in den Browser-Cache holen: beim Reinzoomen kommen die scharfen Kacheln dann sofort
+  function cachen(z) {
+    var liste = [], aktiv = 0, f = Math.pow(2, z - 3);
+    D.kacheln["3"].forEach(function (k) { var p = k.split("_"); for (var a = 0; a < f; a++) for (var b = 0; b < f; b++) liste.push((p[0] * f + a) + "_" + (p[1] * f + b)); });
+    if (!liste.length || !window.fetch || (navigator.connection && navigator.connection.saveData)) return;
+    (function weiter() { while (aktiv < 4 && liste.length) { aktiv++; fetch("img/gta6/" + z + "/" + liste.shift() + ".jpg", { priority: "low" }).catch(function () {}).then(function () { aktiv--; weiter(); }); } })();
+  }
+  setTimeout(function () { vorladen(2, grund2, function () { vorladen(3, grund3, function () { cachen(4); }); }); }, 300);
   // Kachel erst im Hintergrund dekodieren, dann einsetzen (Dekodieren beim Zeichnen = Hänger)
   var LAD = {}, SCHL = [], schlRaf = 0;
   function einsetzen() { schlRaf = 0; for (var i = 0; i < (live ? 1 : 4) && SCHL.length; i++) SCHL.shift()(); if (SCHL.length) schlRaf = requestAnimationFrame(einsetzen); }
