@@ -349,7 +349,7 @@
     info.hidden = false; info.innerHTML = ""; info.style.setProperty("--kf", k.farbe);
     info.classList.remove("pop"); void info.offsetWidth; info.classList.add("pop");
     var kopf = document.createElement("div"); kopf.className = "ikopf";
-    kopf.innerHTML = '<span class="ic iic"><svg viewBox="0 0 24 24"><path d="' + k.icon + '"/></svg></span>';
+    kopf.innerHTML = '<span class="ic iic gp">' + pinSvg(k) + '</span>';
     var tt = document.createElement("div"); var h = document.createElement("h3"); h.textContent = pt.n;
     var chips = document.createElement("div"); chips.className = "chips";
     var c1 = document.createElement("span"); c1.className = "chip kc"; c1.textContent = k.name; chips.appendChild(c1);
@@ -369,6 +369,11 @@
     z.onclick = function () { fliegen(pt.x, pt.y, 30); };
     akt.appendChild(b); akt.appendChild(z); tt.appendChild(akt);
     info.appendChild(kopf); info.appendChild(p);
+  }
+  // gleicher Pin wie auf der Karte, für Filterliste und Infobox
+  function pinSvg(k) {
+    var st = k.ifarbe === "#fff" ? "#fff" : "#2a1c24";
+    return '<svg viewBox="-13.5 -33 27 35"><path d="M-8 -31h16a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4h-4.5L0 0l-3.5-8H-8a4 4 0 0 1-4-4v-15a4 4 0 0 1 4-4z" fill="' + k.pfarbe + '" stroke="' + st + '" stroke-width="1.6" stroke-linejoin="round"/><path d="' + k.icon + '" transform="translate(-8,-27.5) scale(.667)" style="fill:' + k.ifarbe + '"/></svg>';
   }
   function tief(h) {
     var n = parseInt(h.slice(1), 16), r = n >> 16, g = n >> 8 & 255, b = n & 255, l = (r * .3 + g * .59 + b * .11) / 255, f = l > .55 ? .55 / l : 1;
@@ -419,7 +424,7 @@
     var n = D.punkte.filter(function (p) { return p.k === k.id; }).length;
     var b = document.createElement("button"); b.type = "button"; b.dataset.k = k.id;
     b.className = "kat" + (aus[k.id] ? "" : " an") + (n ? "" : " leer");
-    b.innerHTML = '<span class="ic" style="color:' + k.farbe + '"><svg viewBox="0 0 24 24"><path d="' + k.icon + '"/></svg></span><span class="kn"></span><span class="kz" id="z-' + k.id + '"></span>';
+    b.innerHTML = '<span class="ic gp" style="color:' + k.farbe + '">' + pinSvg(k) + '</span><span class="kn"></span><span class="kz" id="z-' + k.id + '"></span>';
     b.querySelector(".kn").textContent = k.name;
     b.onclick = function () { aus[k.id] = !aus[k.id]; syncKat(); speichern(); zeichnen(); };
     liste.appendChild(b);
