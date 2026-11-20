@@ -9,10 +9,10 @@
   // Eigene HTML-Ebene unter dem SVG (wie Leaflet): jede Kachel ist ein <img> mit translate3d = eigene GPU-Ebene.
   // Beim Zoomen/Verschieben wird nur die Ebene verschoben/skaliert, nichts neu gezeichnet = keine Hänger.
   // Farben wie auf der Spielkarte, pro Gruppe: Läden hellrosa, Überfälle grün, Sammeln gold, Fahrzeuge blau, Dienste grau, Freizeit dunkel
-  var STIL = { "Style": ["#f7c6d3", "#2a1c24"], "Essen und Trinken": ["#f7c6d3", "#2a1c24"], "Waffen": ["#f7c6d3", "#2a1c24"],
-    "Überfälle": ["#2f9e57", "#fff"], "Sammeln": ["#f2b91c", "#2a1c24"], "Fahrzeuge": ["#2f6fd6", "#fff"], "Dienste": ["#6b7280", "#fff"],
-    "Freizeit": ["#1f1b27", "#fff"], "Orte": ["#7c3aed", "#fff"], "Story": ["#7c3aed", "#fff"] };
-  D.kategorien.forEach(function (k) { var s = STIL[k.gruppe]; k.pfarbe = s ? s[0] : "#1f1b27"; k.ifarbe = s ? s[1] : "#fff"; if (s && k.gruppe !== "Freizeit") k.farbe = s[0] === "#f7c6d3" ? "#f472b6" : s[0]; });
+  var STIL = { "Style": "#f9a8d4", "Essen und Trinken": "#f9a8d4", "Waffen": "#f9a8d4", "Überfälle": "#4ade80", "Sammeln": "#fbbf24",
+    "Fahrzeuge": "#60a5fa", "Dienste": "#cbd5e1", "Freizeit": "#5eead4", "Orte": "#c4b5fd", "Story": "#c4b5fd" };
+  // wie im Spiel: farbiges Schild, schwarzes Symbol
+  D.kategorien.forEach(function (k) { k.pfarbe = STIL[k.gruppe] || "#e5e7eb"; k.ifarbe = "#15111c"; k.farbe = k.pfarbe; });
   var HAT = {};
   Object.keys(D.kacheln).forEach(function (z) { HAT[z] = {}; D.kacheln[z].forEach(function (k) { HAT[z][k] = 1; }); });
   var kachSvg = document.getElementById("kacheln"); if (kachSvg) kachSvg.style.display = "none";
