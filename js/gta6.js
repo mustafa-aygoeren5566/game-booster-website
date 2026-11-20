@@ -54,7 +54,7 @@
   D.kacheln["0"].forEach(function (k) { var p = k.split("_"); bild("img/gta6/0/" + k + ".jpg", p[0] * 256, p[1] * 256, 256, basis); });
   // Kachel erst im Hintergrund dekodieren, dann einsetzen (Dekodieren beim Zeichnen = Hänger)
   var LAD = {}, SCHL = [], schlRaf = 0;
-  function einsetzen() { schlRaf = 0; for (var i = 0; i < 6 && SCHL.length; i++) SCHL.shift()(); if (SCHL.length) schlRaf = requestAnimationFrame(einsetzen); }
+  function einsetzen() { schlRaf = 0; for (var i = 0; i < (live ? 1 : 4) && SCHL.length; i++) SCHL.shift()(); if (SCHL.length) schlRaf = requestAnimationFrame(einsetzen); }
   function lade(z, k, x, y, g, ziel) {
     var u = "img/gta6/" + z + "/" + k + ".jpg", pic = new Image(), id = z + "/" + k;
     LAD[id] = 1; offen++; pic.decoding = "async"; pic.src = u;
@@ -125,7 +125,7 @@
       var k = vbC.w / vb.w, tx = (vbC.x - vb.x) / vb.w * r.width, ty = (vbC.y - vb.y) / vb.h * r.height;
       svg.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
       paneLive(r);
-      var jt = performance.now(); if (jt - liveK > 120) { liveK = jt; kacheln(); }
+      var jt = performance.now(); if (jt - liveK > 400) { liveK = jt; kacheln(); }
       // Waehrend der Geste nichts im SVG anfassen (jede Aenderung rastert die ganze Ebene neu = Ruckeln).
       // Erst wenn der Massstab stark abweicht, einmal leicht neu aufsetzen (viewBox + Kacheln, ohne Pins/Buendel).
       if (k > 1.8 || k < .6) { svg.style.transform = ""; vbC = { x: vb.x, y: vb.y, w: vb.w, h: vb.h }; svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h); }
@@ -250,12 +250,12 @@
     setzen(true); animiert = requestAnimationFrame(gleiten);
   }
   svg.addEventListener("wheel", function (e) {
-    e.preventDefault();
+    e.preventDefault(); flugNr++;
     var d = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaY;
     weich(Math.pow(1.0018, Math.max(-300, Math.min(300, d))), e.clientX, e.clientY);
   }, { passive: false });
   var zeiger = {}, start = null, bewegt = false;
-  svg.addEventListener("pointerdown", function (e) { ziel = null; zeiger[e.pointerId] = [e.clientX, e.clientY]; start = null; bewegt = false; });
+  svg.addEventListener("pointerdown", function (e) { ziel = null; flugNr++; zeiger[e.pointerId] = [e.clientX, e.clientY]; start = null; bewegt = false; });
   svg.addEventListener("pointermove", function (e) {
     if (!zeiger[e.pointerId]) return;
     var ids = Object.keys(zeiger), alt = zeiger[e.pointerId];
@@ -290,12 +290,16 @@
     var cx = (x0 + x1) / 2 - frei / 2 * proPx, cy = (y0 + y1) / 2;
     ziel = null; fliegen(cx + 0, cy, w);
   }
+  var flugNr = 0;
   function fliegen(x, y, w) {
-    var A = verh(), z0 = { x: vb.x, y: vb.y, w: vb.w }, z1 = { w: w, x: x - w / 2, y: y - w * A / 2 }, t0 = performance.now();
+    var A = verh(), z0 = { x: vb.x, y: vb.y, w: vb.w }, z1 = { w: w, x: x - w / 2, y: y - w * A / 2 }, t0 = performance.now(), id = ++flugNr;
+    ziel = null;
     (function schritt(t) {
+      if (id !== flugNr) return;   // neuer Flug oder Zoom hat übernommen
       var k = Math.min(1, (t - t0) / 450); k = 1 - Math.pow(1 - k, 3);
-      vb.w = z0.w + (z1.w - z0.w) * k; vb.x = z0.x + (z1.x - z0.x) * k; vb.y = z0.y + (z1.y - z0.y) * k; setzen();
-      if (k < 1) requestAnimationFrame(schritt);
+      vb.w = z0.w + (z1.w - z0.w) * k; vb.x = z0.x + (z1.x - z0.x) * k; vb.y = z0.y + (z1.y - z0.y) * k;
+      // während des Flugs nur per GPU verschieben/skalieren, erst am Ende einmal alles neu aufbauen
+      if (k < 1) { setzen(true); requestAnimationFrame(schritt); } else { clearTimeout(ruhe); setzen(); }
     })(t0);
   }
 
@@ -423,9 +427,16 @@
 
   // ---------- Eigener Tooltip statt Browser-Standard ----------
   var tip = document.createElement("div"); tip.id = "tip"; tip.innerHTML = "<b></b><span></span>"; document.body.appendChild(tip);
-  var tipAn = null;
+  var tipAn = null, rgAn = null;
   document.addEventListener("pointermove", function (e) {
     var t = e.target.closest && e.target.closest("[data-tip]");
+    // Regionen per Rechnung statt per unsichtbarer Riesenfläche im SVG (die kostete bei jedem Neuzeichnen GPU-Zeit)
+    var rgT = null;
+    if ((!t || t.classList.contains("rg")) && svg.contains(e.target) && !svg.classList.contains("zieht")) {
+      var rr = rect(), bz = rr.width ? bezirkBei(vb.x + (e.clientX - rr.left) / rr.width * vb.w, vb.y + (e.clientY - rr.top) / rr.width * vb.w) : null;
+      rgT = bz && document.getElementById("rg-" + bz.id); t = rgT || t;
+    }
+    if (rgT !== rgAn && !(t && t.classList && t.classList.contains("rm"))) { if (rgAn) rgAn.classList.remove("an"); rgAn = rgT; if (rgAn) rgAn.classList.add("an"); }
     if (!t || svg.classList.contains("zieht")) { if (tipAn) { tip.classList.remove("an"); tipAn = null; } return; }
     if (t !== tipAn) { tipAn = t; tip.firstChild.textContent = t.dataset.tip; tip.lastChild.textContent = t.dataset.tip2 || ""; tip.lastChild.style.display = t.dataset.tip2 ? "" : "none"; tip.classList.add("an"); }
     var x = e.clientX + 14, y = e.clientY + 16, w = tip.offsetWidth, h = tip.offsetHeight;
