@@ -138,6 +138,13 @@
     if (Math.abs(s - altS) > 1e-9) altS = s;
     var mx = vb.w * .5, my = vb.h * .5, x0 = vb.x - mx, x1 = vb.x + vb.w + mx, y0 = vb.y - my, y1 = vb.y + vb.h + my;
     // Raster statt alle 2800+ Pins durchgehen: nur Zellen im Ausschnitt anfassen, zuvor sichtbare ausblenden
+    ausrichten(r); kacheln();
+    // Pins/Bündel ein Bild später (ihre Lage im SVG stimmt schon): kein einzelnes langes Bild nach der Geste
+    if (pinRaf) cancelAnimationFrame(pinRaf);
+    pinRaf = requestAnimationFrame(function () { pinRaf = 0; pinPass(r, s, x0, x1, y0, y1); });
+  }
+  var pinRaf = 0;
+  function pinPass(r, s, x0, x1, y0, y1) {
     if (grVer !== pinVer) gitter();
     buendeln(r);   // zuerst: legt fest, welche Pins einzeln bleiben (Rest steckt in Zahlen-Kreisen)
     var st = ++stempel, neu = [], cx0 = Math.floor(x0 / ZG), cx1 = Math.floor(x1 / ZG), cy0 = Math.floor(y0 / ZG), cy1 = Math.floor(y1 / ZG);
@@ -152,7 +159,6 @@
       if (q._s !== s) { q._s = s; q.setAttribute("transform", "translate(" + q._x + "," + q._y + ") scale(" + s + ")"); }
     }
     sicht = neu;
-    ausrichten(r); kacheln();
     // Bündel und Regions-Icons ein Bild später: verteilt die Arbeit, kein einzelnes langes Bild
     if (!nachRaf) nachRaf = requestAnimationFrame(function () { nachRaf = 0; var r2 = rect(); regMarken(r2.width ? vb.w / r2.width : 1); });
   }
@@ -254,14 +260,14 @@
     var d = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaY;
     weich(Math.pow(1.0018, Math.max(-300, Math.min(300, d))), e.clientX, e.clientY);
   }, { passive: false });
-  var zeiger = {}, start = null, bewegt = false;
+  var zeiger = {}, start = null, bewegt = false, zieht = false;
   svg.addEventListener("pointerdown", function (e) { ziel = null; flugNr++; zeiger[e.pointerId] = [e.clientX, e.clientY]; start = null; bewegt = false; });
   svg.addEventListener("pointermove", function (e) {
     if (!zeiger[e.pointerId]) return;
     var ids = Object.keys(zeiger), alt = zeiger[e.pointerId];
     if (ids.length === 1) {
       var r = rect(), dx = e.clientX - alt[0], dy = e.clientY - alt[1];
-      if (Math.abs(dx) + Math.abs(dy) > 2) { bewegt = true; svg.setPointerCapture(e.pointerId); svg.classList.add("zieht"); }
+      if (!bewegt && Math.abs(dx) + Math.abs(dy) > 2) { bewegt = true; svg.setPointerCapture(e.pointerId); zieht = true; }
       vb.x -= dx / r.width * vb.w; vb.y -= dy / r.height * vb.h;
       zeiger[e.pointerId] = [e.clientX, e.clientY]; setzen(true);
     } else if (ids.length === 2) {
@@ -271,7 +277,7 @@
       start = d; bewegt = true;
     }
   });
-  function los(e) { delete zeiger[e.pointerId]; start = null; svg.classList.remove("zieht"); clearTimeout(ruhe); setzen(); }
+  function los(e) { delete zeiger[e.pointerId]; start = null; zieht = false; clearTimeout(ruhe); setzen(); }
   svg.addEventListener("pointerup", los); svg.addEventListener("pointercancel", los);
   function mitte(f) { var r = rect(); weich(f, r.left + r.width / 2, r.top + r.height / 2); }
   document.getElementById("zplus").onclick = function () { mitte(1 / 1.4); };
@@ -432,12 +438,12 @@
     var t = e.target.closest && e.target.closest("[data-tip]");
     // Regionen per Rechnung statt per unsichtbarer Riesenfläche im SVG (die kostete bei jedem Neuzeichnen GPU-Zeit)
     var rgT = null;
-    if ((!t || t.classList.contains("rg")) && svg.contains(e.target) && !svg.classList.contains("zieht")) {
+    if ((!t || t.classList.contains("rg")) && svg.contains(e.target) && !zieht) {
       var rr = rect(), bz = rr.width ? bezirkBei(vb.x + (e.clientX - rr.left) / rr.width * vb.w, vb.y + (e.clientY - rr.top) / rr.width * vb.w) : null;
       rgT = bz && document.getElementById("rg-" + bz.id); t = rgT || t;
     }
     if (rgT !== rgAn && !(t && t.classList && t.classList.contains("rm"))) { if (rgAn) rgAn.classList.remove("an"); rgAn = rgT; if (rgAn) rgAn.classList.add("an"); }
-    if (!t || svg.classList.contains("zieht")) { if (tipAn) { tip.classList.remove("an"); tipAn = null; } return; }
+    if (!t || zieht) { if (tipAn) { tip.classList.remove("an"); tipAn = null; } return; }
     if (t !== tipAn) { tipAn = t; tip.firstChild.textContent = t.dataset.tip; tip.lastChild.textContent = t.dataset.tip2 || ""; tip.lastChild.style.display = t.dataset.tip2 ? "" : "none"; tip.classList.add("an"); }
     var x = e.clientX + 14, y = e.clientY + 16, w = tip.offsetWidth, h = tip.offsetHeight;
     if (x + w > innerWidth - 8) x = e.clientX - w - 14; if (y + h > innerHeight - 8) y = e.clientY - h - 12;
