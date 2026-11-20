@@ -43,7 +43,7 @@
   function ausrichten(r) {
     P = { x: vb.x, y: vb.y, w: vb.w, s: r.width / vb.w };
     kpane.style.transform = "";
-    [basis, fein, altZ].forEach(function (d) { if (d) for (var i = 0; i < d.children.length; i++) setz(d.children[i]); });
+    [basis, grund2, grund3, fein, altZ].forEach(function (d) { if (d) for (var i = 0; i < d.children.length; i++) setz(d.children[i]); });
   }
   // während der Geste: nur die ganze Ebene per GPU verschieben/skalieren
   function paneLive(r) {
@@ -52,6 +52,28 @@
     kpane.style.transform = "translate3d(" + tx + "px," + ty + "px,0) scale(" + k + ")";
   }
   D.kacheln["0"].forEach(function (k) { var p = k.split("_"); bild("img/gta6/0/" + k + ".jpg", p[0] * 256, p[1] * 256, 256, basis); });
+  // Stufe 2 und 3 (zusammen ~4 MB) einmal im Hintergrund komplett laden und immer unter der feinen Ebene behalten:
+  // so ist die Karte beim Zoomen und Verschieben sofort scharf da, ohne erst neu nachzuladen
+  function grundEbene() { var d = document.createElement("div"); d.style.cssText = "position:absolute;left:0;top:0"; kpane.insertBefore(d, fein); return d; }
+  var grund2 = grundEbene(), grund3 = grundEbene();
+  function vorladen(z, ziel, fertigCb) {
+    var g = 256 / Math.pow(2, z), liste = D.kacheln[String(z)].slice(), aktiv = 0;
+    var mx = vb.x + vb.w / 2, my = vb.y + vb.h / 2;   // von der Mitte des Ausschnitts nach außen
+    liste.sort(function (a, b) { var p = a.split("_"), q = b.split("_"); return Math.hypot(p[0] * g - mx, p[1] * g - my) - Math.hypot(q[0] * g - mx, q[1] * g - my); });
+    function weiter() {
+      while (aktiv < 6 && liste.length) {
+        (function (k) {
+          var u = "img/gta6/" + z + "/" + k + ".jpg", p = k.split("_"), pic = new Image(); aktiv++; pic.decoding = "async"; pic.src = u;
+          (pic.decode ? pic.decode() : new Promise(function (ok, nein) { pic.onload = ok; pic.onerror = nein; })).then(function () {
+            SCHL.push(function () { bild(u, p[0] * g, p[1] * g, g, ziel); });
+            if (!schlRaf) schlRaf = requestAnimationFrame(einsetzen);
+          }, function () {}).then(function () { aktiv--; if (liste.length) weiter(); else if (!aktiv && fertigCb) fertigCb(); });
+        })(liste.shift());
+      }
+    }
+    weiter();
+  }
+  setTimeout(function () { vorladen(2, grund2, function () { vorladen(3, grund3); }); }, 300);
   // Kachel erst im Hintergrund dekodieren, dann einsetzen (Dekodieren beim Zeichnen = Hänger)
   var LAD = {}, SCHL = [], schlRaf = 0;
   function einsetzen() { schlRaf = 0; for (var i = 0; i < (live ? 1 : 4) && SCHL.length; i++) SCHL.shift()(); if (SCHL.length) schlRaf = requestAnimationFrame(einsetzen); }
@@ -352,9 +374,11 @@
       var g = el("g", { class: "pin" + (erledigt["p" + i] ? " ok" : ""), tabindex: "0", role: "button", "aria-label": pt.n }, pins);
       g.dataset.x = pt.x; g.dataset.y = pt.y;
       g.dataset.tip = pt.n; g.dataset.tip2 = k.name;
-      el("rect", { x: -13, y: -13, width: 26, height: 26, rx: 7, stroke: k.farbe, class: "pform" }, g);
-      el("rect", { x: -11, y: -11.5, width: 22, height: 9, rx: 5, fill: "rgba(255,255,255,.13)", "pointer-events": "none" }, g);
-      el("path", { d: k.icon, transform: "translate(-8,-8) scale(.667)", class: "pico" }, g);
+      // Pin wie auf der Spielkarte: dunkles Schild mit Spitze unten auf dem Ort, Farbpunkt oben rechts = Kategorie
+      var gi = el("g", { transform: "scale(1.3)" }, g);
+      el("path", { d: "M-8 -31h16a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4h-4.5L0 0l-3.5-8H-8a4 4 0 0 1-4-4v-15a4 4 0 0 1 4-4z", class: "pform" }, gi);
+      el("path", { d: k.icon, transform: "translate(-8,-27.5) scale(.667)", class: "pico" }, gi);
+      el("circle", { cx: 10, cy: -29, r: 4.6, fill: k.farbe, class: "pdot" }, gi);
       function wahl() { if (bewegt) return; zeige(pt, i); }
       g.addEventListener("click", wahl);
       g.addEventListener("keydown", function (e) { if (e.key === "Enter") zeige(pt, i); });
