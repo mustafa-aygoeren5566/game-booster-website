@@ -70,6 +70,14 @@
     else live = false;
     if (!plan) plan = requestAnimationFrame(jetzt);
   }
+  var bundAn = false, ZG = 32, GR = {}, grVer = -1, sicht = [], stempel = 0, nachRaf = 0;
+  function gitter() {
+    GR = {}; sicht = []; grVer = pinVer;
+    Array.prototype.forEach.call(pins.children, function (g) {
+      g._x = +g.dataset.x; g._y = +g.dataset.y; g._drin = false; g._s = -1; g.style.display = "none";
+      var k = Math.floor(g._x / ZG) + "_" + Math.floor(g._y / ZG); (GR[k] = GR[k] || []).push(g);
+    });
+  }
   function jetzt() {
     plan = 0;
     var r = rect(), A = r.width ? r.height / r.width : 1;
@@ -91,13 +99,24 @@
     // Nur Pins im Ausschnitt (+ halber Rand zum Verschieben) zeichnen und skalieren: bei 2800+ Orten ruckelt sonst jeder Zoomschritt
     if (Math.abs(s - altS) > 1e-9) altS = s;
     var mx = vb.w * .5, my = vb.h * .5, x0 = vb.x - mx, x1 = vb.x + vb.w + mx, y0 = vb.y - my, y1 = vb.y + vb.h + my;
-    Array.prototype.forEach.call(pins.children, function (g) {
-      if (g._x === undefined) { g._x = +g.dataset.x; g._y = +g.dataset.y; }
-      var x = g._x, y = g._y, drin = x >= x0 && x <= x1 && y >= y0 && y <= y1;
-      if (drin !== g._drin) { g._drin = drin; g.style.display = drin ? "" : "none"; }
-      if (drin && g._s !== s) { g._s = s; g.setAttribute("transform", "translate(" + x + "," + y + ") scale(" + s + ")"); }
-    });
-    clipSetzen(); kacheln(); buendeln(r); regMarken(r.width ? vb.w / r.width : 1);
+    // Raster statt alle 2800+ Pins durchgehen: nur Zellen im Ausschnitt anfassen, zuvor sichtbare ausblenden
+    if (grVer !== pinVer) gitter();
+    buendeln(r);   // zuerst: legt fest, welche Pins einzeln bleiben (Rest steckt in Zahlen-Kreisen)
+    var st = ++stempel, neu = [], cx0 = Math.floor(x0 / ZG), cx1 = Math.floor(x1 / ZG), cy0 = Math.floor(y0 / ZG), cy1 = Math.floor(y1 / ZG);
+    for (var cx = cx0; cx <= cx1; cx++) for (var cy = cy0; cy <= cy1; cy++) {
+      var l = GR[cx + "_" + cy]; if (!l) continue;
+      for (var i = 0; i < l.length; i++) { var g = l[i]; if (g._x >= x0 && g._x <= x1 && g._y >= y0 && g._y <= y1 && (!bundAn || g._solo)) { g._st = st; neu.push(g); } }
+    }
+    for (var j = 0; j < sicht.length; j++) if (sicht[j]._st !== st) { sicht[j]._drin = false; sicht[j].style.display = "none"; }
+    for (j = 0; j < neu.length; j++) {
+      var q = neu[j];
+      if (!q._drin) { q._drin = true; q.style.display = ""; }
+      if (q._s !== s) { q._s = s; q.setAttribute("transform", "translate(" + q._x + "," + q._y + ") scale(" + s + ")"); }
+    }
+    sicht = neu;
+    clipSetzen(); kacheln();
+    // Bündel und Regions-Icons ein Bild später: verteilt die Arbeit, kein einzelnes langes Bild
+    if (!nachRaf) nachRaf = requestAnimationFrame(function () { nachRaf = 0; var r2 = rect(); regMarken(r2.width ? vb.w / r2.width : 1); });
   }
   // ---------- Regionsgrenzen (Voronoi der Regionsmitten, auf Umriss aller Orte begrenzt) + Regions-Icons ----------
   var RICON = {
@@ -145,17 +164,17 @@
     var key = pinVer + ":" + zelle;
     if (key === bundKey) { if (an) Array.prototype.forEach.call(haufen.children, function (g) { g.setAttribute("transform", "translate(" + g._cx + "," + g._cy + ") scale(" + proPx + ")"); }); return; }
     bundKey = key;
-    haufen.innerHTML = ""; pins.classList.toggle("bund", an);
+    haufen.innerHTML = ""; bundAn = an;
     if (!an) return;
     var zellen = {};
     Array.prototype.forEach.call(pins.children, function (g) {
-      g.classList.remove("solo");
+      g._solo = false;
       var x = +g.dataset.x, y = +g.dataset.y, k = Math.floor(x / zelle) + "_" + Math.floor(y / zelle);
       (zellen[k] = zellen[k] || []).push(g);
     });
     Object.keys(zellen).forEach(function (k) {
       var l = zellen[k];
-      if (l.length < 3) { l.forEach(function (g) { g.classList.add("solo"); }); return; }
+      if (l.length < 3) { l.forEach(function (g) { g._solo = true; }); return; }
       var sx = 0, sy = 0; l.forEach(function (g) { sx += +g.dataset.x; sy += +g.dataset.y; });
       var cx = sx / l.length, cy = sy / l.length, rad = 13 + Math.min(12, Math.log(l.length) * 2.6), f = farbe(l.length);
       var g = el("g", { class: "hf", transform: "translate(" + cx + "," + cy + ") scale(" + proPx + ")", role: "button", tabindex: "0", "aria-label": l.length + " Orte, hineinzoomen" }, haufen);
