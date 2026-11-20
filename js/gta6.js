@@ -365,6 +365,10 @@
     akt.appendChild(b); akt.appendChild(z); tt.appendChild(akt);
     info.appendChild(kopf); info.appendChild(p);
   }
+  function tief(h) {
+    var n = parseInt(h.slice(1), 16), r = n >> 16, g = n >> 8 & 255, b = n & 255, l = (r * .3 + g * .59 + b * .11) / 255, f = l > .55 ? .55 / l : 1;
+    f *= .82; return "rgb(" + Math.round(r * f) + "," + Math.round(g * f) + "," + Math.round(b * f) + ")";
+  }
   function zeichnen() {
     pins.innerHTML = ""; altS = -1; pinVer++;
     D.punkte.forEach(function (pt, i) {
@@ -374,11 +378,11 @@
       var g = el("g", { class: "pin" + (erledigt["p" + i] ? " ok" : ""), tabindex: "0", role: "button", "aria-label": pt.n }, pins);
       g.dataset.x = pt.x; g.dataset.y = pt.y;
       g.dataset.tip = pt.n; g.dataset.tip2 = k.name;
-      // Pin wie auf der Spielkarte: dunkles Schild mit Spitze unten auf dem Ort, Farbpunkt oben rechts = Kategorie
+      // Pin wie auf der Spielkarte, Schild in Kategoriefarbe (etwas dunkler, damit das weiße Symbol lesbar bleibt)
+      // alt:: dunkles Schild mit Spitze unten auf dem Ort, Farbpunkt oben rechts = Kategorie
       var gi = el("g", { transform: "scale(1.3)" }, g);
-      el("path", { d: "M-8 -31h16a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4h-4.5L0 0l-3.5-8H-8a4 4 0 0 1-4-4v-15a4 4 0 0 1 4-4z", class: "pform" }, gi);
+      el("path", { d: "M-8 -31h16a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4h-4.5L0 0l-3.5-8H-8a4 4 0 0 1-4-4v-15a4 4 0 0 1 4-4z", class: "pform", fill: tief(k.farbe) }, gi);
       el("path", { d: k.icon, transform: "translate(-8,-27.5) scale(.667)", class: "pico" }, gi);
-      el("circle", { cx: 10, cy: -29, r: 4.6, fill: k.farbe, class: "pdot" }, gi);
       function wahl() { if (bewegt) return; zeige(pt, i); }
       g.addEventListener("click", wahl);
       g.addEventListener("keydown", function (e) { if (e.key === "Enter") zeige(pt, i); });
