@@ -333,7 +333,21 @@
     ziel = null; fliegen(cx + 0, cy, w);
   }
   var flugNr = 0;
+  // Beim Hinfliegen die scharfen Kacheln am Ziel sofort anfordern: sie sind da, wenn die Animation ankommt
+  var VORH = {};
+  function zielVorladen(x, y, w) {
+    var r = rect(); if (!r.width) return;
+    var h = w * (r.height / r.width), z = Math.max(1, Math.min(6, Math.ceil(Math.log2(r.width / w * (window.devicePixelRatio || 1)) - .05)));
+    var gz = Math.min(z, 5), g = 256 / Math.pow(2, gz);
+    for (var tx = Math.floor((x - w * .75) / g); tx <= Math.floor((x + w * .75) / g); tx++)
+      for (var ty = Math.floor((y - h * .75) / g); ty <= Math.floor((y + h * .75) / g); ty++) {
+        var k = tx + "_" + ty, id = z + "/" + k;
+        if (VORH[id] || (gz <= 3 ? !HAT[gz][k] : !HAT[3][Math.floor(tx / Math.pow(2, gz - 3)) + "_" + Math.floor(ty / Math.pow(2, gz - 3))])) continue;
+        VORH[id] = 1; var im = new Image(); im.decoding = "async"; im.src = "img/gta6/" + id + ".jpg"; if (im.decode) im.decode().catch(function () {});
+      }
+  }
   function fliegen(x, y, w) {
+    zielVorladen(x, y, w);
     var A = verh(), z0 = { x: vb.x, y: vb.y, w: vb.w }, z1 = { w: w, x: x - w / 2, y: y - w * A / 2 }, t0 = performance.now(), id = ++flugNr;
     ziel = null;
     (function schritt(t) {
