@@ -2,6 +2,15 @@
   var D = window.GTA6; if (!D) return;
   var NS = "http://www.w3.org/2000/svg";
   var svg = document.getElementById("karte");
+  // Pins, Bündel und Regions-Icons liegen in einer eigenen SVG-Ebene darüber. Sie wird bei Gesten jedes Bild
+  // mitgeführt (gleiche Größe auf dem Bildschirm, nichts springt), die Karte darunter bleibt eine GPU-Ebene.
+  var ober = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  ober.setAttribute("preserveAspectRatio", svg.getAttribute("preserveAspectRatio") || "xMidYMid meet");
+  ober.setAttribute("viewBox", svg.getAttribute("viewBox")); ober.setAttribute("aria-hidden", "false");
+  ober.style.cssText = "position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;z-index:2;touch-action:none;user-select:none;cursor:grab";
+  svg.parentNode.insertBefore(ober, svg.nextSibling);
+  ["pins", "haufen", "regmark"].forEach(function (id) { var g = document.getElementById(id); if (g) ober.appendChild(g); });
+  function beide(t, f, o) { svg.addEventListener(t, f, o); ober.addEventListener(t, f, o); }
   var VW = 1024, VH = 1024;
   function el(n, a, p) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
 
@@ -150,6 +159,15 @@
       var k = Math.floor(g._x / ZG) + "_" + Math.floor(g._y / ZG); (GR[k] = GR[k] || []).push(g);
     });
   }
+  function pinS(r) { var w = vb.w, f = w >= 300 ? .55 : w >= 120 ? .7 - (w - 120) / 180 * .15 : w <= 40 ? .9 : .9 - (w - 40) / 80 * .2; return (r.width ? w / r.width : 1) * f; }
+  // während der Geste: obere Ebene mitführen und Pins/Bündel/Regions-Icons auf gleicher Bildschirmgröße halten
+  function oberLive(r) {
+    ober.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h);
+    var s = pinS(r), p = r.width ? vb.w / r.width : 1;
+    for (var i = 0; i < sicht.length; i++) { var q = sicht[i]; q._s = s; q.setAttribute("transform", "translate(" + q._x + "," + q._y + ") scale(" + s + ")"); }
+    Array.prototype.forEach.call(haufen.children, function (g) { g.setAttribute("transform", "translate(" + g._cx + "," + g._cy + ") scale(" + p + ")"); });
+    Array.prototype.forEach.call(regmark.children, function (g) { g.setAttribute("transform", "translate(" + g.dataset.x + "," + g.dataset.y + ") scale(" + p + ")"); });
+  }
   function jetzt() {
     plan = 0;
     var r = rect(), A = r.width ? r.height / r.width : 1;
@@ -160,7 +178,7 @@
     if (live && vbC && r.width) {
       var k = vbC.w / vb.w, tx = (vbC.x - vb.x) / vb.w * r.width, ty = (vbC.y - vb.y) / vb.h * r.height;
       svg.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
-      paneLive(r);
+      paneLive(r); oberLive(r);
       var jt = performance.now(); if (jt - liveK > 400) { liveK = jt; kacheln(); }
       // Waehrend der Geste nichts im SVG anfassen (jede Aenderung rastert die ganze Ebene neu = Ruckeln).
       // Erst wenn der Massstab stark abweicht, einmal leicht neu aufsetzen (viewBox + Kacheln, ohne Pins/Buendel).
@@ -168,8 +186,8 @@
       return;
     }
     svg.style.transform = ""; vbC = { x: vb.x, y: vb.y, w: vb.w, h: vb.h };
-    svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h);
-    var s = (r.width ? vb.w / r.width : 1) * (vb.w > 300 ? .62 : vb.w > 120 ? .8 : 1);
+    svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h); ober.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h);
+    var s = pinS(r);
     // Nur Pins im Ausschnitt (+ halber Rand zum Verschieben) zeichnen und skalieren: bei 2800+ Orten ruckelt sonst jeder Zoomschritt
     if (Math.abs(s - altS) > 1e-9) altS = s;
     var mx = vb.w * .5, my = vb.h * .5, x0 = vb.x - mx, x1 = vb.x + vb.w + mx, y0 = vb.y - my, y1 = vb.y + vb.h + my;
@@ -291,14 +309,14 @@
     if (Math.abs(ziel.w - vb.w) / ziel.w < 0.003) { vb.w = ziel.w; vb.x = ziel.x; vb.y = ziel.y; ziel = null; setzen(true); return; }
     setzen(true); animiert = requestAnimationFrame(gleiten);
   }
-  svg.addEventListener("wheel", function (e) {
+  beide("wheel", function (e) {
     e.preventDefault(); flugNr++;
     var d = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaY;
     weich(Math.pow(1.0018, Math.max(-300, Math.min(300, d))), e.clientX, e.clientY);
   }, { passive: false });
   var zeiger = {}, start = null, bewegt = false, zieht = false;
-  svg.addEventListener("pointerdown", function (e) { ziel = null; flugNr++; zeiger[e.pointerId] = [e.clientX, e.clientY]; start = null; bewegt = false; });
-  svg.addEventListener("pointermove", function (e) {
+  beide("pointerdown", function (e) { ziel = null; flugNr++; zeiger[e.pointerId] = [e.clientX, e.clientY]; start = null; bewegt = false; });
+  beide("pointermove", function (e) {
     if (!zeiger[e.pointerId]) return;
     var ids = Object.keys(zeiger), alt = zeiger[e.pointerId];
     if (ids.length === 1) {
@@ -314,7 +332,7 @@
     }
   });
   function los(e) { delete zeiger[e.pointerId]; start = null; zieht = false; clearTimeout(ruhe); setzen(); }
-  svg.addEventListener("pointerup", los); svg.addEventListener("pointercancel", los);
+  beide("pointerup", los); beide("pointercancel", los);
   function mitte(f) { var r = rect(); weich(f, r.left + r.width / 2, r.top + r.height / 2); }
   document.getElementById("zplus").onclick = function () { mitte(1 / 1.4); };
   document.getElementById("zminus").onclick = function () { mitte(1.4); };
@@ -499,7 +517,7 @@
     var t = e.target.closest && e.target.closest("[data-tip]");
     // Regionen per Rechnung statt per unsichtbarer Riesenfläche im SVG (die kostete bei jedem Neuzeichnen GPU-Zeit)
     var rgT = null;
-    if ((!t || t.classList.contains("rg")) && svg.contains(e.target) && !zieht) {
+    if ((!t || t.classList.contains("rg")) && (svg.contains(e.target) || ober.contains(e.target)) && !zieht) {
       var rr = rect(), bz = rr.width ? bezirkBei(vb.x + (e.clientX - rr.left) / rr.width * vb.w, vb.y + (e.clientY - rr.top) / rr.width * vb.w) : null;
       rgT = bz && document.getElementById("rg-" + bz.id); t = rgT || t;
     }
