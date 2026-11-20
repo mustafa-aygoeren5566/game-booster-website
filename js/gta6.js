@@ -8,6 +8,11 @@
   // ---------- Kartenkacheln (gtabase.com, mit Erlaubnis) ----------
   // Eigene HTML-Ebene unter dem SVG (wie Leaflet): jede Kachel ist ein <img> mit translate3d = eigene GPU-Ebene.
   // Beim Zoomen/Verschieben wird nur die Ebene verschoben/skaliert, nichts neu gezeichnet = keine Hänger.
+  // Farben wie auf der Spielkarte, pro Gruppe: Läden hellrosa, Überfälle grün, Sammeln gold, Fahrzeuge blau, Dienste grau, Freizeit dunkel
+  var STIL = { "Style": ["#f7c6d3", "#2a1c24"], "Essen und Trinken": ["#f7c6d3", "#2a1c24"], "Waffen": ["#f7c6d3", "#2a1c24"],
+    "Überfälle": ["#2f9e57", "#fff"], "Sammeln": ["#f2b91c", "#2a1c24"], "Fahrzeuge": ["#2f6fd6", "#fff"], "Dienste": ["#6b7280", "#fff"],
+    "Freizeit": ["#1f1b27", "#fff"], "Orte": ["#7c3aed", "#fff"], "Story": ["#7c3aed", "#fff"] };
+  D.kategorien.forEach(function (k) { var s = STIL[k.gruppe]; k.pfarbe = s ? s[0] : "#1f1b27"; k.ifarbe = s ? s[1] : "#fff"; if (s && k.gruppe !== "Freizeit") k.farbe = s[0] === "#f7c6d3" ? "#f472b6" : s[0]; });
   var HAT = {};
   Object.keys(D.kacheln).forEach(function (z) { HAT[z] = {}; D.kacheln[z].forEach(function (k) { HAT[z][k] = 1; }); });
   var kachSvg = document.getElementById("kacheln"); if (kachSvg) kachSvg.style.display = "none";
@@ -381,8 +386,8 @@
       // Pin wie auf der Spielkarte, Schild in Kategoriefarbe (etwas dunkler, damit das weiße Symbol lesbar bleibt)
       // alt:: dunkles Schild mit Spitze unten auf dem Ort, Farbpunkt oben rechts = Kategorie
       var gi = el("g", { transform: "scale(1.3)" }, g);
-      el("path", { d: "M-8 -31h16a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4h-4.5L0 0l-3.5-8H-8a4 4 0 0 1-4-4v-15a4 4 0 0 1 4-4z", class: "pform", fill: tief(k.farbe) }, gi);
-      el("path", { d: k.icon, transform: "translate(-8,-27.5) scale(.667)", class: "pico" }, gi);
+      el("path", { d: "M-8 -31h16a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4h-4.5L0 0l-3.5-8H-8a4 4 0 0 1-4-4v-15a4 4 0 0 1 4-4z", class: "pform", fill: k.pfarbe, style: "stroke:" + (k.ifarbe === "#fff" ? "#fff" : "#2a1c24") }, gi);
+      el("path", { d: k.icon, transform: "translate(-8,-27.5) scale(.667)", class: "pico", style: "fill:" + k.ifarbe }, gi);
       function wahl() { if (bewegt) return; zeige(pt, i); }
       g.addEventListener("click", wahl);
       g.addEventListener("keydown", function (e) { if (e.key === "Enter") zeige(pt, i); });
