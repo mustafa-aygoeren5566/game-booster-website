@@ -68,8 +68,10 @@
     var r = rect(); if (!r.width) return;
     if (!P) ausrichten(r);
     var px = r.width / vb.w * (window.devicePixelRatio || 1);
-    var z = Math.max(1, Math.min(5, Math.ceil(Math.log2(px) - .2)));
-    var g = 256 / Math.pow(2, z);
+    // Stufe so wählen, dass die Kachel mindestens so scharf ist wie der Bildschirm (nie hochskaliert)
+    // Stufe 6 = je 512-px-Kachel im Raster der Stufe 5 (spart Dateien)
+    var z = Math.max(1, Math.min(6, Math.ceil(Math.log2(px) - .05)));
+    var gz = Math.min(z, 5), g = 256 / Math.pow(2, gz);
     var rx = vb.w * .5, ry = vb.h * .5;
     var x0 = Math.floor((vb.x - rx) / g), x1 = Math.floor((vb.x + vb.w + rx) / g), y0 = Math.floor((vb.y - ry) / g), y1 = Math.floor((vb.y + vb.h + ry) / g);
     var key = z + ":" + x0 + ":" + x1 + ":" + y0 + ":" + y1; if (key === feinKey) return; feinKey = key;
@@ -82,7 +84,7 @@
     var da = {}; Array.prototype.forEach.call(fein.children, function (i) { da[i.dataset.k] = i; });
     var soll = {};
     for (var x = x0; x <= x1; x++) for (var y = y0; y <= y1; y++) {
-      var k = x + "_" + y; if (z <= 3 ? !HAT[z][k] : !HAT[3][Math.floor(x / Math.pow(2, z - 3)) + "_" + Math.floor(y / Math.pow(2, z - 3))]) continue; soll[k] = 1;
+      var k = x + "_" + y; if (gz <= 3 ? !HAT[gz][k] : !HAT[3][Math.floor(x / Math.pow(2, gz - 3)) + "_" + Math.floor(y / Math.pow(2, gz - 3))]) continue; soll[k] = 1;
       if (!da[k] && !LAD[z + "/" + k]) lade(z, k, x, y, g, fein);
     }
     var weg2 = Object.keys(da).filter(function (k) { return !soll[k]; }); if (fein.children.length > 220) weg2.forEach(function (k) { da[k].remove(); });
@@ -94,6 +96,7 @@
   var pins = document.getElementById("pins");
   function verh() { var r = svg.getBoundingClientRect(); return r.width ? r.height / r.width : 1; }
   var plan = 0, altS = -1, rc = null;
+  function minW() { var r = rect(); return r.width ? Math.max(12, r.width * (window.devicePixelRatio || 1) / 64) : 12; }
   function rect() { if (!rc || !rc.width) rc = svg.getBoundingClientRect(); return rc; }
   window.addEventListener("resize", function () { rc = null; });
   window.addEventListener("scroll", function () { rc = null; }, { passive: true });
@@ -115,7 +118,7 @@
     plan = 0;
     var r = rect(), A = r.width ? r.height / r.width : 1;
     if (!isFinite(vb.x + vb.y + vb.w)) { vb.x = START.x; vb.y = START.y; vb.w = START.w; ziel = null; }
-    vb.w = Math.max(12, Math.min(1500, vb.w)); vb.h = vb.w * A;
+    vb.w = Math.max(minW(), Math.min(1500, vb.w)); vb.h = vb.w * A;
     function kl(v, s, L) { var lo = -300, hi = L + 300 - s; return hi < lo ? Math.max(hi, Math.min(lo, v)) : Math.max(lo, Math.min(hi, v)); }
     vb.x = kl(vb.x, vb.w, VW); vb.y = kl(vb.y, vb.h, VH);
     if (live && vbC && r.width) {
@@ -226,7 +229,7 @@
   function zoom(f, cx, cy, schnell) {
     var r = rect();
     var px = vb.x + (cx - r.left) / r.width * vb.w, py = vb.y + (cy - r.top) / r.height * vb.h;
-    var nw = Math.max(12, Math.min(1500, vb.w * f)); f = nw / vb.w;
+    var nw = Math.max(minW(), Math.min(1500, vb.w * f)); f = nw / vb.w;
     vb.x = px - (px - vb.x) * f; vb.y = py - (py - vb.y) * f; vb.w = nw; setzen(schnell);
   }
   // weiches Zoomen: Ziel setzen, pro Frame hingleiten
@@ -235,7 +238,7 @@
     var r = rect(); if (!r.width || !r.height) return;
     var b = ziel || { x: vb.x, y: vb.y, w: vb.w };
     var px = b.x + (cx - r.left) / r.width * b.w, py = b.y + (cy - r.top) / r.height * b.w * (r.height / r.width);
-    var nw = Math.max(12, Math.min(1500, b.w * f)); f = nw / b.w;
+    var nw = Math.max(minW(), Math.min(1500, b.w * f)); f = nw / b.w;
     ziel = { x: px - (px - b.x) * f, y: py - (py - b.y) * f, w: nw };
     if (!animiert) animiert = requestAnimationFrame(gleiten);
   }
