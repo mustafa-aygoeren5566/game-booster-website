@@ -17,6 +17,18 @@
   function weg() { if (altZ) { altZ.remove(); altZ = null; } }
   function fertig() { if (--offen <= 0) { offen = 0; clearTimeout(altT); altT = setTimeout(weg, 80); } }
   D.kacheln["0"].forEach(function (k) { var p = k.split("_"); el("image", { href: "img/gta6/0/" + k + ".jpg", x: p[0] * 256, y: p[1] * 256, width: 256.6, height: 256.6 }, basis); });
+  // Kachel erst im Hintergrund dekodieren, dann einsetzen: sonst dekodiert der Browser jedes JPEG
+  // beim Zeichnen auf dem Hauptthread = harte Hänger beim Zoomen, sobald neue Kacheln ankommen
+  var LAD = {};
+  function lade(z, k, x, y, g, ziel) {
+    var u = "img/gta6/" + z + "/" + k + ".jpg", pic = new Image(), id = z + "/" + k;
+    LAD[id] = 1; offen++; pic.decoding = "async"; pic.src = u;
+    (pic.decode ? pic.decode() : new Promise(function (ok, nein) { pic.onload = ok; pic.onerror = nein; })).then(function () {
+      delete LAD[id];
+      if (ziel === fein) { var im = el("image", { href: u, x: x * g, y: y * g, width: g * 1.004, height: g * 1.004 }, ziel); im.dataset.k = k; }
+      fertig();
+    }, function () { delete LAD[id]; fertig(); });
+  }
   function kacheln() {
     var r = rect(); if (!r.width) return;
     var px = r.width / vb.w * (window.devicePixelRatio || 1);
@@ -36,7 +48,7 @@
     var soll = {};
     for (var x = x0; x <= x1; x++) for (var y = y0; y <= y1; y++) {
       var k = x + "_" + y; if (z <= 3 ? !HAT[z][k] : !HAT[3][Math.floor(x / Math.pow(2, z - 3)) + "_" + Math.floor(y / Math.pow(2, z - 3))]) continue; soll[k] = 1;
-      if (!da[k]) { var im = el("image", { href: "img/gta6/" + z + "/" + k + ".jpg", x: x * g, y: y * g, width: g * 1.004, height: g * 1.004 }, fein); im.dataset.k = k; offen++; im.addEventListener("load", fertig); im.addEventListener("error", function () { this.style.display = "none"; fertig(); }); }
+      if (!da[k] && !LAD[z + "/" + k]) lade(z, k, x, y, g, fein);
     }
     var weg2 = Object.keys(da).filter(function (k) { return !soll[k]; }); if (fein.children.length > 220) weg2.forEach(function (k) { da[k].remove(); });
   }
@@ -390,4 +402,22 @@
     m.appendChild(box);
   });
   var standEl = document.getElementById("stand"); if (standEl) standEl.textContent = D.stand;
+  // Messanzeige nur mit ?fps in der Adresse: Bilder pro Sekunde, längster Hänger, Grafikkarte des Browsers
+  if (/[?&]fps/.test(location.search)) {
+    var box = document.createElement("div");
+    box.style.cssText = "position:fixed;right:12px;bottom:12px;z-index:9999;padding:10px 14px;border-radius:12px;background:rgba(0,0,0,.85);color:#fff;font:600 13px/1.5 monospace;pointer-events:none;white-space:pre";
+    document.body.appendChild(box);
+    var gpu = "unbekannt";
+    try { var gl = document.createElement("canvas").getContext("webgl"), dbg = gl && gl.getExtension("WEBGL_debug_renderer_info"); if (gl) gpu = dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER); else gpu = "kein WebGL"; } catch (e) {}
+    gpu = String(gpu).replace(/^ANGLE \((.*)\)$/, "$1").slice(0, 60);
+    var fz = [], tt = performance.now(), maxH = 0, maxZeit = 0;
+    (function mess() {
+      var n = performance.now(), d = n - tt; tt = n; fz.push([n, d]);
+      if (d > maxH || n - maxZeit > 5000) { maxH = d; maxZeit = n; }
+      while (fz.length && n - fz[0][0] > 1000) fz.shift();
+      var schlecht = fz.filter(function (f) { return f[1] > 34; }).length;
+      box.textContent = "FPS " + fz.length + "   Hänger/s " + schlecht + "\nLängster (5 s) " + Math.round(maxH) + " ms\nAuflösung " + innerWidth + "x" + innerHeight + " @" + (window.devicePixelRatio || 1) + "\nGPU " + gpu;
+      requestAnimationFrame(mess);
+    })();
+  }
 })();
