@@ -100,7 +100,7 @@
     if (!liste.length || !window.fetch || (navigator.connection && navigator.connection.saveData)) return;
     (function weiter() { while (aktiv < 4 && liste.length) { aktiv++; fetch("img/gta6/" + z + "/" + liste.shift() + ".jpg", { priority: "low" }).catch(function () {}).then(function () { aktiv--; weiter(); }); } if (!aktiv && !liste.length && fertig) { var f2 = fertig; fertig = null; f2(); } })();
   }
-  setTimeout(function () { vorladen(2, grund2, function () { vorladen(3, grund3, function () { cachen(4, function () { if (window.matchMedia && matchMedia("(pointer:fine)").matches) cachen(5, function () { cachen(6); }); }); }); }); }, 300);
+  setTimeout(function () { vorladen(2, grund2, function () { vorladen(3, grund3, function () { cachen(4); }); }); }, 300);
   // Kachel erst im Hintergrund dekodieren, dann einsetzen (Dekodieren beim Zeichnen = Hänger)
   var LAD = {}, SCHL = [], schlRaf = 0;
   function einsetzen() { schlRaf = 0; for (var i = 0; i < (live ? 8 : 12) && SCHL.length; i++) SCHL.shift()(); if (SCHL.length) schlRaf = requestAnimationFrame(einsetzen); }
@@ -109,9 +109,9 @@
     LAD[id] = 1; offen++; pic.decoding = "async"; pic.src = u;
     (pic.decode ? pic.decode() : new Promise(function (ok, nein) { pic.onload = ok; pic.onerror = nein; })).then(function () {
       delete LAD[id];
-      SCHL.push(function () { if (ziel === fein) { var im = bild(u, x * g, y * g, g, ziel); im.dataset.k = k; } fertig(); });
+      SCHL.push(function () { if (ziel === fein) { var im = bild(u, x * g, y * g, g, ziel); im.dataset.k = k; fertig(); } });
       if (!schlRaf) schlRaf = requestAnimationFrame(einsetzen);
-    }, function () { delete LAD[id]; fertig(); });
+    }, function () { delete LAD[id]; if (ziel === fein) fertig(); });
   }
   function kacheln() {
     var r = rect(); if (!r.width) return;
@@ -126,9 +126,9 @@
     var key = z + ":" + x0 + ":" + x1 + ":" + y0 + ":" + y1; if (key === feinKey) return; feinKey = key;
     if (z !== feinZ) {
       // alte Stufe als Platzhalter behalten, bis die neue geladen ist (kein Blur-Flackern)
-      if (altZ) altZ.remove(); altZ = fein;
-      fein = ebene(); feinZ = z; offen = 0;
-      clearTimeout(altT); altT = setTimeout(weg, 2500);
+      if (altZ && offen > 0) fein.remove(); else { if (altZ) altZ.remove(); altZ = fein; }
+      fein = ebene(); feinZ = z; offen = 0; LAD = {};
+      clearTimeout(altT); altT = setTimeout(weg, 9000);
     }
     var da = {}; Array.prototype.forEach.call(fein.children, function (i) { da[i.dataset.k] = i; });
     var soll = {};
@@ -320,7 +320,7 @@
     var nw = performance.now(); if (nw - zeigVor < 200 || live) return; zeigVor = nw;
     var r = rect(); if (!r.width) return;
     var mx = vb.x + (e.clientX - r.left) / r.width * vb.w, my = vb.y + (e.clientY - r.top) / r.height * vb.h;
-    for (var f = 4; f <= 64; f *= 2) { var w2 = vb.w / f; if (w2 < 3) break; zielVorladen(mx, my, w2); }
+    for (var f = 4; f <= 8; f *= 2) { var w2 = vb.w / f; if (w2 < 3) break; zielVorladen(mx, my, w2); }
   });
   beide("wheel", function (e) {
     e.preventDefault(); flugNr++;
@@ -329,7 +329,7 @@
     // beim Reinzoomen die schärferen Stufen unter dem Mauszeiger schon vorher anfordern
     if (d < 0) { var nw = performance.now(); if (nw - radVor > 120) { radVor = nw; var r = rect(); if (r.width) {
       var mx = vb.x + (e.clientX - r.left) / r.width * vb.w, my = vb.y + (e.clientY - r.top) / r.height * vb.h;
-      for (var f = 2; f <= 16; f *= 2) { var w2 = vb.w / f; if (w2 < 3) break; zielVorladen(mx - (mx - vb.x - vb.w / 2) / f, my - (my - vb.y - vb.h / 2) / f, w2); } } } }
+      for (var f = 2; f <= 8; f *= 2) { var w2 = vb.w / f; if (w2 < 3) break; zielVorladen(mx - (mx - vb.x - vb.w / 2) / f, my - (my - vb.y - vb.h / 2) / f, w2); } } } }
   }, { passive: false });
   var zeiger = {}, start = null, bewegt = false, zieht = false;
   beide("pointerdown", function (e) { ziel = null; flugNr++; zeiger[e.pointerId] = [e.clientX, e.clientY]; start = null; bewegt = false; });
