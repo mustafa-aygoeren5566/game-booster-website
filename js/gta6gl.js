@@ -137,9 +137,8 @@
     }
   }
   function ganz(sofort) {
-    var x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
-    (D.bezirke || []).forEach(function (b) { b.ringe.forEach(function (r) { r.forEach(function (p) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }); }); });
-    if (x0 > x1) { x0 = 280; x1 = 780; y0 = 40; y1 = 1000; }
+    // Landfläche aus den Kacheln gemessen (inkl. Inseln), damit die Insel mittig sitzt
+    var x0 = 214, x1 = 586, y0 = 218, y1 = 747;
     var r = box.getBoundingClientRect(), offen = !kbox.classList.contains("zu") && r.width > 700;
     var a = ll(x0, y1), b = ll(x1, y0);
     map.fitBounds([a, b], { padding: { top: 20, bottom: 20, right: 20, left: offen ? 336 : 20 }, duration: sofort ? 0 : 600 });
