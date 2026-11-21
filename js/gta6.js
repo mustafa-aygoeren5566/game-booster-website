@@ -314,10 +314,15 @@
     if (Math.abs(ziel.w - vb.w) / ziel.w < 0.003) { vb.w = ziel.w; vb.x = ziel.x; vb.y = ziel.y; ziel = null; setzen(true); return; }
     setzen(true); animiert = requestAnimationFrame(gleiten);
   }
+  var radVor = 0;
   beide("wheel", function (e) {
     e.preventDefault(); flugNr++;
     var d = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaY;
     weich(Math.pow(1.0018, Math.max(-300, Math.min(300, d))), e.clientX, e.clientY);
+    // beim Reinzoomen die schärferen Stufen unter dem Mauszeiger schon vorher anfordern
+    if (d < 0) { var nw = performance.now(); if (nw - radVor > 120) { radVor = nw; var r = rect(); if (r.width) {
+      var mx = vb.x + (e.clientX - r.left) / r.width * vb.w, my = vb.y + (e.clientY - r.top) / r.height * vb.h;
+      for (var f = 2; f <= 16; f *= 2) { var w2 = vb.w / f; if (w2 < 3) break; zielVorladen(mx - (mx - vb.x - vb.w / 2) / f, my - (my - vb.y - vb.h / 2) / f, w2); } } } }
   }, { passive: false });
   var zeiger = {}, start = null, bewegt = false, zieht = false;
   beide("pointerdown", function (e) { ziel = null; flugNr++; zeiger[e.pointerId] = [e.clientX, e.clientY]; start = null; bewegt = false; });
