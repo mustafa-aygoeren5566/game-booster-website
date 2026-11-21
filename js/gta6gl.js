@@ -32,7 +32,7 @@
   };
   var GANG = { "gang-operation-001": "kroko", "gang-operation-002": "kroko", "gang-operation-011": "falter", "gang-operation-042": "falter",
     "gang-compound-001": "ptt", "gang-operation-020": "ptt", "gang-operation-021": "ptt", "gang-operation-039": "ptt",
-    "gang-operation-022": "hahn", "gang-operation-023": "hahn", "gang-operation-024": "hahn", "gang-operation-012": "sense", "gang-operation-013": "sense", "gang-operation-004": "kx", "gang-operation-005": "kx", "gang-operation-006": "kx", "gang-operation-007": "kx", "gang-operation-008": "kx",
+    "gang-operation-022": "hahn", "gang-operation-023": "hahn", "gang-operation-024": "hahn", "gang-operation-012": "sense", "gang-operation-013": "sense", "gang-operation-004": "kx", "gang-operation-005": "kx", "gang-operation-006": "kx", "gang-operation-008": "kx", "gang-operation-006": "kx", "gang-operation-007": "kx", "gang-operation-008": "kx",
     "gang-operation-009": "m7", "gang-operation-010": "m7",
     "gang-operation-015": "s4s", "gang-operation-016": "s4s", "gang-operation-017": "s4s", "gang-operation-018": "s4s", "gang-operation-019": "s4s" };
   function logoK(k, lg) { var o = Object.create(k); o.logo = GLOGO[lg]; if (o.logo.d) o.icon = o.logo.d; return o; }
