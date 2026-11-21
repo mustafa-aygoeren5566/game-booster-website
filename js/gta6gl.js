@@ -99,6 +99,29 @@
   map.touchZoomRotate.disableRotation(); map.keyboard.disableRotation();
   // fein = Kachel-Stufe 7 mit 512 px: Adresse "gta://6/x/y/512" (eigener Zweig im Protokoll)
   window.gtaKarte = map;
+  // weiches Mausrad-Zoomen: Zielzoom sammeln, pro Frame sanft annähern, Punkt unter Maus bleibt fest
+  map.scrollZoom.disable();
+  var zZiel = null, zPunkt = null, zLL = null, zRaf = 0;
+  box.addEventListener("wheel", function (e) {
+    e.preventDefault();
+    var r = box.getBoundingClientRect();
+    zPunkt = [e.clientX - r.left, e.clientY - r.top]; zLL = map.unproject(zPunkt);
+    var d = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaMode === 2 ? e.deltaY * 400 : e.deltaY;
+    d = Math.max(-300, Math.min(300, d));
+    var basis = zZiel == null ? map.getZoom() : zZiel;
+    zZiel = Math.max(map.getMinZoom(), Math.min(map.getMaxZoom(), basis - d / 220));
+    if (!zRaf) zRaf = requestAnimationFrame(radSchritt);
+  }, { passive: false });
+  function radSchritt() {
+    zRaf = 0; if (zZiel == null) return;
+    var z = map.getZoom(), n = z + (zZiel - z) * 0.3;
+    if (Math.abs(zZiel - n) < 0.003) n = zZiel;
+    map.jumpTo({ zoom: n });
+    var p = map.project(zLL), c = map.project(map.getCenter());
+    map.jumpTo({ center: map.unproject([c.x + p.x - zPunkt[0], c.y + p.y - zPunkt[1]]) });
+    if (n !== zZiel) zRaf = requestAnimationFrame(radSchritt); else zZiel = null;
+  }
+  map.on("mousedown", function () { zZiel = null; });
 
   function zoomFuer(w) { var b = box.getBoundingClientRect().width || 1000; return Math.log2(2 * b / w); }
   function fliegen(x, y, w) { map.flyTo({ center: ll(x, y), zoom: Math.min(map.getMaxZoom(), zoomFuer(w)), duration: 650, curve: 1.3, essential: true }); }
