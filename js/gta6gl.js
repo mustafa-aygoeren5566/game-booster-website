@@ -63,8 +63,8 @@
   }
   maplibregl.addProtocol("gta", function (p, ab) {
     var m = p.url.split("://")[1].split("/"), z = +m[0], x = +m[1], y = +m[2], dz, u;
-    if (m.length === 4) { dz = 6; if (!gibt(5, x, y)) return leer().then(function (a) { return { data: a }; }); u = "img/gta6/6/" + x + "_" + y + ".jpg"; }
-    else { dz = z - 2; if (dz < 0 || !gibt(dz, x, y)) return leer().then(function (a) { return { data: a }; }); u = "img/gta6/" + dz + "/" + x + "_" + y + ".jpg"; }
+    if (m.length === 4) { dz = 6; if (!gibt(5, x, y)) return leer().then(function (a) { return { data: a }; }); u = "img/gta6/6/" + x + "_" + y + ".jpg?k=2"; }
+    else { dz = z - 2; if (dz < 0 || !gibt(dz, x, y)) return leer().then(function (a) { return { data: a }; }); u = "img/gta6/" + dz + "/" + x + "_" + y + ".jpg?k=2"; }
     return fetch(u, { signal: ab.signal }).then(function (r) { return r.ok ? r.arrayBuffer() : leer(); }).then(function (a) { return { data: a }; });
   });
 
@@ -90,7 +90,7 @@
         fein: { type: "raster", tiles: ["gta://6/{x}/{y}/512"], tileSize: 512, minzoom: 7, maxzoom: 7 }
       },
       layers: [
-        { id: "meer", type: "background", paint: { "background-color": "#4b6176" } },
+        { id: "meer", type: "background", paint: { "background-color": "#577985" } },
         { id: "grund", type: "raster", source: "grund", paint: RAST },
         { id: "fein", type: "raster", source: "fein", minzoom: 6.3, paint: RAST }
       ]
@@ -197,7 +197,7 @@
     if (z <= 3) liste = D.kacheln[z] ? D.kacheln[z].slice() : [];
     else D.kacheln["3"].forEach(function (k) { var p = k.split("_"); for (var a = 0; a < 2; a++) for (var b = 0; b < 2; b++) liste.push((p[0] * 2 + a) + "_" + (p[1] * 2 + b)); });
     var aktiv = 0;
-    (function weiter() { while (aktiv < 3 && liste.length) { aktiv++; fetch("img/gta6/" + z + "/" + liste.shift() + ".jpg", { priority: "low" }).catch(function () {}).then(function () { aktiv--; weiter(); }); } })();
+    (function weiter() { while (aktiv < 3 && liste.length) { aktiv++; fetch("img/gta6/" + z + "/" + liste.shift() + ".jpg?k=2", { priority: "low" }).catch(function () {}).then(function () { aktiv--; weiter(); }); } })();
   }
   function neuDaten() { if (bereit) map.getSource("orte").setData(punkteGeo()); zahlen(); }
   function zahlen() {

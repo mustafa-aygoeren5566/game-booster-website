@@ -71,7 +71,7 @@
     var k = P.w / vb.w, tx = (P.x - vb.x) / vb.w * r.width, ty = (P.y - vb.y) / vb.w * r.width;
     kpane.style.transform = "translate3d(" + tx + "px," + ty + "px,0) scale(" + k + ")";
   }
-  D.kacheln["0"].forEach(function (k) { var p = k.split("_"); bild("img/gta6/0/" + k + ".jpg", p[0] * 256, p[1] * 256, 256, basis); });
+  D.kacheln["0"].forEach(function (k) { var p = k.split("_"); bild("img/gta6/0/" + k + ".jpg?k=2", p[0] * 256, p[1] * 256, 256, basis); });
   // Stufe 2 und 3 (zusammen ~4 MB) einmal im Hintergrund komplett laden und immer unter der feinen Ebene behalten:
   // so ist die Karte beim Zoomen und Verschieben sofort scharf da, ohne erst neu nachzuladen
   function grundEbene() { var d = document.createElement("div"); d.style.cssText = "position:absolute;left:0;top:0"; kpane.insertBefore(d, fein); return d; }
@@ -83,7 +83,7 @@
     function weiter() {
       while (aktiv < 6 && liste.length) {
         (function (k) {
-          var u = "img/gta6/" + z + "/" + k + ".jpg", p = k.split("_"), pic = new Image(); aktiv++; pic.decoding = "async"; pic.src = u;
+          var u = "img/gta6/" + z + "/" + k + ".jpg?k=2", p = k.split("_"), pic = new Image(); aktiv++; pic.decoding = "async"; pic.src = u;
           (pic.decode ? pic.decode() : new Promise(function (ok, nein) { pic.onload = ok; pic.onerror = nein; })).then(function () {
             var im = bild(u, p[0] * g, p[1] * g, g, ziel); im._g = 1; if (P) setz(im);
             if (!schlRaf) schlRaf = requestAnimationFrame(einsetzen);
@@ -98,14 +98,14 @@
     var liste = [], aktiv = 0, f = Math.pow(2, Math.min(z, 5) - 3);
     D.kacheln["3"].forEach(function (k) { var p = k.split("_"); for (var a = 0; a < f; a++) for (var b = 0; b < f; b++) liste.push((p[0] * f + a) + "_" + (p[1] * f + b)); });
     if (!liste.length || !window.fetch || (navigator.connection && navigator.connection.saveData)) return;
-    (function weiter() { while (aktiv < 4 && liste.length) { aktiv++; fetch("img/gta6/" + z + "/" + liste.shift() + ".jpg", { priority: "low" }).catch(function () {}).then(function () { aktiv--; weiter(); }); } if (!aktiv && !liste.length && fertig) { var f2 = fertig; fertig = null; f2(); } })();
+    (function weiter() { while (aktiv < 4 && liste.length) { aktiv++; fetch("img/gta6/" + z + "/" + liste.shift() + ".jpg?k=2", { priority: "low" }).catch(function () {}).then(function () { aktiv--; weiter(); }); } if (!aktiv && !liste.length && fertig) { var f2 = fertig; fertig = null; f2(); } })();
   }
   setTimeout(function () { vorladen(2, grund2, function () { vorladen(3, grund3, function () { cachen(4); }); }); }, 300);
   // Kachel erst im Hintergrund dekodieren, dann einsetzen (Dekodieren beim Zeichnen = Hänger)
   var LAD = {}, SCHL = [], schlRaf = 0;
   function einsetzen() { schlRaf = 0; for (var i = 0; i < (live ? 8 : 12) && SCHL.length; i++) SCHL.shift()(); if (SCHL.length) schlRaf = requestAnimationFrame(einsetzen); }
   function lade(z, k, x, y, g, ziel) {
-    var u = "img/gta6/" + z + "/" + k + ".jpg", pic = new Image(), id = z + "/" + k;
+    var u = "img/gta6/" + z + "/" + k + ".jpg?k=2", pic = new Image(), id = z + "/" + k;
     LAD[id] = 1; offen++; pic.decoding = "async"; pic.src = u;
     (pic.decode ? pic.decode() : new Promise(function (ok, nein) { pic.onload = ok; pic.onerror = nein; })).then(function () {
       delete LAD[id];
@@ -378,7 +378,7 @@
       for (var ty = Math.floor((y - h * .75) / g); ty <= Math.floor((y + h * .75) / g); ty++) {
         var k = tx + "_" + ty, id = z + "/" + k;
         if (VORH[id] || (gz <= 3 ? !HAT[gz][k] : !HAT[3][Math.floor(tx / Math.pow(2, gz - 3)) + "_" + Math.floor(ty / Math.pow(2, gz - 3))])) continue;
-        VORH[id] = 1; var im = new Image(); im.decoding = "async"; im.src = "img/gta6/" + id + ".jpg"; if (im.decode) im.decode().catch(function () {});
+        VORH[id] = 1; var im = new Image(); im.decoding = "async"; im.src = "img/gta6/" + id + ".jpg?k=2"; if (im.decode) im.decode().catch(function () {});
       }
   }
   function fliegen(x, y, w) {
