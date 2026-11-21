@@ -138,7 +138,7 @@
   }
   function ganz(sofort) {
     // Landfläche aus den Kacheln gemessen (inkl. Inseln), damit die Insel mittig sitzt
-    var x0 = 214, x1 = 586, y0 = 218, y1 = 747;
+    var x0 = 214, x1 = 656, y0 = 218, y1 = 747;
     var r = box.getBoundingClientRect(), offen = !kbox.classList.contains("zu") && r.width > 700;
     var a = ll(x0, y1), b = ll(x1, y0);
     map.fitBounds([a, b], { padding: { top: 20, bottom: 20, right: 20, left: offen ? 336 : 20 }, duration: sofort ? 0 : 600 });
