@@ -98,7 +98,7 @@
   });
   map.touchZoomRotate.disableRotation(); map.keyboard.disableRotation();
   // fein = Kachel-Stufe 7 mit 512 px: Adresse "gta://6/x/y/512" (eigener Zweig im Protokoll)
-  window.gtaKarte = map;
+  window.gtaKarte = map; window.gtaFliegen = function (x, y, w) { fliegen(x, y, w); };
   // weiches Mausrad-Zoomen: Zielzoom sammeln, pro Frame sanft annähern, Punkt unter Maus bleibt fest
   map.scrollZoom.disable();
   var zZiel = null, zPunkt = null, zLL = null, zRaf = 0;
