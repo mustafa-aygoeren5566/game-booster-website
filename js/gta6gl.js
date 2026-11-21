@@ -124,7 +124,7 @@
   map.on("mousedown", function () { zZiel = null; });
 
   function zoomFuer(w) { var b = box.getBoundingClientRect().width || 1000; return Math.log2(2 * b / w); }
-  function fliegen(x, y, w) { map.flyTo({ center: ll(x, y), zoom: Math.min(map.getMaxZoom(), zoomFuer(w)), duration: 650, curve: 1.3, essential: true }); }
+  function fliegen(x, y, w) { zZiel = null; map.stop(); var zz = Math.min(map.getMaxZoom(), zoomFuer(w)), dz = Math.abs(zz - map.getZoom()); map.easeTo({ center: ll(x, y), zoom: zz, duration: Math.min(900, 380 + dz * 110), easing: function (t) { return 1 - Math.pow(1 - t, 3); }, essential: true }); }
   function ganz(sofort) {
     var x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
     (D.bezirke || []).forEach(function (b) { b.ringe.forEach(function (r) { r.forEach(function (p) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }); }); });
@@ -170,12 +170,11 @@
       paint: { "icon-opacity": ["case", ["==", ["get", "ok"], 1], .45, 1] } });
     bereit = true; zahlen();
     ganz(true);
-    // Zoomgrenzen: raus nur bis knapp unter Gesamtansicht, rein bis zur feinsten Kachel; Verschieben nur um die Karte
-    var zStart = map.getZoom(), bStart = map.getBounds();
-    map.setMinZoom(Math.max(1, zStart - 0.35));
+    // Zoomgrenzen fest aus der Kartenwelt (nicht aus der Ansicht): raus bis knapp über Gesamtansicht, rein bis feinste Kachel
+    map.setMaxBounds([ll(60, 1000), ll(1000, 0)]);
+    var cam = map.cameraForBounds([ll(280, 1000), ll(780, 40)], { padding: 20 });
+    map.setMinZoom(Math.max(1, ((cam && cam.zoom) || 2.5) - 0.4));
     map.setMaxZoom(7.6);
-    var bw = bStart.getEast() - bStart.getWest(), bh = bStart.getNorth() - bStart.getSouth();
-    map.setMaxBounds([[Math.max(-180, bStart.getWest() - bw * .35), Math.max(-85, bStart.getSouth() - bh * .35)], [Math.min(180, bStart.getEast() + bw * .35), Math.min(85, bStart.getNorth() + bh * .35)]]);
     regionsMarken();
     // Grundstufen in den Browser-Cache holen (klein), damit Rauszoomen nie lädt
     setTimeout(function () { [0, 1, 2, 3, 4].forEach(function (z) { cachen(z); }); }, 800);
