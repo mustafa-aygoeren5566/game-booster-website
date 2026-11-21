@@ -26,10 +26,10 @@
   // Farben aus ~2000 Stream-Kartenbildern gemessen (Pin-Farbe je Kategorie, aufgehellt)
   var KFARBE = { "gang-operation": "#facc15", "gang-compound": "#facc15", "ammu-nation": "#f1e0e2", "electronics": "#f1e0e2",
     "pay-n-spray": "#f1e0e2", "basketball": "#f1e0e2", "gym": "#b4c2ee", "fence": "#e88cb0", "collectible-card": "#c9b0f5",
-    "vehicle-request": "#c9b0f5", "shooting-range": "#a6bde0", "gas-station": "#d6e0ea" };
+    "vehicle-request": "#c9b0f5", "shooting-range": "#a6bde0", "gas-station": "#d6e0ea", "vehicle-mod-shop": "#f1e0e2" };
   D.kategorien.forEach(function (k) { if (KFARBE[k.id]) { k.pfarbe = KFARBE[k.id]; k.farbe = k.pfarbe; } });
   var HERZ = {clothing:1,footwear:1,haircut:1,tattoo:1,bar:1,nightclub:1,cinema:1,"food-and-drink":1};
-  D.kategorien.forEach(function (k) { if (HERZ[k.id]) { k.herz = 1; k.pfarbe = "#1b1620"; k.ifarbe = "#fff"; k.farbe = "#ff5fa2"; } });
+  D.kategorien.forEach(function (k) { if (HERZ[k.id]) { k.herz = 1; k.pfarbe = "#f1e0e2"; k.ifarbe = "#15111c"; k.farbe = "#ff5fa2"; } });
   var HERZP = '<path d="M9.5 -26.2c-2.6-1.9-4.4-3.4-4.4-5.3a2.3 2.3 0 0 1 4.4-1 2.3 2.3 0 0 1 4.4 1c0 1.9-1.8 3.4-4.4 5.3z" fill="#ff5fa2" stroke="#fff" stroke-width="1"/>';
   var HAT = {};
   Object.keys(D.kacheln).forEach(function (z) { HAT[z] = {}; D.kacheln[z].forEach(function (k) { HAT[z][k] = 1; }); });

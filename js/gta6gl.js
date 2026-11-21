@@ -15,10 +15,10 @@
   // Farben aus ~2000 Stream-Kartenbildern gemessen (Pin-Farbe je Kategorie, aufgehellt)
   var KFARBE = { "gang-operation": "#facc15", "gang-compound": "#facc15", "ammu-nation": "#f1e0e2", "electronics": "#f1e0e2",
     "pay-n-spray": "#f1e0e2", "basketball": "#f1e0e2", "gym": "#b4c2ee", "fence": "#e88cb0", "collectible-card": "#c9b0f5",
-    "vehicle-request": "#c9b0f5", "shooting-range": "#a6bde0", "gas-station": "#d6e0ea" };
+    "vehicle-request": "#c9b0f5", "shooting-range": "#a6bde0", "gas-station": "#d6e0ea", "vehicle-mod-shop": "#f1e0e2" };
   D.kategorien.forEach(function (k) { if (KFARBE[k.id]) { k.pfarbe = KFARBE[k.id]; k.farbe = k.pfarbe; } });
   var HERZ = { clothing: 1, footwear: 1, haircut: 1, tattoo: 1, bar: 1, nightclub: 1, cinema: 1, "food-and-drink": 1 };
-  D.kategorien.forEach(function (k) { if (HERZ[k.id]) { k.herz = 1; k.pfarbe = "#1b1620"; k.ifarbe = "#fff"; k.farbe = "#ff5fa2"; } });
+  D.kategorien.forEach(function (k) { if (HERZ[k.id]) { k.herz = 1; k.pfarbe = "#f1e0e2"; k.ifarbe = "#15111c"; k.farbe = "#ff5fa2"; } });
   // wie im Spiel: Gang-Operationen mit "?" oben rechts (offen), abgehakt mit Haken
   D.kategorien.forEach(function (k) { if (k.id === "gang-operation" || k.id === "gang-compound") k.frage = 1; });
   // Gang-Logos wie im Spiel (selbst gezeichnet): je Pin-ID ein Motiv, sonst Maske
