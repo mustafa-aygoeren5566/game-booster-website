@@ -433,7 +433,7 @@
       var k = KAT[pt.k];
       var g = el("g", { class: "pin" + (erledigt["p" + i] ? " ok" : ""), tabindex: "0", role: "button", "aria-label": pt.n }, pins);
       g.dataset.x = pt.x; g.dataset.y = pt.y;
-      g.dataset.tip = pt.n; g.dataset.tip2 = k.name;
+      g.dataset.tip = pt.n; g.dataset.tip2 = k.name; g.dataset.tipf = k.farbe;
       // Pin wie auf der Spielkarte, Schild in Kategoriefarbe (etwas dunkler, damit das weiße Symbol lesbar bleibt)
       // alt:: dunkles Schild mit Spitze unten auf dem Ort, Farbpunkt oben rechts = Kategorie
       var gi = el("g", { transform: "scale(1.3)" }, g);
@@ -529,7 +529,7 @@
     }
     if (rgT !== rgAn && !(t && t.classList && t.classList.contains("rm"))) { if (rgAn) rgAn.classList.remove("an"); rgAn = rgT; if (rgAn) rgAn.classList.add("an"); }
     if (!t || zieht) { if (tipAn) { tip.classList.remove("an"); tipAn = null; } return; }
-    if (t !== tipAn) { tipAn = t; tip.firstChild.textContent = t.dataset.tip; tip.lastChild.textContent = t.dataset.tip2 || ""; tip.lastChild.style.display = t.dataset.tip2 ? "" : "none"; tip.classList.add("an"); }
+    if (t !== tipAn) { tipAn = t; tip.firstChild.textContent = t.dataset.tip; tip.lastChild.textContent = t.dataset.tip2 || ""; tip.lastChild.style.display = t.dataset.tip2 ? "" : "none"; tip.lastChild.style.color = t.dataset.tipf || ""; tip.classList.add("an"); }
     var x = e.clientX + 14, y = e.clientY + 16, w = tip.offsetWidth, h = tip.offsetHeight;
     if (x + w > innerWidth - 8) x = e.clientX - w - 14; if (y + h > innerHeight - 8) y = e.clientY - h - 12;
     tip.style.transform = "translate(" + x + "px," + y + "px)";
