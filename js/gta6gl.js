@@ -81,7 +81,7 @@
   var RAST = { "raster-saturation": -.62, "raster-brightness-max": .93, "raster-contrast": .05, "raster-fade-duration": 120 };
   var map = new maplibregl.Map({
     container: box, attributionControl: false, renderWorldCopies: false, dragRotate: false, pitchWithRotate: false, touchPitch: false,
-    minZoom: 1, maxZoom: 9, fadeDuration: 0, maxTileCacheSize: 4000,
+    minZoom: 1, maxZoom: 9, fadeDuration: 0, refreshExpiredTiles: false, cancelPendingTileRequestsWhileZooming: false, maxTileCacheSize: 4000,
     center: ll(512, 560), zoom: 2.4,
     style: {
       version: 8,
@@ -90,7 +90,7 @@
         fein: { type: "raster", tiles: ["gta://6/{x}/{y}/512"], tileSize: 512, minzoom: 7, maxzoom: 7 }
       },
       layers: [
-        { id: "meer", type: "background", paint: { "background-color": "#4d7f9c" } },
+        { id: "meer", type: "background", paint: { "background-color": "#4b6176" } },
         { id: "grund", type: "raster", source: "grund", paint: RAST },
         { id: "fein", type: "raster", source: "fein", minzoom: 6.3, paint: RAST }
       ]
