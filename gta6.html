@@ -199,7 +199,21 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
 #info .hak:hover .bo{stroke:#fff}#info .hak:hover .bh{opacity:.5;fill:#fff}#info .hak:active .bi{transform:scale(.85)}
 #info .hak.ok{color:#ffd166}#info .hak.ok .bo{fill:#ffd166;stroke:#ffd166;filter:drop-shadow(0 0 5px rgba(255,209,102,.6))}#info .hak.ok .bh{opacity:1;fill:#1a0b2e}
 #info .hak .bi{width:14px;height:14px}#info .hak .bo{stroke-width:2.2}
-@media(min-width:1100px){.liste li small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}</style>
+@media(min-width:1100px){.liste li small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+/* GTA-Spielmenü-Stil für Seitenleiste und Infobox (passend zu den Pins) */
+.seite,#info{background:rgba(22,30,40,.93)!important;border:0!important;border-radius:6px!important;box-shadow:0 14px 40px rgba(0,0,0,.5)!important;backdrop-filter:blur(6px)}
+#info::before{height:3px;background:#ff5fa2}#info::after{display:none}
+.seite h2{font:italic 800 28px/1 'Barlow Condensed',sans-serif!important;color:#ff5fa2!important;background:none!important;-webkit-text-fill-color:#ff5fa2;letter-spacing:.04em}
+.seite h4,.gr{font-family:'Barlow Condensed',sans-serif;font-size:13px!important;letter-spacing:.12em;color:#e8edf3!important;border-bottom:1px solid rgba(255,255,255,.12)!important}
+.kat{border-radius:3px!important;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:600;letter-spacing:.02em;text-transform:uppercase}
+.kat.an{background:transparent!important}
+.kat:hover,.kat:focus-visible{background:rgba(255,255,255,.08)!important}
+.kat.an::before{content:"";position:absolute;left:-4px;top:6px;bottom:6px;width:3px;border-radius:2px;background:#ff5fa2}
+.kat .kz{background:rgba(255,255,255,.1);border-radius:3px;padding:1px 6px;color:#e8edf3!important;font-style:normal!important;font-family:Inter,sans-serif;font-size:11px}
+#info h3,#info .tt,#info strong:first-child{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.03em}
+#info .chip{border-radius:3px!important}
+.seite input{border-radius:4px!important;background-color:rgba(0,0,0,.28)!important;border:1px solid rgba(255,255,255,.12)!important}
+</style>
 </head>
 <body>
 <div class="top"><div class="in"><a class="logo" href="/"><img src="img/logo.webp" alt="Game Booster Logo"><span>Game Booster <em>VPN</em></span></a><a class="gbhome" href="/">Zur Startseite<i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i></a></div></div>
