@@ -290,6 +290,7 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
 .mliste input:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .mliste label.ok{color:var(--mut)}.mliste label.ok .mn{text-decoration:line-through;text-decoration-color:rgba(255,61,139,.6)}
 .mopt{flex:none;margin-left:auto;padding:1px 7px;border-radius:99px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(46,230,240,.35);align-self:center}
+#missionen{position:relative}.card:has(#missionen){position:relative}.movl{position:absolute;top:22px;right:24px;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:var(--txt);font:700 13px Inter,sans-serif;cursor:pointer;transition:.2s}.movl:hover{border-color:var(--pink);background:rgba(255,61,139,.12)}.movl svg{width:17px;height:17px;color:var(--pink)}.movl[hidden]{display:none}@media(max-width:860px){.movl{display:none}}
 </style>
 </head>
 <body>
@@ -335,6 +336,7 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
 <main>
   <section class="card">
     <h2>Missionen</h2>
+    <button id="movl" class="movl" type="button" title="Kleines Fenster, das über dem Spiel bleibt (Chrome/Edge, randloser Fenstermodus)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="15" rx="2.5"/><rect x="12" y="11" width="7" height="5.5" rx="1.2" fill="currentColor" stroke="none"/></svg>Als Overlay öffnen</button>
     <p id="mtext"></p>
     <div id="mges"><span>Fortschritt</span><div class="mbar"><i id="mgesbar"></i></div><b id="mgesz">0/0</b></div>
     <div id="missionen"></div>
@@ -353,6 +355,6 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
 <footer>© 2026 Game Booster VPN. Fanseite, nicht mit Rockstar Games oder Take-Two verbunden. Grand Theft Auto ist eine Marke von Take-Two Interactive.<br><a href="/">Startseite</a><a href="/mw4">MW4</a><a href="/updates">Updates</a><a href="/recht">Impressum</a><a href="https://gtadb.org" target="_blank" rel="noopener">GTADB</a><a href="https://creativecommons.org/licenses/by/4.0/deed.de" target="_blank" rel="noopener">CC BY 4.0</a></footer>
 <script src="js/gta6-daten.js?v=17953000021235"></script>
 <script src="js/maplibre-gl-csp.js?v=471"></script>
-<script src="js/gta6gl.js?v=32"></script>
+<script src="js/gta6gl.js?v=33"></script>
 </body>
 </html>

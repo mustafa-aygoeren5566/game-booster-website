@@ -409,7 +409,7 @@
   var m = document.getElementById("missionen");
   if (m) {
     document.getElementById("mtext").textContent = D.missionen.text;
-    var alleM = [];
+    var alleM = [], MB = {}, ov = null, ovKap = -1;
     function mStand() {
       var g = 0, n = 0;
       alleM.forEach(function (k) {
@@ -419,6 +419,7 @@
       });
       document.getElementById("mgesz").textContent = g + "/" + n;
       document.getElementById("mgesbar").style.width = (n ? 100 * g / n : 0) + "%";
+      if (ov) ovMalen();
     }
     D.missionen.kapitel.forEach(function (k, ki) {
       var bx = document.createElement("div"); bx.className = "kap";
@@ -442,11 +443,58 @@
         c.onchange = function () { erledigt[id] = c.checked; l.classList.toggle("ok", c.checked); speichern(); mStand(); };
         l.appendChild(c); l.appendChild(sp);
         if (opt) { var o = document.createElement("span"); o.className = "mopt"; o.textContent = "Optional"; l.appendChild(o); }
-        li.appendChild(l); eintrag.boxen.push(c);
+        li.appendChild(l); eintrag.boxen.push(c); MB[id] = { c: c, l: l, name: sp.textContent, opt: opt };
       });
       alleM.push(eintrag); m.appendChild(bx);
     });
     mStand();
+    // ---------- Overlay (Bild-im-Bild-Fenster, bleibt über dem Spiel im randlosen Fenstermodus) ----------
+    var ovBtn = document.getElementById("movl");
+    var OVCSS = "*{box-sizing:border-box;margin:0}body{background:#12081f;color:#fdf2ff;font:13px/1.4 Inter,system-ui,sans-serif;display:flex;flex-direction:column;height:100vh;overflow:hidden}" +
+      ".ok{display:flex;align-items:center;gap:10px;padding:10px 12px 8px}.ok b{font:italic 800 18px 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#ffd166;flex:1}.ok span{font-weight:700;color:#ffd166;font-variant-numeric:tabular-nums}" +
+      ".bar{height:5px;margin:0 12px 8px;border-radius:9px;background:rgba(255,255,255,.08);overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#ff3d8b,#ff9a3c,#ffd166)}" +
+      ".tabs{display:flex;gap:5px;padding:0 12px 8px}.tabs button{flex:1;height:30px;border-radius:9px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#fdf2ff;font:italic 800 16px 'Barlow Condensed',sans-serif;cursor:pointer}.tabs button.an{background:linear-gradient(135deg,#ff3d8b,#8b5cf6);border-color:transparent}.tabs button.voll{color:#2ee6a0}" +
+      ".kn{padding:0 12px 6px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#b9a6cf;font-weight:700}" +
+      ".li{flex:1;overflow:auto;padding:0 6px 10px;scrollbar-width:thin;scrollbar-color:#5a3d80 transparent}label{display:flex;gap:9px;align-items:center;padding:6px;border-radius:8px;cursor:pointer}label:hover{background:rgba(255,255,255,.06)}label.ja{color:#b9a6cf}label.ja s{text-decoration-color:rgba(255,61,139,.6)}s{text-decoration:none}" +
+      "input{appearance:none;flex:none;width:17px;height:17px;border-radius:6px;border:1.5px solid rgba(255,255,255,.28);display:grid;place-items:center;cursor:pointer}input:checked{background:linear-gradient(135deg,#ff3d8b,#c46bff);border-color:transparent}input:checked::after{content:'';width:9px;height:5px;border:2px solid #fff;border-top:0;border-right:0;transform:translateY(-1px) rotate(-45deg)}" +
+      "em{margin-left:auto;font-style:normal;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#2ee6f0;border:1px solid rgba(46,230,240,.35);border-radius:99px;padding:0 6px}";
+    function ovMalen() {
+      var d = ov.document, b = d.body, g = 0, n = 0; b.innerHTML = "";
+      if (ovKap < 0) { ovKap = 0; for (var q = 0; q < alleM.length; q++) { if (alleM[q].boxen.some(function (c) { return !c.checked; })) { ovKap = q; break; } } }
+      alleM.forEach(function (k) { n += k.boxen.length; g += k.boxen.filter(function (c) { return c.checked; }).length; });
+      var kopf = d.createElement("div"); kopf.className = "ok"; kopf.innerHTML = "<b>GTA 6 Missionen</b><span>" + g + "/" + n + "</span>"; b.appendChild(kopf);
+      var bar = d.createElement("div"); bar.className = "bar"; bar.innerHTML = '<i style="width:' + (n ? 100 * g / n : 0) + '%"></i>'; b.appendChild(bar);
+      var tabs = d.createElement("div"); tabs.className = "tabs";
+      alleM.forEach(function (k, ki) {
+        var t = d.createElement("button"); t.textContent = ki + 1; t.title = D.missionen.kapitel[ki].name;
+        if (ki === ovKap) t.className = "an"; else if (k.bx.classList.contains("voll")) t.className = "voll";
+        t.onclick = function () { ovKap = ki; ovMalen(); }; tabs.appendChild(t);
+      });
+      b.appendChild(tabs);
+      var kn = d.createElement("div"); kn.className = "kn"; kn.textContent = D.missionen.kapitel[ovKap].name + " · " + alleM[ovKap].z.textContent; b.appendChild(kn);
+      var li = d.createElement("div"); li.className = "li";
+      D.missionen.kapitel[ovKap].liste.forEach(function (_, mi) {
+        var id = "m" + ovKap + "_" + mi, e = MB[id], l = d.createElement("label"), c = d.createElement("input"), s = d.createElement("s");
+        c.type = "checkbox"; c.checked = e.c.checked; s.textContent = e.name; if (c.checked) l.className = "ja";
+        c.onchange = function () { e.c.checked = c.checked; e.c.onchange(); };
+        l.appendChild(c); l.appendChild(s);
+        if (e.opt) { var o = d.createElement("em"); o.textContent = "Optional"; l.appendChild(o); }
+        li.appendChild(l);
+      });
+      b.appendChild(li);
+    }
+    if (ovBtn) {
+      if (!("documentPictureInPicture" in window)) ovBtn.hidden = true;
+      ovBtn.onclick = function () {
+        if (ov) { ov.close(); return; }
+        documentPictureInPicture.requestWindow({ width: 320, height: 520 }).then(function (w) {
+          ov = w; var st = w.document.createElement("style"); st.textContent = OVCSS; w.document.head.appendChild(st);
+          var f = w.document.createElement("link"); f.rel = "stylesheet"; f.href = "https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,800&display=swap"; w.document.head.appendChild(f);
+          w.document.title = "GTA 6 Missionen"; ovMalen();
+          w.addEventListener("pagehide", function () { ov = null; });
+        }).catch(function () {});
+      };
+    }
   }
   var standEl = document.getElementById("stand"); if (standEl) standEl.textContent = D.stand;
 })();
