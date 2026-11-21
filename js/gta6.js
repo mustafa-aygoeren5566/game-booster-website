@@ -28,6 +28,7 @@
   function clipSetzen() {}
   var kdiv = document.createElement("div"), kpane = document.createElement("div");
   kdiv.style.cssText = "position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:0;background:#2c66a5";
+  kdiv.className = "kgrund";   // Farbton der Karte wie im Spiel (CSS .kgrund)
   // Meeresfläche im SVG würde die Kachel-Ebene verdecken
   var meer = svg.querySelector('rect[fill="#2c66a5"]'); if (meer) meer.style.display = "none";
   kpane.style.cssText = "position:absolute;left:0;top:0;width:0;height:0;transform-origin:0 0;will-change:transform";
