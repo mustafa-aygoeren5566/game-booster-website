@@ -200,38 +200,37 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
 #info .hak.ok{color:#ffd166}#info .hak.ok .bo{fill:#ffd166;stroke:#ffd166;filter:drop-shadow(0 0 5px rgba(255,209,102,.6))}#info .hak.ok .bh{opacity:1;fill:#1a0b2e}
 #info .hak .bi{width:14px;height:14px}#info .hak .bo{stroke-width:2.2}
 @media(min-width:1100px){.liste li small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
-/* GTA-Spielmenü-Stil für Seitenleiste und Infobox: Straßen-Look (Asphalt, Sprühfarbe, Klebeband, Absperrband) */
-.seite,#info{--rausch:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");--band:repeating-linear-gradient(-45deg,#ffd400 0 12px,#111 12px 24px);background:var(--rausch),radial-gradient(120% 60% at 20% 0%,rgba(255,45,138,.14),transparent 60%),linear-gradient(180deg,#1a171c,#121014 60%,#0d0c0f)!important;border:1px solid rgba(255,255,255,.07)!important;border-radius:6px!important;box-shadow:0 24px 60px rgba(0,0,0,.65)!important}
+/* GTA-Spielmenü-Stil für Seitenleiste und Infobox: schlicht wie das Pausenmenü im Spiel (Blau-Grau, weiße Schrift, Pink nur für Aktives) */
+.seite,#info{--gp:#ff7bb5;background:rgba(32,42,54,.94)!important;border:0!important;border-radius:0!important;box-shadow:0 10px 30px rgba(0,0,0,.45)!important;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .seite{padding:0 0 12px!important;overflow-x:hidden;overflow-y:auto}
 .seite::before{display:none}
-.seite h2{position:relative;margin:16px 14px 26px!important;padding:10px 14px 8px!important;display:inline-block;font:italic 800 40px/1 'Barlow Condensed',sans-serif!important;letter-spacing:.03em;color:#fff!important;-webkit-text-fill-color:#fff;background:#ff2d8a!important;transform:rotate(-2.5deg);box-shadow:4px 4px 0 #000;text-shadow:2px 2px 0 rgba(0,0,0,.35)}
-.seite h2::after{content:"Interaktive Karte";position:absolute;left:18px;bottom:-17px;padding:3px 10px;background:#ffd400;color:#111;-webkit-text-fill-color:#111;font:800 12px/1 'Barlow Condensed',sans-serif;letter-spacing:.24em;text-transform:uppercase;font-style:normal;text-shadow:none;transform:rotate(3.5deg);box-shadow:2px 2px 0 #000;white-space:nowrap}
+.seite h2{margin:0 0 12px!important;padding:16px 16px 14px!important;font:600 30px/1 'Barlow Condensed',sans-serif!important;letter-spacing:.04em;color:var(--gp)!important;-webkit-text-fill-color:var(--gp);background:rgba(0,0,0,.18)!important;text-shadow:none;border-bottom:1px solid rgba(255,255,255,.08)}
+.seite h2::after{display:none}
 .seite>*:not(h2):not(#kats){margin-left:14px!important;margin-right:14px!important}
-.seite input{border-radius:3px!important;background-color:rgba(0,0,0,.45)!important;border:1px solid rgba(255,255,255,.12)!important;border-left:4px solid #ffd400!important;font:600 15px 'Barlow Condensed',sans-serif;letter-spacing:.05em}
-.seite input:focus{border-color:#ff2d8a!important;border-left-color:#ffd400!important}
-.seite h4{font:800 13px/1 'Barlow Condensed',sans-serif!important;letter-spacing:.24em!important;color:#8f8794!important;border:0!important;margin-top:18px!important}
-#alle{font:800 12px 'Barlow Condensed',sans-serif;letter-spacing:.12em;color:#ffd400!important;background:none;border:0;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
-.gr{font:italic 800 16px/1 'Barlow Condensed',sans-serif!important;letter-spacing:.08em!important;text-transform:uppercase;color:#111!important;border:0!important;margin:20px 14px 8px!important;padding:5px 10px 4px!important;position:relative;background:#f2ece2;transform:rotate(-1deg);box-shadow:3px 3px 0 #000}
-.gr::before{content:"";position:absolute;left:-6px;top:-6px;width:28px;height:12px;background:rgba(255,212,0,.75);transform:rotate(-18deg)}
-.gr .tog,.gr button,.gr input{transform:rotate(1deg)}
-#kats .kat{margin:2px 10px!important;width:calc(100% - 20px);border-radius:4px!important;padding:6px 10px!important;border:0!important;background:rgba(255,255,255,.035)!important;font:600 15px/1.1 'Barlow Condensed',sans-serif;letter-spacing:.03em;text-transform:uppercase;color:#ece6ef;transition:background .15s,transform .15s}
+.seite input{border-radius:0!important;background-color:rgba(0,0,0,.22)!important;border:1px solid rgba(255,255,255,.1)!important;font:600 16px 'Barlow Condensed',sans-serif;letter-spacing:.04em;color:#fff}
+.seite input:focus{border-color:rgba(255,255,255,.35)!important;outline:0}
+.seite h4{font:600 15px/1 'Barlow Condensed',sans-serif!important;letter-spacing:.06em!important;color:#fff!important;border:0!important;margin-top:16px!important;text-transform:uppercase}
+#alle{font:600 14px 'Barlow Condensed',sans-serif;letter-spacing:.06em;color:#c3ccd6!important;background:none;border:0;text-transform:uppercase}
+#alle:hover{color:var(--gp)!important}
+.gr{font:600 14px/1 'Barlow Condensed',sans-serif!important;letter-spacing:.08em!important;text-transform:uppercase;color:#9fabb8!important;border:0!important;border-bottom:1px solid rgba(255,255,255,.08)!important;margin:16px 14px 4px!important;padding:0 0 7px!important;background:none;transform:none;box-shadow:none}
+.gr::before,.gr::after{display:none}
+#kats .kat{margin:0!important;width:100%;border-radius:0!important;padding:7px 16px!important;border:0!important;background:transparent!important;font:600 17px/1.1 'Barlow Condensed',sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#fff;position:relative;transition:background .1s}
 #kats .kat::before,#kats .kat::after{display:none!important}
-#kats .kat:hover,#kats .kat:focus-visible{background:#ff2d8a!important;color:#fff!important;transform:translateX(3px) rotate(-.6deg);box-shadow:3px 3px 0 #000;outline:0}
-#kats .kat:hover .kn,#kats .kat:hover .kz{color:#fff!important}
-#kats .kat .kz{background:#000;border-radius:2px;padding:2px 8px;color:#ffd400!important;font:800 13px 'Barlow Condensed',sans-serif!important}
-#info{padding:20px 16px 14px 22px!important;overflow:visible!important;background:var(--band) left/7px 100% no-repeat,var(--rausch),linear-gradient(180deg,#1a171c,#121014 60%,#0d0c0f)!important}
-#info::after{display:none!important}
-#info::before{content:""!important;display:block!important;position:absolute;left:50%;top:-10px;width:90px;height:22px;margin-left:-45px;background:rgba(242,236,226,.78)!important;transform:rotate(-3deg);box-shadow:0 1px 3px rgba(0,0,0,.4);z-index:3}
+#kats .kat:hover,#kats .kat:focus-visible{background:rgba(255,255,255,.09)!important;transform:none;box-shadow:none;outline:0}
+#kats .kat:hover .kn{color:var(--gp)!important}
+#kats .kat .kz{background:none;border-radius:0;padding:0;color:#9fabb8!important;font:600 15px 'Barlow Condensed',sans-serif!important}
+#kats .kat:not(.an) .kn{color:#7d8996}
+#info{padding:16px!important;overflow:hidden!important;background:rgba(32,42,54,.95)!important}
+#info::before,#info::after{display:none!important}
 #info .ikopf{position:relative;padding-right:28px}
-#info h3{font:italic 800 27px/1 'Barlow Condensed',sans-serif!important;letter-spacing:.02em;text-transform:uppercase;color:#fff;text-shadow:3px 3px 0 #ff2d8a}
-#info .izu{color:#fff!important}
-#info .chip{border-radius:2px!important;font:800 12.5px 'Barlow Condensed',sans-serif!important;letter-spacing:.08em;text-transform:uppercase;background:#000!important;color:#fff!important;box-shadow:none!important}
-#info .chip.kc{background:var(--kf)!important;color:#111!important;transform:rotate(-1.5deg);box-shadow:2px 2px 0 #000!important}
-#info .iakt{margin-top:12px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.15)}
-#info .hak{border-radius:3px!important;background:#ffd400!important;color:#111!important;font:800 15px 'Barlow Condensed',sans-serif!important;letter-spacing:.1em;text-transform:uppercase;box-shadow:3px 3px 0 #000!important}
-#info .hak svg{stroke:#111!important;fill:none}
-#info .hak.ok{background:#22c55e!important}
-#info .hin{border-radius:3px!important;color:#fff!important;font:800 15px 'Barlow Condensed',sans-serif!important;letter-spacing:.1em;text-transform:uppercase}
+#info h3{font:600 26px/1.02 'Barlow Condensed',sans-serif!important;letter-spacing:.03em;text-transform:uppercase;color:#fff;text-shadow:none}
+#info .izu{color:#c3ccd6!important}
+#info .chip{border-radius:0!important;font:600 14px 'Barlow Condensed',sans-serif!important;letter-spacing:.05em;text-transform:uppercase;background:rgba(0,0,0,.22)!important;color:#fff!important;box-shadow:none!important;transform:none}
+#info .chip.kc{background:rgba(0,0,0,.22)!important;color:var(--kf)!important;transform:none;box-shadow:none!important}
+#info .iakt{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)}
+#info .hak,#info .hin{border-radius:0!important;background:rgba(255,255,255,.08)!important;color:#fff!important;font:600 16px 'Barlow Condensed',sans-serif!important;letter-spacing:.06em;text-transform:uppercase;box-shadow:none!important;border:0!important}
+#info .hak:hover,#info .hin:hover{background:#fff!important;color:#1b2430!important}
+#info .hak.ok{background:rgba(34,197,94,.25)!important;color:#7cf0a8!important}
 
 /* Kartenkacheln im Spielkarten-Farbton: gedämpftes Blau, helles Grau-Beige statt Knallgelb/Cyan */
 .kgrund{filter:saturate(.38) brightness(.93) contrast(1.05);background:#4d7f9c!important}
