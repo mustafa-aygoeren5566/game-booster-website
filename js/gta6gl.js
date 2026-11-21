@@ -130,7 +130,7 @@
     var r = box.getBoundingClientRect(), p = map.project(ziel), weit = Math.hypot(p.x - r.width / 2, p.y - r.height / 2) / Math.max(r.width, 1);
     if (weit > 1.2) {
       // weite Strecke: kurz raus, rüber, rein (gezoomt über die Karte schieben würde nur ungeladene Kacheln zeigen)
-      map.flyTo({ center: ziel, zoom: zz, curve: 1.5, speed: 1.8, maxDuration: 1300, essential: true });
+      map.flyTo({ center: ziel, zoom: zz, curve: 1.5, speed: 2.2, essential: true });
     } else {
       var dz = Math.abs(zz - map.getZoom());
       map.easeTo({ center: ziel, zoom: zz, duration: Math.min(900, 380 + dz * 110), easing: function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }, essential: true });
