@@ -22,6 +22,9 @@
     "Fahrzeuge": "#60a5fa", "Dienste": "#cbd5e1", "Freizeit": "#5eead4", "Orte": "#c4b5fd", "Story": "#c4b5fd" };
   // wie im Spiel: farbiges Schild, schwarzes Symbol
   D.kategorien.forEach(function (k) { k.pfarbe = STIL[k.gruppe] || "#e5e7eb"; k.ifarbe = "#15111c"; k.farbe = k.pfarbe; });
+  // wie im Spiel: Gang-Operationen und Gang-Hauptquartiere gelb (Geld-Orte bleiben gruen)
+  var KGELB = { "gang-operation": 1, "gang-compound": 1 };
+  D.kategorien.forEach(function (k) { if (KGELB[k.id]) { k.pfarbe = "#facc15"; k.farbe = k.pfarbe; } });
   var HERZ = {clothing:1,footwear:1,haircut:1,tattoo:1,bar:1,nightclub:1,cinema:1,"food-and-drink":1};
   D.kategorien.forEach(function (k) { if (HERZ[k.id]) { k.herz = 1; k.pfarbe = "#1b1620"; k.ifarbe = "#fff"; k.farbe = "#ff5fa2"; } });
   var HERZP = '<path d="M9.5 -26.2c-2.6-1.9-4.4-3.4-4.4-5.3a2.3 2.3 0 0 1 4.4-1 2.3 2.3 0 0 1 4.4 1c0 1.9-1.8 3.4-4.4 5.3z" fill="#ff5fa2" stroke="#fff" stroke-width="1"/>';

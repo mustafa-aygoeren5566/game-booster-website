@@ -11,6 +11,9 @@
   var STIL = { "Style": "#f9a8d4", "Essen und Trinken": "#f9a8d4", "Waffen": "#f9a8d4", "Überfälle": "#4ade80", "Sammeln": "#fbbf24",
     "Fahrzeuge": "#60a5fa", "Dienste": "#cbd5e1", "Freizeit": "#5eead4", "Orte": "#c4b5fd", "Story": "#c4b5fd" };
   D.kategorien.forEach(function (k) { k.pfarbe = STIL[k.gruppe] || "#e5e7eb"; k.ifarbe = "#15111c"; k.farbe = k.pfarbe; });
+  // wie im Spiel: Gang-Operationen und Gang-Hauptquartiere gelb (Geld-Orte bleiben gruen)
+  var KGELB = { "gang-operation": 1, "gang-compound": 1 };
+  D.kategorien.forEach(function (k) { if (KGELB[k.id]) { k.pfarbe = "#facc15"; k.farbe = k.pfarbe; } });
   var HERZ = { clothing: 1, footwear: 1, haircut: 1, tattoo: 1, bar: 1, nightclub: 1, cinema: 1, "food-and-drink": 1 };
   D.kategorien.forEach(function (k) { if (HERZ[k.id]) { k.herz = 1; k.pfarbe = "#1b1620"; k.ifarbe = "#fff"; k.farbe = "#ff5fa2"; } });
   var PFORM = "M-8 -31h16a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4h-4.5L0 0l-3.5-8H-8a4 4 0 0 1-4-4v-15a4 4 0 0 1 4-4z";
