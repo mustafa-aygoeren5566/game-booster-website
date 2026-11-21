@@ -23,8 +23,8 @@
   D.kategorien.forEach(function (k) { if (k.id === "gang-operation" || k.id === "gang-compound") k.frage = 1; });
   // Gang-Logos wie im Spiel (selbst gezeichnet): je Pin-ID ein Motiv, sonst Maske
   var GLOGO = {
-    kroko: { d: "M1.5 14.5c2.5-3 6.5-4.2 11-4.2h4.2l1.6-1.6 1.6 1.6 2.6.8v1.6l-3.4.2-1.2 1.4H15l-.8 1.6h-2.4l-.8-1.6H7.6l-.8 1.6H4.4l-.6-1.6z M16.6 11.4a.9.9 0 1 0 0 .01z" },
-    falter: { d: "M12 7.5c-.8 0-1 .9-1 1.7v8.3c0 .9.4 1.8 1 1.8s1-.9 1-1.8V9.2c0-.8-.2-1.7-1-1.7zM10.6 10.2C8.4 5.4 3.6 4.4 2.6 6.8S4.4 12.8 10.6 13zM13.4 10.2c2.2-4.8 7-5.8 8-3.4S19.6 12.8 13.4 13zM10.6 14.2c-3 0-6.2 1.4-5.2 3.8s4.2.8 5.2-2zM13.4 14.2c3 0 6.2 1.4 5.2 3.8s-4.2.8-5.2-2zM10.7 7.4L9 4.6M13.3 7.4L15 4.6" },
+    kroko: { d: "M.5 15.5C2 10.8 6 8 11.5 8H16l2.4-3 2.4 3 3.2 1.2v3.6l-4.6.6-1.6 2.2H16l-1.2 3h-3.4l-1.2-3H8.4l-1.2 3H3.8l-1-3z", s: 1.1 },
+    falter: { d: "M12 7.5c-.8 0-1 .9-1 1.7v8.3c0 .9.4 1.8 1 1.8s1-.9 1-1.8V9.2c0-.8-.2-1.7-1-1.7zM10.6 10.2C8.4 5.4 3.6 4.4 2.6 6.8S4.4 12.8 10.6 13zM13.4 10.2c2.2-4.8 7-5.8 8-3.4S19.6 12.8 13.4 13zM10.6 14.2c-3 0-6.2 1.4-5.2 3.8s4.2.8 5.2-2zM13.4 14.2c3 0 6.2 1.4 5.2 3.8s-4.2.8-5.2-2zM10.7 7.4L9 4.6M13.3 7.4L15 4.6", s: 1.18 },
     ptt: { t: "PTT", f: 11.5, w: 23 }, m7: { t: "M7", f: 15 }, s4s: { t: "S$", f: 15 }
   };
   var GANG = { "gang-operation-001": "kroko", "gang-operation-002": "kroko", "gang-operation-011": "falter", "gang-operation-042": "falter",
@@ -60,7 +60,7 @@
     var g = c.getContext("2d"); g.translate(14 * PS * PR, 35 * PS * PR); g.scale(PS * PR, PS * PR);
     var p = new Path2D(PFORM); g.fillStyle = k.pfarbe; g.fill(p);
     g.lineWidth = 1.6; g.lineJoin = "round"; g.strokeStyle = k.ifarbe === "#fff" ? "#fff" : "#2a1c24"; g.stroke(p);
-    g.save(); g.translate(-8, -27.5); g.scale(.667, .667); g.fillStyle = k.ifarbe; if (k.logo && k.logo.t) { g.font = "900 " + k.logo.f + "px Arial"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(k.logo.t, 12, 13, k.logo.w || 24); } else { g.fill(new Path2D(k.icon)); if (k.logo) { g.strokeStyle = k.ifarbe; g.lineWidth = 1.2; g.lineCap = "round"; g.stroke(new Path2D(k.icon)); } } g.restore();
+    g.save(); g.translate(-8, -27.5); g.scale(.667, .667); g.fillStyle = k.ifarbe; if (k.logo && k.logo.t) { g.font = "900 " + k.logo.f + "px Arial"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(k.logo.t, 12, 13, k.logo.w || 24); } else { if (k.logo && k.logo.s) { g.translate(12, 12); g.scale(k.logo.s, k.logo.s); g.translate(-12, -12); } g.fill(new Path2D(k.icon)); if (k.logo) { g.strokeStyle = k.ifarbe; g.lineWidth = 1.8; g.lineCap = "round"; g.lineJoin = "round"; g.stroke(new Path2D(k.icon)); } } g.restore();
     if (k.frage) abzeichen(g, ok);
     if (k.herz) { var hz = new Path2D(HERZD); g.fillStyle = "#ff5fa2"; g.fill(hz); g.lineWidth = 1; g.strokeStyle = "#fff"; g.stroke(hz); }
     return g.getImageData(0, 0, w, h);
