@@ -302,7 +302,8 @@
     info.hidden = false; info.innerHTML = ""; info.style.setProperty("--kf", k.farbe);
     info.classList.remove("pop"); void info.offsetWidth; info.classList.add("pop");
     var kopf = document.createElement("div"); kopf.className = "ikopf";
-    kopf.innerHTML = '<span class="ic iic gp">' + pinSvg(k) + '</span>';
+    var kb = GANG[pt.id] ? logoK(k, GANG[pt.id]) : k, cv = document.createElement("canvas"), bd = pinBild(kb, ok && k.frage); cv.width = bd.width; cv.height = bd.height; cv.getContext("2d").putImageData(bd, 0, 0);
+    kopf.innerHTML = '<span class="ic iic gp"><img alt="" style="width:100%;height:100%;object-fit:contain" src="' + cv.toDataURL() + '"></span>';
     var tt = document.createElement("div"); var h = document.createElement("h3"); h.textContent = pt.n;
     var chips = document.createElement("div"); chips.className = "chips";
     var c1 = document.createElement("span"); c1.className = "chip kc"; c1.textContent = k.name; chips.appendChild(c1);
