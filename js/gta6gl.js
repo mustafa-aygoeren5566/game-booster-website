@@ -28,15 +28,18 @@
     kx: { kreis: 1, t: "Kx", f: 11, font: "italic 700 11px Georgia,serif" },
     kroko: { d: "M.5 15.5C2 10.8 6 8 11.5 8H16l2.4-3 2.4 3 3.2 1.2v3.6l-4.6.6-1.6 2.2H16l-1.2 3h-3.4l-1.2-3H8.4l-1.2 3H3.8l-1-3z", s: 1.1 },
     falter: { d: "M12 7.5c-.8 0-1 .9-1 1.7v8.3c0 .9.4 1.8 1 1.8s1-.9 1-1.8V9.2c0-.8-.2-1.7-1-1.7zM10.6 10.2C8.4 5.4 3.6 4.4 2.6 6.8S4.4 12.8 10.6 13zM13.4 10.2c2.2-4.8 7-5.8 8-3.4S19.6 12.8 13.4 13zM10.6 14.2c-3 0-6.2 1.4-5.2 3.8s4.2.8 5.2-2zM13.4 14.2c3 0 6.2 1.4 5.2 3.8s-4.2.8-5.2-2zM10.7 7.4L9 4.6M13.3 7.4L15 4.6", s: 1.18 },
-    ptt: { t: "PTT", f: 11.5, w: 23 }, m7: { t: "M7", f: 15 }, s4s: { t: "S$", f: 15 }
+    ptt: { t: "PTT", f: 11.5, w: 23 },
+    tr: { t: "TR", f: 14, rund: 1 }, mw: { t: "MW", f: 13, rund: 1 }, kr: { t: "KR", f: 13, rund: 1 }, rk: { t: "RK", f: 13, rund: 1 }, yc: { t: "YC", f: 13, rund: 1 }, m7: { t: "M7", f: 15 }, s4s: { t: "S$", f: 15 }
   };
   var GANG = { "gang-operation-001": "kroko", "gang-operation-002": "kroko", "gang-operation-011": "falter", "gang-operation-042": "falter",
     "gang-compound-001": "ptt", "gang-operation-020": "ptt", "gang-operation-021": "ptt", "gang-operation-039": "ptt",
     "gang-operation-022": "hahn", "gang-operation-023": "hahn", "gang-operation-024": "hahn", "gang-operation-012": "sense", "gang-operation-013": "sense", "gang-operation-004": "kx", "gang-operation-005": "kx", "gang-operation-006": "kx", "gang-operation-008": "kx", "gang-operation-006": "kx", "gang-operation-007": "kx", "gang-operation-008": "kx",
+    "fence-012": "tr", "fence-007": "mw", "fence-014": "kr", "fence-009": "rk", "fence-013": "yc",
     "gang-operation-009": "m7", "gang-operation-010": "m7",
     "gang-operation-015": "s4s", "gang-operation-016": "s4s", "gang-operation-017": "s4s", "gang-operation-018": "s4s", "gang-operation-019": "s4s" };
-  function logoK(k, lg) { var o = Object.create(k); o.logo = GLOGO[lg]; if (o.logo.d) o.icon = o.logo.d; return o; }
+  function logoK(k, lg) { var o = Object.create(k); o.logo = GLOGO[lg]; if (o.logo.d) o.icon = o.logo.d; if (o.logo.rund) { o.pfarbe = "#c3efc0"; o.ifarbe = "#15111c"; o.herz = 0; } return o; }
   var PFORM = "M-8 -31h16a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4h-4.5L0 0l-3.5-8H-8a4 4 0 0 1-4-4v-15a4 4 0 0 1 4-4z";
+  var RUNDF = "M0 -33a11 11 0 0 1 11 11c0 5-3.5 8.6-8 10.6L0 0l-3-11.4C-7.5 -13.4-11-17-11-22a11 11 0 0 1 11-11z";
   var HERZD = "M9.5 -26.2c-2.6-1.9-4.4-3.4-4.4-5.3a2.3 2.3 0 0 1 4.4-1 2.3 2.3 0 0 1 4.4 1c0 1.9-1.8 3.4-4.4 5.3z";
   var HERZP = '<path d="' + HERZD + '" fill="#ff5fa2" stroke="#fff" stroke-width="1"/>';
   function pinSvg(k) {
@@ -62,10 +65,11 @@
   function pinBild(k, ok) {
     var w = Math.ceil(30 * PS * PR), h = Math.ceil(37 * PS * PR), c = document.createElement("canvas"); c.width = w; c.height = h;
     var g = c.getContext("2d"); g.translate(14 * PS * PR, 35 * PS * PR); g.scale(PS * PR, PS * PR);
-    var p = new Path2D(PFORM); g.fillStyle = k.pfarbe; g.fill(p);
+    var rund = k.logo && k.logo.rund, p = new Path2D(rund ? RUNDF : PFORM); g.fillStyle = k.pfarbe; g.fill(p);
     g.lineWidth = 1.6; g.lineJoin = "round"; g.strokeStyle = k.ifarbe === "#fff" ? "#fff" : "#2a1c24"; g.stroke(p);
-    g.save(); g.translate(-8, -27.5); g.scale(.667, .667); g.fillStyle = k.ifarbe; if (k.logo && k.logo.kreis) { g.beginPath(); g.arc(12, 12.5, 10.5, 0, 7); g.fill(); g.fillStyle = k.pfarbe; } if (k.logo && k.logo.t) { g.font = k.logo.font || ("900 " + k.logo.f + "px Arial"); g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(k.logo.t, 12, 13, k.logo.w || 24); } else { if (k.logo && k.logo.s) { g.translate(12, 12); g.scale(k.logo.s, k.logo.s); g.translate(-12, -12); } g.fill(new Path2D(k.icon)); if (k.logo) { g.strokeStyle = k.ifarbe; g.lineWidth = 1.8; g.lineCap = "round"; g.lineJoin = "round"; g.stroke(new Path2D(k.icon)); if (k.logo.loch) { g.fillStyle = k.pfarbe; g.fill(new Path2D(k.logo.loch)); g.fillStyle = k.ifarbe; g.fill(new Path2D(k.logo.d2)); } } } g.restore();
+    g.save(); g.translate(-8, rund ? -30.5 : -27.5); g.scale(.667, .667); g.fillStyle = k.ifarbe; if (k.logo && k.logo.kreis) { g.beginPath(); g.arc(12, 12.5, 10.5, 0, 7); g.fill(); g.fillStyle = k.pfarbe; } if (k.logo && k.logo.t) { g.font = k.logo.font || ("900 " + k.logo.f + "px Arial"); g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(k.logo.t, 12, 13, k.logo.w || 24); } else { if (k.logo && k.logo.s) { g.translate(12, 12); g.scale(k.logo.s, k.logo.s); g.translate(-12, -12); } g.fill(new Path2D(k.icon)); if (k.logo) { g.strokeStyle = k.ifarbe; g.lineWidth = 1.8; g.lineCap = "round"; g.lineJoin = "round"; g.stroke(new Path2D(k.icon)); if (k.logo.loch) { g.fillStyle = k.pfarbe; g.fill(new Path2D(k.logo.loch)); g.fillStyle = k.ifarbe; g.fill(new Path2D(k.logo.d2)); } } } g.restore();
     if (k.frage) abzeichen(g, ok);
+    if (rund) { g.beginPath(); g.arc(8.5, -30, 4.4, 0, 7); g.fillStyle = "#86efac"; g.fill(); g.lineWidth = 1; g.strokeStyle = "#15111c"; g.stroke(); g.fillStyle = "#15111c"; g.font = "900 7px Arial"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText("$", 8.5, -29.7); }
     if (k.herz) { var hz = new Path2D(HERZD); g.fillStyle = "#ff5fa2"; g.fill(hz); g.lineWidth = 1; g.strokeStyle = "#fff"; g.stroke(hz); }
     return g.getImageData(0, 0, w, h);
   }
@@ -196,7 +200,7 @@
   function init() {
     if (gestartet || !map.isStyleLoaded()) return; gestartet = true;
     D.kategorien.forEach(function (k) { map.addImage("p-" + k.id, pinBild(k), { pixelRatio: PR }); if (k.frage) map.addImage("p-" + k.id + "-ok", pinBild(k, true), { pixelRatio: PR }); });
-    Object.keys(GLOGO).forEach(function (lg) { ["gang-operation", "gang-compound"].forEach(function (kid) { var kk = logoK(KAT[kid], lg); map.addImage("p-" + kid + "~" + lg, pinBild(kk), { pixelRatio: PR }); map.addImage("p-" + kid + "~" + lg + "-ok", pinBild(kk, true), { pixelRatio: PR }); }); });
+    Object.keys(GLOGO).forEach(function (lg) { ["gang-operation", "gang-compound", "fence"].forEach(function (kid) { if (!KAT[kid]) return; var kk = logoK(KAT[kid], lg); map.addImage("p-" + kid + "~" + lg, pinBild(kk), { pixelRatio: PR }); map.addImage("p-" + kid + "~" + lg + "-ok", pinBild(kk, true), { pixelRatio: PR }); }); });
     map.addSource("bez", { type: "geojson", data: bezirkeGeo() });
     map.addLayer({ id: "bez-fl", type: "fill", source: "bez", paint: { "fill-color": "#fff", "fill-opacity": ["case", ["boolean", ["feature-state", "an"], false], .06, 0] } });
     map.addLayer({ id: "bez-rand", type: "line", source: "bez", paint: { "line-color": "#fff", "line-width": 1.4, "line-opacity": ["case", ["boolean", ["feature-state", "an"], false], .9, .22] } });
