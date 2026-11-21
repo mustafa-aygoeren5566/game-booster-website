@@ -170,6 +170,12 @@
       paint: { "icon-opacity": ["case", ["==", ["get", "ok"], 1], .45, 1] } });
     bereit = true; zahlen();
     ganz(true);
+    // Zoomgrenzen: raus nur bis knapp unter Gesamtansicht, rein bis zur feinsten Kachel; Verschieben nur um die Karte
+    var zStart = map.getZoom(), bStart = map.getBounds();
+    map.setMinZoom(Math.max(1, zStart - 0.35));
+    map.setMaxZoom(7.6);
+    var bw = bStart.getEast() - bStart.getWest(), bh = bStart.getNorth() - bStart.getSouth();
+    map.setMaxBounds([[Math.max(-180, bStart.getWest() - bw * .35), Math.max(-85, bStart.getSouth() - bh * .35)], [Math.min(180, bStart.getEast() + bw * .35), Math.min(85, bStart.getNorth() + bh * .35)]]);
     regionsMarken();
     // Grundstufen in den Browser-Cache holen (klein), damit Rauszoomen nie lädt
     setTimeout(function () { [0, 1, 2, 3, 4].forEach(function (z) { cachen(z); }); }, 800);
