@@ -100,7 +100,7 @@
   setTimeout(function () { vorladen(2, grund2, function () { vorladen(3, grund3, function () { cachen(4); }); }); }, 300);
   // Kachel erst im Hintergrund dekodieren, dann einsetzen (Dekodieren beim Zeichnen = Hänger)
   var LAD = {}, SCHL = [], schlRaf = 0;
-  function einsetzen() { schlRaf = 0; for (var i = 0; i < (live ? 1 : 4) && SCHL.length; i++) SCHL.shift()(); if (SCHL.length) schlRaf = requestAnimationFrame(einsetzen); }
+  function einsetzen() { schlRaf = 0; for (var i = 0; i < (live ? 3 : 6) && SCHL.length; i++) SCHL.shift()(); if (SCHL.length) schlRaf = requestAnimationFrame(einsetzen); }
   function lade(z, k, x, y, g, ziel) {
     var u = "img/gta6/" + z + "/" + k + ".jpg", pic = new Image(), id = z + "/" + k;
     LAD[id] = 1; offen++; pic.decoding = "async"; pic.src = u;
@@ -180,7 +180,7 @@
       var k = vbC.w / vb.w, tx = (vbC.x - vb.x) / vb.w * r.width, ty = (vbC.y - vb.y) / vb.h * r.height;
       svg.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
       paneLive(r); oberLive(r);
-      var jt = performance.now(); if (jt - liveK > 400) { liveK = jt; kacheln(); }
+      var jt = performance.now(); if (jt - liveK > 120) { liveK = jt; kacheln(); }
       // Waehrend der Geste nichts im SVG anfassen (jede Aenderung rastert die ganze Ebene neu = Ruckeln).
       // Erst wenn der Massstab stark abweicht, einmal leicht neu aufsetzen (viewBox + Kacheln, ohne Pins/Buendel).
       if (k > 1.8 || k < .6) { svg.style.transform = ""; vbC = { x: vb.x, y: vb.y, w: vb.w, h: vb.h }; svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h); }
@@ -194,11 +194,12 @@
     var mx = vb.w * .5, my = vb.h * .5, x0 = vb.x - mx, x1 = vb.x + vb.w + mx, y0 = vb.y - my, y1 = vb.y + vb.h + my;
     // Raster statt alle 2800+ Pins durchgehen: nur Zellen im Ausschnitt anfassen, zuvor sichtbare ausblenden
     ausrichten(r); kacheln();
+    clearTimeout(vorT); vorT = setTimeout(function () { var cx = vb.x + vb.w / 2, cy = vb.y + vb.h / 2; zielVorladen(cx, cy, vb.w / 2); zielVorladen(cx, cy, vb.w / 4); }, 250);
     // Pins/Bündel ein Bild später (ihre Lage im SVG stimmt schon): kein einzelnes langes Bild nach der Geste
     if (pinRaf) cancelAnimationFrame(pinRaf);
     pinRaf = requestAnimationFrame(function () { pinRaf = 0; pinPass(r, s, x0, x1, y0, y1); });
   }
-  var pinRaf = 0;
+  var pinRaf = 0, vorT = 0;
   function pinPass(r, s, x0, x1, y0, y1) {
     if (grVer !== pinVer) gitter();
     buendeln(r);   // zuerst: legt fest, welche Pins einzeln bleiben (Rest steckt in Zahlen-Kreisen)
