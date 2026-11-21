@@ -282,7 +282,7 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
 #missionen .mkt h3{font:italic 800 18px/1.1 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#fff;letter-spacing:.03em;margin:0}
 .mz{font-size:12px;font-weight:700;color:var(--gelb);font-variant-numeric:tabular-nums;white-space:nowrap}
 .kap .mbar{flex:none;height:4px;margin:0 14px 8px}
-.mliste{max-height:330px;overflow:auto;padding:2px 8px 10px;scrollbar-width:thin;scrollbar-color:#5a3d80 transparent}
+.mliste{max-height:330px;overflow:auto;padding:2px 8px 10px}.mliste::-webkit-scrollbar{width:3px}.mliste::-webkit-scrollbar-track{background:transparent}.mliste::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:9px}.mliste:hover::-webkit-scrollbar-thumb{background:rgba(255,61,139,.35)}.mliste::-webkit-scrollbar-button{display:none;height:0}@supports not selector(::-webkit-scrollbar){.mliste{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent}}
 #missionen .mliste label{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;line-height:1.35;margin:0;padding:6px 6px;border-radius:9px;cursor:pointer;transition:background .15s,color .15s}
 #missionen .mliste label:hover{background:rgba(255,255,255,.06)}
 .mliste input{appearance:none;-webkit-appearance:none;flex:none;width:17px;height:17px;margin:1px 0 0;border-radius:6px;border:1.5px solid rgba(255,255,255,.28);background:rgba(255,255,255,.04);display:grid;place-items:center;cursor:pointer;transition:.15s}
