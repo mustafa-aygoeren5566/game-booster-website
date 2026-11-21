@@ -200,19 +200,33 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
 #info .hak.ok{color:#ffd166}#info .hak.ok .bo{fill:#ffd166;stroke:#ffd166;filter:drop-shadow(0 0 5px rgba(255,209,102,.6))}#info .hak.ok .bh{opacity:1;fill:#1a0b2e}
 #info .hak .bi{width:14px;height:14px}#info .hak .bo{stroke-width:2.2}
 @media(min-width:1100px){.liste li small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
-/* GTA-Spielmenü-Stil für Seitenleiste und Infobox (passend zu den Pins) */
-.seite,#info{background:linear-gradient(180deg,rgba(46,61,76,.97),rgba(29,40,52,.97) 55%,rgba(24,33,44,.98))!important;border:1px solid rgba(255,255,255,.09)!important;border-radius:6px!important;box-shadow:0 14px 40px rgba(0,0,0,.6)!important}
-#info::before{height:3px;background:#ff5fa2}#info::after{display:none}
-.seite h2{font:italic 800 28px/1 'Barlow Condensed',sans-serif!important;color:#ff5fa2!important;background:none!important;-webkit-text-fill-color:#ff5fa2;letter-spacing:.04em}
-.seite h4,.gr{font-family:'Barlow Condensed',sans-serif;font-size:13px!important;letter-spacing:.12em;color:#e8edf3!important;border-bottom:1px solid rgba(255,255,255,.12)!important}
-.kat{border-radius:3px!important;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:600;letter-spacing:.02em;text-transform:uppercase}
-.kat.an{background:transparent!important}
-.kat:hover,.kat:focus-visible{background:rgba(255,255,255,.08)!important}
-.kat.an::before{content:"";position:absolute;left:-4px;top:6px;bottom:6px;width:3px;border-radius:2px;background:#ff5fa2}
-.kat .kz{background:rgba(255,255,255,.1);border-radius:3px;padding:1px 6px;color:#e8edf3!important;font-style:normal!important;font-family:Inter,sans-serif;font-size:11px}
-#info h3,#info .tt,#info strong:first-child{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.03em}
-#info .chip{border-radius:3px!important}
-.seite input{border-radius:4px!important;background-color:rgba(0,0,0,.28)!important;border:1px solid rgba(255,255,255,.12)!important}
+/* GTA-Spielmenü-Stil für Seitenleiste und Infobox: dunkles Glas, pinke Akzente, weiße Auswahlzeile wie im Spielmenü */
+.seite,#info{--gp:#ff4fa0;background:linear-gradient(180deg,rgba(17,23,33,.86),rgba(10,14,21,.9))!important;backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);border:1px solid rgba(255,255,255,.08)!important;border-radius:4px!important;box-shadow:0 20px 50px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06)!important}
+.seite{padding:0 0 12px!important;overflow-x:hidden}
+.seite::before{content:"";display:block;height:4px;background:linear-gradient(90deg,var(--gp),#b14dff 60%,#5ad1ff);position:sticky;top:0;z-index:2}
+.seite h2{font:italic 800 34px/1 'Barlow Condensed',sans-serif!important;color:var(--gp)!important;background:none!important;-webkit-text-fill-color:var(--gp);letter-spacing:.03em;margin:18px 18px 4px!important;text-shadow:0 0 18px rgba(255,79,160,.45)}
+.seite h2::after{content:"Interaktive Karte";display:block;white-space:nowrap;margin-top:6px;font:600 11px/1 'Barlow Condensed',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#8b97a8;-webkit-text-fill-color:#8b97a8;text-shadow:none;font-style:normal}
+.seite>*:not(h2):not(#kats){margin-left:16px!important;margin-right:16px!important}
+.seite input{border-radius:2px!important;background-color:rgba(255,255,255,.06)!important;border:1px solid rgba(255,255,255,.1)!important;border-bottom:2px solid var(--gp)!important;font-family:'Barlow Condensed',sans-serif;font-size:16px;letter-spacing:.04em}
+.seite h4{font:800 13px/1 'Barlow Condensed',sans-serif!important;letter-spacing:.2em!important;color:#fff!important;border:0!important;margin-top:18px!important}
+#alle{font:800 12px 'Barlow Condensed',sans-serif;letter-spacing:.12em;color:var(--gp)!important;background:none;border:0}
+.gr{font:800 12px/1 'Barlow Condensed',sans-serif!important;letter-spacing:.24em!important;color:var(--gp)!important;border:0!important;margin:16px 16px 4px!important;padding:8px 0 6px!important;display:flex;gap:10px}
+.gr::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(255,79,160,.5),transparent);order:1;margin:0 8px}
+.gr>*:last-child{order:2}
+#kats .kat{margin:0!important;width:100%;border-radius:0!important;padding:7px 18px 7px 16px!important;border:0!important;border-bottom:1px solid rgba(255,255,255,.05)!important;font:600 16px/1.1 'Barlow Condensed',sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#dfe5ee;transition:background .12s,color .12s}
+#kats .kat.an{background:transparent!important;color:#fff}
+#kats .kat::before{display:none!important}
+#kats .kat.an::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gp)}
+#kats .kat:hover,#kats .kat:focus-visible{background:#f3f5f8!important;color:#0d1219!important;outline:0}
+#kats .kat:hover .kz,#kats .kat:hover .kn,#kats .kat:focus-visible .kn{color:#0d1219!important}#kats .kat:hover .kz{background:rgba(0,0,0,.08)}
+#kats .kat .kz{background:rgba(255,255,255,.07);border-radius:2px;padding:2px 7px;color:#aeb8c6!important;font:800 13px 'Barlow Condensed',sans-serif!important;letter-spacing:.04em}
+#info{border-left:4px solid var(--gp)!important;padding:16px 16px 14px 18px!important}
+#info::before,#info::after{display:none!important}
+#info h3{font:italic 800 25px/1.02 'Barlow Condensed',sans-serif!important;letter-spacing:.02em;text-transform:uppercase;color:#fff}
+#info .chip{border-radius:2px!important;font:800 12.5px 'Barlow Condensed',sans-serif!important;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.07)!important;box-shadow:none!important}
+#info .chip.kc{background:var(--kf)!important;color:#0d1219!important}
+#info .iakt{border-top:1px solid rgba(255,255,255,.08);margin-top:12px;padding-top:10px}
+#info .hak,#info .hin{border-radius:2px!important;font:800 14px 'Barlow Condensed',sans-serif!important;letter-spacing:.1em;text-transform:uppercase}
 
 /* Kartenkacheln im Spielkarten-Farbton: gedämpftes Blau, helles Grau-Beige statt Knallgelb/Cyan */
 .kgrund{filter:saturate(.38) brightness(.93) contrast(1.05);background:#4d7f9c!important}
