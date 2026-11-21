@@ -22,6 +22,9 @@
     "Fahrzeuge": "#60a5fa", "Dienste": "#cbd5e1", "Freizeit": "#5eead4", "Orte": "#c4b5fd", "Story": "#c4b5fd" };
   // wie im Spiel: farbiges Schild, schwarzes Symbol
   D.kategorien.forEach(function (k) { k.pfarbe = STIL[k.gruppe] || "#e5e7eb"; k.ifarbe = "#15111c"; k.farbe = k.pfarbe; });
+  var HERZ = {clothing:1,footwear:1,haircut:1,tattoo:1,bar:1,nightclub:1,cinema:1,"food-and-drink":1};
+  D.kategorien.forEach(function (k) { if (HERZ[k.id]) { k.herz = 1; k.pfarbe = "#1b1620"; k.ifarbe = "#fff"; k.farbe = "#ff5fa2"; } });
+  var HERZP = '<path d="M9.5 -26.2c-2.6-1.9-4.4-3.4-4.4-5.3a2.3 2.3 0 0 1 4.4-1 2.3 2.3 0 0 1 4.4 1c0 1.9-1.8 3.4-4.4 5.3z" fill="#ff5fa2" stroke="#fff" stroke-width="1"/>';
   var HAT = {};
   Object.keys(D.kacheln).forEach(function (z) { HAT[z] = {}; D.kacheln[z].forEach(function (k) { HAT[z][k] = 1; }); });
   var kachSvg = document.getElementById("kacheln"); if (kachSvg) kachSvg.style.display = "none";
@@ -416,7 +419,7 @@
   // gleicher Pin wie auf der Karte, für Filterliste und Infobox
   function pinSvg(k) {
     var st = k.ifarbe === "#fff" ? "#fff" : "#2a1c24";
-    return '<svg viewBox="-13.5 -33 27 35"><path d="M-8 -31h16a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4h-4.5L0 0l-3.5-8H-8a4 4 0 0 1-4-4v-15a4 4 0 0 1 4-4z" fill="' + k.pfarbe + '" stroke="' + st + '" stroke-width="1.6" stroke-linejoin="round"/><path d="' + k.icon + '" transform="translate(-8,-27.5) scale(.667)" style="fill:' + k.ifarbe + '"/></svg>';
+    return '<svg viewBox="-14 -35 30 37"><path d="M-8 -31h16a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4h-4.5L0 0l-3.5-8H-8a4 4 0 0 1-4-4v-15a4 4 0 0 1 4-4z" fill="' + k.pfarbe + '" stroke="' + st + '" stroke-width="1.6" stroke-linejoin="round"/><path d="' + k.icon + '" transform="translate(-8,-27.5) scale(.667)" style="fill:' + k.ifarbe + '"/>' + (k.herz ? HERZP : "") + '</svg>';
   }
   function tief(h) {
     var n = parseInt(h.slice(1), 16), r = n >> 16, g = n >> 8 & 255, b = n & 255, l = (r * .3 + g * .59 + b * .11) / 255, f = l > .55 ? .55 / l : 1;
@@ -436,6 +439,7 @@
       var gi = el("g", { transform: "scale(1.3)" }, g);
       el("path", { d: "M-8 -31h16a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4h-4.5L0 0l-3.5-8H-8a4 4 0 0 1-4-4v-15a4 4 0 0 1 4-4z", class: "pform", fill: k.pfarbe, style: "stroke:" + (k.ifarbe === "#fff" ? "#fff" : "#2a1c24") }, gi);
       el("path", { d: k.icon, transform: "translate(-8,-27.5) scale(.667)", class: "pico", style: "fill:" + k.ifarbe }, gi);
+      if (k.herz) el("path", { d: "M9.5 -26.2c-2.6-1.9-4.4-3.4-4.4-5.3a2.3 2.3 0 0 1 4.4-1 2.3 2.3 0 0 1 4.4 1c0 1.9-1.8 3.4-4.4 5.3z", fill: "#ff5fa2", stroke: "#fff", "stroke-width": 1 }, gi);
       function wahl() { if (bewegt) return; zeige(pt, i); }
       g.addEventListener("click", wahl);
       g.addEventListener("keydown", function (e) { if (e.key === "Enter") zeige(pt, i); });
