@@ -95,7 +95,7 @@
   }
   // Stufe 4 (~10 MB) danach leise in den Browser-Cache holen: beim Reinzoomen kommen die scharfen Kacheln dann sofort
   function cachen(z, fertig) {
-    var liste = [], aktiv = 0, f = Math.pow(2, z - 3);
+    var liste = [], aktiv = 0, f = Math.pow(2, Math.min(z, 5) - 3);
     D.kacheln["3"].forEach(function (k) { var p = k.split("_"); for (var a = 0; a < f; a++) for (var b = 0; b < f; b++) liste.push((p[0] * f + a) + "_" + (p[1] * f + b)); });
     if (!liste.length || !window.fetch || (navigator.connection && navigator.connection.saveData)) return;
     (function weiter() { while (aktiv < 4 && liste.length) { aktiv++; fetch("img/gta6/" + z + "/" + liste.shift() + ".jpg", { priority: "low" }).catch(function () {}).then(function () { aktiv--; weiter(); }); } if (!aktiv && !liste.length && fertig) { var f2 = fertig; fertig = null; f2(); } })();
