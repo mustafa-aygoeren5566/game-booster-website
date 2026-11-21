@@ -100,7 +100,7 @@
     if (!liste.length || !window.fetch || (navigator.connection && navigator.connection.saveData)) return;
     (function weiter() { while (aktiv < 4 && liste.length) { aktiv++; fetch("img/gta6/" + z + "/" + liste.shift() + ".jpg", { priority: "low" }).catch(function () {}).then(function () { aktiv--; weiter(); }); } if (!aktiv && !liste.length && fertig) { var f2 = fertig; fertig = null; f2(); } })();
   }
-  setTimeout(function () { vorladen(2, grund2, function () { vorladen(3, grund3, function () { cachen(4, function () { if (window.matchMedia && matchMedia("(pointer:fine)").matches) cachen(5); }); }); }); }, 300);
+  setTimeout(function () { vorladen(2, grund2, function () { vorladen(3, grund3, function () { cachen(4, function () { if (window.matchMedia && matchMedia("(pointer:fine)").matches) cachen(5, function () { cachen(6); }); }); }); }); }, 300);
   // Kachel erst im Hintergrund dekodieren, dann einsetzen (Dekodieren beim Zeichnen = Hänger)
   var LAD = {}, SCHL = [], schlRaf = 0;
   function einsetzen() { schlRaf = 0; for (var i = 0; i < (live ? 8 : 12) && SCHL.length; i++) SCHL.shift()(); if (SCHL.length) schlRaf = requestAnimationFrame(einsetzen); }
