@@ -23,12 +23,16 @@
   D.kategorien.forEach(function (k) { if (k.id === "gang-operation" || k.id === "gang-compound") k.frage = 1; });
   // Gang-Logos wie im Spiel (selbst gezeichnet): je Pin-ID ein Motiv, sonst Maske
   var GLOGO = {
+    hahn: { d: "M13.5 4.5c.8-1 2-1.2 2.6-.4.8-.6 1.9-.2 1.7.8l-.6.6c.9.5 1.2 1.4 1 2.3l2 1-2 .7c-.2 1.6-.8 3-1.8 4.2.6 2-1 4.4-3.6 5.1l.4 2.4h1.6v1h-3.2l-.4-3.2h-.8l.2 3.2H7.6v-1h1.6l-.2-2.4C5.6 18 3.6 15.6 3.4 12.6 3 9.8 3.8 7.4 5.4 6c-.2 1.6.2 3 1 4 .2-2.2 1.2-4 2.8-5-.4 1.4-.2 2.8.4 3.8.4-1.4 1.2-2.4 2.4-3 .2.4.2 1 0 1.6.8-.6 1.4-1.4 1.5-2.9z", s: 1.05 },
+    sense: { d: "M12 2.5c-3.8 2.2-6.5 6.6-6.5 11.5v7.5h13V14c0-4.9-2.7-9.3-6.5-11.5z", loch: "M12 8.6c-2.3 0-3.9 1.8-3.9 4.1 0 1.6.8 2.8 1.9 3.4v1.7h4v-1.7c1.1-.6 1.9-1.8 1.9-3.4 0-2.3-1.6-4.1-3.9-4.1z", d2: "M10.5 11.4a1.1 1.2 0 1 0 .01 0zM13.5 11.4a1.1 1.2 0 1 0 .01 0zM11.3 14.6h1.4l-.7 1z", s: 1.05 },
+    kx: { kreis: 1, t: "Kx", f: 11, font: "italic 700 11px Georgia,serif" },
     kroko: { d: "M.5 15.5C2 10.8 6 8 11.5 8H16l2.4-3 2.4 3 3.2 1.2v3.6l-4.6.6-1.6 2.2H16l-1.2 3h-3.4l-1.2-3H8.4l-1.2 3H3.8l-1-3z", s: 1.1 },
     falter: { d: "M12 7.5c-.8 0-1 .9-1 1.7v8.3c0 .9.4 1.8 1 1.8s1-.9 1-1.8V9.2c0-.8-.2-1.7-1-1.7zM10.6 10.2C8.4 5.4 3.6 4.4 2.6 6.8S4.4 12.8 10.6 13zM13.4 10.2c2.2-4.8 7-5.8 8-3.4S19.6 12.8 13.4 13zM10.6 14.2c-3 0-6.2 1.4-5.2 3.8s4.2.8 5.2-2zM13.4 14.2c3 0 6.2 1.4 5.2 3.8s-4.2.8-5.2-2zM10.7 7.4L9 4.6M13.3 7.4L15 4.6", s: 1.18 },
     ptt: { t: "PTT", f: 11.5, w: 23 }, m7: { t: "M7", f: 15 }, s4s: { t: "S$", f: 15 }
   };
   var GANG = { "gang-operation-001": "kroko", "gang-operation-002": "kroko", "gang-operation-011": "falter", "gang-operation-042": "falter",
     "gang-compound-001": "ptt", "gang-operation-020": "ptt", "gang-operation-021": "ptt", "gang-operation-039": "ptt",
+    "gang-operation-022": "hahn", "gang-operation-023": "hahn", "gang-operation-024": "hahn", "gang-operation-012": "sense", "gang-operation-013": "sense", "gang-operation-004": "kx", "gang-operation-005": "kx", "gang-operation-006": "kx", "gang-operation-007": "kx", "gang-operation-008": "kx",
     "gang-operation-009": "m7", "gang-operation-010": "m7",
     "gang-operation-015": "s4s", "gang-operation-016": "s4s", "gang-operation-017": "s4s", "gang-operation-018": "s4s", "gang-operation-019": "s4s" };
   function logoK(k, lg) { var o = Object.create(k); o.logo = GLOGO[lg]; if (o.logo.d) o.icon = o.logo.d; return o; }
@@ -60,7 +64,7 @@
     var g = c.getContext("2d"); g.translate(14 * PS * PR, 35 * PS * PR); g.scale(PS * PR, PS * PR);
     var p = new Path2D(PFORM); g.fillStyle = k.pfarbe; g.fill(p);
     g.lineWidth = 1.6; g.lineJoin = "round"; g.strokeStyle = k.ifarbe === "#fff" ? "#fff" : "#2a1c24"; g.stroke(p);
-    g.save(); g.translate(-8, -27.5); g.scale(.667, .667); g.fillStyle = k.ifarbe; if (k.logo && k.logo.t) { g.font = "900 " + k.logo.f + "px Arial"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(k.logo.t, 12, 13, k.logo.w || 24); } else { if (k.logo && k.logo.s) { g.translate(12, 12); g.scale(k.logo.s, k.logo.s); g.translate(-12, -12); } g.fill(new Path2D(k.icon)); if (k.logo) { g.strokeStyle = k.ifarbe; g.lineWidth = 1.8; g.lineCap = "round"; g.lineJoin = "round"; g.stroke(new Path2D(k.icon)); } } g.restore();
+    g.save(); g.translate(-8, -27.5); g.scale(.667, .667); g.fillStyle = k.ifarbe; if (k.logo && k.logo.kreis) { g.beginPath(); g.arc(12, 12.5, 10.5, 0, 7); g.fill(); g.fillStyle = k.pfarbe; } if (k.logo && k.logo.t) { g.font = k.logo.font || ("900 " + k.logo.f + "px Arial"); g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(k.logo.t, 12, 13, k.logo.w || 24); } else { if (k.logo && k.logo.s) { g.translate(12, 12); g.scale(k.logo.s, k.logo.s); g.translate(-12, -12); } g.fill(new Path2D(k.icon)); if (k.logo) { g.strokeStyle = k.ifarbe; g.lineWidth = 1.8; g.lineCap = "round"; g.lineJoin = "round"; g.stroke(new Path2D(k.icon)); if (k.logo.loch) { g.fillStyle = k.pfarbe; g.fill(new Path2D(k.logo.loch)); g.fillStyle = k.ifarbe; g.fill(new Path2D(k.logo.d2)); } } } g.restore();
     if (k.frage) abzeichen(g, ok);
     if (k.herz) { var hz = new Path2D(HERZD); g.fillStyle = "#ff5fa2"; g.fill(hz); g.lineWidth = 1; g.strokeStyle = "#fff"; g.stroke(hz); }
     return g.getImageData(0, 0, w, h);
