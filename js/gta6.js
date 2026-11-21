@@ -94,16 +94,16 @@
     weiter();
   }
   // Stufe 4 (~10 MB) danach leise in den Browser-Cache holen: beim Reinzoomen kommen die scharfen Kacheln dann sofort
-  function cachen(z) {
+  function cachen(z, fertig) {
     var liste = [], aktiv = 0, f = Math.pow(2, z - 3);
     D.kacheln["3"].forEach(function (k) { var p = k.split("_"); for (var a = 0; a < f; a++) for (var b = 0; b < f; b++) liste.push((p[0] * f + a) + "_" + (p[1] * f + b)); });
     if (!liste.length || !window.fetch || (navigator.connection && navigator.connection.saveData)) return;
-    (function weiter() { while (aktiv < 4 && liste.length) { aktiv++; fetch("img/gta6/" + z + "/" + liste.shift() + ".jpg", { priority: "low" }).catch(function () {}).then(function () { aktiv--; weiter(); }); } })();
+    (function weiter() { while (aktiv < 4 && liste.length) { aktiv++; fetch("img/gta6/" + z + "/" + liste.shift() + ".jpg", { priority: "low" }).catch(function () {}).then(function () { aktiv--; weiter(); }); } if (!aktiv && !liste.length && fertig) { var f2 = fertig; fertig = null; f2(); } })();
   }
-  setTimeout(function () { vorladen(2, grund2, function () { vorladen(3, grund3, function () { cachen(4); }); }); }, 300);
+  setTimeout(function () { vorladen(2, grund2, function () { vorladen(3, grund3, function () { cachen(4, function () { if (window.matchMedia && matchMedia("(pointer:fine)").matches) cachen(5); }); }); }); }, 300);
   // Kachel erst im Hintergrund dekodieren, dann einsetzen (Dekodieren beim Zeichnen = Hänger)
   var LAD = {}, SCHL = [], schlRaf = 0;
-  function einsetzen() { schlRaf = 0; for (var i = 0; i < (live ? 3 : 6) && SCHL.length; i++) SCHL.shift()(); if (SCHL.length) schlRaf = requestAnimationFrame(einsetzen); }
+  function einsetzen() { schlRaf = 0; for (var i = 0; i < (live ? 8 : 12) && SCHL.length; i++) SCHL.shift()(); if (SCHL.length) schlRaf = requestAnimationFrame(einsetzen); }
   function lade(z, k, x, y, g, ziel) {
     var u = "img/gta6/" + z + "/" + k + ".jpg", pic = new Image(), id = z + "/" + k;
     LAD[id] = 1; offen++; pic.decoding = "async"; pic.src = u;
@@ -314,7 +314,14 @@
     if (Math.abs(ziel.w - vb.w) / ziel.w < 0.003) { vb.w = ziel.w; vb.x = ziel.x; vb.y = ziel.y; ziel = null; setzen(true); return; }
     setzen(true); animiert = requestAnimationFrame(gleiten);
   }
-  var radVor = 0;
+  var radVor = 0, zeigVor = 0;
+  // Maus über der Karte: schärfere Stufen unter dem Zeiger schon vor dem Zoomen holen
+  beide("mousemove", function (e) {
+    var nw = performance.now(); if (nw - zeigVor < 200 || live) return; zeigVor = nw;
+    var r = rect(); if (!r.width) return;
+    var mx = vb.x + (e.clientX - r.left) / r.width * vb.w, my = vb.y + (e.clientY - r.top) / r.height * vb.h;
+    for (var f = 4; f <= 64; f *= 2) { var w2 = vb.w / f; if (w2 < 3) break; zielVorladen(mx, my, w2); }
+  });
   beide("wheel", function (e) {
     e.preventDefault(); flugNr++;
     var d = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaY;
