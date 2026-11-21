@@ -181,7 +181,13 @@
     bereit = true; zahlen();
     ganz(true);
     // Zoomgrenzen fest aus der Kartenwelt (nicht aus der Ansicht): raus bis knapp über Gesamtansicht, rein bis feinste Kachel
-    map.setMaxBounds([ll(60, 1000), ll(1000, 0)]);
+    // keine harte maxBounds (würde die Gesamtansicht nach links drücken): Mitte nach dem Verschieben sanft zurück aufs Land
+    map.on("moveend", function () {
+      if (map.isEasing && map.isEasing()) return;
+      var c = map.getCenter(), x = (c.lng + 180) / 360 * 1024, y = 1024 * (1 - Math.log(Math.tan(Math.PI / 4 + c.lat * Math.PI / 360)) / Math.PI) / 2;
+      var nx = Math.max(214, Math.min(586, x)), ny = Math.max(218, Math.min(747, y));
+      if (nx !== x || ny !== y) map.easeTo({ center: ll(nx, ny), duration: 350 });
+    });
     var cam = map.cameraForBounds([ll(280, 1000), ll(780, 40)], { padding: 20 });
     map.setMinZoom(Math.max(1, ((cam && cam.zoom) || 2.5) - 0.4));
     map.setMaxZoom(7.6);
