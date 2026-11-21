@@ -124,7 +124,18 @@
   map.on("mousedown", function () { zZiel = null; });
 
   function zoomFuer(w) { var b = box.getBoundingClientRect().width || 1000; return Math.log2(2 * b / w); }
-  function fliegen(x, y, w) { zZiel = null; map.stop(); var zz = Math.min(map.getMaxZoom(), zoomFuer(w)), dz = Math.abs(zz - map.getZoom()); map.easeTo({ center: ll(x, y), zoom: zz, duration: Math.min(900, 380 + dz * 110), easing: function (t) { return 1 - Math.pow(1 - t, 3); }, essential: true }); }
+  function fliegen(x, y, w) {
+    zZiel = null; map.stop();
+    var zz = Math.min(map.getMaxZoom(), zoomFuer(w)), ziel = ll(x, y);
+    var r = box.getBoundingClientRect(), p = map.project(ziel), weit = Math.hypot(p.x - r.width / 2, p.y - r.height / 2) / Math.max(r.width, 1);
+    if (weit > 1.2) {
+      // weite Strecke: kurz raus, rüber, rein (gezoomt über die Karte schieben würde nur ungeladene Kacheln zeigen)
+      map.flyTo({ center: ziel, zoom: zz, curve: 1.5, speed: 1.8, maxDuration: 1300, essential: true });
+    } else {
+      var dz = Math.abs(zz - map.getZoom());
+      map.easeTo({ center: ziel, zoom: zz, duration: Math.min(900, 380 + dz * 110), easing: function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }, essential: true });
+    }
+  }
   function ganz(sofort) {
     var x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
     (D.bezirke || []).forEach(function (b) { b.ringe.forEach(function (r) { r.forEach(function (p) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }); }); });
