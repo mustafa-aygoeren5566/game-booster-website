@@ -12,8 +12,11 @@
     "Fahrzeuge": "#60a5fa", "Dienste": "#cbd5e1", "Freizeit": "#5eead4", "Orte": "#c4b5fd", "Story": "#c4b5fd" };
   D.kategorien.forEach(function (k) { k.pfarbe = STIL[k.gruppe] || "#e5e7eb"; k.ifarbe = "#15111c"; k.farbe = k.pfarbe; });
   // wie im Spiel: Gang-Operationen und Gang-Hauptquartiere gelb (Geld-Orte bleiben gruen)
-  var KGELB = { "gang-operation": 1, "gang-compound": 1 };
-  D.kategorien.forEach(function (k) { if (KGELB[k.id]) { k.pfarbe = "#facc15"; k.farbe = k.pfarbe; } });
+  // Farben aus ~2000 Stream-Kartenbildern gemessen (Pin-Farbe je Kategorie, aufgehellt)
+  var KFARBE = { "gang-operation": "#facc15", "gang-compound": "#facc15", "ammu-nation": "#f1e0e2", "electronics": "#f1e0e2",
+    "pay-n-spray": "#f1e0e2", "basketball": "#f1e0e2", "gym": "#b4c2ee", "fence": "#e88cb0", "collectible-card": "#c9b0f5",
+    "vehicle-request": "#c9b0f5", "shooting-range": "#a6bde0", "gas-station": "#d6e0ea" };
+  D.kategorien.forEach(function (k) { if (KFARBE[k.id]) { k.pfarbe = KFARBE[k.id]; k.farbe = k.pfarbe; } });
   var HERZ = { clothing: 1, footwear: 1, haircut: 1, tattoo: 1, bar: 1, nightclub: 1, cinema: 1, "food-and-drink": 1 };
   D.kategorien.forEach(function (k) { if (HERZ[k.id]) { k.herz = 1; k.pfarbe = "#1b1620"; k.ifarbe = "#fff"; k.farbe = "#ff5fa2"; } });
   var PFORM = "M-8 -31h16a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4h-4.5L0 0l-3.5-8H-8a4 4 0 0 1-4-4v-15a4 4 0 0 1 4-4z";
