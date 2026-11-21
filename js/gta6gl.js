@@ -409,18 +409,44 @@
   var m = document.getElementById("missionen");
   if (m) {
     document.getElementById("mtext").textContent = D.missionen.text;
+    var alleM = [];
+    function mStand() {
+      var g = 0, n = 0;
+      alleM.forEach(function (k) {
+        var z = k.boxen.filter(function (c) { return c.checked; }).length; g += z; n += k.boxen.length;
+        k.z.textContent = z + "/" + k.boxen.length; k.bar.style.width = (k.boxen.length ? 100 * z / k.boxen.length : 0) + "%";
+        k.bx.classList.toggle("voll", k.boxen.length > 0 && z === k.boxen.length);
+      });
+      document.getElementById("mgesz").textContent = g + "/" + n;
+      document.getElementById("mgesbar").style.width = (n ? 100 * g / n : 0) + "%";
+    }
     D.missionen.kapitel.forEach(function (k, ki) {
       var bx = document.createElement("div"); bx.className = "kap";
-      var h = document.createElement("h3"); h.textContent = k.name; bx.appendChild(h);
-      if (!k.liste.length) { var p = document.createElement("p"); p.className = "leer"; p.textContent = "Folgt nach dem Release."; bx.appendChild(p); }
+      var teil = k.name.split(": "), kopf = document.createElement("div"); kopf.className = "mkopf";
+      var nr = document.createElement("div"); nr.className = "mnr"; nr.textContent = ki + 1;
+      var t = document.createElement("div"); t.className = "mkt";
+      var sm = document.createElement("small"); sm.textContent = teil.length > 1 ? teil[0] : "Kapitel " + (ki + 1);
+      var h = document.createElement("h3"); h.textContent = teil.length > 1 ? teil.slice(1).join(": ") : k.name;
+      t.appendChild(sm); t.appendChild(h);
+      var z = document.createElement("span"); z.className = "mz";
+      kopf.appendChild(nr); kopf.appendChild(t); kopf.appendChild(z); bx.appendChild(kopf);
+      var bar = document.createElement("div"); bar.className = "mbar"; var bi = document.createElement("i"); bar.appendChild(bi); bx.appendChild(bar);
+      var li = document.createElement("div"); li.className = "mliste"; bx.appendChild(li);
+      var eintrag = { bx: bx, z: z, bar: bi, boxen: [] };
+      if (!k.liste.length) { var p = document.createElement("p"); p.className = "leer"; p.textContent = "Folgt nach dem Release."; li.appendChild(p); }
       k.liste.forEach(function (name, mi) {
-        var id = "m" + ki + "_" + mi, l = document.createElement("label");
+        var id = "m" + ki + "_" + mi, l = document.createElement("label"), opt = / \(optional\)$/.test(name);
         var c = document.createElement("input"); c.type = "checkbox"; c.checked = !!erledigt[id];
-        c.onchange = function () { erledigt[id] = c.checked; speichern(); };
-        l.appendChild(c); l.appendChild(document.createTextNode(name)); bx.appendChild(l);
+        var sp = document.createElement("span"); sp.className = "mn"; sp.textContent = name.replace(/ \(optional\)$/, "");
+        l.classList.toggle("ok", c.checked);
+        c.onchange = function () { erledigt[id] = c.checked; l.classList.toggle("ok", c.checked); speichern(); mStand(); };
+        l.appendChild(c); l.appendChild(sp);
+        if (opt) { var o = document.createElement("span"); o.className = "mopt"; o.textContent = "Optional"; l.appendChild(o); }
+        li.appendChild(l); eintrag.boxen.push(c);
       });
-      m.appendChild(bx);
+      alleM.push(eintrag); m.appendChild(bx);
     });
+    mStand();
   }
   var standEl = document.getElementById("stand"); if (standEl) standEl.textContent = D.stand;
 })();

@@ -269,6 +269,27 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
 .glrm .rb svg{width:20px;height:20px;fill:#ffd166}
 .glrm .rt{font:italic 800 15px 'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#fff;-webkit-text-stroke:4px #1a0b2e;paint-order:stroke fill;white-space:nowrap}
 .glrm:hover .rb{filter:brightness(1.25)}
+#mges{display:flex;align-items:center;gap:14px;margin-top:14px;padding:12px 16px;border-radius:14px;background:linear-gradient(90deg,rgba(255,61,139,.12),rgba(139,92,246,.12));border:1px solid rgba(255,255,255,.08)}
+#mges b{font:italic 800 26px/1 'Barlow Condensed',sans-serif;color:var(--gelb);font-variant-numeric:tabular-nums;white-space:nowrap}#mges span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);font-weight:700;white-space:nowrap}
+.mbar{flex:1;height:8px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}.mbar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#ff3d8b,#ff9a3c,#ffd166);transition:width .4s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 10px rgba(255,61,139,.5)}
+#missionen .kap{display:flex;flex-direction:column;padding:0;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;transition:border-color .2s,transform .2s}
+#missionen .kap::before{display:none}#missionen .kap:hover{border-color:rgba(255,61,139,.45);transform:translateY(-2px);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02))}
+.mkopf{display:flex;gap:11px;align-items:center;padding:14px 14px 10px}
+.mnr{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#ff3d8b,#8b5cf6);font:italic 800 22px/1 'Barlow Condensed',sans-serif;color:#fff;box-shadow:0 4px 14px rgba(255,61,139,.35)}
+.kap.voll .mnr{background:linear-gradient(135deg,#2ee6a0,#2ec4f0);box-shadow:0 4px 14px rgba(46,230,160,.35)}
+.mkt{min-width:0;flex:1}.mkt small{display:block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);font-weight:700}
+#missionen .mkt h3{font:italic 800 18px/1.1 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#fff;letter-spacing:.03em;margin:0}
+.mz{font-size:12px;font-weight:700;color:var(--gelb);font-variant-numeric:tabular-nums;white-space:nowrap}
+.kap .mbar{flex:none;height:4px;margin:0 14px 8px}
+.mliste{max-height:330px;overflow:auto;padding:2px 8px 10px;scrollbar-width:thin;scrollbar-color:#5a3d80 transparent}
+#missionen .mliste label{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;line-height:1.35;margin:0;padding:6px 6px;border-radius:9px;cursor:pointer;transition:background .15s,color .15s}
+#missionen .mliste label:hover{background:rgba(255,255,255,.06)}
+.mliste input{appearance:none;-webkit-appearance:none;flex:none;width:17px;height:17px;margin:1px 0 0;border-radius:6px;border:1.5px solid rgba(255,255,255,.28);background:rgba(255,255,255,.04);display:grid;place-items:center;cursor:pointer;transition:.15s}
+.mliste input:checked{background:linear-gradient(135deg,#ff3d8b,#c46bff);border-color:transparent}
+.mliste input:checked::after{content:"";width:9px;height:5px;border:2px solid #fff;border-top:0;border-right:0;transform:translateY(-1px) rotate(-45deg)}
+.mliste input:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.mliste label.ok{color:var(--mut)}.mliste label.ok .mn{text-decoration:line-through;text-decoration-color:rgba(255,61,139,.6)}
+.mopt{flex:none;margin-left:auto;padding:1px 7px;border-radius:99px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(46,230,240,.35);align-self:center}
 </style>
 </head>
 <body>
@@ -315,6 +336,7 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
   <section class="card">
     <h2>Missionen</h2>
     <p id="mtext"></p>
+    <div id="mges"><span>Fortschritt</span><div class="mbar"><i id="mgesbar"></i></div><b id="mgesz">0/0</b></div>
     <div id="missionen"></div>
   </section>
   <div class="zwei">
@@ -331,6 +353,6 @@ body{background:radial-gradient(1200px 700px at 50% 520px,rgba(139,92,246,.16),t
 <footer>© 2026 Game Booster VPN. Fanseite, nicht mit Rockstar Games oder Take-Two verbunden. Grand Theft Auto ist eine Marke von Take-Two Interactive.<br><a href="/">Startseite</a><a href="/mw4">MW4</a><a href="/updates">Updates</a><a href="/recht">Impressum</a><a href="https://gtadb.org" target="_blank" rel="noopener">GTADB</a><a href="https://creativecommons.org/licenses/by/4.0/deed.de" target="_blank" rel="noopener">CC BY 4.0</a></footer>
 <script src="js/gta6-daten.js?v=17953000021235"></script>
 <script src="js/maplibre-gl-csp.js?v=471"></script>
-<script src="js/gta6gl.js?v=30"></script>
+<script src="js/gta6gl.js?v=31"></script>
 </body>
 </html>
