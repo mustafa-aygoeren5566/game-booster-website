@@ -57,10 +57,10 @@
     "gang-operation-015": "s4s", "gang-operation-016": "s4s", "gang-operation-017": "s4s", "gang-operation-018": "s4s", "gang-operation-019": "s4s" };
   function logoK(k, lg) { var o = Object.create(k); o.logo = GLOGO[lg]; if (o.logo.d) o.icon = o.logo.d; if (o.logo.rund) { o.pfarbe = "#c3efc0"; o.ifarbe = "#15111c"; o.herz = 0; } return o; }
   var PFORM = "M-8 -31h16a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4h-4.5L0 0l-3.5-8H-8a4 4 0 0 1-4-4v-15a4 4 0 0 1 4-4z";
-  var RUNDF = "M0 -33a11 11 0 0 1 11 11c0 5-3.5 8.6-8 10.6L0 0l-3-11.4C-7.5 -13.4-11-17-11-22a11 11 0 0 1 11-11z";
+  var RUNDF = "M0 0L4.3 -4.8A11.5 11.5 0 1 0 -4.3 -4.8z";
   var OKTF = "M-6.5 -33h13l5.5 5.5v11.5l-5.5 5.5h-3L0 0l-3.5-10.5h-3l-5.5-5.5v-11.5z";
   function formP(k) { return k.form === "okt" ? OKTF : (k.form === "rund" || (k.logo && k.logo.rund)) ? RUNDF : PFORM; }
-  function formY(k) { return k.form === "okt" ? -30.6 : (k.form === "rund" || (k.logo && k.logo.rund)) ? -31.6 : -28.6; }
+  function formY(k) { return k.form === "okt" ? -30.6 : (k.form === "rund" || (k.logo && k.logo.rund)) ? -24.6 : -28.6; }
   var HERZD = "M9.5 -26.2c-2.6-1.9-4.4-3.4-4.4-5.3a2.3 2.3 0 0 1 4.4-1 2.3 2.3 0 0 1 4.4 1c0 1.9-1.8 3.4-4.4 5.3z";
   var HERZP = '<path d="' + HERZD + '" fill="#ff5fa2" stroke="#fff" stroke-width="1"/>';
   function pinSvg(k) {
