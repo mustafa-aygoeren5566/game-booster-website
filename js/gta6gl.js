@@ -27,6 +27,7 @@
     "footwear": "M2 18v-5.2c0-.9.8-1.5 1.7-1.3L8 12.4l3.2-4.2 3 2.6c2 1.6 4.4 2.2 6.8 2.5.6.1 1 .6 1 1.2V18zM2 19.2h20V21H2z",
     "vehicle-mod-shop": "M12 3.2a8.8 8.8 0 1 1 0 17.6 8.8 8.8 0 1 1 0-17.6zM12 7a5 5 0 1 0 0 10 5 5 0 1 0 0-10zM10.8 1h2.4v3h-2.4zM10.8 20h2.4v3h-2.4zM1 10.8h3v2.4H1zM20 10.8h3v2.4h-3zM3.6 5.3l1.7-1.7 2.1 2.1-1.7 1.7zM16.6 18.3l1.7-1.7 2.1 2.1-1.7 1.7zM18.7 3.6l1.7 1.7-2.1 2.1-1.7-1.7zM5.7 16.6l1.7 1.7-2.1 2.1-1.7-1.7zM9.2 15v-2.3l1-2h3.6l1 2V15z",
     "vehicle-request": "M3.5 19.5v-6.2l2.2-6.3h12.6l2.2 6.3v6.2h-3.2v-2H6.7v2zM7.6 9l-1.3 4h11.4l-1.3-4zM5.6 15a1.3 1.3 0 1 0 2.6 0 1.3 1.3 0 1 0-2.6 0zM15.8 15a1.3 1.3 0 1 0 2.6 0 1.3 1.3 0 1 0-2.6 0z",
+    "payday-loan": "M2 14.5h3.5l4.6 1.8h4.4c1.2 0 1.2 2 0 2H10.4v.6h5l5.2-3c1-.6 2.1.6 1.3 1.5L17 21.5H2zM13.5 2.5a5 5 0 1 1 0 10 5 5 0 1 1 0-10zM12.9 4.2v1.1c-1.1.2-1.8.9-1.8 1.8 0 1.1 1 1.5 2 1.7.7.2 1 .3 1 .7s-.4.6-1 .6c-.6 0-1-.2-1.4-.6l-.7.9c.5.4 1.1.6 1.9.7v1.1h1.3v-1.1c1.1-.2 1.8-.9 1.8-1.9 0-1.1-1-1.5-2-1.7-.7-.2-1-.3-1-.6s.3-.5.9-.5c.5 0 .9.1 1.2.4l.7-.9c-.5-.4-1-.6-1.6-.7V4.2z",
     "car-meet": "M3 21.5L7.2 8h9.6L21 21.5zM8.2 9.4v2.8h2.6V9.4zM13.2 9.4v2.8h2.6V9.4zM10.8 12.2V15h2.4v-2.8zM7.6 15v2.8h3.2V15zM13.2 15v2.8h3.4V15zM8 2.5h8V4l-2.8 2 2.8 2H8l2.8-2L8 4z"
   };
   D.kategorien.forEach(function (k) { if (MOTIV[k.id]) k.icon = MOTIV[k.id]; });
@@ -35,7 +36,7 @@
     if (k.id === "garage") { k.pfarbe = "#c9b0f5"; k.farbe = k.pfarbe; }
     if (k.id === "safehouse") { k.pfarbe = "#5eead4"; k.farbe = k.pfarbe; }
     if (k.id === "car-meet") { k.pfarbe = "#2a2230"; k.ifarbe = "#ff8cc0"; k.farbe = "#ff8cc0"; }
-    if (k.id === "gang-operation" || k.id === "gang-compound") k.form = "okt"; });
+    if (k.id === "gang-operation" || k.id === "gang-compound" || k.id === "payday-loan" || k.id === "smash-n-grab") k.form = "okt"; });
   // wie im Spiel: Gang-Operationen mit "?" oben rechts (offen), abgehakt mit Haken
   D.kategorien.forEach(function (k) { if (k.id === "gang-operation" || k.id === "gang-compound") k.frage = 1; });
   // Gang-Logos wie im Spiel (selbst gezeichnet): je Pin-ID ein Motiv, sonst Maske
