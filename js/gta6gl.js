@@ -19,6 +19,20 @@
   D.kategorien.forEach(function (k) { if (KFARBE[k.id]) { k.pfarbe = KFARBE[k.id]; k.farbe = k.pfarbe; } });
   var HERZ = { clothing: 1, footwear: 1, haircut: 1, tattoo: 1, bar: 1, nightclub: 1, cinema: 1, "food-and-drink": 1 };
   D.kategorien.forEach(function (k) { if (HERZ[k.id]) { k.herz = 1; k.pfarbe = "#f1e0e2"; k.ifarbe = "#15111c"; k.farbe = "#ff5fa2"; } });
+  // Motive nach Spiel-Vorbild selbst gezeichnet (24er-Raster)
+  var MOTIV = {
+    "ammu-nation": "M2.5 6.5h19v5h-9.5v2.2h-3.4L7.6 19.5H2.5zM8.8 11.5v1.4h1.6v-1.4z",
+    "shooting-range": "M1.5 5.5h14v4h-7v2H6l-.8 5.5H1.5zM17.5 10.5a5 5 0 1 1-5 5h2.2a2.8 2.8 0 1 0 2.8-2.8z",
+    "pay-n-spray": "M4 9.5h7.5V21H4zM5.5 6h4.5v3.5H5.5zM6.8 3.5h3V6h-3zM13 6.2l8-3.2v2.6l-6.6 2zM13 8.4l8 .4v2.6zM13 10.4l7 4.2-1.2 2.1z",
+    "footwear": "M2 18v-5.2c0-.9.8-1.5 1.7-1.3L8 12.4l3.2-4.2 3 2.6c2 1.6 4.4 2.2 6.8 2.5.6.1 1 .6 1 1.2V18zM2 19.2h20V21H2z",
+    "vehicle-mod-shop": "M12 3.2a8.8 8.8 0 1 1 0 17.6 8.8 8.8 0 1 1 0-17.6zM12 7a5 5 0 1 0 0 10 5 5 0 1 0 0-10zM10.8 1h2.4v3h-2.4zM10.8 20h2.4v3h-2.4zM1 10.8h3v2.4H1zM20 10.8h3v2.4h-3zM3.6 5.3l1.7-1.7 2.1 2.1-1.7 1.7zM16.6 18.3l1.7-1.7 2.1 2.1-1.7 1.7zM18.7 3.6l1.7 1.7-2.1 2.1-1.7-1.7zM5.7 16.6l1.7 1.7-2.1 2.1-1.7-1.7zM9.2 15v-2.3l1-2h3.6l1 2V15z",
+    "vehicle-request": "M3.5 19.5v-6.2l2.2-6.3h12.6l2.2 6.3v6.2h-3.2v-2H6.7v2zM7.6 9l-1.3 4h11.4l-1.3-4zM5.6 15a1.3 1.3 0 1 0 2.6 0 1.3 1.3 0 1 0-2.6 0zM15.8 15a1.3 1.3 0 1 0 2.6 0 1.3 1.3 0 1 0-2.6 0z",
+    "car-meet": "M3 21.5L7.2 8h9.6L21 21.5zM8.2 9.4v2.8h2.6V9.4zM13.2 9.4v2.8h2.6V9.4zM10.8 12.2V15h2.4v-2.8zM7.6 15v2.8h3.2V15zM13.2 15v2.8h3.4V15zM8 2.5h8V4l-2.8 2 2.8 2H8l2.8-2L8 4z"
+  };
+  D.kategorien.forEach(function (k) { if (MOTIV[k.id]) k.icon = MOTIV[k.id]; });
+  D.kategorien.forEach(function (k) { if (k.id === "vehicle-request") { k.form = "rund"; k.pfarbe = "#c9b0f5"; }
+    if (k.id === "car-meet") { k.pfarbe = "#2a2230"; k.ifarbe = "#ff8cc0"; k.farbe = "#ff8cc0"; }
+    if (k.id === "gang-operation" || k.id === "gang-compound") k.form = "okt"; });
   // wie im Spiel: Gang-Operationen mit "?" oben rechts (offen), abgehakt mit Haken
   D.kategorien.forEach(function (k) { if (k.id === "gang-operation" || k.id === "gang-compound") k.frage = 1; });
   // Gang-Logos wie im Spiel (selbst gezeichnet): je Pin-ID ein Motiv, sonst Maske
@@ -40,11 +54,14 @@
   function logoK(k, lg) { var o = Object.create(k); o.logo = GLOGO[lg]; if (o.logo.d) o.icon = o.logo.d; if (o.logo.rund) { o.pfarbe = "#c3efc0"; o.ifarbe = "#15111c"; o.herz = 0; } return o; }
   var PFORM = "M-8 -31h16a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4h-4.5L0 0l-3.5-8H-8a4 4 0 0 1-4-4v-15a4 4 0 0 1 4-4z";
   var RUNDF = "M0 -33a11 11 0 0 1 11 11c0 5-3.5 8.6-8 10.6L0 0l-3-11.4C-7.5 -13.4-11-17-11-22a11 11 0 0 1 11-11z";
+  var OKTF = "M-6.5 -33h13l5.5 5.5v11.5l-5.5 5.5h-3L0 0l-3.5-10.5h-3l-5.5-5.5v-11.5z";
+  function formP(k) { return k.form === "okt" ? OKTF : (k.form === "rund" || (k.logo && k.logo.rund)) ? RUNDF : PFORM; }
+  function formY(k) { return k.form === "okt" ? -30.6 : (k.form === "rund" || (k.logo && k.logo.rund)) ? -31.6 : -28.6; }
   var HERZD = "M9.5 -26.2c-2.6-1.9-4.4-3.4-4.4-5.3a2.3 2.3 0 0 1 4.4-1 2.3 2.3 0 0 1 4.4 1c0 1.9-1.8 3.4-4.4 5.3z";
   var HERZP = '<path d="' + HERZD + '" fill="#ff5fa2" stroke="#fff" stroke-width="1"/>';
   function pinSvg(k) {
     var st = k.ifarbe === "#fff" ? "#fff" : "#1a1216";
-    return '<svg viewBox="-14 -35 30 37"><path d="' + PFORM + '" fill="' + k.pfarbe + '" stroke="' + st + '" stroke-width="1.8" stroke-linejoin="round"/><path d="' + k.icon + '" transform="translate(-9.1,-28.6) scale(.76)" style="fill:' + k.ifarbe + '"/>' + (k.herz ? HERZP : "") + (k.frage ? '<circle cx="10" cy="-30" r="4.6" fill="#1b1620" stroke="#fff" stroke-width="1"/><text x="10" y="-27.6" font-size="7" font-weight="900" text-anchor="middle" fill="#fff" font-family="Arial">?</text>' : "") + '</svg>';
+    return '<svg viewBox="-14 -35 30 37"><path d="' + formP(k) + '" fill="' + k.pfarbe + '" stroke="' + st + '" stroke-width="1.8" stroke-linejoin="round"/><path d="' + k.icon + '" transform="translate(-9.1,' + formY(k) + ') scale(.76)" style="fill:' + k.ifarbe + '"/>' + (k.herz ? HERZP : "") + (k.frage ? '<circle cx="10" cy="-30" r="4.6" fill="#1b1620" stroke="#fff" stroke-width="1"/><text x="10" y="-27.6" font-size="7" font-weight="900" text-anchor="middle" fill="#fff" font-family="Arial">?</text>' : "") + '</svg>';
   }
   var RICON = {
     kalaga: "M2 20l7-12 4 6 3-4 6 10z",
@@ -65,9 +82,9 @@
   function pinBild(k, ok) {
     var w = Math.ceil(30 * PS * PR), h = Math.ceil(37 * PS * PR), c = document.createElement("canvas"); c.width = w; c.height = h;
     var g = c.getContext("2d"); g.translate(14 * PS * PR, 35 * PS * PR); g.scale(PS * PR, PS * PR);
-    var rund = k.logo && k.logo.rund, p = new Path2D(rund ? RUNDF : PFORM); g.fillStyle = k.pfarbe; g.fill(p);
+    var rund = k.logo && k.logo.rund, p = new Path2D(formP(k)); g.fillStyle = k.pfarbe; g.fill(p);
     g.lineWidth = 1.8; g.lineJoin = "round"; g.strokeStyle = k.ifarbe === "#fff" ? "#fff" : "#1a1216"; g.stroke(p);
-    g.save(); g.translate(-9.1, rund ? -31.6 : -28.6); g.scale(.76, .76); g.fillStyle = k.ifarbe; if (k.logo && k.logo.kreis) { g.beginPath(); g.arc(12, 12.5, 10.5, 0, 7); g.fill(); g.fillStyle = k.pfarbe; } if (k.logo && k.logo.t) { g.font = k.logo.font || ("900 " + k.logo.f + "px Arial"); g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(k.logo.t, 12, 13, k.logo.w || 24); } else { if (k.logo && k.logo.s) { g.translate(12, 12); g.scale(k.logo.s, k.logo.s); g.translate(-12, -12); } g.fill(new Path2D(k.icon)); if (k.logo) { g.strokeStyle = k.ifarbe; g.lineWidth = 1.8; g.lineCap = "round"; g.lineJoin = "round"; g.stroke(new Path2D(k.icon)); if (k.logo.loch) { g.fillStyle = k.pfarbe; g.fill(new Path2D(k.logo.loch)); g.fillStyle = k.ifarbe; g.fill(new Path2D(k.logo.d2)); } } } g.restore();
+    g.save(); g.translate(-9.1, formY(k)); g.scale(.76, .76); g.fillStyle = k.ifarbe; if (k.logo && k.logo.kreis) { g.beginPath(); g.arc(12, 12.5, 10.5, 0, 7); g.fill(); g.fillStyle = k.pfarbe; } if (k.logo && k.logo.t) { g.font = k.logo.font || ("900 " + k.logo.f + "px Arial"); g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(k.logo.t, 12, 13, k.logo.w || 24); } else { if (k.logo && k.logo.s) { g.translate(12, 12); g.scale(k.logo.s, k.logo.s); g.translate(-12, -12); } g.fill(new Path2D(k.icon)); if (k.logo) { g.strokeStyle = k.ifarbe; g.lineWidth = 1.8; g.lineCap = "round"; g.lineJoin = "round"; g.stroke(new Path2D(k.icon)); if (k.logo.loch) { g.fillStyle = k.pfarbe; g.fill(new Path2D(k.logo.loch)); g.fillStyle = k.ifarbe; g.fill(new Path2D(k.logo.d2)); } } } g.restore();
     if (k.frage) abzeichen(g, ok);
     if (rund) { g.beginPath(); g.arc(8.5, -30, 4.4, 0, 7); g.fillStyle = "#86efac"; g.fill(); g.lineWidth = 1; g.strokeStyle = "#15111c"; g.stroke(); g.fillStyle = "#15111c"; g.font = "900 7px Arial"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText("$", 8.5, -29.7); }
     if (k.herz) { var hz = new Path2D(HERZD); g.fillStyle = "#ff5fa2"; g.fill(hz); g.lineWidth = 1; g.strokeStyle = "#fff"; g.stroke(hz); }
