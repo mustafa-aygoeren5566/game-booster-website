@@ -33,7 +33,7 @@
   D.kategorien.forEach(function (k) { if (MOTIV[k.id]) k.icon = MOTIV[k.id]; });
   D.kategorien.forEach(function (k) { if (k.id === "vehicle-request") { k.form = "rund"; k.pfarbe = "#c9b0f5"; }
     if (k.id === "meditation") { k.form = "rund"; k.pfarbe = "#c9b0f5"; k.farbe = k.pfarbe; }
-    if (k.id === "garage") { k.pfarbe = "#c9b0f5"; k.farbe = k.pfarbe; }
+    if (k.id === "garage") { k.pfarbe = "#4fd8b8"; k.farbe = k.pfarbe; k.icon = "M3.5 3.5h17v17h-17zM6 6v12h12V6zM8 8h8v2.2H8zM8 11h8v2.2H8zM8 14h8v2.2H8z"; }
     if (k.id === "safehouse") { k.pfarbe = "#5eead4"; k.farbe = k.pfarbe; }
     if (k.id === "car-meet") { k.pfarbe = "#2a2230"; k.ifarbe = "#ff8cc0"; k.farbe = "#ff8cc0"; }
     if (k.id === "gang-operation" || k.id === "gang-compound" || k.id === "payday-loan" || k.id === "smash-n-grab" || k.id === "bank") k.form = "okt"; });
