@@ -43,8 +43,8 @@
   var HERZD = "M9.5 -26.2c-2.6-1.9-4.4-3.4-4.4-5.3a2.3 2.3 0 0 1 4.4-1 2.3 2.3 0 0 1 4.4 1c0 1.9-1.8 3.4-4.4 5.3z";
   var HERZP = '<path d="' + HERZD + '" fill="#ff5fa2" stroke="#fff" stroke-width="1"/>';
   function pinSvg(k) {
-    var st = k.ifarbe === "#fff" ? "#fff" : "#2a1c24";
-    return '<svg viewBox="-14 -35 30 37"><path d="' + PFORM + '" fill="' + k.pfarbe + '" stroke="' + st + '" stroke-width="1.6" stroke-linejoin="round"/><path d="' + k.icon + '" transform="translate(-8,-27.5) scale(.667)" style="fill:' + k.ifarbe + '"/>' + (k.herz ? HERZP : "") + (k.frage ? '<circle cx="10" cy="-30" r="4.6" fill="#1b1620" stroke="#fff" stroke-width="1"/><text x="10" y="-27.6" font-size="7" font-weight="900" text-anchor="middle" fill="#fff" font-family="Arial">?</text>' : "") + '</svg>';
+    var st = k.ifarbe === "#fff" ? "#fff" : "#1a1216";
+    return '<svg viewBox="-14 -35 30 37"><path d="' + PFORM + '" fill="' + k.pfarbe + '" stroke="' + st + '" stroke-width="1.8" stroke-linejoin="round"/><path d="' + k.icon + '" transform="translate(-9.1,-28.6) scale(.76)" style="fill:' + k.ifarbe + '"/>' + (k.herz ? HERZP : "") + (k.frage ? '<circle cx="10" cy="-30" r="4.6" fill="#1b1620" stroke="#fff" stroke-width="1"/><text x="10" y="-27.6" font-size="7" font-weight="900" text-anchor="middle" fill="#fff" font-family="Arial">?</text>' : "") + '</svg>';
   }
   var RICON = {
     kalaga: "M2 20l7-12 4 6 3-4 6 10z",
@@ -66,8 +66,8 @@
     var w = Math.ceil(30 * PS * PR), h = Math.ceil(37 * PS * PR), c = document.createElement("canvas"); c.width = w; c.height = h;
     var g = c.getContext("2d"); g.translate(14 * PS * PR, 35 * PS * PR); g.scale(PS * PR, PS * PR);
     var rund = k.logo && k.logo.rund, p = new Path2D(rund ? RUNDF : PFORM); g.fillStyle = k.pfarbe; g.fill(p);
-    g.lineWidth = 1.6; g.lineJoin = "round"; g.strokeStyle = k.ifarbe === "#fff" ? "#fff" : "#2a1c24"; g.stroke(p);
-    g.save(); g.translate(-8, rund ? -30.5 : -27.5); g.scale(.667, .667); g.fillStyle = k.ifarbe; if (k.logo && k.logo.kreis) { g.beginPath(); g.arc(12, 12.5, 10.5, 0, 7); g.fill(); g.fillStyle = k.pfarbe; } if (k.logo && k.logo.t) { g.font = k.logo.font || ("900 " + k.logo.f + "px Arial"); g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(k.logo.t, 12, 13, k.logo.w || 24); } else { if (k.logo && k.logo.s) { g.translate(12, 12); g.scale(k.logo.s, k.logo.s); g.translate(-12, -12); } g.fill(new Path2D(k.icon)); if (k.logo) { g.strokeStyle = k.ifarbe; g.lineWidth = 1.8; g.lineCap = "round"; g.lineJoin = "round"; g.stroke(new Path2D(k.icon)); if (k.logo.loch) { g.fillStyle = k.pfarbe; g.fill(new Path2D(k.logo.loch)); g.fillStyle = k.ifarbe; g.fill(new Path2D(k.logo.d2)); } } } g.restore();
+    g.lineWidth = 1.8; g.lineJoin = "round"; g.strokeStyle = k.ifarbe === "#fff" ? "#fff" : "#1a1216"; g.stroke(p);
+    g.save(); g.translate(-9.1, rund ? -31.6 : -28.6); g.scale(.76, .76); g.fillStyle = k.ifarbe; if (k.logo && k.logo.kreis) { g.beginPath(); g.arc(12, 12.5, 10.5, 0, 7); g.fill(); g.fillStyle = k.pfarbe; } if (k.logo && k.logo.t) { g.font = k.logo.font || ("900 " + k.logo.f + "px Arial"); g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(k.logo.t, 12, 13, k.logo.w || 24); } else { if (k.logo && k.logo.s) { g.translate(12, 12); g.scale(k.logo.s, k.logo.s); g.translate(-12, -12); } g.fill(new Path2D(k.icon)); if (k.logo) { g.strokeStyle = k.ifarbe; g.lineWidth = 1.8; g.lineCap = "round"; g.lineJoin = "round"; g.stroke(new Path2D(k.icon)); if (k.logo.loch) { g.fillStyle = k.pfarbe; g.fill(new Path2D(k.logo.loch)); g.fillStyle = k.ifarbe; g.fill(new Path2D(k.logo.d2)); } } } g.restore();
     if (k.frage) abzeichen(g, ok);
     if (rund) { g.beginPath(); g.arc(8.5, -30, 4.4, 0, 7); g.fillStyle = "#86efac"; g.fill(); g.lineWidth = 1; g.strokeStyle = "#15111c"; g.stroke(); g.fillStyle = "#15111c"; g.font = "900 7px Arial"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText("$", 8.5, -29.7); }
     if (k.herz) { var hz = new Path2D(HERZD); g.fillStyle = "#ff5fa2"; g.fill(hz); g.lineWidth = 1; g.strokeStyle = "#fff"; g.stroke(hz); }
