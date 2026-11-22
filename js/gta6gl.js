@@ -36,7 +36,7 @@
     if (k.id === "garage") { k.pfarbe = "#c9b0f5"; k.farbe = k.pfarbe; }
     if (k.id === "safehouse") { k.pfarbe = "#5eead4"; k.farbe = k.pfarbe; }
     if (k.id === "car-meet") { k.pfarbe = "#2a2230"; k.ifarbe = "#ff8cc0"; k.farbe = "#ff8cc0"; }
-    if (k.id === "gang-operation" || k.id === "gang-compound" || k.id === "payday-loan" || k.id === "smash-n-grab") k.form = "okt"; });
+    if (k.id === "gang-operation" || k.id === "gang-compound" || k.id === "payday-loan" || k.id === "smash-n-grab" || k.id === "bank") k.form = "okt"; });
   // wie im Spiel: Gang-Operationen mit "?" oben rechts (offen), abgehakt mit Haken
   D.kategorien.forEach(function (k) { if (k.id === "gang-operation" || k.id === "gang-compound") k.frage = 1; });
   // Gang-Logos wie im Spiel (selbst gezeichnet): je Pin-ID ein Motiv, sonst Maske
