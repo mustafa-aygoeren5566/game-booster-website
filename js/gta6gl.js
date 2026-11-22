@@ -38,7 +38,7 @@
     if (k.id === "car-meet") { k.pfarbe = "#2a2230"; k.ifarbe = "#ff8cc0"; k.farbe = "#ff8cc0"; }
     if (k.id === "gang-operation" || k.id === "gang-compound" || k.id === "payday-loan" || k.id === "smash-n-grab" || k.id === "bank") k.form = "okt"; });
   // wie im Spiel: Gang-Operationen mit "?" oben rechts (offen), abgehakt mit Haken
-  D.kategorien.forEach(function (k) { if (k.id === "gang-operation" || k.id === "gang-compound") k.frage = 1; });
+  D.kategorien.forEach(function (k) { if (k.id === "gang-operation" || k.id === "gang-compound") k.frage = 1; if (k.id === "fence") k.dollar = 1; });
   // Gang-Logos wie im Spiel (selbst gezeichnet): je Pin-ID ein Motiv, sonst Maske
   var GLOGO = {
     hahn: { d: "M13.5 4.5c.8-1 2-1.2 2.6-.4.8-.6 1.9-.2 1.7.8l-.6.6c.9.5 1.2 1.4 1 2.3l2 1-2 .7c-.2 1.6-.8 3-1.8 4.2.6 2-1 4.4-3.6 5.1l.4 2.4h1.6v1h-3.2l-.4-3.2h-.8l.2 3.2H7.6v-1h1.6l-.2-2.4C5.6 18 3.6 15.6 3.4 12.6 3 9.8 3.8 7.4 5.4 6c-.2 1.6.2 3 1 4 .2-2.2 1.2-4 2.8-5-.4 1.4-.2 2.8.4 3.8.4-1.4 1.2-2.4 2.4-3 .2.4.2 1 0 1.6.8-.6 1.4-1.4 1.5-2.9z", s: 1.05 },
@@ -89,8 +89,8 @@
     var rund = k.logo && k.logo.rund, p = new Path2D(formP(k)); g.fillStyle = k.pfarbe; g.fill(p);
     g.lineWidth = 1.8; g.lineJoin = "round"; g.strokeStyle = k.ifarbe === "#fff" ? "#fff" : "#1a1216"; g.stroke(p);
     g.save(); g.translate(-9.1, formY(k)); g.scale(.76, .76); g.fillStyle = k.ifarbe; if (k.logo && k.logo.kreis) { g.beginPath(); g.arc(12, 12.5, 10.5, 0, 7); g.fill(); g.fillStyle = k.pfarbe; } if (k.logo && k.logo.t) { g.font = k.logo.font || ("900 " + k.logo.f + "px Arial"); g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(k.logo.t, 12, 13, k.logo.w || 24); } else { if (k.logo && k.logo.s) { g.translate(12, 12); g.scale(k.logo.s, k.logo.s); g.translate(-12, -12); } g.fill(new Path2D(k.icon)); if (k.logo) { g.strokeStyle = k.ifarbe; g.lineWidth = 1.8; g.lineCap = "round"; g.lineJoin = "round"; g.stroke(new Path2D(k.icon)); if (k.logo.loch) { g.fillStyle = k.pfarbe; g.fill(new Path2D(k.logo.loch)); g.fillStyle = k.ifarbe; g.fill(new Path2D(k.logo.d2)); } } } g.restore();
-    if (k.frage) abzeichen(g, ok);
-    if (rund) { g.beginPath(); g.arc(8.5, -30, 4.4, 0, 7); g.fillStyle = "#86efac"; g.fill(); g.lineWidth = 1; g.strokeStyle = "#15111c"; g.stroke(); g.fillStyle = "#15111c"; g.font = "900 7px Arial"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText("$", 8.5, -29.7); }
+    if (k.frage) abzeichen(g, ok); else if (ok) { var hx = (rund || k.dollar || k.herz) ? -18.5 : 0; g.save(); g.translate(hx, 0); g.beginPath(); g.arc(10, -30, 4.6, 0, 7); g.fillStyle = "#22c55e"; g.fill(); g.lineWidth = 1; g.strokeStyle = "#fff"; g.stroke(); g.beginPath(); g.moveTo(7.8, -30); g.lineTo(9.4, -28.3); g.lineTo(12.3, -31.8); g.lineWidth = 1.5; g.lineCap = "round"; g.lineJoin = "round"; g.stroke(); g.restore(); }
+    if (rund || (k.dollar && !k.logo)) { g.beginPath(); g.arc(8.5, -30, 4.4, 0, 7); g.fillStyle = "#86efac"; g.fill(); g.lineWidth = 1; g.strokeStyle = "#15111c"; g.stroke(); g.fillStyle = "#15111c"; g.font = "900 7px Arial"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText("$", 8.5, -29.7); }
     if (k.herz) { var hz = new Path2D(HERZD); g.fillStyle = "#ff5fa2"; g.fill(hz); g.lineWidth = 1; g.strokeStyle = "#fff"; g.stroke(hz); }
     return g.getImageData(0, 0, w, h);
   }
@@ -204,7 +204,7 @@
     D.punkte.forEach(function (pt, i) {
       if (aus[pt.k]) return;
       if (suche && pt.n.toLowerCase().indexOf(suche) < 0) return;
-      f.push({ type: "Feature", id: i, geometry: { type: "Point", coordinates: ll(pt.x, pt.y) }, properties: { i: i, k: "p-" + pt.k + (GANG[pt.id] ? "~" + GANG[pt.id] : "") + (erledigt["p" + i] && KAT[pt.k] && KAT[pt.k].frage ? "-ok" : ""), ok: erledigt["p" + i] ? 1 : 0 } });
+      f.push({ type: "Feature", id: i, geometry: { type: "Point", coordinates: ll(pt.x, pt.y) }, properties: { i: i, k: "p-" + pt.k + (GANG[pt.id] ? "~" + GANG[pt.id] : "") + (erledigt["p" + i] && KAT[pt.k] ? "-ok" : ""), ok: erledigt["p" + i] ? 1 : 0 } });
     });
     return { type: "FeatureCollection", features: f };
   }
@@ -220,7 +220,7 @@
   });
   function init() {
     if (gestartet || !map.isStyleLoaded()) return; gestartet = true;
-    D.kategorien.forEach(function (k) { map.addImage("p-" + k.id, pinBild(k), { pixelRatio: PR }); if (k.frage) map.addImage("p-" + k.id + "-ok", pinBild(k, true), { pixelRatio: PR }); });
+    D.kategorien.forEach(function (k) { map.addImage("p-" + k.id, pinBild(k), { pixelRatio: PR }); map.addImage("p-" + k.id + "-ok", pinBild(k, true), { pixelRatio: PR }); });
     Object.keys(GLOGO).forEach(function (lg) { ["gang-operation", "gang-compound", "fence"].forEach(function (kid) { if (!KAT[kid]) return; var kk = logoK(KAT[kid], lg); map.addImage("p-" + kid + "~" + lg, pinBild(kk), { pixelRatio: PR }); map.addImage("p-" + kid + "~" + lg + "-ok", pinBild(kk, true), { pixelRatio: PR }); }); });
     map.addSource("bez", { type: "geojson", data: bezirkeGeo() });
     map.addLayer({ id: "bez-fl", type: "fill", source: "bez", paint: { "fill-color": "#fff", "fill-opacity": ["case", ["boolean", ["feature-state", "an"], false], .06, 0] } });
@@ -327,7 +327,7 @@
     info.hidden = false; info.innerHTML = ""; info.style.setProperty("--kf", k.farbe);
     info.classList.remove("pop"); void info.offsetWidth; info.classList.add("pop");
     var kopf = document.createElement("div"); kopf.className = "ikopf";
-    var kb = GANG[pt.id] ? logoK(k, GANG[pt.id]) : k, cv = document.createElement("canvas"), bd = pinBild(kb, ok && k.frage); cv.width = bd.width; cv.height = bd.height; cv.getContext("2d").putImageData(bd, 0, 0);
+    var kb = GANG[pt.id] ? logoK(k, GANG[pt.id]) : k, cv = document.createElement("canvas"), bd = pinBild(kb, ok); cv.width = bd.width; cv.height = bd.height; cv.getContext("2d").putImageData(bd, 0, 0);
     kopf.innerHTML = '<span class="ic iic gp"><img alt="" style="width:100%;height:100%;object-fit:contain" src="' + cv.toDataURL() + '"></span>';
     var tt = document.createElement("div"); var h = document.createElement("h3"); h.textContent = pt.n;
     var chips = document.createElement("div"); chips.className = "chips";
