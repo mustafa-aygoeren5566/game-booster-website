@@ -1,5 +1,6 @@
 /* Startseite statisch: keine Dauer-Animationen, kein Glas-Blur (Messung 18.11.: 93 ms -> ~5 ms pro Frame beim Scrollen) */
-:where(*:not(.gb-karte,.gb-karte *)),:where(*:not(.gb-karte,.gb-karte *))::before,:where(*:not(.gb-karte,.gb-karte *))::after{animation:none!important}
+/* 22.11.: auch die Weltkarten statisch (Nutzer: laggt sonst) */
+*,*::before,*::after{animation:none!important}
 *{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 [class*="scanner-check"]{opacity:1!important}
 header{background-color:rgba(5,7,13,.97)!important}
