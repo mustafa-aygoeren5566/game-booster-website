@@ -132,7 +132,7 @@
 
   // ---------- Karte ----------
   var box = document.getElementById("karte");
-  var RAST = { "raster-saturation": -.62, "raster-brightness-max": .93, "raster-contrast": .05, "raster-fade-duration": 120 };
+  var RAST = { "raster-saturation": -.62, "raster-brightness-max": .93, "raster-contrast": .05, "raster-fade-duration": 0 };
   var map = new maplibregl.Map({
     container: box, attributionControl: false, renderWorldCopies: false, dragRotate: false, pitchWithRotate: false, touchPitch: false,
     minZoom: 1, maxZoom: 9, fadeDuration: 0, refreshExpiredTiles: false, cancelPendingTileRequestsWhileZooming: false, maxTileCacheSize: 4000,
@@ -259,6 +259,23 @@
     var aktiv = 0;
     (function weiter() { while (aktiv < 3 && liste.length) { aktiv++; fetch("img/gta6/" + z + "/" + liste.shift() + ".jpg?k=2", { priority: "low" }).catch(function () {}).then(function () { aktiv--; weiter(); }); } })();
   }
+  // Kacheln rund um die Ansicht vorladen, damit beim Ziehen nichts leer nachkommt
+  var vorGes = {}, vorT = 0;
+  function vorladen() {
+    if (!window.fetch || (navigator.connection && navigator.connection.saveData)) return;
+    var b = map.getBounds(), zm = map.getZoom(), dl = (b.getEast() - b.getWest()) * .6, dn = (b.getNorth() - b.getSouth()) * .6;
+    function tx(lon, z) { return Math.floor((lon + 180) / 360 * Math.pow(2, z)); }
+    function ty(lat, z) { var r = lat * Math.PI / 180; return Math.floor((1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * Math.pow(2, z)); }
+    function ring(z, url, ok) {
+      var x0 = tx(b.getWest() - dl, z), x1 = tx(b.getEast() + dl, z), y0 = ty(Math.min(85, b.getNorth() + dn), z), y1 = ty(Math.max(-85, b.getSouth() - dn), z), n = 0;
+      for (var x = x0; x <= x1; x++) for (var y = y0; y <= y1; y++) { if (n > 60) return; if (!ok(x, y)) continue; var u = url(x, y); if (vorGes[u]) continue; vorGes[u] = 1; n++; fetch(u, { priority: "low" }).catch(function () {}); }
+    }
+    var z = Math.min(7, Math.max(2, Math.floor(zm) + 1));
+    ring(z, function (x, y) { return "img/gta6/" + (z - 2) + "/" + x + "_" + y + ".jpg?k=2"; }, function (x, y) { return gibt(z - 2, x, y); });
+    if (zm >= 6) ring(7, function (x, y) { return "img/gta6/6/" + x + "_" + y + ".jpg?k=2"; }, function (x, y) { return gibt(5, x, y); });
+  }
+  map.on("move", function () { var t = Date.now(); if (t - vorT > 250) { vorT = t; vorladen(); } });
+  map.on("moveend", vorladen);
   function neuDaten() { if (bereit) map.getSource("orte").setData(punkteGeo()); zahlen(); }
   function zahlen() {
     D.kategorien.forEach(function (k) {
