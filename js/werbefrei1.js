@@ -57,7 +57,7 @@ async function zeichne() {
         } catch (e) {}
         await new Promise(z => setTimeout(z, 2500));
       }
-      $("ppMsg").textContent = "Zahlung ist da, der Code konnte nicht sofort erstellt werden. Schreib uns mit der Bestell-Nr. " + o.id + " an mustafa-aygoeren@web.de.";
+      $("ppMsg").textContent = "Zahlung ist da, der Code konnte nicht sofort erstellt werden. Schreib uns mit der Bestell-Nr. " + o.id + " an kontakt@lobbycontrolvpn.de.";
     }),
     onCancel: () => { $("ppMsg").textContent = "Zahlung abgebrochen – es wurde nichts abgebucht." },
     onError: () => { $("ppMsg").textContent = "Die Zahlung hat nicht geklappt. Es wurde nichts abgebucht." }

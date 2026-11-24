@@ -189,7 +189,7 @@ async function render() {
       const r = await redeem(o.id, bCode.value.trim());
       if (r.ok) { txt.textContent = "Fertig – dein Zugang ist aktiv bis " + new Date(r.bis).toLocaleDateString("de-DE") + "."; showCode("bZ", "bZc", r.code) }
       else { document.getElementById("bRd").hidden = false; document.getElementById("bRd").textContent = "Nochmal versuchen" }
-      if (!r.ok) txt.innerHTML = "Zahlung ist da, die Freischaltung hat aber nicht sofort geklappt (" + r.msg + "). Versuch es gleich unter <a href=\"#einloesen\">Bestellung einlösen</a> oder schreib an <a href=\"mailto:mustafa-aygoeren@web.de\">mustafa-aygoeren@web.de</a>.";
+      if (!r.ok) txt.innerHTML = "Zahlung ist da, die Freischaltung hat aber nicht sofort geklappt (" + r.msg + "). Versuch es gleich unter <a href=\"#einloesen\">Bestellung einlösen</a> oder schreib an <a href=\"mailto:kontakt@lobbycontrolvpn.de\">kontakt@lobbycontrolvpn.de</a>.";
     }),
     onCancel: () => { ppMsg.textContent = "Zahlung abgebrochen – es wurde nichts abgebucht und nichts gekauft."; ppMsg.classList.remove("go") },
     onError: () => { ppMsg.textContent = "Die Zahlung hat nicht geklappt. Es wurde nichts abgebucht."; ppMsg.classList.remove("go") }
@@ -215,7 +215,7 @@ const rdm = document.getElementById("rdm"), rMsg = document.getElementById("rMsg
 function openRdm() {
   buy.classList.remove("on"); rdm.classList.add("on");
   document.getElementById("rOid").value = lastOid; document.getElementById("rCode").value = isNew ? "" : bCode.value.trim(); document.getElementById("rZ").hidden = true;
-  rMsg.textContent = SHOP_API ? "" : "Die automatische Einlösung ist noch nicht aktiv – schick Bestell-Nr. und Code an mustafa-aygoeren@web.de.";
+  rMsg.textContent = SHOP_API ? "" : "Die automatische Einlösung ist noch nicht aktiv – schick Bestell-Nr. und Code an kontakt@lobbycontrolvpn.de.";
 }
 window.addEventListener("hashchange", () => { if (location.hash === "#einloesen") { openRdm(); history.replaceState(null, "", location.pathname) } });
 if (location.hash === "#einloesen") openRdm();
