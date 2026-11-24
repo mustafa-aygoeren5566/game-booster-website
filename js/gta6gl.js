@@ -15,7 +15,7 @@
   // Farben aus ~2000 Stream-Kartenbildern gemessen (Pin-Farbe je Kategorie, aufgehellt)
   var KFARBE = { "gang-operation": "#facc15", "gang-compound": "#facc15", "ammu-nation": "#f1e0e2", "electronics": "#f1e0e2",
     "pay-n-spray": "#f1e0e2", "basketball": "#f1e0e2", "gym": "#b4c2ee", "fence": "#e88cb0", "collectible-card": "#c9b0f5",
-    "vehicle-request": "#c9b0f5", "shooting-range": "#a6bde0", "gas-station": "#d6e0ea", "vehicle-mod-shop": "#f1e0e2", "playlist": "#b4c2ee", "story-v": "#a9c4f5" };
+    "vehicle-request": "#c9b0f5", "raub-tipp": "#c9b0f5", "shooting-range": "#a6bde0", "gas-station": "#d6e0ea", "vehicle-mod-shop": "#f1e0e2", "playlist": "#b4c2ee", "story-v": "#a9c4f5" };
   D.kategorien.forEach(function (k) { if (KFARBE[k.id]) { k.pfarbe = KFARBE[k.id]; k.farbe = k.pfarbe; } });
   var HERZ = { clothing: 1, footwear: 1, haircut: 1, tattoo: 1, bar: 1, nightclub: 1, cinema: 1, "food-and-drink": 1 };
   D.kategorien.forEach(function (k) { if (HERZ[k.id]) { k.herz = 1; k.pfarbe = "#f1e0e2"; k.ifarbe = "#15111c"; k.farbe = "#ff5fa2"; } });
@@ -31,7 +31,7 @@
     "car-meet": "M3 21.5L7.2 8h9.6L21 21.5zM8.2 9.4v2.8h2.6V9.4zM13.2 9.4v2.8h2.6V9.4zM10.8 12.2V15h2.4v-2.8zM7.6 15v2.8h3.2V15zM13.2 15v2.8h3.4V15zM8 2.5h8V4l-2.8 2 2.8 2H8l2.8-2L8 4z"
   };
   D.kategorien.forEach(function (k) { if (MOTIV[k.id]) k.icon = MOTIV[k.id]; });
-  D.kategorien.forEach(function (k) { if (k.id === "vehicle-request") { k.form = "rund"; k.pfarbe = "#c9b0f5"; }
+  D.kategorien.forEach(function (k) { if (k.id === "vehicle-request" || k.id === "raub-tipp") { k.form = "rund"; k.pfarbe = "#c9b0f5"; }
     if (k.id === "meditation") { k.form = "rund"; k.pfarbe = "#c9b0f5"; k.farbe = k.pfarbe; }
     if (k.id === "garage") { k.pfarbe = "#4fd8b8"; k.farbe = k.pfarbe; k.icon = "M3.5 3.5h17v17h-17zM6 6v12h12V6zM8 8h8v2.2H8zM8 11h8v2.2H8zM8 14h8v2.2H8z"; }
     if (k.id === "safehouse") { k.pfarbe = "#5eead4"; k.farbe = k.pfarbe; }
