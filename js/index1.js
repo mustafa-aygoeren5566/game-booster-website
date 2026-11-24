@@ -276,13 +276,12 @@ function zeigeBald() {
   const tag = start.toLocaleDateString("de-DE", { weekday: "short", day: "2-digit", month: "2-digit", year: "numeric" });
   e.className = "bald promo pf-" + (BALD.farbe || "blau"); e.hidden = false; requestAnimationFrame(() => { const v = e.querySelector(".pv"); v && e.style.setProperty("--pvw", v.offsetWidth + "px"); });
   e.innerHTML = `<div class="pv"><em>−${+BALD.pct} %</em><span>Rabatt</span></div><div class="bl"><span class="pk">Demnächst</span><span class="bt">${esc(BALD.titel)}</span><span class="bd"><b>Start: ${tag} · 00:00 Uhr</b> −${+BALD.pct} % auf alle Abos</span></div>`
-    + '<div class="bc"><span class="bs">startet in</span><span class="bz"><u></u><s>:</s><u></u><s>:</s><u></u></span><span class="bn" hidden></span></div>';
-  const u = e.querySelectorAll(".bz u"), bz = e.querySelector(".bz"), bn = e.querySelector(".bn");
+    + '<div class="bc"><span class="bs">startet in</span><span class="bz"><u></u><s class="bt2">T</s><u></u><s>:</s><u></u><s>:</s><u></u></span></div>';
+  const u = e.querySelectorAll(".bz u"), dt = e.querySelector(".bz .bt2");
   const tick = () => { const s = Math.max(0, Math.floor((start - new Date()) / 1000)), z = n => String(n).padStart(2, "0");
     if (!s) { clearInterval(zeigeBald.t); e.hidden = true; return; }
-    const tg = s >= 86400; bz.hidden = tg; bn.hidden = !tg;
-    if (tg) { bn.textContent = Math.ceil(s / 86400) + " Tagen"; return; }
-    u[0].textContent = z(Math.floor(s / 3600)); u[1].textContent = z(Math.floor(s / 60) % 60); u[2].textContent = z(s % 60); };
+    const d = Math.floor(s / 86400); u[0].hidden = dt.hidden = !d; u[0].textContent = d;
+    u[1].textContent = z(Math.floor(s / 3600) % 24); u[2].textContent = z(Math.floor(s / 60) % 60); u[3].textContent = z(s % 60); };
   tick(); zeigeBald.t = setInterval(tick, 1000);
 }
 function zeigePromo() {
