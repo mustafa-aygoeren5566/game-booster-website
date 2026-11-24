@@ -225,7 +225,7 @@
     map.addSource("bez", { type: "geojson", data: bezirkeGeo() });
     map.addLayer({ id: "bez-fl", type: "fill", source: "bez", paint: { "fill-color": "#fff", "fill-opacity": ["case", ["boolean", ["feature-state", "an"], false], .06, 0] } });
     map.addLayer({ id: "bez-rand", type: "line", source: "bez", paint: { "line-color": "#fff", "line-width": 1.4, "line-opacity": ["case", ["boolean", ["feature-state", "an"], false], .9, .22] } });
-    map.addSource("orte", { type: "geojson", data: punkteGeo(), cluster: true, clusterRadius: 42, clusterMaxZoom: 3, clusterMinPoints: 3 });
+    map.addSource("orte", { type: "geojson", data: punkteGeo(), cluster: true, clusterRadius: 46, clusterMaxZoom: 5, clusterMinPoints: 3 });
     map.addLayer({ id: "haufen", type: "symbol", source: "orte", filter: ["has", "point_count"],
       layout: { "icon-image": ["concat", "n-", ["to-string", ["get", "point_count"]]], "icon-allow-overlap": true, "icon-ignore-placement": true } });
     map.addLayer({ id: "pins", type: "symbol", source: "orte", filter: ["!", ["has", "point_count"]],
@@ -298,15 +298,17 @@
   }
   function tipWeg() { if (tipKey !== null) { tip.classList.remove("an"); tipKey = null; } }
   map.on("dragstart", function () { zieht = true; tipWeg(); }); map.on("dragend", function () { zieht = false; });
-  map.on("mousemove", function (ev) {
-    if (!bereit || zieht) return;
+  var mmEv = null, mmAn = false;
+  map.on("mousemove", function (ev) { mmEv = ev; if (!mmAn) { mmAn = true; requestAnimationFrame(function () { mmAn = false; mausBei(mmEv); }); } });
+  function mausBei(ev) {
+    if (!bereit || zieht || map.isMoving()) return;
     var f = map.queryRenderedFeatures(ev.point, { layers: ["pins", "haufen"] })[0], e = ev.originalEvent;
     map.getCanvas().style.cursor = f ? "pointer" : "";
     if (f && f.layer.id === "pins") { var pt = D.punkte[f.properties.i], k = KAT[pt.k]; hervor(-1); return tipZeig("p" + f.properties.i, pt.n, k.name, k.farbe, e); }
     if (f) { hervor(-1); return tipZeig("h" + f.properties.cluster_id, f.properties.point_count + " Orte", "Klicken zum Hineinzoomen", "", e); }
     var w = xy(ev.lngLat), j = bezirkBei(w[0], w[1]); hervor(j);
     if (j >= 0) tipZeig("b" + j, D.bezirke[j].name, "", "", e); else tipWeg();
-  });
+  }
   map.getCanvas().addEventListener("mouseleave", function () { tipWeg(); hervor(-1); });
   document.addEventListener("pointermove", function (e) {
     var t = e.target.closest && e.target.closest("[data-tip]");
