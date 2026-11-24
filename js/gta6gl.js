@@ -225,7 +225,7 @@
     map.addSource("bez", { type: "geojson", data: bezirkeGeo() });
     map.addLayer({ id: "bez-fl", type: "fill", source: "bez", paint: { "fill-color": "#fff", "fill-opacity": ["case", ["boolean", ["feature-state", "an"], false], .06, 0] } });
     map.addLayer({ id: "bez-rand", type: "line", source: "bez", paint: { "line-color": "#fff", "line-width": 1.4, "line-opacity": ["case", ["boolean", ["feature-state", "an"], false], .9, .22] } });
-    map.addSource("orte", { type: "geojson", data: punkteGeo(), cluster: true, clusterRadius: 46, clusterMaxZoom: 5, clusterMinPoints: 3 });
+    map.addSource("orte", { type: "geojson", data: punkteGeo(), cluster: true, clusterRadius: 30, clusterMaxZoom: 8, clusterMinPoints: 4 });
     map.addLayer({ id: "haufen", type: "symbol", source: "orte", filter: ["has", "point_count"],
       layout: { "icon-image": ["concat", "n-", ["to-string", ["get", "point_count"]]], "icon-allow-overlap": true, "icon-ignore-placement": true } });
     map.addLayer({ id: "pins", type: "symbol", source: "orte", filter: ["!", ["has", "point_count"]],
