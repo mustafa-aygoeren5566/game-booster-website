@@ -197,12 +197,14 @@ document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class=
       s.disabled = false; }; } }
 // Links auf #preise oeffnen jetzt das Game-VPN-Popup
 window.addEventListener("click", e => { const a = e.target.closest('a[href="#preise"]'); if (!a || a.closest(".kat-m, .kat")) return; const b = document.querySelector("#kat-game-vpn .kat-b"); if (!b) return; e.preventDefault(); e.stopImmediatePropagation(); b.click(); window.gbVpnZeig && window.gbVpnZeig(); }, true);
+const wfPreis = (v, pct) => (Math.floor(+v * (100 - pct) + 1e-7 + 0.5) / 100).toFixed(2);
 // Werbefrei: Laufzeiten wie bei Game-VPN + "Gut zu wissen"
 { const k = [...document.querySelectorAll(".kat-g > .sp-w")].find(e => e.innerHTML.includes("werbefrei-karte")), l = k?.querySelector(".kat-l");
   if (l) { const W = [["1 Monat","1,49 €","einmal zahlen, kein Abo"],["3 Monate","2,99 €","1,00 € pro Monat"],["12 Monate","4,99 €","nur 0,42 € pro Monat"]]; let i = 2;
     l.innerHTML = `<div class="kat-c">${W.map((v,n) => `<button type="button" data-i="${n}">${v[0]}</button>`).join("")}</div><div class="kat-r"><div><b class="kat-pr"></b><small></small></div><a class="kat-k" href="/werbefrei" data-wbuy>Jetzt holen</a></div>`;
-    const zeig = () => { l.querySelector(".kat-pr").textContent = W[i][1]; l.querySelector("small").textContent = W[i][2]; l.querySelector(".kat-k").href = "/werbefrei?plan=" + i; l.querySelectorAll(".kat-c button").forEach((b,n) => b.classList.toggle("an", n == i)); };
-    l.querySelectorAll(".kat-c button").forEach(b => b.onclick = () => { i = +b.dataset.i; zeig(); }); zeig();
+    const zeig = () => { let on = false; try { on = promoOn(); } catch { } const alt = W[i][1], neu = on ? wfPreis(alt.replace(/[^0-9,]/g, "").replace(",", "."), PROMO.pct).replace(".", ",") + " €" : alt;
+      l.querySelector(".kat-pr").innerHTML = on ? `<s style="color:#6f80a3;font-size:.55em;margin-right:6px">${alt}</s>${neu}` : alt; l.querySelector("small").textContent = W[i][2]; l.querySelector(".kat-k").href = "/werbefrei?plan=" + i; l.querySelectorAll(".kat-c button").forEach((b,n) => b.classList.toggle("an", n == i)); };
+    l.querySelectorAll(".kat-c button").forEach(b => b.onclick = () => { i = +b.dataset.i; zeig(); }); zeig(); window.gbWfZeig = zeig;
     l.querySelector(".kat-k").addEventListener("click", e => { e.preventDefault(); window.gbWbuy && window.gbWbuy(W[i]); });
     k.parentNode.insertAdjacentHTML("beforeend", `<div class="kat-gw"><div class="kat-gwt">Gut zu wissen</div><div class="vt"><div class="vt-k"><div class="mk"><div class="mk-h"><span class="mk-t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>Erweiterungen</span><span class="mk-s">Edge</span></div><div class="mk-r"><span class="mk-ext"><b>GB</b>GB Werbefrei</span><span class="mk-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>aktiv</span></div><div class="mk-r"><span>Opera, Brave &amp; Co</span><span class="mk-w">läuft</span></div></div><b>Für Edge, Opera &amp; Co</b><small>Als Erweiterung in deinem Browser, in einer Minute installiert.</small></div><div class="vt-k"><div class="mk"><div class="mk-h"><span class="mk-t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Premium</span><span class="mk-s">ohne Konto</span></div><div class="mk-in">Code <b>GB-••••-••••</b></div><div class="mk-r"><span>Anmeldung</span><span class="mk-w">keine</span></div><div class="mk-r"><span>Tracking</span><span class="mk-w">keins</span></div></div><b>Kein Konto nötig</b><small>Nur dein Code, keine Anmeldung und kein Tracking.</small></div><div class="vt-k"><div class="mk"><div class="mk-h"><span class="mk-t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="13" height="10" rx="1.5"/><rect x="16" y="8" width="6" height="11" rx="1.5"/></svg>Geräte</span><span class="mk-s">2 / 2</span></div><div class="mk-r"><span>PC</span><span class="mk-ok">aktiv</span></div><div class="mk-r"><span>Laptop</span><span class="mk-ok">aktiv</span></div></div><b>Bis zu 2 Geräte</b><small>Ein Code schaltet Premium auf zwei Geräten frei.</small></div><div class="vt-k"><div class="mk"><div class="mk-h"><span class="mk-t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Premium</span><span class="mk-s">12 Monate</span></div><div class="mk-bar"><i style="width:35%"></i></div><div class="mk-r"><span>Abo</span><span class="mk-w">keins</span></div><div class="mk-r"><span>Kündigen</span><span class="mk-w">nicht nötig</span></div></div><b>Endet von selbst</b><small>Einmal zahlen, kein Abo, nichts zu kündigen.</small></div></div></div>`); } }
 // Kategorie-Popup: Banner anklicken zeigt die Produkte
@@ -532,7 +534,7 @@ function aktPreise() {
   });
 }
 try { aktPreise(); } catch (e) { }
-promoBereit.then(() => { try { aktPreise(); } catch (e) { } });
+promoBereit.then(() => { try { aktPreise(); window.gbWfZeig && window.gbWfZeig(); } catch (e) { } });
 // Endlos-Animationen nur laufen lassen, wenn der Bereich im Bild ist (spart Leistung beim Scrollen, v. a. auf Handys)
 if ("IntersectionObserver" in window) {
   const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle("offv", !e.isIntersecting)), { rootMargin: "200px 0px" });
@@ -546,12 +548,24 @@ if ("IntersectionObserver" in window) {
 
 // Werbefrei direkt auf der Startseite kaufen (gleicher Server wie /werbefrei)
 { const $ = id => document.getElementById(id), wb = $("wbuy"), API = "https://65-20-95-163.sslip.io/api/werbefrei"; let p = null, b = null;
-  const V = {"1 Monat":"1.49","3 Monate":"2.99","12 Monate":"4.99"};
-  const male = async () => { if (!$("wOk2").checked) { $("wPp").innerHTML = ""; $("wMsg").textContent = "Haken setzen, dann erscheint die Zahlung."; return; }
+  const V = {"1 Monat":"1.49","3 Monate":"2.99","12 Monate":"4.99"}; let rb = { c: "", pct: 0 };
+  const wert = () => rb.pct ? wfPreis(V[p[0]], rb.pct) : V[p[0]], eu = v => v.replace(".", ",") + " €";
+  const preisZeig = () => { $("wP").innerHTML = rb.pct ? `Preis: <s>${eu(V[p[0]])}</s><b>${eu(wert())}</b>, einmalig, kein Auto-Abo.` : `Preis: ${eu(V[p[0]])}, einmalig, kein Auto-Abo.`;
+    const t = $("wRabTag"); t.hidden = !rb.pct; t.textContent = rb.pct ? `−${rb.pct} %` : ""; t.parentNode.classList.toggle("on", !!rb.pct); };
+  const rabPruef = async () => { const c = $("wRab").value.trim().toUpperCase(), m = $("wRabMsg"); m.className = "rbm"; rb = { c: "", pct: 0 };
+    if (c) { m.textContent = "Wird geprüft …";
+      try { const r = await (await fetch(SHOP_API + "/api/rabatt?c=" + encodeURIComponent(c))).json();
+        if (r.ok) { const cc = r.code || c; rb = { c: cc, pct: r.pct }; $("wRab").value = cc; m.textContent = r.hinweis || ""; }
+        else { m.className = "rbm no"; m.textContent = r.msg || "Code ungültig"; } }
+      catch { m.className = "rbm no"; m.textContent = "Server nicht erreichbar, bitte später nochmal."; } }
+    else m.textContent = "";
+    preisZeig(); male(); };
+  $("wRabGo").onclick = rabPruef; $("wRab").onkeydown = e => { if (e.key === "Enter") rabPruef(); };
+  const male = async () => { if (!$("wOk2").checked) { $("wPp").innerHTML = ""; $("wMsg").textContent = "Bitte noch den Haken setzen."; return; }
     $("wMsg").textContent = "PayPal lädt …"; try { await sdk(); } catch { $("wMsg").textContent = "PayPal konnte nicht geladen werden."; return; }
     $("wMsg").textContent = "Wähle deine Zahlungsart:"; try { b && b.close(); } catch {} $("wPp").innerHTML = "";
     b = paypal.Buttons({ style: { layout: "vertical", color: "gold", shape: "pill", label: "pay", height: 44 },
-      createOrder: (d, a) => a.order.create({ purchase_units: [{ description: "GB Werbefrei Premium – " + p[0], custom_id: "WERBEFREI", amount: { currency_code: "EUR", value: V[p[0]] } }], application_context: { shipping_preference: "NO_SHIPPING", brand_name: "Game Booster" } }),
+      createOrder: (d, a) => a.order.create({ purchase_units: [{ description: "GB Werbefrei Premium – " + p[0], custom_id: "WERBEFREI" + (rb.pct ? "|" + rb.c : ""), amount: { currency_code: "EUR", value: wert() } }], application_context: { shipping_preference: "NO_SHIPPING", brand_name: "Game Booster" } }),
       onApprove: (d, a) => a.order.capture().then(async o => { $("wMsg").textContent = "Danke! Dein Code wird erstellt …";
         for (let k = 0; k < 4; k++) { try { const r = await (await fetch(API + "/kauf", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ order: o.id }) })).json();
           if (r.ok) { $("wZc").textContent = r.code; $("wZ").classList.add("an"); $("wPp").innerHTML = ""; $("wMsg").textContent = "Fertig! Bestell-Nr.: " + o.id; try { localStorage.setItem("gbWerbefreiCode", r.code); } catch {} return; } } catch {}
@@ -560,6 +574,7 @@ if ("IntersectionObserver" in window) {
       onCancel: () => { $("wMsg").textContent = "Zahlung abgebrochen, es wurde nichts abgebucht."; },
       onError: () => { $("wMsg").textContent = "Die Zahlung hat nicht geklappt. Es wurde nichts abgebucht."; } });
     b.render("#wPp"); };
-  window.gbWbuy = w => { p = w; $("wN").textContent = w[0]; $("wV").textContent = w[1]; $("wOk2").checked = false; $("wZ").classList.remove("an"); male(); wb.classList.add("on"); sdk().catch(() => {}); };
+  window.gbWbuy = w => { p = w; $("wN").textContent = w[0]; $("wOk2").checked = false; $("wZ").classList.remove("an"); preisZeig(); male(); wb.classList.add("on"); sdk().catch(() => {});
+    const vor = typeof promoOn === "function" && promoOn() ? PROMO.code : ""; if (vor && !$("wRab").value) $("wRab").value = vor; if ($("wRab").value && !rb.pct) rabPruef(); };
   $("wOk2").onchange = male; $("wX").onclick = () => wb.classList.remove("on"); wb.onclick = e => { if (e.target === wb) wb.classList.remove("on"); };
   $("wCp").onclick = () => navigator.clipboard.writeText($("wZc").textContent).then(() => { $("wCp").textContent = "Kopiert"; setTimeout(() => $("wCp").textContent = "Kopieren", 1600); }); }
