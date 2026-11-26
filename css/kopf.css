@@ -1,0 +1,25 @@
+/* Kopfleiste wie Startseite für alle Unterseiten; aktive Seite (.an) im Glas-Look */
+.gkopf{--line:#1a2236;--txt:#e9eef8;--mut:#8b96ad;--blue2:#60a5fa;--glow:rgba(59,130,246,.35);position:sticky;top:0;z-index:50;background:rgba(5,7,13,.94);border-bottom:1px solid var(--line);font-family:Inter,system-ui,sans-serif}
+.gkopf .hd{max-width:1480px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:14px;height:68px}
+.gkopf .logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;letter-spacing:-.02em;color:var(--txt);text-decoration:none}
+.gkopf .logo b{display:grid;place-items:center;width:52px;height:52px;border-radius:12px;overflow:hidden;background:#000;border:1px solid rgba(59,130,246,.35);box-shadow:0 0 24px var(--glow)}
+.gkopf .logo b img{width:100%;height:100%;object-fit:cover;transform:scale(1.3) translateY(2%)}
+.gkopf .logo span{white-space:nowrap}.gkopf .logo em{font-style:normal;color:var(--blue2)}
+.gkopf nav{display:flex;gap:2px;margin-left:14px}
+.gkopf nav a{display:flex;align-items:center;gap:7px;padding:8px 8px;border-radius:9px;font-size:14px;font-weight:600;color:var(--mut);white-space:nowrap;text-decoration:none;border:1px solid transparent;transition:color .2s,background .2s,border-color .2s,box-shadow .2s}
+.gkopf nav a:hover,.gkopf nav a.an{color:var(--txt);background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.015));border-color:rgba(140,180,255,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 18px -6px rgba(96,165,250,.45)}
+.gkopf nav a.an{color:#fff}
+.gkopf nav a.npk{color:#fbbf24}
+.gkopf nav svg{width:15px;height:15px;flex:none}
+.gkopf .sp{flex:1}
+.gkopf .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:10px;font-weight:700;font-size:14px;color:#fff;white-space:nowrap;text-decoration:none;transition:.2s}
+.gkopf .btn.dc{background:#5865f2;border:1px solid #6d78f5}.gkopf .btn.dc:hover{background:#4752c4}.gkopf .btn.dc svg{width:18px;height:18px}
+.gkopf .btn.pr{background:linear-gradient(180deg,#4f8ff7,#2563eb);border:1px solid #4f8ff7;box-shadow:0 8px 30px -8px var(--glow)}
+.gkopf .btn.pr:hover{filter:brightness(1.12);transform:translateY(-1px)}
+@media(max-width:1480px){.gkopf nav svg{display:none}}
+@media(max-width:1300px){.gkopf nav a[href="/einblick"]:not(.an),.gkopf nav a[href="/updates"]:not(.an){display:none}}
+@media(max-width:1120px){.gkopf nav a[href="/#so-gehts"],.gkopf nav a[href="/creator"]:not(.an){display:none}}
+@media(max-width:980px){.gkopf nav{display:none}}
+@media(max-width:600px){.gkopf .hd{padding:0 16px;gap:10px}.gkopf .logo span{display:none}.gkopf .btn.dc span{display:none}.gkopf .btn.dc{padding:10px 12px}}
+
+.gkopf *{box-sizing:border-box}.gkopf a{text-decoration:none}
