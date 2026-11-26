@@ -143,6 +143,14 @@ document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class=
     const kg = s.querySelector(".kat-g"); if (els.length > 1) kg.classList.add("vier");
     els.forEach(e => kg.appendChild(e)); box.appendChild(s); }
   g.replaceWith(box); }
+// Kategorie-Popup: Banner anklicken zeigt die Produkte
+{ const m = document.createElement("div"); m.className = "kat-m"; m.innerHTML = '<div class="kat-mb"><button class="kat-x" aria-label="Schließen">&times;</button><div class="kat-mi"></div></div>'; document.body.appendChild(m);
+  let akt = null; const zu = () => { if (akt) akt.s.appendChild(akt.g); akt = null; m.classList.remove("an"); document.body.style.overflow = ""; };
+  m.addEventListener("click", e => { if (e.target === m || e.target.closest(".kat-x")) zu(); });
+  addEventListener("keydown", e => { if (e.key === "Escape") zu(); });
+  document.querySelectorAll(".kat").forEach(s => { const b = s.querySelector(".kat-b"), kg = s.querySelector(".kat-g"); b.setAttribute("role","button"); b.tabIndex = 0;
+    const auf = () => { const mi = m.querySelector(".kat-mi"); mi.innerHTML = ""; mi.appendChild(b.cloneNode()).className = "kat-mk"; mi.appendChild(kg); akt = {s, g: kg}; m.classList.add("an"); document.body.style.overflow = "hidden"; };
+    b.addEventListener("click", auf); b.addEventListener("keydown", e => { if (e.key === "Enter") auf(); }); }); }
 
 // PayPal direkt im Kauf-Fenster (Kunde bleibt auf der Seite).
 // PP_CLIENT: "sb" = PayPal-Testmodus. Fuer echte Zahlungen hier die Client-ID aus developer.paypal.com eintragen (die ist oeffentlich, kein Geheimnis).
