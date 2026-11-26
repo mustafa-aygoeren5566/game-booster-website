@@ -130,6 +130,20 @@ document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class=
 document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class="sp-w"><div style="position:relative"><a class="sc" href="mailto:kontakt@lobbycontrolvpn.de?subject=Discord%20Bot%20Anfrage"><img class="bgx" src="img/discord-bot.webp?v=1" alt="Discord Bot" style="object-fit:cover" loading="lazy"><span class="st2" style="top:10px;bottom:auto">Auf Anfrage</span></a></div>
   <div class="sp-t">Discord Bot <em>Tickets, Giveaways, Status &amp; mehr</em></div></div>`);
 
+// Kategorien: je ein Banner, darunter die passenden Karten
+{ const g = document.getElementById("shopGrid"), w = [...g.children];
+  const f = s => w.filter(e => e.innerHTML.includes(s));
+  const lp = document.createElement("div"); lp.className = "sp-w";
+  lp.innerHTML = `<a class="sc" href="/packs"><img class="bgx" src="img/packs/hero.webp" alt="Lobby Packs" style="object-fit:cover" loading="lazy"><span class="st2" style="top:10px;bottom:auto">Beliebt</span></a><div class="sp-t">Lobby Packs <em>Codes sofort per Mail</em></div>`;
+  const K = [["game-vpn", "Game-VPN", f("game-vpn.webp")], ["discord-bots", "Discord Bots", f("discord-bot.webp")], ["browser-tools", "Browser Tools", f("werbefrei-karte")], ["gratis-karten", "Gratis Karten", [...f("gta6-karte"), ...f("dmz-karte")]], ["lobby-packs", "Lobby Packs", [lp]]];
+  const box = document.createElement("div"); box.className = "kats";
+  for (const [id, n, els] of K) { if (!els.length) continue;
+    const s = document.createElement("div"); s.className = "kat"; s.id = "kat-" + id;
+    s.innerHTML = `<img class="kat-b" src="img/kat/${id}.webp?v=1" alt="${n}" loading="lazy" width="1600" height="640"><div class="shop kat-g"></div>`;
+    const kg = s.querySelector(".kat-g"); if (els.length > 1) kg.classList.add("vier");
+    els.forEach(e => kg.appendChild(e)); box.appendChild(s); }
+  g.replaceWith(box); }
+
 // PayPal direkt im Kauf-Fenster (Kunde bleibt auf der Seite).
 // PP_CLIENT: "sb" = PayPal-Testmodus. Fuer echte Zahlungen hier die Client-ID aus developer.paypal.com eintragen (die ist oeffentlich, kein Geheimnis).
 const PP_CLIENT = "BAAcQ0JuzYeVDaFygLlRZzAYNTOyEa737GmkxfFiO_MYI8ObnTcNwJhYyfMPdY1ycl6m1yeFBpYTcSmJQQ";   // Live-App
