@@ -171,7 +171,11 @@ document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class=
 <label>Bis wann?<select name="wann"><option value="">Egal</option><option>so schnell wie möglich</option><option>diese Woche</option><option>diesen Monat</option></select></label></div>
 <label>Weitere Wünsche<textarea name="text" maxlength="600" rows="3" placeholder="Beschreib kurz, was du dir vorstellst"></textarea></label>
 <button type="submit" class="kat-k">Anfrage senden</button><div class="bot-m"></div>`;
-    k.appendChild(f); btn.onclick = () => { f.hidden = !f.hidden; if (!f.hidden) f.name.focus(); };
+    f.hidden = false; const o = document.createElement("div"); o.className = "kat-m bot-o"; o.innerHTML = '<div class="kat-mb bot-b"><button type="button" class="kat-x" aria-label="Schließen">&times;</button></div>'; o.firstChild.appendChild(f); document.body.appendChild(o);
+    const zu = () => o.classList.remove("an");
+    o.addEventListener("click", e => { if (e.target === o || e.target.closest(".kat-x")) { e.stopPropagation(); zu(); } });
+    addEventListener("keydown", e => { if (e.key === "Escape" && o.classList.contains("an")) { e.stopImmediatePropagation(); zu(); } }, true);
+    btn.onclick = () => { o.classList.add("an"); f.name.focus(); };
     f.onsubmit = async e => { e.preventDefault(); const m = f.querySelector(".bot-m"), s = f.querySelector("[type=submit]");
       const d = { name: f.name.value.trim(), funk: [...f.querySelectorAll("[name=funk]:checked")].map(x => x.value), groesse: f.groesse.value, wann: f.wann.value, text: f.text.value };
       if (!d.funk.length) { m.textContent = "Bitte mindestens eine Funktion auswählen."; return; }
