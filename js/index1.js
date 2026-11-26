@@ -154,10 +154,13 @@ document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class=
     const h = k.querySelector("a.sc")?.getAttribute("href") || "#", d = document.createElement("div"); d.className = "kat-l";
     if (!e[1]) { let i = 1;
       d.innerHTML = `<div class="kat-c">${VPN.map((v,n) => `<button type="button" data-i="${n}"${n==i?' class="an"':''}>${v[0]}</button>`).join("")}</div><div class="kat-r"><div><b class="kat-pr"></b><small></small></div><button type="button" class="kat-k">Jetzt kaufen</button></div>`;
-      const zeig = () => { d.querySelector(".kat-pr").textContent = VPN[i][1]; d.querySelector("small").textContent = VPN[i][2]; d.querySelectorAll(".kat-c button").forEach((b,n) => b.classList.toggle("an", n == i)); };
+      const live = n => { const b = document.querySelector(`[data-plan="${VPN[n][0]}"]`), c = b && b.closest(".pc"), p = c && c.querySelector(".p");
+        if (!p) return [VPN[n][1], VPN[n][2], ""]; const s = c.querySelector(".palt s"); return [p.firstChild.textContent.trim() + " €", c.querySelector(".per")?.textContent || VPN[n][2], s ? s.textContent : ""]; };
+      const zeig = () => { const L = live(i); d.querySelector(".kat-pr").innerHTML = (L[2] ? `<s class="kat-alt">${L[2]}</s> ` : "") + L[0]; d.querySelector("small").textContent = L[1];
+        const bd = document.querySelector("#kat-game-vpn .kat-p"); if (bd) bd.textContent = "ab " + live(0)[0]; d.querySelectorAll(".kat-c button").forEach((b,n) => b.classList.toggle("an", n == i)); };
       d.querySelectorAll(".kat-c button").forEach(b => b.onclick = () => { i = +b.dataset.i; zeig(); });
       d.querySelector(".kat-k").onclick = () => { document.querySelector(".kat-x")?.click(); document.querySelector(`[data-plan="${VPN[i][0]}"]`)?.click(); };
-      zeig();
+      zeig(); window.gbVpnZeig = zeig; setTimeout(() => { try { promoBereit.then(() => setTimeout(zeig, 50)); } catch (e) { } }, 0);
     } else d.innerHTML = `<div class="kat-r"><div><b class="kat-pr">${e[1][0]}</b><small>${e[1][1]}</small></div><a class="kat-k" href="${h}"${/^https?:/.test(h) && !h.includes(".exe") ? ' target="_blank" rel="noopener"' : ''}>${e[1][2]}</a></div>`;
     k.appendChild(d); }); }
 // Discord-Bot-Anfrage: Formular statt Mail
@@ -184,6 +187,8 @@ document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class=
         m.textContent = j.msg || (j.ok ? "Gesendet." : "Fehler."); if (j.ok) { f.reset(); m.classList.add("ok"); } }
       catch { m.textContent = "Senden hat nicht geklappt, bitte später nochmal."; }
       s.disabled = false; }; } }
+// Links auf #preise oeffnen jetzt das Game-VPN-Popup
+window.addEventListener("click", e => { const a = e.target.closest('a[href="#preise"]'); if (!a || a.closest(".kat-m, .kat")) return; const b = document.querySelector("#kat-game-vpn .kat-b"); if (!b) return; e.preventDefault(); e.stopImmediatePropagation(); b.click(); window.gbVpnZeig && window.gbVpnZeig(); }, true);
 // Kategorie-Popup: Banner anklicken zeigt die Produkte
 { const m = document.createElement("div"); m.className = "kat-m"; m.innerHTML = '<div class="kat-mb"><button class="kat-x" aria-label="Schließen">&times;</button><div class="kat-mi"></div></div>'; document.body.appendChild(m);
   let akt = null; const zu = () => { if (akt) akt.s.appendChild(akt.g); akt = null; m.classList.remove("an"); document.body.style.overflow = ""; };
