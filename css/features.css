@@ -278,3 +278,6 @@ label.chk span,label.chk small,label.cns span{font-size:11.5px!important;line-he
 @media(min-width:1000px){.gsup .wrap{max-width:1440px}.gsg.drei .gsb{flex-wrap:nowrap}}
 .gsb i{white-space:nowrap}@media(min-width:1000px){.gsg.drei{grid-template-columns:1.45fr 1fr 1fr}}
 .gsl:before,.gsl:after{max-width:none!important}.gsl:before{background:linear-gradient(90deg,rgba(59,130,246,.15),#3b82f6)!important}.gsl:after{background:linear-gradient(270deg,rgba(16,185,129,.15),#10b981)!important}.gsup .wrap:after{max-width:none!important;background:linear-gradient(90deg,rgba(59,130,246,.15),#3b82f6 30%,#10b981 70%,rgba(16,185,129,.15))!important}
+
+/* Schritt-Kästchen Konsole: fest oben (top:50% ohne Rückschub rutschte in den Text) */
+.kst3 .ksw{top:24px!important;transform:none!important}
