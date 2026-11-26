@@ -200,11 +200,17 @@
 
   // ---------- Daten für die Grafikkarte ----------
   function punkteGeo() {
-    var f = [];
+    var f = [], grp = {}, sicht = [];
     D.punkte.forEach(function (pt, i) {
       if (aus[pt.k]) return;
       if (suche && pt.n.toLowerCase().indexOf(suche) < 0) return;
-      f.push({ type: "Feature", id: i, geometry: { type: "Point", coordinates: ll(pt.x, pt.y) }, properties: { i: i, k: "p-" + pt.k + (GANG[pt.id] ? "~" + GANG[pt.id] : "") + (erledigt["p" + i] && KAT[pt.k] ? "-ok" : ""), ok: erledigt["p" + i] ? 1 : 0 } });
+      var key = Math.round(pt.x * 2) + "," + Math.round(pt.y * 2); (grp[key] = grp[key] || []).push(i); sicht.push([pt, i, key]);
+    });
+    // Orte auf (fast) demselben Fleck im Kreis auffächern, sonst liegen die Pins übereinander
+    sicht.forEach(function (a) {
+      var pt = a[0], i = a[1], g = grp[a[2]], n = g.length, x = pt.x, y = pt.y;
+      if (n > 1) { var j = g.indexOf(i), w = j / n * 2 * Math.PI, r = 0.45 + 0.12 * n; x += Math.cos(w) * r; y += Math.sin(w) * r; }
+      f.push({ type: "Feature", id: i, geometry: { type: "Point", coordinates: ll(x, y) }, properties: { i: i, k: "p-" + pt.k + (GANG[pt.id] ? "~" + GANG[pt.id] : "") + (erledigt["p" + i] && KAT[pt.k] ? "-ok" : ""), ok: erledigt["p" + i] ? 1 : 0 } });
     });
     return { type: "FeatureCollection", features: f };
   }
@@ -225,7 +231,7 @@
     map.addSource("bez", { type: "geojson", data: bezirkeGeo() });
     map.addLayer({ id: "bez-fl", type: "fill", source: "bez", paint: { "fill-color": "#fff", "fill-opacity": ["case", ["boolean", ["feature-state", "an"], false], .06, 0] } });
     map.addLayer({ id: "bez-rand", type: "line", source: "bez", paint: { "line-color": "#fff", "line-width": 1.4, "line-opacity": ["case", ["boolean", ["feature-state", "an"], false], .9, .22] } });
-    map.addSource("orte", { type: "geojson", data: punkteGeo(), cluster: true, clusterRadius: 30, clusterMaxZoom: 8, clusterMinPoints: 4 });
+    map.addSource("orte", { type: "geojson", data: punkteGeo(), cluster: true, clusterRadius: 30, clusterMaxZoom: 7, clusterMinPoints: 4 });
     map.addLayer({ id: "haufen", type: "symbol", source: "orte", filter: ["has", "point_count"],
       layout: { "icon-image": ["concat", "n-", ["to-string", ["get", "point_count"]]], "icon-allow-overlap": true, "icon-ignore-placement": true } });
     map.addLayer({ id: "pins", type: "symbol", source: "orte", filter: ["!", ["has", "point_count"]],
