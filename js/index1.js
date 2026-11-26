@@ -174,6 +174,14 @@ document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class=
 <label>Bis wann?<select name="wann"><option value="">Egal</option><option>so schnell wie möglich</option><option>diese Woche</option><option>diesen Monat</option></select></label></div>
 <label>Weitere Wünsche<textarea name="text" maxlength="600" rows="3" placeholder="Beschreib kurz, was du dir vorstellst"></textarea></label>
 <button type="submit" class="kat-k">Anfrage senden</button><div class="bot-m"></div>`;
+    f.querySelectorAll("select").forEach(s => { const w = document.createElement("div"), b = document.createElement("button"), u = document.createElement("div");
+      w.className = "gsel"; b.type = "button"; b.className = "gsel-b"; u.className = "gsel-l"; u.setAttribute("role", "listbox");
+      const mal = () => { b.textContent = s.options[s.selectedIndex].text; u.querySelectorAll("button").forEach((x, n) => x.classList.toggle("an", n == s.selectedIndex)); };
+      [...s.options].forEach((o, n) => { const x = document.createElement("button"); x.type = "button"; x.textContent = o.text;
+        x.onclick = () => { s.selectedIndex = n; mal(); w.classList.remove("auf"); }; u.appendChild(x); });
+      b.onclick = e => { e.stopPropagation(); const z = !w.classList.contains("auf"); f.querySelectorAll(".gsel.auf").forEach(x => x.classList.remove("auf")); w.classList.toggle("auf", z); };
+      s.hidden = true; s.after(w); w.append(b, u); mal(); f.addEventListener("reset", () => setTimeout(mal)); });
+    document.addEventListener("click", e => { if (!e.target.closest(".gsel")) f.querySelectorAll(".gsel.auf").forEach(x => x.classList.remove("auf")); });
     f.hidden = false; const o = document.createElement("div"); o.className = "kat-m bot-o"; o.innerHTML = '<div class="kat-mb bot-b"><button type="button" class="kat-x" aria-label="Schließen">&times;</button></div>'; o.firstChild.appendChild(f); document.body.appendChild(o);
     const zu = () => o.classList.remove("an");
     o.addEventListener("click", e => { if (e.target === o || e.target.closest(".kat-x")) { e.stopPropagation(); zu(); } });
