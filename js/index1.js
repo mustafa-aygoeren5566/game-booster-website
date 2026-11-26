@@ -160,6 +160,26 @@ document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class=
       zeig();
     } else d.innerHTML = `<div class="kat-r"><div><b class="kat-pr">${e[1][0]}</b><small>${e[1][1]}</small></div><a class="kat-k" href="${h}"${/^https?:/.test(h) && !h.includes(".exe") ? ' target="_blank" rel="noopener"' : ''}>${e[1][2]}</a></div>`;
     k.appendChild(d); }); }
+// Discord-Bot-Anfrage: Formular statt Mail
+{ const k = [...document.querySelectorAll(".kat-g > .sp-w")].find(e => e.innerHTML.includes("discord-bot.webp")), l = k?.querySelector(".kat-l");
+  if (l) { const alt = l.querySelector(".kat-k"), btn = document.createElement("button"); btn.type = "button"; btn.className = "kat-k"; btn.textContent = "Anfragen"; alt.replaceWith(btn);
+    const F = [["tickets","Tickets"],["giveaways","Giveaways"],["status","Status"],["welcome","Willkommen"],["rollen","Rollen"],["verify","Verify"],["logs","Logs"],["mod","Moderation"],["level","Level"],["sonst","Sonstiges"]];
+    const f = document.createElement("form"); f.className = "bot-f"; f.hidden = true;
+    f.innerHTML = `<label>Dein Discord-Name *<input name="name" required maxlength="32" placeholder="z. B. max123" autocomplete="off"></label>
+<div class="bot-l">Was soll der Bot können? *</div><div class="bot-c">${F.map(([v,t]) => `<label><input type="checkbox" name="funk" value="${v}"><span>${t}</span></label>`).join("")}</div>
+<div class="bot-z"><label>Servergröße<select name="groesse"><option value="">Bitte wählen</option><option>unter 100</option><option>100 bis 1000</option><option>über 1000</option></select></label>
+<label>Bis wann?<select name="wann"><option value="">Egal</option><option>so schnell wie möglich</option><option>diese Woche</option><option>diesen Monat</option></select></label></div>
+<label>Weitere Wünsche<textarea name="text" maxlength="600" rows="3" placeholder="Beschreib kurz, was du dir vorstellst"></textarea></label>
+<button type="submit" class="kat-k">Anfrage senden</button><div class="bot-m"></div>`;
+    l.appendChild(f); btn.onclick = () => { f.hidden = !f.hidden; if (!f.hidden) f.name.focus(); };
+    f.onsubmit = async e => { e.preventDefault(); const m = f.querySelector(".bot-m"), s = f.querySelector("[type=submit]");
+      const d = { name: f.name.value.trim(), funk: [...f.querySelectorAll("[name=funk]:checked")].map(x => x.value), groesse: f.groesse.value, wann: f.wann.value, text: f.text.value };
+      if (!d.funk.length) { m.textContent = "Bitte mindestens eine Funktion auswählen."; return; }
+      s.disabled = true; m.textContent = "Wird gesendet …";
+      try { const r = await fetch(SHOP_API + "/api/botanfrage", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d) }); const j = await r.json();
+        m.textContent = j.msg || (j.ok ? "Gesendet." : "Fehler."); if (j.ok) { f.reset(); m.classList.add("ok"); } }
+      catch { m.textContent = "Senden hat nicht geklappt, bitte später nochmal."; }
+      s.disabled = false; }; } }
 // Kategorie-Popup: Banner anklicken zeigt die Produkte
 { const m = document.createElement("div"); m.className = "kat-m"; m.innerHTML = '<div class="kat-mb"><button class="kat-x" aria-label="Schließen">&times;</button><div class="kat-mi"></div></div>'; document.body.appendChild(m);
   let akt = null; const zu = () => { if (akt) akt.s.appendChild(akt.g); akt = null; m.classList.remove("an"); document.body.style.overflow = ""; };
