@@ -72,3 +72,6 @@ $("wCopy").addEventListener("click", () => navigator.clipboard.writeText($("wCod
 // schon gekaufter Code auf diesem Geraet wieder anzeigen
 try { const c = localStorage.getItem("gbWerbefreiCode"); if (c) { $("wCodeT").textContent = c; $("wCode").classList.add("zeigen") } } catch (e) {}
 gate();
+
+// ?plan=0|1|2 von der Startseite: Paket vorauswählen
+{ const n = new URLSearchParams(location.search).get("plan"), b = n !== null && document.querySelectorAll(".plans button")[+n]; if (b) { b.click(); setTimeout(() => b.scrollIntoView({ block: "center" }), 300); } }
