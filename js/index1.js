@@ -402,6 +402,8 @@ function zeigePromo() {
   };
   document.getElementById("prTxt2").textContent = PROMO.code;
   document.getElementById("prCode").onclick = kop; document.getElementById("prCode2").onclick = kop;
+  { const L = { BLACKWEEK: "img/leiste-blackweek.webp?v=1" }[(PROMO.code || "").toUpperCase()], an = document.querySelector(".ann");
+    if (L && an) { const la = an.querySelector("a"); la.innerHTML = `<img src="${L}" alt="${esc(PROMO.titel)}: ${PROMO.pct} % auf alle Abos, Code ${esc(PROMO.code)}" width="2000" height="272" decoding="async">`; an.classList.add("annbild"); } }
   { const BILD = { BLACKWEEK: "img/aktion-blackweek.webp?v=5" }, src = BILD[(PROMO.code || "").toUpperCase()]; let a = document.getElementById("prBild");
     if (src) { if (!a) { a = document.createElement("a"); a.id = "prBild"; a.href = "#preise"; a.className = "pbild"; a.innerHTML = '<img alt="" width="1983" height="793" decoding="async">'; el.parentNode.insertBefore(a, el); }
       a.querySelector("img").src = src; a.querySelector("img").alt = PROMO.titel + ": " + PROMO.pct + " % mit Code " + PROMO.code; el.style.display = "none"; const bd = document.getElementById("prBald"); if (bd) bd.style.display = "none"; }
