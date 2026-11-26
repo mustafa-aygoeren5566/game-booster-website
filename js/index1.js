@@ -143,6 +143,23 @@ document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class=
     const kg = s.querySelector(".kat-g"); if (els.length > 1) kg.classList.add("vier");
     els.forEach(e => kg.appendChild(e)); box.appendChild(s); }
   g.replaceWith(box); }
+// Preise: Badge auf dem Banner, Preisleiste unter jeder Karte
+{ const B = {"game-vpn":"ab 1,49 €","discord-bots":"Auf Anfrage","browser-tools":"ab 1,49 €","gratis-karten":"Gratis","lobby-packs":"Täglich gratis"};
+  for (const [id,t] of Object.entries(B)) { const s = document.getElementById("kat-" + id); if (!s) continue;
+    const w = document.createElement("div"); w.className = "kat-w"; const b = s.querySelector(".kat-b"); b.replaceWith(w); w.appendChild(b);
+    w.insertAdjacentHTML("beforeend", `<span class="kat-p">${t}</span>`); }
+  const VPN = [["1 Tag","1,49 €","24 Stunden"],["1 Monat","4,99 €","≈ 0,17 € pro Tag"],["3 Monate","12,99 €","4,33 € pro Monat"],["1 Jahr","39,99 €","3,33 € pro Monat"]];
+  const P = [["game-vpn.webp",null],["discord-bot.webp",["Auf Anfrage","individuell für deinen Server","Anfragen"]],["werbefrei-karte",["ab 1,49 €","einmal zahlen, kein Abo","Ansehen"]],["gta6-karte",["Gratis","direkt im Browser","Karte öffnen"]],["dmz-karte",["Gratis","in der Game Booster App","App laden"]],["packs/hero",["Gratis","jeden Tag ein Pack","Pack öffnen"]]];
+  document.querySelectorAll(".kat-g > .sp-w").forEach(k => { const e = P.find(p => k.innerHTML.includes(p[0])); if (!e) return;
+    const h = k.querySelector("a.sc")?.getAttribute("href") || "#", d = document.createElement("div"); d.className = "kat-l";
+    if (!e[1]) { let i = 1;
+      d.innerHTML = `<div class="kat-c">${VPN.map((v,n) => `<button type="button" data-i="${n}"${n==i?' class="an"':''}>${v[0]}</button>`).join("")}</div><div class="kat-r"><div><b class="kat-pr"></b><small></small></div><button type="button" class="kat-k">Jetzt kaufen</button></div>`;
+      const zeig = () => { d.querySelector(".kat-pr").textContent = VPN[i][1]; d.querySelector("small").textContent = VPN[i][2]; d.querySelectorAll(".kat-c button").forEach((b,n) => b.classList.toggle("an", n == i)); };
+      d.querySelectorAll(".kat-c button").forEach(b => b.onclick = () => { i = +b.dataset.i; zeig(); });
+      d.querySelector(".kat-k").onclick = () => { document.querySelector(".kat-x")?.click(); document.querySelector(`[data-plan="${VPN[i][0]}"]`)?.click(); };
+      zeig();
+    } else d.innerHTML = `<div class="kat-r"><div><b class="kat-pr">${e[1][0]}</b><small>${e[1][1]}</small></div><a class="kat-k" href="${h}"${/^https?:/.test(h) && !h.includes(".exe") ? ' target="_blank" rel="noopener"' : ''}>${e[1][2]}</a></div>`;
+    k.appendChild(d); }); }
 // Kategorie-Popup: Banner anklicken zeigt die Produkte
 { const m = document.createElement("div"); m.className = "kat-m"; m.innerHTML = '<div class="kat-mb"><button class="kat-x" aria-label="Schließen">&times;</button><div class="kat-mi"></div></div>'; document.body.appendChild(m);
   let akt = null; const zu = () => { if (akt) akt.s.appendChild(akt.g); akt = null; m.classList.remove("an"); document.body.style.overflow = ""; };
