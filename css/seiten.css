@@ -38,3 +38,9 @@
 #zugang .kz .row{gap:6px;align-items:center;background:transparent!important;border:0!important;padding:0!important;box-shadow:none!important}
 #zugang .kz .row input{background:transparent!important;border:0!important;box-shadow:none!important;outline:0!important;border-radius:10px!important;padding-left:12px}
 #zugang .kz .row .btn{border-radius:10px!important}
+.plans>button,.krab,.chk,.dns>div,.two>div,.note.kgw,#zugang .kz{background:rgba(3,7,16,.42)!important;border:1px solid rgba(150,190,255,.1)!important;box-shadow:none!important}
+.dns code{background:rgba(255,255,255,.04)!important;box-shadow:none!important}
+.plans>button.on{background:rgba(37,99,235,.14)!important;border-color:rgba(96,165,250,.55)!important;box-shadow:0 0 24px -8px rgba(59,130,246,.55)!important}
+.plans>button.best{background:rgba(16,185,129,.08)!important;border-color:rgba(52,211,153,.4)!important}
+#zugang .kz:focus-within,.krab:focus-within{border-color:rgba(96,165,250,.55)!important}
+.card{background:linear-gradient(150deg,rgba(40,70,140,.2),rgba(8,14,32,.6))!important}
