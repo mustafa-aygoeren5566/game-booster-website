@@ -159,7 +159,7 @@ document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class=
       const zeig = () => { const L = live(i); d.querySelector(".kat-pr").innerHTML = (L[2] ? `<s class="kat-alt">${L[2]}</s> ` : "") + L[0]; d.querySelector("small").textContent = L[1];
         const bd = document.querySelector("#kat-game-vpn .kat-p"); if (bd) bd.textContent = "ab " + live(0)[0]; d.querySelectorAll(".kat-c button").forEach((b,n) => b.classList.toggle("an", n == i)); };
       d.querySelectorAll(".kat-c button").forEach(b => b.onclick = () => { i = +b.dataset.i; zeig(); });
-      d.querySelector(".kat-k").onclick = () => { document.querySelector(".kat-x")?.click(); document.querySelector(`[data-plan="${VPN[i][0]}"]`)?.click(); };
+      d.querySelector(".kat-k").onclick = () => { document.querySelector(".kat-m.an .kat-x")?.click(); document.querySelector(`[data-plan="${VPN[i][0]}"]`)?.click(); };
       zeig(); window.gbVpnZeig = zeig; setTimeout(() => { try { promoBereit.then(() => setTimeout(zeig, 50)); } catch (e) { } }, 0);
     } else d.innerHTML = `<div class="kat-r"><div><b class="kat-pr">${e[1][0]}</b><small>${e[1][1]}</small></div><a class="kat-k" href="${h}"${/^https?:/.test(h) && !h.includes(".exe") ? ' target="_blank" rel="noopener"' : ''}>${e[1][2]}</a></div>`;
     k.appendChild(d); }); }
