@@ -31,3 +31,9 @@
 .gkopf nav a:hover svg{color:#60a5fa!important}
 .gkopf,.gkopf *{font-family:Inter,system-ui,sans-serif!important;text-transform:none!important;font-style:normal!important}
 .gkopf .logo span{color:#e9eef8!important}.gkopf .logo em{color:#60a5fa!important}
+.gkopf .btn.dc,.gkopf .btn.pr{transform:none!important;clip-path:none!important;letter-spacing:0!important;font-size:14px!important;font-weight:700!important;height:40px!important;padding:0 16px!important;border-radius:12px!important;display:inline-flex!important;align-items:center!important;gap:8px!important}
+.gkopf .btn.dc:before,.gkopf .btn.dc:after,.gkopf .btn.pr:before,.gkopf .btn.pr:after{display:none!important}
+.gkopf .btn.dc{background:linear-gradient(180deg,rgba(30,34,46,.95),rgba(16,19,28,.95))!important;border:1px solid rgba(255,255,255,.1)!important;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)!important}
+.gkopf .btn.dc svg{color:#8b9cff!important;fill:currentColor}
+.gkopf .btn.pr{background:linear-gradient(180deg,#4f8df7,#2d62d8)!important;border:1px solid rgba(140,180,255,.45)!important;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 6px 18px -6px rgba(59,130,246,.7)!important}
+.gkopf .btn.dc:hover,.gkopf .btn.pr:hover{filter:brightness(1.1)}
