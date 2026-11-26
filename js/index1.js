@@ -402,7 +402,7 @@ function zeigePromo() {
   };
   document.getElementById("prTxt2").textContent = PROMO.code;
   document.getElementById("prCode").onclick = kop; document.getElementById("prCode2").onclick = kop;
-  { const BILD = { BLACKWEEK: "img/aktion-blackweek.webp?v=2" }, src = BILD[(PROMO.code || "").toUpperCase()]; let a = document.getElementById("prBild");
+  { const BILD = { BLACKWEEK: "img/aktion-blackweek.webp?v=3" }, src = BILD[(PROMO.code || "").toUpperCase()]; let a = document.getElementById("prBild");
     if (src) { if (!a) { a = document.createElement("a"); a.id = "prBild"; a.href = "#preise"; a.className = "pbild"; a.innerHTML = '<img alt="" width="1600" height="640" decoding="async">'; el.parentNode.insertBefore(a, el); }
       a.querySelector("img").src = src; a.querySelector("img").alt = PROMO.titel + ": " + PROMO.pct + " % mit Code " + PROMO.code; el.style.display = "none"; const bd = document.getElementById("prBald"); if (bd) bd.style.display = "none"; }
     else if (a) { a.remove(); el.style.display = ""; const bd = document.getElementById("prBald"); if (bd) bd.style.display = ""; } }
