@@ -165,13 +165,13 @@ document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class=
   if (l) { const alt = l.querySelector(".kat-k"), btn = document.createElement("button"); btn.type = "button"; btn.className = "kat-k"; btn.textContent = "Anfragen"; alt.replaceWith(btn);
     const F = [["tickets","Tickets"],["giveaways","Giveaways"],["status","Status"],["welcome","Willkommen"],["rollen","Rollen"],["verify","Verify"],["logs","Logs"],["mod","Moderation"],["level","Level"],["sonst","Sonstiges"]];
     const f = document.createElement("form"); f.className = "bot-f"; f.hidden = true;
-    f.innerHTML = `<label>Dein Discord-Name *<input name="name" required maxlength="32" placeholder="z. B. max123" autocomplete="off"></label>
+    f.innerHTML = `<div class="bot-h"><b>Deine Bot-Anfrage</b><span>Füll kurz aus, wir melden uns dann per Discord bei dir.</span></div><label>Dein Discord-Name *<input name="name" required maxlength="32" placeholder="z. B. max123" autocomplete="off"></label>
 <div class="bot-l">Was soll der Bot können? *</div><div class="bot-c">${F.map(([v,t]) => `<label><input type="checkbox" name="funk" value="${v}"><span>${t}</span></label>`).join("")}</div>
 <div class="bot-z"><label>Servergröße<select name="groesse"><option value="">Bitte wählen</option><option>unter 100</option><option>100 bis 1000</option><option>über 1000</option></select></label>
 <label>Bis wann?<select name="wann"><option value="">Egal</option><option>so schnell wie möglich</option><option>diese Woche</option><option>diesen Monat</option></select></label></div>
 <label>Weitere Wünsche<textarea name="text" maxlength="600" rows="3" placeholder="Beschreib kurz, was du dir vorstellst"></textarea></label>
 <button type="submit" class="kat-k">Anfrage senden</button><div class="bot-m"></div>`;
-    l.appendChild(f); btn.onclick = () => { f.hidden = !f.hidden; if (!f.hidden) f.name.focus(); };
+    k.appendChild(f); btn.onclick = () => { f.hidden = !f.hidden; if (!f.hidden) f.name.focus(); };
     f.onsubmit = async e => { e.preventDefault(); const m = f.querySelector(".bot-m"), s = f.querySelector("[type=submit]");
       const d = { name: f.name.value.trim(), funk: [...f.querySelectorAll("[name=funk]:checked")].map(x => x.value), groesse: f.groesse.value, wann: f.wann.value, text: f.text.value };
       if (!d.funk.length) { m.textContent = "Bitte mindestens eine Funktion auswählen."; return; }
