@@ -126,6 +126,10 @@ document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class=
 document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class="sp-w"><div style="position:relative"><a class="sp-cr2" href="https://www.gtabase.com/de/gta-6/karte/" target="_blank" rel="noopener" title="Kartendaten von GTABase"><img src="img/gtabase-logo.webp" alt="" style="height:14px;width:auto;display:block"><span><small>Kartendaten</small><b>GTA</b> BASE</span></a><a class="sc" href="/gta6"><img class="bgx" src="img/gta6-karte.webp?v=19" alt="GTA 6 Karte" style="object-fit:cover" loading="lazy"><span class="st2" style="top:10px;bottom:auto">Gratis</span></a></div>
   <div class="sp-t">GTA 6 Karte <em>Alle Orte auf einer Karte</em></div></div>`);
 
+// Discord Bot (Dienstleistung auf Anfrage)
+document.getElementById("shopGrid").insertAdjacentHTML("beforeend", `<div class="sp-w"><div style="position:relative"><a class="sc" href="mailto:kontakt@lobbycontrolvpn.de?subject=Discord%20Bot%20Anfrage"><img class="bgx" src="img/discord-bot.webp?v=1" alt="Discord Bot" style="object-fit:cover" loading="lazy"><span class="st2" style="top:10px;bottom:auto">Auf Anfrage</span></a></div>
+  <div class="sp-t">Discord Bot <em>Tickets, Giveaways, Status &amp; mehr</em></div></div>`);
+
 // PayPal direkt im Kauf-Fenster (Kunde bleibt auf der Seite).
 // PP_CLIENT: "sb" = PayPal-Testmodus. Fuer echte Zahlungen hier die Client-ID aus developer.paypal.com eintragen (die ist oeffentlich, kein Geheimnis).
 const PP_CLIENT = "BAAcQ0JuzYeVDaFygLlRZzAYNTOyEa737GmkxfFiO_MYI8ObnTcNwJhYyfMPdY1ycl6m1yeFBpYTcSmJQQ";   // Live-App
