@@ -1,0 +1,36 @@
+/* Einblick + Konsole: Kopfleiste wie Startseite und Glas-Look (ohne Blur, wie statisch.css: kein Scroll-Lag) */
+.gkopf{--line:#1a2236;--txt:#e9eef8;--mut:#8b96ad;--blue2:#60a5fa;--glow:rgba(59,130,246,.35);position:sticky;top:0;z-index:50;background:rgba(5,7,13,.94);border-bottom:1px solid var(--line);font-family:Inter,system-ui,sans-serif}
+.gkopf .hd{max-width:1480px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:14px;height:68px}
+.gkopf .logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;letter-spacing:-.02em;color:var(--txt);text-decoration:none}
+.gkopf .logo b{display:grid;place-items:center;width:52px;height:52px;border-radius:12px;overflow:hidden;background:#000;border:1px solid rgba(59,130,246,.35);box-shadow:0 0 24px var(--glow)}
+.gkopf .logo b img{width:100%;height:100%;object-fit:cover;transform:scale(1.3) translateY(2%)}
+.gkopf .logo span{white-space:nowrap}.gkopf .logo em{font-style:normal;color:var(--blue2)}
+.gkopf nav{display:flex;gap:2px;margin-left:14px}
+.gkopf nav a{display:flex;align-items:center;gap:7px;padding:8px 8px;border-radius:9px;font-size:14px;font-weight:600;color:var(--mut);white-space:nowrap;text-decoration:none;border:1px solid transparent;transition:color .2s,background .2s,border-color .2s,box-shadow .2s}
+.gkopf nav a:hover,.gkopf nav a.an{color:var(--txt);background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.015));border-color:rgba(140,180,255,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 18px -6px rgba(96,165,250,.45)}
+.gkopf nav a.an{color:#fff}
+.gkopf nav a.npk{color:#fbbf24}
+.gkopf nav svg{width:15px;height:15px;flex:none}
+.gkopf .sp{flex:1}
+.gkopf .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:10px;font-weight:700;font-size:14px;color:#fff;white-space:nowrap;text-decoration:none;transition:.2s}
+.gkopf .btn.dc{background:#5865f2;border:1px solid #6d78f5}.gkopf .btn.dc:hover{background:#4752c4}.gkopf .btn.dc svg{width:18px;height:18px}
+.gkopf .btn.pr{background:linear-gradient(180deg,#4f8ff7,#2563eb);border:1px solid #4f8ff7;box-shadow:0 8px 30px -8px var(--glow)}
+.gkopf .btn.pr:hover{filter:brightness(1.12);transform:translateY(-1px)}
+@media(max-width:1480px){.gkopf nav svg{display:none}}
+@media(max-width:1300px){.gkopf nav a[href="/einblick"]:not(.an),.gkopf nav a[href="/updates"]{display:none}}
+@media(max-width:1120px){.gkopf nav a[href="/#so-gehts"],.gkopf nav a[href="/creator"]{display:none}}
+@media(max-width:980px){.gkopf nav{display:none}}
+@media(max-width:600px){.gkopf .hd{padding:0 16px;gap:10px}.gkopf .logo span{display:none}.gkopf .btn.dc span{display:none}.gkopf .btn.dc{padding:10px 12px}}
+
+/* Glasflächen – gleiches Rezept wie Startseite (.gsc/.viz) */
+.v0b .bg-card.rounded-2xl,.card,.flow,.vid,.kvid{background:linear-gradient(150deg,rgba(40,70,140,.22),rgba(8,14,32,.62))!important;border:1px solid rgba(140,180,255,.2)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 18px 44px -16px rgba(0,0,0,.6)!important}
+.v0b .bg-card.rounded-2xl:hover{border-color:rgba(140,180,255,.34)!important}
+.win{border-color:rgba(140,180,255,.28)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 50px 120px -40px rgba(0,0,0,.9),0 0 60px -20px rgba(59,130,246,.35)!important}
+.ksw.glass,.lzw.glass{background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.018))!important;border:1px solid rgba(140,180,255,.2)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 14px 34px -12px rgba(0,0,0,.6)!important}
+/* kleine Chips/Pillen */
+.pill,.kz,.note{background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.015))!important;border-color:rgba(140,180,255,.18)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+/* Konsole: innere Felder als helles Glas (Rahmenfarben für Auswahl/Bester Preis bleiben) */
+.plans>button,.krab,.chk,.dns>div,.dns code{background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.012))!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.plans>button:not(.on):not(.best),.krab,.chk,.dns>div{border-color:rgba(140,180,255,.16)!important}
+.plans>button.on{background:linear-gradient(145deg,rgba(59,130,246,.22),rgba(59,130,246,.06))!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 26px -8px rgba(59,130,246,.6)}
+.plans>button.best{background:linear-gradient(145deg,rgba(52,211,153,.12),rgba(52,211,153,.03))!important}
