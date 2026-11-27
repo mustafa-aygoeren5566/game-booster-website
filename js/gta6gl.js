@@ -21,6 +21,7 @@
   D.kategorien.forEach(function (k) { if (HERZ[k.id]) { k.herz = 1; k.pfarbe = "#f1e0e2"; k.ifarbe = "#15111c"; k.farbe = "#ff5fa2"; } });
   // Motive nach Spiel-Vorbild selbst gezeichnet (24er-Raster)
   var MOTIV = {
+    "underwater": "M12 2.5a8.5 8.5 0 0 1 8.5 8.5v5.5H17V21H7v-4.5H3.5V11A8.5 8.5 0 0 1 12 2.5zM12 6.2a4.8 4.8 0 1 0 0 9.6 4.8 4.8 0 1 0 0-9.6zM12 8.2a2.8 2.8 0 1 1 0 5.6 2.8 2.8 0 1 1 0-5.6zM9 18v1.4h6V18z",
     "ammu-nation": "M2.5 6.5h19v5h-9.5v2.2h-3.4L7.6 19.5H2.5zM8.8 11.5v1.4h1.6v-1.4z",
     "shooting-range": "M1.5 5.5h14v4h-7v2H6l-.8 5.5H1.5zM17.5 10.5a5 5 0 1 1-5 5h2.2a2.8 2.8 0 1 0 2.8-2.8z",
     "pay-n-spray": "M4 9.5h7.5V21H4zM5.5 6h4.5v3.5H5.5zM6.8 3.5h3V6h-3zM13 6.2l8-3.2v2.6l-6.6 2zM13 8.4l8 .4v2.6zM13 10.4l7 4.2-1.2 2.1z",
