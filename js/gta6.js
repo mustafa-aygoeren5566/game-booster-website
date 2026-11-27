@@ -30,6 +30,8 @@
   D.kategorien.forEach(function (k) { if (KFARBE[k.id]) { k.pfarbe = KFARBE[k.id]; k.farbe = k.pfarbe; } });
   var HERZ = {clothing:1,footwear:1,haircut:1,tattoo:1,bar:1,nightclub:1,cinema:1,"food-and-drink":1};
   D.kategorien.forEach(function (k) { if (HERZ[k.id]) { k.herz = 1; k.pfarbe = "#f1e0e2"; k.ifarbe = "#15111c"; k.farbe = "#ff5fa2"; } });
+  // Unterwasser: eigener Taucherhelm (sonst gleicher Anker wie Jachthäfen)
+  D.kategorien.forEach(function (k) { if (k.id === "underwater") k.icon = "M12 2.5a8.5 8.5 0 0 1 8.5 8.5v5.5H17V21H7v-4.5H3.5V11A8.5 8.5 0 0 1 12 2.5zM12 6.2a4.8 4.8 0 1 0 0 9.6 4.8 4.8 0 1 0 0-9.6zM12 8.2a2.8 2.8 0 1 1 0 5.6 2.8 2.8 0 1 1 0-5.6zM9 18v1.4h6V18z"; });
   var HERZP = '<path d="M9.5 -26.2c-2.6-1.9-4.4-3.4-4.4-5.3a2.3 2.3 0 0 1 4.4-1 2.3 2.3 0 0 1 4.4 1c0 1.9-1.8 3.4-4.4 5.3z" fill="#ff5fa2" stroke="#fff" stroke-width="1"/>';
   var HAT = {};
   Object.keys(D.kacheln).forEach(function (z) { HAT[z] = {}; D.kacheln[z].forEach(function (k) { HAT[z][k] = 1; }); });
